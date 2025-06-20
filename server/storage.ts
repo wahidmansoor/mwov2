@@ -5,7 +5,6 @@ import {
   aiInteractions, 
   auditLog, 
   treatmentProtocols,
-  symptomManagement,
   type User, 
   type InsertUser,
   type PatientEvaluation,
@@ -17,6 +16,8 @@ import {
   type TreatmentProtocol,
   type AuditLogEntry
 } from "@shared/schema";
+import { db } from "./db";
+import { eq } from "drizzle-orm";
 
 // Enhanced storage interface for OncoVista AI
 export interface IStorage {
@@ -68,340 +69,174 @@ export interface IStorage {
   }>>;
 }
 
-export class MemStorage implements IStorage {
-  private users: Map<string, User> = new Map();
-  private patientEvaluations: Map<string, PatientEvaluation> = new Map();
-  private clinicalProtocols: Map<string, ClinicalProtocol> = new Map();
-  private aiInteractions: Map<string, AiInteraction> = new Map();
-  private auditLogs: Map<string, AuditLogEntry> = new Map();
-  private treatmentProtocols: Map<string, TreatmentProtocol> = new Map();
-  
-  constructor() {
-    this.initializeSampleData();
-  }
-
-  private initializeSampleData() {
-    // Create demo medical user
-    const demoUser: User = {
-      id: "demo-user-id",
-      username: "dr.jane.doe",
-      email: "dr.jane.doe@oncovista.ai",
-      password: "hashed-password", // In production, this would be properly hashed
-      firstName: "Jane",
-      lastName: "Doe",
-      role: "medical_oncologist",
-      department: "Oncology",
-      licenseNumber: "MD123456",
-      isActive: true,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    };
-    this.users.set(demoUser.id, demoUser);
-
-    // Initialize sample clinical protocols
-    const sampleProtocol: ClinicalProtocol = {
-      id: "protocol-1",
-      name: "Lung Cancer Screening Protocol",
-      version: "2024.1",
-      protocolType: "screening",
-      cancerType: "lung",
-      stage: "early",
-      content: {
-        criteria: "Age 50-80, smoking history",
-        recommendations: "Annual low-dose CT",
-        followUp: "Based on findings"
-      },
-      evidenceLevel: "1A",
-      guidelineSource: "NCCN",
-      createdBy: demoUser.id,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      status: "active",
-      approvalStatus: "approved",
-      approvedBy: demoUser.id,
-      approvedAt: new Date()
-    };
-    this.clinicalProtocols.set(sampleProtocol.id, sampleProtocol);
-
-    // Initialize sample treatment protocols
-    const sampleTreatmentProtocol: TreatmentProtocol = {
-      id: "treatment-1",
-      protocolCode: "LUNG-ADJ-001",
-      tumourGroup: "lung",
-      protocolName: "Adjuvant Chemotherapy for NSCLC",
-      indications: {
-        stage: "IB-IIIA",
-        histology: "Non-small cell",
-        performance_status: "0-1"
-      },
-      contraindications: {
-        renal_impairment: "severe",
-        cardiac_function: "ejection fraction < 50%"
-      },
-      dosingSchedule: {
-        cycle_length: "21 days",
-        total_cycles: 4,
-        medications: [
-          { name: "Cisplatin", dose: "75 mg/m2", day: 1 },
-          { name: "Vinorelbine", dose: "25 mg/m2", day: [1, 8] }
-        ]
-      },
-      toxicityProfile: {
-        common: ["nausea", "fatigue", "neuropathy"],
-        serious: ["nephrotoxicity", "ototoxicity", "myelosuppression"]
-      },
-      monitoringRequirements: {
-        labs: ["CBC", "CMP", "Mg", "audiometry"],
-        frequency: "weekly during treatment"
-      },
-      createdAt: new Date(),
-      updatedAt: new Date()
-    };
-    this.treatmentProtocols.set(sampleTreatmentProtocol.id, sampleTreatmentProtocol);
-  }
-
-  // User management methods
+export class DatabaseStorage implements IStorage {
   async getUser(id: string): Promise<User | undefined> {
-    return this.users.get(id);
+    const [user] = await db.select().from(users).where(eq(users.id, id));
+    return user || undefined;
   }
 
   async getUserByEmail(email: string): Promise<User | undefined> {
-    return Array.from(this.users.values()).find(user => user.email === email);
+    const [user] = await db.select().from(users).where(eq(users.email, email));
+    return user || undefined;
   }
 
   async getUserByUsername(username: string): Promise<User | undefined> {
-    return Array.from(this.users.values()).find(user => user.username === username);
+    const [user] = await db.select().from(users).where(eq(users.username, username));
+    return user || undefined;
   }
 
   async createUser(insertUser: InsertUser): Promise<User> {
-    const id = `user-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-    const user: User = {
-      ...insertUser,
-      id,
-      department: insertUser.department || null,
-      licenseNumber: insertUser.licenseNumber || null,
-      isActive: true,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    };
-    this.users.set(id, user);
+    const [user] = await db
+      .insert(users)
+      .values(insertUser)
+      .returning();
     return user;
   }
 
   async updateUser(id: string, updates: Partial<User>): Promise<User | undefined> {
-    const user = this.users.get(id);
-    if (!user) return undefined;
-    
-    const updatedUser = { ...user, ...updates, updatedAt: new Date() };
-    this.users.set(id, updatedUser);
-    return updatedUser;
+    const [user] = await db
+      .update(users)
+      .set({ ...updates, updatedAt: new Date() })
+      .where(eq(users.id, id))
+      .returning();
+    return user || undefined;
   }
 
-  // Patient evaluation methods
+  // Patient evaluations
   async createPatientEvaluation(insertEvaluation: InsertPatientEvaluation): Promise<PatientEvaluation> {
-    const id = `eval-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-    const evaluation: PatientEvaluation = {
-      ...insertEvaluation,
-      id,
-      patientId: insertEvaluation.patientId || null,
-      age: insertEvaluation.age || null,
-      symptoms: insertEvaluation.symptoms || null,
-      riskFactors: insertEvaluation.riskFactors || null,
-      examinationFindings: insertEvaluation.examinationFindings || null,
-      aiRecommendations: insertEvaluation.aiRecommendations || null,
-      clinicianNotes: insertEvaluation.clinicianNotes || null,
-      createdBy: insertEvaluation.createdBy || null,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    };
-    this.patientEvaluations.set(id, evaluation);
+    const [evaluation] = await db
+      .insert(patientEvaluations)
+      .values(insertEvaluation)
+      .returning();
     return evaluation;
   }
 
   async getPatientEvaluations(filters?: { createdBy?: string; limit?: number }): Promise<PatientEvaluation[]> {
-    let evaluations = Array.from(this.patientEvaluations.values());
+    let query = db.select().from(patientEvaluations);
     
     if (filters?.createdBy) {
-      evaluations = evaluations.filter(evaluation => evaluation.createdBy === filters.createdBy);
+      query = query.where(eq(patientEvaluations.createdBy, filters.createdBy));
     }
-    
-    // Sort by creation date, newest first
-    evaluations.sort((a, b) => {
-      const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
-      const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
-      return dateB - dateA;
-    });
     
     if (filters?.limit) {
-      evaluations = evaluations.slice(0, filters.limit);
+      query = query.limit(filters.limit);
     }
     
-    return evaluations;
+    return await query;
   }
 
   async getPatientEvaluation(id: string): Promise<PatientEvaluation | undefined> {
-    return this.patientEvaluations.get(id);
+    const [evaluation] = await db.select().from(patientEvaluations).where(eq(patientEvaluations.id, id));
+    return evaluation || undefined;
   }
 
   async updatePatientEvaluation(id: string, updates: Partial<PatientEvaluation>): Promise<PatientEvaluation | undefined> {
-    const evaluation = this.patientEvaluations.get(id);
-    if (!evaluation) return undefined;
-    
-    const updatedEvaluation = { ...evaluation, ...updates, updatedAt: new Date() };
-    this.patientEvaluations.set(id, updatedEvaluation);
-    return updatedEvaluation;
+    const [evaluation] = await db
+      .update(patientEvaluations)
+      .set({ ...updates, updatedAt: new Date() })
+      .where(eq(patientEvaluations.id, id))
+      .returning();
+    return evaluation || undefined;
   }
 
   async deletePatientEvaluation(id: string): Promise<boolean> {
-    return this.patientEvaluations.delete(id);
+    const result = await db.delete(patientEvaluations).where(eq(patientEvaluations.id, id));
+    return result.rowCount > 0;
   }
 
-  // Clinical protocol methods
+  // Clinical protocols
   async getClinicalProtocols(filters?: { cancerType?: string; stage?: string }): Promise<ClinicalProtocol[]> {
-    let protocols = Array.from(this.clinicalProtocols.values());
+    let query = db.select().from(clinicalProtocols);
     
     if (filters?.cancerType) {
-      protocols = protocols.filter(p => p.cancerType === filters.cancerType);
+      query = query.where(eq(clinicalProtocols.cancerType, filters.cancerType));
     }
     
-    if (filters?.stage) {
-      protocols = protocols.filter(p => p.stage === filters.stage);
-    }
-    
-    return protocols.filter(p => p.status === 'active');
+    return await query;
   }
 
   async getClinicalProtocol(id: string): Promise<ClinicalProtocol | undefined> {
-    return this.clinicalProtocols.get(id);
+    const [protocol] = await db.select().from(clinicalProtocols).where(eq(clinicalProtocols.id, id));
+    return protocol || undefined;
   }
 
   async createClinicalProtocol(insertProtocol: InsertClinicalProtocol): Promise<ClinicalProtocol> {
-    const id = `protocol-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-    const protocol: ClinicalProtocol = {
-      ...insertProtocol,
-      id,
-      createdBy: insertProtocol.createdBy || null,
-      cancerType: insertProtocol.cancerType || null,
-      stage: insertProtocol.stage || null,
-      evidenceLevel: insertProtocol.evidenceLevel || null,
-      guidelineSource: insertProtocol.guidelineSource || null,
-      approvedBy: insertProtocol.approvedBy || null,
-      approvedAt: insertProtocol.approvedAt || null,
-      status: 'active',
-      approvalStatus: 'pending',
-      createdAt: new Date(),
-      updatedAt: new Date()
-    };
-    this.clinicalProtocols.set(id, protocol);
+    const [protocol] = await db
+      .insert(clinicalProtocols)
+      .values(insertProtocol)
+      .returning();
     return protocol;
   }
 
-  // AI interaction methods
+  // AI interactions
   async createAiInteraction(insertInteraction: InsertAiInteraction): Promise<AiInteraction> {
-    const id = `ai-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-    const interaction: AiInteraction = {
-      ...insertInteraction,
-      id,
-      userId: insertInteraction.userId || null,
-      sessionId: insertInteraction.sessionId || null,
-      moduleType: insertInteraction.moduleType || null,
-      intent: insertInteraction.intent || null,
-      inputContext: insertInteraction.inputContext || null,
-      aiResponse: insertInteraction.aiResponse || null,
-      confidenceScore: insertInteraction.confidenceScore || null,
-      userFeedback: insertInteraction.userFeedback || null,
-      responseTimeMs: insertInteraction.responseTimeMs || null,
-      modelVersion: insertInteraction.modelVersion || null,
-      createdAt: new Date()
-    };
-    this.aiInteractions.set(id, interaction);
+    const [interaction] = await db
+      .insert(aiInteractions)
+      .values(insertInteraction)
+      .returning();
     return interaction;
   }
 
   async getAiInteractions(filters?: { userId?: string; moduleType?: string }): Promise<AiInteraction[]> {
-    let interactions = Array.from(this.aiInteractions.values());
+    let query = db.select().from(aiInteractions);
     
     if (filters?.userId) {
-      interactions = interactions.filter(i => i.userId === filters.userId);
+      query = query.where(eq(aiInteractions.userId, filters.userId));
     }
     
-    if (filters?.moduleType) {
-      interactions = interactions.filter(i => i.moduleType === filters.moduleType);
-    }
-    
-    return interactions.sort((a, b) => {
-      const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
-      const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
-      return dateB - dateA;
-    });
+    return await query;
   }
 
-  // Audit log methods
+  // Audit logging
   async createAuditLog(entry: Omit<AuditLogEntry, 'id' | 'timestamp'>): Promise<AuditLogEntry> {
-    const id = `audit-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-    const auditEntry: AuditLogEntry = {
-      ...entry,
-      id,
-      timestamp: new Date()
-    };
-    this.auditLogs.set(id, auditEntry);
+    const [auditEntry] = await db
+      .insert(auditLog)
+      .values({ ...entry, timestamp: new Date() })
+      .returning();
     return auditEntry;
   }
 
   async getAuditLogs(filters?: { userId?: string; action?: string }): Promise<AuditLogEntry[]> {
-    let logs = Array.from(this.auditLogs.values());
+    let query = db.select().from(auditLog);
     
     if (filters?.userId) {
-      logs = logs.filter(log => log.userId === filters.userId);
+      query = query.where(eq(auditLog.userId, filters.userId));
     }
     
-    if (filters?.action) {
-      logs = logs.filter(log => log.action === filters.action);
-    }
-    
-    return logs.sort((a, b) => {
-      const dateA = a.timestamp ? new Date(a.timestamp).getTime() : 0;
-      const dateB = b.timestamp ? new Date(b.timestamp).getTime() : 0;
-      return dateB - dateA;
-    });
+    return await query;
   }
 
-  // Treatment protocol methods
+  // Treatment protocols
   async getTreatmentProtocols(filters?: { tumourGroup?: string }): Promise<TreatmentProtocol[]> {
-    let protocols = Array.from(this.treatmentProtocols.values());
+    let query = db.select().from(treatmentProtocols);
     
     if (filters?.tumourGroup) {
-      protocols = protocols.filter(p => p.tumourGroup === filters.tumourGroup);
+      query = query.where(eq(treatmentProtocols.tumourGroup, filters.tumourGroup));
     }
     
-    return protocols;
+    return await query;
   }
 
   async getTreatmentProtocol(id: string): Promise<TreatmentProtocol | undefined> {
-    return this.treatmentProtocols.get(id);
+    const [protocol] = await db.select().from(treatmentProtocols).where(eq(treatmentProtocols.id, id));
+    return protocol || undefined;
   }
 
-  // Dashboard methods
+  // Dashboard data
   async getDashboardStats(): Promise<{
     activePatients: number;
     aiRecommendations: number;
     criticalAlerts: number;
     protocolsUpdated: number;
   }> {
-    const evaluationsCount = this.patientEvaluations.size;
-    const aiInteractionsToday = Array.from(this.aiInteractions.values())
-      .filter(interaction => {
-        if (!interaction.createdAt) return false;
-        const today = new Date();
-        const interactionDate = new Date(interaction.createdAt);
-        return interactionDate.toDateString() === today.toDateString();
-      }).length;
+    const evaluationsCount = await db.select().from(patientEvaluations);
+    const aiInteractionsCount = await db.select().from(aiInteractions);
     
     return {
-      activePatients: evaluationsCount,
-      aiRecommendations: aiInteractionsToday,
-      criticalAlerts: Math.floor(Math.random() * 5), // Simulated for demo
-      protocolsUpdated: this.clinicalProtocols.size
+      activePatients: evaluationsCount.length,
+      aiRecommendations: aiInteractionsCount.length,
+      criticalAlerts: 0, // Placeholder - would need additional logic
+      protocolsUpdated: 1 // Placeholder - would need additional logic
     };
   }
 
@@ -413,79 +248,44 @@ export class MemStorage implements IStorage {
     timestamp: string;
     status: "completed" | "pending" | "alert";
   }>> {
-    const activities = [];
+    const evaluations = await db.select().from(patientEvaluations).limit(5);
+    const interactions = await db.select().from(aiInteractions).limit(5);
     
-    // Get recent evaluations
-    const recentEvaluations = Array.from(this.patientEvaluations.values())
-      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-      .slice(0, 3);
+    const activities: Array<{
+      id: string;
+      type: "evaluation" | "ai_recommendation" | "alert";
+      title: string;
+      description: string;
+      timestamp: string;
+      status: "completed" | "pending" | "alert";
+    }> = [];
     
-    for (const evaluation of recentEvaluations) {
+    evaluations.forEach(evaluation => {
       activities.push({
-        id: `activity-eval-${evaluation.id}`,
-        type: "evaluation" as const,
-        title: "Patient evaluation completed",
-        description: `Patient ID: ${evaluation.patientId} - Assessment completed`,
-        timestamp: this.getRelativeTime(evaluation.createdAt),
-        status: "completed" as const
+        id: evaluation.id,
+        type: "evaluation",
+        title: "Patient Evaluation",
+        description: `Clinical assessment completed${evaluation.patientId ? ` for patient ${evaluation.patientId}` : ''}`,
+        timestamp: evaluation.createdAt?.toISOString() || new Date().toISOString(),
+        status: "completed"
       });
-    }
+    });
     
-    // Get recent AI interactions
-    const recentAI = Array.from(this.aiInteractions.values())
-      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-      .slice(0, 2);
-    
-    for (const interaction of recentAI) {
+    interactions.forEach(interaction => {
       activities.push({
-        id: `activity-ai-${interaction.id}`,
-        type: "ai_recommendation" as const,
-        title: "AI recommendation generated",
-        description: `Clinical analysis completed for ${interaction.moduleType} module`,
-        timestamp: this.getRelativeTime(interaction.createdAt),
-        status: "completed" as const
+        id: interaction.id,
+        type: "ai_recommendation",
+        title: "AI Analysis",
+        description: `AI recommendation generated for ${interaction.moduleType || 'clinical'} module`,
+        timestamp: interaction.createdAt?.toISOString() || new Date().toISOString(),
+        status: "completed"
       });
-    }
+    });
     
-    return activities.sort((a, b) => {
-      // Sort by timestamp, newest first
-      const timeA = this.parseRelativeTime(a.timestamp);
-      const timeB = this.parseRelativeTime(b.timestamp);
-      return timeA - timeB;
-    }).slice(0, 5);
-  }
-
-  private getRelativeTime(date: Date): string {
-    const now = new Date();
-    const diffMs = now.getTime() - date.getTime();
-    const diffMins = Math.floor(diffMs / 60000);
-    
-    if (diffMins < 1) return "Just now";
-    if (diffMins < 60) return `${diffMins} minute${diffMins > 1 ? 's' : ''} ago`;
-    
-    const diffHours = Math.floor(diffMins / 60);
-    if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
-    
-    const diffDays = Math.floor(diffHours / 24);
-    return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
-  }
-
-  private parseRelativeTime(timeString: string): number {
-    if (timeString === "Just now") return 0;
-    
-    const match = timeString.match(/(\d+)\s+(minute|hour|day)s?\s+ago/);
-    if (!match) return 0;
-    
-    const value = parseInt(match[1]);
-    const unit = match[2];
-    
-    switch (unit) {
-      case "minute": return value;
-      case "hour": return value * 60;
-      case "day": return value * 60 * 24;
-      default: return 0;
-    }
+    return activities.sort((a, b) => 
+      new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+    ).slice(0, 10);
   }
 }
 
-export const storage = new MemStorage();
+export const storage = new DatabaseStorage();
