@@ -1,14 +1,14 @@
 import { 
   users, 
-  patientEvaluations, 
+  decisionSupportInputs, 
   clinicalProtocols, 
   aiInteractions, 
   auditLog, 
   treatmentProtocols,
   type User, 
   type InsertUser,
-  type PatientEvaluation,
-  type InsertPatientEvaluation,
+  type DecisionSupportInput,
+  type InsertDecisionSupportInput,
   type ClinicalProtocol,
   type InsertClinicalProtocol,
   type AiInteraction,
@@ -28,12 +28,12 @@ export interface IStorage {
   createUser(user: InsertUser): Promise<User>;
   updateUser(id: string, updates: Partial<User>): Promise<User | undefined>;
   
-  // Patient evaluations
-  createPatientEvaluation(evaluation: InsertPatientEvaluation): Promise<PatientEvaluation>;
-  getPatientEvaluations(filters?: { createdBy?: string; limit?: number }): Promise<PatientEvaluation[]>;
-  getPatientEvaluation(id: string): Promise<PatientEvaluation | undefined>;
-  updatePatientEvaluation(id: string, updates: Partial<PatientEvaluation>): Promise<PatientEvaluation | undefined>;
-  deletePatientEvaluation(id: string): Promise<boolean>;
+  // Decision support inputs (anonymous clinical context for AI analysis)
+  createDecisionSupportInput(input: InsertDecisionSupportInput): Promise<DecisionSupportInput>;
+  getDecisionSupportInputs(filters?: { createdBy?: string; moduleType?: string; limit?: number }): Promise<DecisionSupportInput[]>;
+  getDecisionSupportInput(id: string): Promise<DecisionSupportInput | undefined>;
+  updateDecisionSupportInput(id: string, updates: Partial<DecisionSupportInput>): Promise<DecisionSupportInput | undefined>;
+  deleteDecisionSupportInput(id: string): Promise<boolean>;
   
   // Clinical protocols
   getClinicalProtocols(filters?: { cancerType?: string; stage?: string }): Promise<ClinicalProtocol[]>;
@@ -102,20 +102,24 @@ export class DatabaseStorage implements IStorage {
     return user || undefined;
   }
 
-  // Patient evaluations
-  async createPatientEvaluation(insertEvaluation: InsertPatientEvaluation): Promise<PatientEvaluation> {
-    const [evaluation] = await db
-      .insert(patientEvaluations)
-      .values(insertEvaluation)
+  // Decision support inputs (anonymous clinical context for AI analysis)
+  async createDecisionSupportInput(insertInput: InsertDecisionSupportInput): Promise<DecisionSupportInput> {
+    const [input] = await db
+      .insert(decisionSupportInputs)
+      .values(insertInput)
       .returning();
-    return evaluation;
+    return input;
   }
 
-  async getPatientEvaluations(filters?: { createdBy?: string; limit?: number }): Promise<PatientEvaluation[]> {
-    let query = db.select().from(patientEvaluations);
+  async getDecisionSupportInputs(filters?: { createdBy?: string; moduleType?: string; limit?: number }): Promise<DecisionSupportInput[]> {
+    let query = db.select().from(decisionSupportInputs);
     
     if (filters?.createdBy) {
-      query = query.where(eq(patientEvaluations.createdBy, filters.createdBy));
+      query = query.where(eq(decisionSupportInputs.createdBy, filters.createdBy));
+    }
+    
+    if (filters?.moduleType) {
+      query = query.where(eq(decisionSupportInputs.moduleType, filters.moduleType));
     }
     
     if (filters?.limit) {
@@ -125,23 +129,23 @@ export class DatabaseStorage implements IStorage {
     return await query;
   }
 
-  async getPatientEvaluation(id: string): Promise<PatientEvaluation | undefined> {
-    const [evaluation] = await db.select().from(patientEvaluations).where(eq(patientEvaluations.id, id));
-    return evaluation || undefined;
+  async getDecisionSupportInput(id: string): Promise<DecisionSupportInput | undefined> {
+    const [input] = await db.select().from(decisionSupportInputs).where(eq(decisionSupportInputs.id, id));
+    return input || undefined;
   }
 
-  async updatePatientEvaluation(id: string, updates: Partial<PatientEvaluation>): Promise<PatientEvaluation | undefined> {
-    const [evaluation] = await db
-      .update(patientEvaluations)
+  async updateDecisionSupportInput(id: string, updates: Partial<DecisionSupportInput>): Promise<DecisionSupportInput | undefined> {
+    const [input] = await db
+      .update(decisionSupportInputs)
       .set({ ...updates, updatedAt: new Date() })
-      .where(eq(patientEvaluations.id, id))
+      .where(eq(decisionSupportInputs.id, id))
       .returning();
-    return evaluation || undefined;
+    return input || undefined;
   }
 
-  async deletePatientEvaluation(id: string): Promise<boolean> {
-    const result = await db.delete(patientEvaluations).where(eq(patientEvaluations.id, id));
-    return result.rowCount > 0;
+  async deleteDecisionSupportInput(id: string): Promise<boolean> {
+    const result = await db.delete(decisionSupportInputs).where(eq(decisionSupportInputs.id, id));
+    return (result.rowCount || 0) > 0;
   }
 
   // Clinical protocols
@@ -229,14 +233,14 @@ export class DatabaseStorage implements IStorage {
     criticalAlerts: number;
     protocolsUpdated: number;
   }> {
-    const evaluationsCount = await db.select().from(patientEvaluations);
+    const evaluationsCount = await db.select().from(decisionSupportInputs);
     const aiInteractionsCount = await db.select().from(aiInteractions);
     
     return {
       activePatients: evaluationsCount.length,
       aiRecommendations: aiInteractionsCount.length,
-      criticalAlerts: 0, // Placeholder - would need additional logic
-      protocolsUpdated: 1 // Placeholder - would need additional logic
+      criticalAlerts: 0,
+      protocolsUpdated: 1
     };
   }
 
@@ -248,7 +252,7 @@ export class DatabaseStorage implements IStorage {
     timestamp: string;
     status: "completed" | "pending" | "alert";
   }>> {
-    const evaluations = await db.select().from(patientEvaluations).limit(5);
+    const evaluations = await db.select().from(decisionSupportInputs).limit(5);
     const interactions = await db.select().from(aiInteractions).limit(5);
     
     const activities: Array<{

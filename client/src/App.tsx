@@ -7,7 +7,7 @@ import { AuthProvider } from "@/components/auth/AuthProvider";
 import LandingPage from "@/pages/LandingPage";
 import Dashboard from "@/pages/Dashboard";
 import Layout from "@/components/layout/Layout";
-import OPDModule from "@/modules/opd/OPDModuleClean";
+import OPDModule from "@/modules/opd/OPDModule";
 import CDUModule from "@/modules/cdu/CDUModule";
 import PalliativeModule from "@/modules/palliative/PalliativeModule";
 import HandbookModule from "@/modules/handbook/HandbookModule";

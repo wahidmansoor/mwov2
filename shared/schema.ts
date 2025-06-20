@@ -84,17 +84,17 @@ export const auditLog = pgTable("audit_log", {
   sensitiveData: boolean("sensitive_data").default(false),
 });
 
-// Patient evaluations for OPD module
-export const patientEvaluations = pgTable("patient_evaluations", {
+// Anonymous clinical decision support inputs (no patient identifiers)
+export const decisionSupportInputs = pgTable("decision_support_inputs", {
   id: uuid("id").primaryKey().defaultRandom(),
-  patientId: varchar("patient_id", { length: 255 }),
-  age: integer("age"),
-  symptoms: jsonb("symptoms"),
-  riskFactors: jsonb("risk_factors"),
-  examinationFindings: jsonb("examination_findings"),
-  aiRecommendations: jsonb("ai_recommendations"),
-  clinicianNotes: text("clinician_notes"),
-  createdBy: uuid("created_by").references(() => users.id),
+  sessionId: varchar("session_id", { length: 255 }), // Anonymous session identifier
+  ageGroup: varchar("age_group", { length: 50 }), // Age ranges, not exact age
+  symptoms: jsonb("symptoms"), // Clinical symptoms for analysis
+  riskFactors: jsonb("risk_factors"), // Risk factor patterns
+  clinicalFindings: jsonb("clinical_findings"), // Examination findings without identifiers
+  aiAnalysis: jsonb("ai_analysis"), // AI recommendations and analysis
+  moduleType: varchar("module_type", { length: 50 }), // OPD, CDU, Palliative
+  createdBy: uuid("created_by").references(() => users.id), // Clinician using the tool
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });
@@ -132,7 +132,7 @@ export const insertUserSchema = createInsertSchema(users).omit({
   updatedAt: true,
 });
 
-export const insertPatientEvaluationSchema = createInsertSchema(patientEvaluations).omit({
+export const insertDecisionSupportInputSchema = createInsertSchema(decisionSupportInputs).omit({
   id: true,
   createdAt: true,
   updatedAt: true,
@@ -152,8 +152,8 @@ export const insertAiInteractionSchema = createInsertSchema(aiInteractions).omit
 // Type exports
 export type User = typeof users.$inferSelect;
 export type InsertUser = z.infer<typeof insertUserSchema>;
-export type PatientEvaluation = typeof patientEvaluations.$inferSelect;
-export type InsertPatientEvaluation = z.infer<typeof insertPatientEvaluationSchema>;
+export type DecisionSupportInput = typeof decisionSupportInputs.$inferSelect;
+export type InsertDecisionSupportInput = z.infer<typeof insertDecisionSupportInputSchema>;
 export type ClinicalProtocol = typeof clinicalProtocols.$inferSelect;
 export type InsertClinicalProtocol = z.infer<typeof insertClinicalProtocolSchema>;
 export type AiInteraction = typeof aiInteractions.$inferSelect;

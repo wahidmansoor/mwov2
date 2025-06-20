@@ -5,7 +5,7 @@ import { authMiddleware } from "./middleware/auth";
 import { rbacMiddleware } from "./middleware/rbac";
 import { aiService } from "./services/aiService";
 import { clinicalDecisionEngine } from "./services/clinicalDecisionEngine";
-import { insertPatientEvaluationSchema, insertAiInteractionSchema } from "@shared/schema";
+import { insertDecisionSupportInputSchema, insertAiInteractionSchema } from "@shared/schema";
 import { z } from "zod";
 
 export async function registerRoutes(app: Express): Promise<Server> {
@@ -70,20 +70,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Patient evaluation routes
   app.post("/api/patient-evaluations", authMiddleware, rbacMiddleware(["create_evaluations"]), async (req, res) => {
     try {
-      const validatedData = insertPatientEvaluationSchema.parse({
+      const validatedData = insertDecisionSupportInputSchema.parse({
         ...req.body,
         createdBy: req.userId
       });
       
-      const evaluation = await storage.createPatientEvaluation(validatedData);
+      const evaluation = await storage.createDecisionSupportInput(validatedData);
       
       // Log the activity
       await storage.createAuditLog({
         userId: req.userId!,
-        action: "create_patient_evaluation",
-        resource: "patient_evaluation",
+        userRole: req.user?.role || "unknown",
+        action: "create_decision_support_input",
+        resource: "decision_support_input",
         resourceId: evaluation.id,
-        newValues: evaluation
+        oldValues: null,
+        newValues: evaluation,
+        ipAddress: req.ip || null,
+        userAgent: req.get('User-Agent') || null,
+        sensitiveData: false
       });
       
       res.json(evaluation);
@@ -95,7 +100,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/patient-evaluations", authMiddleware, rbacMiddleware(["view_patient_data"]), async (req, res) => {
     try {
-      const evaluations = await storage.getPatientEvaluations();
+      const evaluations = await storage.getDecisionSupportInputs();
       res.json(evaluations);
     } catch (error) {
       console.error("Get evaluations error:", error);
@@ -105,7 +110,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/patient-evaluations/:id", authMiddleware, rbacMiddleware(["view_patient_data"]), async (req, res) => {
     try {
-      const evaluation = await storage.getPatientEvaluation(req.params.id);
+      const evaluation = await storage.getDecisionSupportInput(req.params.id);
       if (evaluation) {
         res.json(evaluation);
       } else {
