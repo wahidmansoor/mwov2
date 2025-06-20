@@ -61,6 +61,26 @@ export default {
           border: "var(--sidebar-border)",
           ring: "var(--sidebar-ring)",
         },
+        "medical-blue": {
+          DEFAULT: "var(--medical-blue)",
+          light: "var(--medical-blue-light)",
+          dark: "var(--medical-blue-dark)",
+        },
+        "medical-purple": {
+          DEFAULT: "var(--medical-purple)",
+          light: "var(--medical-purple-light)",
+          dark: "var(--medical-purple-dark)",
+        },
+        "medical-green": {
+          DEFAULT: "var(--medical-green)",
+          light: "var(--medical-green-light)",
+          dark: "var(--medical-green-dark)",
+        },
+        "medical-orange": {
+          DEFAULT: "var(--medical-orange)",
+          light: "var(--medical-orange-light)",
+          dark: "var(--medical-orange-dark)",
+        },
       },
       keyframes: {
         "accordion-down": {

@@ -178,6 +178,8 @@ export class MemStorage implements IStorage {
     const user: User = {
       ...insertUser,
       id,
+      department: insertUser.department || null,
+      licenseNumber: insertUser.licenseNumber || null,
       isActive: true,
       createdAt: new Date(),
       updatedAt: new Date()
@@ -201,6 +203,14 @@ export class MemStorage implements IStorage {
     const evaluation: PatientEvaluation = {
       ...insertEvaluation,
       id,
+      patientId: insertEvaluation.patientId || null,
+      age: insertEvaluation.age || null,
+      symptoms: insertEvaluation.symptoms || null,
+      riskFactors: insertEvaluation.riskFactors || null,
+      examinationFindings: insertEvaluation.examinationFindings || null,
+      aiRecommendations: insertEvaluation.aiRecommendations || null,
+      clinicianNotes: insertEvaluation.clinicianNotes || null,
+      createdBy: insertEvaluation.createdBy || null,
       createdAt: new Date(),
       updatedAt: new Date()
     };
@@ -212,11 +222,15 @@ export class MemStorage implements IStorage {
     let evaluations = Array.from(this.patientEvaluations.values());
     
     if (filters?.createdBy) {
-      evaluations = evaluations.filter(eval => eval.createdBy === filters.createdBy);
+      evaluations = evaluations.filter(evaluation => evaluation.createdBy === filters.createdBy);
     }
     
     // Sort by creation date, newest first
-    evaluations.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    evaluations.sort((a, b) => {
+      const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+      const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+      return dateB - dateA;
+    });
     
     if (filters?.limit) {
       evaluations = evaluations.slice(0, filters.limit);
@@ -266,6 +280,13 @@ export class MemStorage implements IStorage {
     const protocol: ClinicalProtocol = {
       ...insertProtocol,
       id,
+      createdBy: insertProtocol.createdBy || null,
+      cancerType: insertProtocol.cancerType || null,
+      stage: insertProtocol.stage || null,
+      evidenceLevel: insertProtocol.evidenceLevel || null,
+      guidelineSource: insertProtocol.guidelineSource || null,
+      approvedBy: insertProtocol.approvedBy || null,
+      approvedAt: insertProtocol.approvedAt || null,
       status: 'active',
       approvalStatus: 'pending',
       createdAt: new Date(),
@@ -281,6 +302,16 @@ export class MemStorage implements IStorage {
     const interaction: AiInteraction = {
       ...insertInteraction,
       id,
+      userId: insertInteraction.userId || null,
+      sessionId: insertInteraction.sessionId || null,
+      moduleType: insertInteraction.moduleType || null,
+      intent: insertInteraction.intent || null,
+      inputContext: insertInteraction.inputContext || null,
+      aiResponse: insertInteraction.aiResponse || null,
+      confidenceScore: insertInteraction.confidenceScore || null,
+      userFeedback: insertInteraction.userFeedback || null,
+      responseTimeMs: insertInteraction.responseTimeMs || null,
+      modelVersion: insertInteraction.modelVersion || null,
       createdAt: new Date()
     };
     this.aiInteractions.set(id, interaction);
@@ -298,7 +329,11 @@ export class MemStorage implements IStorage {
       interactions = interactions.filter(i => i.moduleType === filters.moduleType);
     }
     
-    return interactions.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    return interactions.sort((a, b) => {
+      const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+      const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+      return dateB - dateA;
+    });
   }
 
   // Audit log methods
@@ -324,7 +359,11 @@ export class MemStorage implements IStorage {
       logs = logs.filter(log => log.action === filters.action);
     }
     
-    return logs.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+    return logs.sort((a, b) => {
+      const dateA = a.timestamp ? new Date(a.timestamp).getTime() : 0;
+      const dateB = b.timestamp ? new Date(b.timestamp).getTime() : 0;
+      return dateB - dateA;
+    });
   }
 
   // Treatment protocol methods
@@ -352,6 +391,7 @@ export class MemStorage implements IStorage {
     const evaluationsCount = this.patientEvaluations.size;
     const aiInteractionsToday = Array.from(this.aiInteractions.values())
       .filter(interaction => {
+        if (!interaction.createdAt) return false;
         const today = new Date();
         const interactionDate = new Date(interaction.createdAt);
         return interactionDate.toDateString() === today.toDateString();

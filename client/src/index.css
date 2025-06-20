@@ -273,7 +273,7 @@
 }
 
 .status-error {
-  @apply bg-destructive/10 text-destructive;
+  @apply bg-red-50 text-red-600;
 }
 
 .status-info {
