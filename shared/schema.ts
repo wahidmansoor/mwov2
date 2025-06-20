@@ -1,0 +1,162 @@
+import { pgTable, text, serial, integer, boolean, timestamp, uuid, jsonb, decimal, varchar } from "drizzle-orm/pg-core";
+import { createInsertSchema } from "drizzle-zod";
+import { z } from "zod";
+
+// User management with medical roles
+export const users = pgTable("users", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  username: text("username").notNull().unique(),
+  email: text("email").notNull().unique(),
+  password: text("password").notNull(),
+  firstName: text("first_name").notNull(),
+  lastName: text("last_name").notNull(),
+  role: text("role").notNull(), // medical_oncologist, radiation_oncologist, etc.
+  department: text("department"),
+  licenseNumber: text("license_number"),
+  isActive: boolean("is_active").default(true),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+// Clinical protocols with versioning
+export const clinicalProtocols = pgTable("clinical_protocols", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  name: varchar("name", { length: 255 }).notNull(),
+  version: varchar("version", { length: 50 }).notNull(),
+  protocolType: varchar("protocol_type", { length: 100 }).notNull(),
+  cancerType: varchar("cancer_type", { length: 100 }),
+  stage: varchar("stage", { length: 50 }),
+  content: jsonb("content").notNull(),
+  evidenceLevel: varchar("evidence_level", { length: 50 }),
+  guidelineSource: varchar("guideline_source", { length: 100 }),
+  createdBy: uuid("created_by").references(() => users.id),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+  status: varchar("status", { length: 50 }).default("active"),
+  approvalStatus: varchar("approval_status", { length: 50 }).default("pending"),
+  approvedBy: uuid("approved_by").references(() => users.id),
+  approvedAt: timestamp("approved_at"),
+});
+
+// Clinical decision support rules
+export const clinicalDecisionRules = pgTable("clinical_decision_rules", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  ruleName: varchar("rule_name", { length: 255 }).notNull(),
+  moduleType: varchar("module_type", { length: 100 }).notNull(),
+  conditions: jsonb("conditions").notNull(),
+  recommendations: jsonb("recommendations").notNull(),
+  confidenceThreshold: decimal("confidence_threshold", { precision: 3, scale: 2 }).default("0.80"),
+  evidenceReferences: jsonb("evidence_references"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+  isActive: boolean("is_active").default(true),
+});
+
+// AI interaction logs
+export const aiInteractions = pgTable("ai_interactions", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  userId: uuid("user_id").references(() => users.id),
+  sessionId: varchar("session_id", { length: 255 }),
+  moduleType: varchar("module_type", { length: 100 }),
+  intent: varchar("intent", { length: 100 }),
+  inputContext: jsonb("input_context"),
+  aiResponse: jsonb("ai_response"),
+  confidenceScore: decimal("confidence_score", { precision: 3, scale: 2 }),
+  userFeedback: varchar("user_feedback", { length: 50 }),
+  responseTimeMs: integer("response_time_ms"),
+  modelVersion: varchar("model_version", { length: 100 }),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+// Audit trail system
+export const auditLog = pgTable("audit_log", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  userId: uuid("user_id").references(() => users.id),
+  userRole: varchar("user_role", { length: 100 }),
+  action: varchar("action", { length: 255 }),
+  resource: varchar("resource", { length: 255 }),
+  resourceId: varchar("resource_id", { length: 255 }),
+  oldValues: jsonb("old_values"),
+  newValues: jsonb("new_values"),
+  ipAddress: text("ip_address"),
+  userAgent: text("user_agent"),
+  timestamp: timestamp("timestamp").defaultNow(),
+  sensitiveData: boolean("sensitive_data").default(false),
+});
+
+// Patient evaluations for OPD module
+export const patientEvaluations = pgTable("patient_evaluations", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  patientId: varchar("patient_id", { length: 255 }),
+  age: integer("age"),
+  symptoms: jsonb("symptoms"),
+  riskFactors: jsonb("risk_factors"),
+  examinationFindings: jsonb("examination_findings"),
+  aiRecommendations: jsonb("ai_recommendations"),
+  clinicianNotes: text("clinician_notes"),
+  createdBy: uuid("created_by").references(() => users.id),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+// Treatment protocols for CDU module
+export const treatmentProtocols = pgTable("treatment_protocols", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  protocolCode: varchar("protocol_code", { length: 100 }).unique(),
+  tumourGroup: varchar("tumour_group", { length: 100 }),
+  protocolName: varchar("protocol_name", { length: 255 }),
+  indications: jsonb("indications"),
+  contraindications: jsonb("contraindications"),
+  dosingSchedule: jsonb("dosing_schedule"),
+  toxicityProfile: jsonb("toxicity_profile"),
+  monitoringRequirements: jsonb("monitoring_requirements"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+// Symptom management for palliative care
+export const symptomManagement = pgTable("symptom_management", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  symptom: varchar("symptom", { length: 100 }),
+  assessmentTools: jsonb("assessment_tools"),
+  interventions: jsonb("interventions"),
+  medications: jsonb("medications"),
+  monitoringParameters: jsonb("monitoring_parameters"),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+// Schema exports
+export const insertUserSchema = createInsertSchema(users).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertPatientEvaluationSchema = createInsertSchema(patientEvaluations).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertClinicalProtocolSchema = createInsertSchema(clinicalProtocols).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertAiInteractionSchema = createInsertSchema(aiInteractions).omit({
+  id: true,
+  createdAt: true,
+});
+
+// Type exports
+export type User = typeof users.$inferSelect;
+export type InsertUser = z.infer<typeof insertUserSchema>;
+export type PatientEvaluation = typeof patientEvaluations.$inferSelect;
+export type InsertPatientEvaluation = z.infer<typeof insertPatientEvaluationSchema>;
+export type ClinicalProtocol = typeof clinicalProtocols.$inferSelect;
+export type InsertClinicalProtocol = z.infer<typeof insertClinicalProtocolSchema>;
+export type AiInteraction = typeof aiInteractions.$inferSelect;
+export type InsertAiInteraction = z.infer<typeof insertAiInteractionSchema>;
+export type TreatmentProtocol = typeof treatmentProtocols.$inferSelect;
+export type AuditLogEntry = typeof auditLog.$inferSelect;
