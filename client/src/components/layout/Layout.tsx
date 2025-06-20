@@ -54,13 +54,7 @@ const coreModules: NavItem[] = [
     icon: Heart,
     color: "medical-green"
   },
-  {
-    id: "inpatient",
-    name: "Inpatient Care",
-    href: "/inpatient",
-    icon: Bed,
-    color: "medical-orange"
-  }
+
 ];
 
 const resources: NavItem[] = [

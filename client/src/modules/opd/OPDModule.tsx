@@ -8,11 +8,36 @@ import AIRecommendationsPanel from "./components/AIRecommendationsPanel";
 import { Stethoscope, Users, Search, Shield, UserPlus, TrendingUp } from "lucide-react";
 
 const opdSections = [
-  { id: "patient-evaluation", name: "Patient Evaluation", icon: Users },
-  { id: "diagnostic-pathways", name: "Diagnostic Pathways", icon: Search },
-  { id: "cancer-screening", name: "Cancer Screening", icon: Shield },
-  { id: "referral-guidelines", name: "Referral Guidelines", icon: UserPlus },
-  { id: "follow-up-oncology", name: "Follow-up Oncology", icon: TrendingUp }
+  { 
+    id: "clinical-overview", 
+    name: "Clinical Overview", 
+    icon: Users,
+    description: "Comprehensive clinical assessment and overview tools"
+  },
+  { 
+    id: "diagnostic-pathways", 
+    name: "Diagnostic Pathways", 
+    icon: Search,
+    description: "Evidence-based diagnostic algorithms and decision trees"
+  },
+  { 
+    id: "cancer-screening", 
+    name: "Cancer Screening", 
+    icon: Shield,
+    description: "Population-based screening protocols and guidelines"
+  },
+  { 
+    id: "referral-guidelines", 
+    name: "Referral Guidelines", 
+    icon: UserPlus,
+    description: "Specialist referral criteria and pathways"
+  },
+  { 
+    id: "follow-up-oncology", 
+    name: "Follow-up Oncology", 
+    icon: TrendingUp,
+    description: "Post-treatment monitoring and surveillance protocols"
+  }
 ];
 
 export default function OPDModule() {

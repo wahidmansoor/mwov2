@@ -45,14 +45,7 @@ const modules = [
     color: "medical-green",
     href: "/palliative"
   },
-  {
-    id: "inpatient",
-    name: "Inpatient Care", 
-    description: "Hospital management, discharge planning, and comprehensive care coordination.",
-    icon: Bed,
-    color: "medical-orange",
-    href: "/inpatient"
-  }
+
 ];
 
 const features = [

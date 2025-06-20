@@ -7,7 +7,10 @@ import { AuthProvider } from "@/components/auth/AuthProvider";
 import LandingPage from "@/pages/LandingPage";
 import Dashboard from "@/pages/Dashboard";
 import Layout from "@/components/layout/Layout";
-import OPDModule from "@/modules/opd/OPDModule";
+import OPDModule from "@/modules/opd/OPDModuleClean";
+import CDUModule from "@/modules/cdu/CDUModule";
+import PalliativeModule from "@/modules/palliative/PalliativeModule";
+import HandbookModule from "@/modules/handbook/HandbookModule";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -31,37 +34,19 @@ function Router() {
       
       <Route path="/cdu">
         <Layout>
-          <div className="p-6">
-            <h1 className="text-2xl font-bold text-slate-900">CDU Module</h1>
-            <p className="text-slate-600">Cancer Day Unit - Coming Soon</p>
-          </div>
+          <CDUModule />
         </Layout>
       </Route>
       
       <Route path="/palliative">
         <Layout>
-          <div className="p-6">
-            <h1 className="text-2xl font-bold text-slate-900">Palliative Care</h1>
-            <p className="text-slate-600">Palliative Care Module - Coming Soon</p>
-          </div>
-        </Layout>
-      </Route>
-      
-      <Route path="/inpatient">
-        <Layout>
-          <div className="p-6">
-            <h1 className="text-2xl font-bold text-slate-900">Inpatient Care</h1>
-            <p className="text-slate-600">Inpatient Module - Coming Soon</p>
-          </div>
+          <PalliativeModule />
         </Layout>
       </Route>
       
       <Route path="/handbook">
         <Layout>
-          <div className="p-6">
-            <h1 className="text-2xl font-bold text-slate-900">Clinical Handbook</h1>
-            <p className="text-slate-600">Clinical Handbook - Coming Soon</p>
-          </div>
+          <HandbookModule />
         </Layout>
       </Route>
       
