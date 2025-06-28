@@ -57,26 +57,74 @@ export default function PainManagement() {
     }
   ];
 
-  const whoLadder = [
+  const nccnPainManagement = [
     {
-      step: "Step 1",
+      step: "NCCN Step 1",
       range: "Mild Pain (1-3)",
-      medications: ["Acetaminophen 500-1000mg q6h", "NSAIDs (Ibuprofen 400-600mg q6h)", "Topical agents"],
-      adjuvants: ["Heat/cold therapy", "TENS", "Physical therapy"],
+      medications: [
+        "Acetaminophen 500-1000mg q6h (max 3g/day)",
+        "Ibuprofen 400-600mg q6-8h with food",
+        "Naproxen 220-440mg q8-12h",
+        "Topical NSAIDs for localized pain"
+      ],
+      adjuvants: [
+        "Heat/cold therapy for musculoskeletal pain",
+        "TENS unit for neuropathic components",
+        "Physical therapy and exercise",
+        "Massage therapy for muscle tension"
+      ],
+      monitoring: [
+        "Hepatic function with acetaminophen >2g/day",
+        "Renal function and BP with NSAIDs",
+        "GI bleeding risk assessment",
+        "Drug interactions with anticoagulants"
+      ],
       color: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300"
     },
     {
-      step: "Step 2", 
+      step: "NCCN Step 2", 
       range: "Moderate Pain (4-6)",
-      medications: ["Tramadol 50-100mg q6h", "Codeine combinations", "Continue Step 1 agents"],
-      adjuvants: ["Gabapentin for neuropathic", "Tricyclic antidepressants", "CBT"],
+      medications: [
+        "Tramadol 50-100mg q6h (max 400mg/day)",
+        "Hydrocodone/APAP 5/325mg q4-6h PRN",
+        "Continue effective Step 1 agents",
+        "Consider low-dose opioids for cancer pain"
+      ],
+      adjuvants: [
+        "Gabapentin 300-900mg TID for neuropathic pain",
+        "Pregabalin 75-150mg BID alternative",
+        "Amitriptyline 10-75mg qHS for neuropathic",
+        "Cognitive behavioral therapy"
+      ],
+      monitoring: [
+        "Seizure risk with tramadol (max 400mg/day)",
+        "Sedation and respiratory status",
+        "Constipation prevention mandatory",
+        "Addiction risk assessment tools"
+      ],
       color: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300"
     },
     {
-      step: "Step 3",
+      step: "NCCN Step 3",
       range: "Severe Pain (7-10)",
-      medications: ["Morphine 5-10mg PO q4h", "Oxycodone 5mg PO q4-6h", "Hydromorphone 2mg PO q4-6h"],
-      adjuvants: ["Continue effective adjuvants", "Consider nerve blocks", "Palliative procedures"],
+      medications: [
+        "Morphine immediate-release 5-15mg PO q4h",
+        "Oxycodone immediate-release 5-10mg PO q4-6h",
+        "Hydromorphone 2-4mg PO q4-6h",
+        "Fentanyl patches for stable pain (opioid-tolerant)"
+      ],
+      adjuvants: [
+        "Continue effective adjuvant medications",
+        "Interventional procedures (nerve blocks)",
+        "Palliative radiation for bone metastases",
+        "Bisphosphonates for bone pain"
+      ],
+      monitoring: [
+        "Daily pain and function assessment",
+        "Respiratory rate and sedation scoring",
+        "Bowel regimen effectiveness",
+        "Breakthrough pain frequency and triggers"
+      ],
       color: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300"
     }
   ];
@@ -184,17 +232,17 @@ export default function PainManagement() {
         </CardContent>
       </Card>
 
-      {/* WHO Analgesic Ladder */}
+      {/* NCCN Pain Management Protocols */}
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Target className="h-5 w-5 text-blue-600" />
-            WHO Analgesic Ladder
+            NCCN Pain Management Protocols
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid md:grid-cols-3 gap-4">
-            {whoLadder.map((step, index) => (
+            {nccnPainManagement.map((step, index) => (
               <Card key={index} className="border-2">
                 <CardHeader className="pb-3">
                   <div className="flex items-center justify-between">
@@ -227,6 +275,19 @@ export default function PainManagement() {
                       ))}
                     </ul>
                   </div>
+                  {step.monitoring && (
+                    <div>
+                      <h4 className="text-sm font-semibold mb-2">Monitoring Requirements:</h4>
+                      <ul className="text-xs space-y-1">
+                        {step.monitoring.map((monitor, i) => (
+                          <li key={i} className="flex items-start gap-1">
+                            <AlertCircle className="h-3 w-3 mt-0.5 text-gray-400 flex-shrink-0" />
+                            {monitor}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             ))}

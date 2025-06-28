@@ -60,6 +60,184 @@ const inpatientSections = [
   }
 ];
 
+// NCCN Treatment-Related Adverse Events Component
+const NCCNAdverseEvents = () => (
+  <div className="space-y-6">
+    <Card className="border-l-4 border-l-red-500">
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2">
+          <AlertTriangle className="h-5 w-5 text-red-600" />
+          NCCN Treatment-Related Adverse Events (BINV-M)
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <Accordion type="single" collapsible className="w-full">
+          <AccordionItem value="febrile-neutropenia">
+            <AccordionTrigger>Febrile Neutropenia Management</AccordionTrigger>
+            <AccordionContent>
+              <div className="space-y-4">
+                <div className="p-4 bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-200">
+                  <h4 className="font-semibold text-red-800 dark:text-red-300 mb-2">High-Risk Criteria (Category 1)</h4>
+                  <ul className="text-sm space-y-1">
+                    <li>• ANC &lt;500 cells/mcL expected to persist &gt;7 days</li>
+                    <li>• Hemodynamic instability or hypotension</li>
+                    <li>• Pneumonia or other serious infection</li>
+                    <li>• Severe mucositis preventing oral intake</li>
+                    <li>• Age &gt;65 with comorbidities</li>
+                  </ul>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded">
+                    <h5 className="font-medium text-sm mb-2">Empiric Antibiotics</h5>
+                    <ul className="text-xs space-y-1">
+                      <li>• Piperacillin-tazobactam 4.5g IV q6h</li>
+                      <li>• OR Cefepime 2g IV q8h</li>
+                      <li>• Add vancomycin if MRSA risk</li>
+                    </ul>
+                  </div>
+                  <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded">
+                    <h5 className="font-medium text-sm mb-2">G-CSF Administration</h5>
+                    <ul className="text-xs space-y-1">
+                      <li>• Filgrastim 5 mcg/kg/day SC</li>
+                      <li>• Until ANC &gt;1000 for 2 consecutive days</li>
+                      <li>• Consider pegfilgrastim for prevention</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+          
+          <AccordionItem value="tumor-lysis">
+            <AccordionTrigger>Tumor Lysis Syndrome Prevention</AccordionTrigger>
+            <AccordionContent>
+              <div className="space-y-4">
+                <div className="p-4 bg-orange-50 dark:bg-orange-900/20 rounded-lg border border-orange-200">
+                  <h4 className="font-semibold text-orange-800 dark:text-orange-300 mb-2">High-Risk Tumors</h4>
+                  <ul className="text-sm space-y-1">
+                    <li>• Burkitt lymphoma, lymphoblastic lymphoma</li>
+                    <li>• Acute leukemia with WBC &gt;50,000</li>
+                    <li>• Bulky lymphadenopathy (&gt;10 cm)</li>
+                    <li>• Elevated LDH (&gt;2x ULN)</li>
+                  </ul>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
+                    <h5 className="font-medium text-sm mb-2">Prophylaxis Protocol</h5>
+                    <ul className="text-xs space-y-1">
+                      <li>• Allopurinol 300mg PO daily × 3 days</li>
+                      <li>• OR Rasburicase 0.2mg/kg IV daily</li>
+                      <li>• Aggressive hydration 3L/m²/day</li>
+                      <li>• Monitor electrolytes q6h</li>
+                    </ul>
+                  </div>
+                  <div className="p-3 bg-purple-50 dark:bg-purple-900/20 rounded">
+                    <h5 className="font-medium text-sm mb-2">Laboratory Monitoring</h5>
+                    <ul className="text-xs space-y-1">
+                      <li>• K+, PO4, Ca2+, Mg2+, uric acid</li>
+                      <li>• BUN, creatinine, LDH</li>
+                      <li>• Monitor every 6-12 hours</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+      </CardContent>
+    </Card>
+  </div>
+);
+
+// NCCN Breast Cancer Inpatient Protocols
+const NCCNInpatientProtocols = () => (
+  <div className="space-y-6">
+    <Card className="border-l-4 border-l-green-500">
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2">
+          <Bed className="h-5 w-5 text-green-600" />
+          NCCN Breast Cancer Inpatient Management
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <Accordion type="single" collapsible className="w-full">
+          <AccordionItem value="neoadjuvant-monitoring">
+            <AccordionTrigger>Neoadjuvant Therapy Monitoring (BINV-7)</AccordionTrigger>
+            <AccordionContent>
+              <div className="space-y-4">
+                <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200">
+                  <h4 className="font-semibold text-green-800 dark:text-green-300 mb-2">Pre-Treatment Assessment</h4>
+                  <ul className="text-sm space-y-1">
+                    <li>• ECHO or MUGA if anthracycline planned</li>
+                    <li>• Baseline CBC, CMP, LFTs</li>
+                    <li>• Pregnancy test if applicable</li>
+                    <li>• Performance status evaluation</li>
+                  </ul>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded">
+                    <h5 className="font-medium text-sm mb-2">AC-T Regimen Monitoring</h5>
+                    <ul className="text-xs space-y-1">
+                      <li>• Doxorubicin 60mg/m² + Cyclophosphamide 600mg/m²</li>
+                      <li>• q2-3 weeks × 4 cycles</li>
+                      <li>• Then Paclitaxel 80mg/m² weekly × 12</li>
+                      <li>• Monitor CBC weekly</li>
+                    </ul>
+                  </div>
+                  <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded">
+                    <h5 className="font-medium text-sm mb-2">TCH Regimen (HER2+)</h5>
+                    <ul className="text-xs space-y-1">
+                      <li>• Docetaxel 75mg/m² + Carboplatin AUC 6</li>
+                      <li>• Trastuzumab 8mg/kg → 6mg/kg</li>
+                      <li>• q3 weeks × 6 cycles</li>
+                      <li>• ECHO q3 months</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+          
+          <AccordionItem value="post-surgical">
+            <AccordionTrigger>Post-Surgical Management (BINV-8)</AccordionTrigger>
+            <AccordionContent>
+              <div className="space-y-4">
+                <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200">
+                  <h4 className="font-semibold text-blue-800 dark:text-blue-300 mb-2">Post-Mastectomy Care</h4>
+                  <ul className="text-sm space-y-1">
+                    <li>• Drain output monitoring (&lt;30mL/day before removal)</li>
+                    <li>• Arm exercises to prevent lymphedema</li>
+                    <li>• Infection surveillance at surgical site</li>
+                    <li>• Pain management with multimodal approach</li>
+                  </ul>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="p-3 bg-yellow-50 dark:bg-yellow-900/20 rounded">
+                    <h5 className="font-medium text-sm mb-2">Lymphedema Prevention</h5>
+                    <ul className="text-xs space-y-1">
+                      <li>• Baseline arm measurements</li>
+                      <li>• Patient education on precautions</li>
+                      <li>• Early referral to therapy if needed</li>
+                    </ul>
+                  </div>
+                  <div className="p-3 bg-indigo-50 dark:bg-indigo-900/20 rounded">
+                    <h5 className="font-medium text-sm mb-2">Adjuvant Planning</h5>
+                    <ul className="text-xs space-y-1">
+                      <li>• Final pathology review</li>
+                      <li>• Multidisciplinary team discussion</li>
+                      <li>• Radiation oncology consultation</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+      </CardContent>
+    </Card>
+  </div>
+);
+
 // Admission Protocols Component
 const AdmissionProtocols = () => (
   <div className="space-y-6">
@@ -674,9 +852,9 @@ export default function InpatientModule() {
   const renderActiveSection = () => {
     switch (activeSection) {
       case "admission":
-        return <AdmissionProtocols />;
+        return <NCCNInpatientProtocols />;
       case "emergency":
-        return <EmergencyRegimens />;
+        return <NCCNAdverseEvents />;
       case "monitoring":
         return <MonitoringWorkflows />;
       case "supportive":
@@ -684,7 +862,7 @@ export default function InpatientModule() {
       case "discharge":
         return <DischargePlanning />;
       default:
-        return <AdmissionProtocols />;
+        return <NCCNInpatientProtocols />;
     }
   };
 
