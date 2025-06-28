@@ -269,7 +269,7 @@ const TreatmentProtocols = () => {
             <SelectValue placeholder="All cancer types" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">All cancer types</SelectItem>
+            <SelectItem value="all">All cancer types</SelectItem>
             {tumourGroups.map(group => (
               <SelectItem key={group} value={group}>{group}</SelectItem>
             ))}
@@ -281,7 +281,7 @@ const TreatmentProtocols = () => {
             <SelectValue placeholder="All intents" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">All intents</SelectItem>
+            <SelectItem value="all">All intents</SelectItem>
             {treatmentIntents.map(intent => (
               <SelectItem key={intent} value={intent}>{intent}</SelectItem>
             ))}
@@ -292,8 +292,8 @@ const TreatmentProtocols = () => {
           variant="outline" 
           onClick={() => {
             setSearchTerm("");
-            setSelectedTumourGroup("");
-            setSelectedIntent("");
+            setSelectedTumourGroup("all");
+            setSelectedIntent("all");
           }}
         >
           <Filter className="h-4 w-4 mr-2" />
