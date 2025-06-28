@@ -443,6 +443,8 @@ export default function MedicationsTab() {
   const [classificationFilter, setClassificationFilter] = useState("");
   const [routeFilter, setRouteFilter] = useState("");
   const [cancerTypeFilter, setCancerTypeFilter] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 12;
 
   const { data: medications = [], isLoading } = useQuery({
     queryKey: ["/api/oncology-medications", { 
@@ -502,6 +504,17 @@ export default function MedicationsTab() {
     
     return matchesSearch && matchesClassification && matchesRoute && matchesCancerType;
   });
+
+  // Pagination calculations
+  const totalPages = Math.ceil(filteredMedications.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedMedications = filteredMedications.slice(startIndex, endIndex);
+
+  // Reset to first page when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, classificationFilter, routeFilter, cancerTypeFilter]);
 
   return (
     <div className="space-y-6">
@@ -610,11 +623,84 @@ export default function MedicationsTab() {
           ))}
         </div>
       ) : filteredMedications.length > 0 ? (
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {filteredMedications.map((medication: OncologyMedication) => (
-            <MedicationCard key={medication.id} medication={medication} />
-          ))}
-        </div>
+        <>
+          {/* Statistics Summary */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+            <Card>
+              <CardContent className="p-4 text-center">
+                <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">{medicationsArray.length}</div>
+                <div className="text-sm text-muted-foreground">Total Medications</div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="p-4 text-center">
+                <div className="text-2xl font-bold text-green-600 dark:text-green-400">{classifications.length}</div>
+                <div className="text-sm text-muted-foreground">Classifications</div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="p-4 text-center">
+                <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">{cancerTypes.length}</div>
+                <div className="text-sm text-muted-foreground">Cancer Types</div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="p-4 text-center">
+                <div className="text-2xl font-bold text-orange-600 dark:text-orange-400">{filteredMedications.length}</div>
+                <div className="text-sm text-muted-foreground">Filtered Results</div>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {paginatedMedications.map((medication: OncologyMedication) => (
+              <MedicationCard key={medication.id} medication={medication} />
+            ))}
+          </div>
+
+          {/* Pagination Controls */}
+          {totalPages > 1 && (
+            <div className="flex items-center justify-between mt-6 pt-4 border-t">
+              <div className="text-sm text-muted-foreground">
+                Showing {startIndex + 1} to {Math.min(endIndex, filteredMedications.length)} of {filteredMedications.length} medications
+              </div>
+              <div className="flex items-center space-x-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setCurrentPage(page => Math.max(1, page - 1))}
+                  disabled={currentPage === 1}
+                >
+                  Previous
+                </Button>
+                <div className="flex items-center space-x-1">
+                  {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                    const pageNum = i + 1;
+                    return (
+                      <Button
+                        key={pageNum}
+                        variant={currentPage === pageNum ? "default" : "outline"}
+                        size="sm"
+                        onClick={() => setCurrentPage(pageNum)}
+                      >
+                        {pageNum}
+                      </Button>
+                    );
+                  })}
+                  {totalPages > 5 && <span className="text-muted-foreground">...</span>}
+                </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setCurrentPage(page => Math.min(totalPages, page + 1))}
+                  disabled={currentPage === totalPages}
+                >
+                  Next
+                </Button>
+              </div>
+            </div>
+          )}
+        </>
       ) : (
         <Card>
           <CardContent className="text-center py-8">
