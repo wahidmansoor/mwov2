@@ -16,6 +16,9 @@ import ToolsBar from "@/modules/tools/ToolsBar";
 import NotesExport from "@/modules/export/NotesExport";
 import AnalyticsModule from "@/modules/analytics/AnalyticsModule";
 import HandbookModule from "@/modules/handbook/HandbookModule";
+import MedicalOncologyView from "@/modules/handbook/MedicalOncologyView";
+import RadiationOncologyView from "@/modules/handbook/RadiationOncologyView";
+import PalliativeCareView from "@/modules/handbook/PalliativeCareView";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -79,11 +82,29 @@ function Router() {
         </Layout>
       </Route>
       
-      <Route path="/handbook">
+      <Route path="/handbook" component={() => (
         <Layout>
           <HandbookModule />
         </Layout>
-      </Route>
+      )} />
+      
+      <Route path="/handbook/medical" component={() => (
+        <Layout>
+          <MedicalOncologyView />
+        </Layout>
+      )} />
+      
+      <Route path="/handbook/radiation" component={() => (
+        <Layout>
+          <RadiationOncologyView />
+        </Layout>
+      )} />
+      
+      <Route path="/handbook/palliative" component={() => (
+        <Layout>
+          <PalliativeCareView />
+        </Layout>
+      )} />
       
       {/* Fallback to 404 */}
       <Route component={NotFound} />
