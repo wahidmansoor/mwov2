@@ -455,27 +455,41 @@ export default function MedicationsTab() {
   });
 
   // Extract unique values for filters
-  const classifications = [...new Set(medications.map((med: OncologyMedication) => med.classification))];
-  const routes = [...new Set(medications.map((med: OncologyMedication) => {
+  const medicationsArray = Array.isArray(medications) ? medications : [];
+  const classificationsSet = new Set<string>();
+  const routesSet = new Set<string>();
+  const cancerTypesSet = new Set<string>();
+  
+  medicationsArray.forEach((med: OncologyMedication) => {
+    classificationsSet.add(med.classification);
+    
     const route = med.administration.toLowerCase();
-    if (route.includes('oral') || route.includes('tablet')) return 'Oral';
-    if (route.includes('iv') || route.includes('infusion')) return 'IV';
-    if (route.includes('subcutaneous') || route.includes('sc')) return 'Subcutaneous';
-    return 'Other';
-  }))];
-  const cancerTypes = [...new Set(medications.flatMap((med: OncologyMedication) => 
-    med.indications?.cancer_types || []
-  ))];
+    if (route.includes('oral') || route.includes('tablet')) {
+      routesSet.add('Oral');
+    } else if (route.includes('iv') || route.includes('infusion')) {
+      routesSet.add('IV');
+    } else if (route.includes('subcutaneous') || route.includes('sc')) {
+      routesSet.add('Subcutaneous');
+    } else {
+      routesSet.add('Other');
+    }
+    
+    med.indications?.cancer_types?.forEach(type => cancerTypesSet.add(type));
+  });
+  
+  const classifications = Array.from(classificationsSet);
+  const routes = Array.from(routesSet);
+  const cancerTypes = Array.from(cancerTypesSet);
 
-  const filteredMedications = medications.filter((med: OncologyMedication) => {
+  const filteredMedications = medicationsArray.filter((med: OncologyMedication) => {
     const matchesSearch = !searchTerm || 
       med.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       med.classification.toLowerCase().includes(searchTerm.toLowerCase()) ||
       med.brandNames?.some(brand => brand.toLowerCase().includes(searchTerm.toLowerCase()));
     
-    const matchesClassification = !classificationFilter || med.classification === classificationFilter;
+    const matchesClassification = !classificationFilter || classificationFilter === "all" || med.classification === classificationFilter;
     
-    const matchesRoute = !routeFilter || (() => {
+    const matchesRoute = !routeFilter || routeFilter === "all" || (() => {
       const route = med.administration.toLowerCase();
       if (routeFilter === 'Oral') return route.includes('oral') || route.includes('tablet');
       if (routeFilter === 'IV') return route.includes('iv') || route.includes('infusion');
@@ -483,7 +497,7 @@ export default function MedicationsTab() {
       return true;
     })();
     
-    const matchesCancerType = !cancerTypeFilter || 
+    const matchesCancerType = !cancerTypeFilter || cancerTypeFilter === "all" || 
       med.indications?.cancer_types?.includes(cancerTypeFilter);
     
     return matchesSearch && matchesClassification && matchesRoute && matchesCancerType;
@@ -524,7 +538,7 @@ export default function MedicationsTab() {
             </div>
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">All Classifications</SelectItem>
+            <SelectItem value="all">All Classifications</SelectItem>
             {classifications.map(classification => (
               <SelectItem key={classification} value={classification}>
                 {classification}
@@ -538,7 +552,7 @@ export default function MedicationsTab() {
             <SelectValue placeholder="Route" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">All Routes</SelectItem>
+            <SelectItem value="all">All Routes</SelectItem>
             {routes.map(route => (
               <SelectItem key={route} value={route}>
                 {route}
@@ -552,7 +566,7 @@ export default function MedicationsTab() {
             <SelectValue placeholder="Cancer Type" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">All Cancer Types</SelectItem>
+            <SelectItem value="all">All Cancer Types</SelectItem>
             {cancerTypes.map(cancerType => (
               <SelectItem key={cancerType} value={cancerType}>
                 {cancerType}
