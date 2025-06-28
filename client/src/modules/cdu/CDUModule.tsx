@@ -28,8 +28,10 @@ import {
   Search,
   Eye,
   Download,
-  Filter
+  Filter,
+  Pill
 } from "lucide-react";
+import MedicationsTab from "./MedicationsTab";
 
 interface CdProtocol {
   id: string;
@@ -823,8 +825,8 @@ export default function CDUModule() {
             <TabsTrigger value="protocols" className="data-[state=active]:bg-purple-600 data-[state=active]:text-white">
               Treatment Protocols
             </TabsTrigger>
-            <TabsTrigger value="dosage" className="data-[state=active]:bg-purple-600 data-[state=active]:text-white">
-              Dosage Calculator
+            <TabsTrigger value="medications" className="data-[state=active]:bg-purple-600 data-[state=active]:text-white">
+              Medications
             </TabsTrigger>
             <TabsTrigger value="toxicity" className="data-[state=active]:bg-purple-600 data-[state=active]:text-white">
               Toxicity Management
@@ -838,8 +840,8 @@ export default function CDUModule() {
             <TreatmentProtocols />
           </TabsContent>
           
-          <TabsContent value="dosage">
-            <DosageCalculator />
+          <TabsContent value="medications">
+            <MedicationsTab />
           </TabsContent>
           
           <TabsContent value="toxicity">

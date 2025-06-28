@@ -245,6 +245,37 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Oncology Medications routes
+  app.get("/api/oncology-medications", authMiddleware, async (req, res) => {
+    try {
+      const { classification, cancerType, route, search } = req.query;
+      const medications = await storage.getOncologyMedications({
+        classification: classification as string,
+        cancerType: cancerType as string,
+        route: route as string,
+        search: search as string
+      });
+      res.json(medications);
+    } catch (error) {
+      console.error("Failed to get oncology medications:", error);
+      res.status(500).json({ message: "Failed to get oncology medications" });
+    }
+  });
+
+  app.get("/api/oncology-medications/:id", authMiddleware, async (req, res) => {
+    try {
+      const medication = await storage.getOncologyMedication(req.params.id);
+      if (medication) {
+        res.json(medication);
+      } else {
+        res.status(404).json({ message: "Medication not found" });
+      }
+    } catch (error) {
+      console.error("Failed to get oncology medication:", error);
+      res.status(500).json({ message: "Failed to get oncology medication" });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }

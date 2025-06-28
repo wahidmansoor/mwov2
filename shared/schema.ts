@@ -157,6 +157,35 @@ export const cdProtocols = pgTable("cd_protocols", {
   lastReviewed: timestamp("last_reviewed"),
 });
 
+// Oncology medications comprehensive database
+export const oncologyMedications = pgTable("oncology_medications", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  name: varchar("name", { length: 255 }).notNull(),
+  brandNames: jsonb("brand_names"),
+  classification: varchar("classification", { length: 255 }).notNull(),
+  mechanism: text("mechanism").notNull(),
+  administration: text("administration").notNull(),
+  indications: jsonb("indications").notNull(),
+  dosing: jsonb("dosing").notNull(),
+  sideEffects: jsonb("side_effects"),
+  monitoring: jsonb("monitoring"),
+  interactions: jsonb("interactions"),
+  referenceSources: jsonb("reference_sources"),
+  summary: text("summary"),
+  blackBoxWarning: text("black_box_warning"),
+  specialConsiderations: jsonb("special_considerations"),
+  pharmacokinetics: jsonb("pharmacokinetics"),
+  contraindications: jsonb("contraindications"),
+  routineMonitoring: jsonb("routine_monitoring"),
+  preTreatmentTests: jsonb("pre_treatment_tests"),
+  isChemotherapy: boolean("is_chemotherapy").default(false),
+  isImmunotherapy: boolean("is_immunotherapy").default(false),
+  isTargetedTherapy: boolean("is_targeted_therapy").default(false),
+  isOrphanDrug: boolean("is_orphan_drug").default(false),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
 // Schema exports
 export const insertUserSchema = createInsertSchema(users).omit({
   id: true,
@@ -187,6 +216,12 @@ export const insertCdProtocolSchema = createInsertSchema(cdProtocols).omit({
   updatedAt: true,
 });
 
+export const insertOncologyMedicationSchema = createInsertSchema(oncologyMedications).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
 // Type exports
 export type User = typeof users.$inferSelect;
 export type InsertUser = z.infer<typeof insertUserSchema>;
@@ -199,4 +234,6 @@ export type InsertAiInteraction = z.infer<typeof insertAiInteractionSchema>;
 export type TreatmentProtocol = typeof treatmentProtocols.$inferSelect;
 export type CdProtocol = typeof cdProtocols.$inferSelect;
 export type InsertCdProtocol = z.infer<typeof insertCdProtocolSchema>;
+export type OncologyMedication = typeof oncologyMedications.$inferSelect;
+export type InsertOncologyMedication = z.infer<typeof insertOncologyMedicationSchema>;
 export type AuditLogEntry = typeof auditLog.$inferSelect;

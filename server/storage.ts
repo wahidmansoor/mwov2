@@ -6,6 +6,7 @@ import {
   auditLog, 
   treatmentProtocols,
   cdProtocols,
+  oncologyMedications,
   type User, 
   type InsertUser,
   type DecisionSupportInput,
@@ -17,10 +18,12 @@ import {
   type TreatmentProtocol,
   type CdProtocol,
   type InsertCdProtocol,
+  type OncologyMedication,
+  type InsertOncologyMedication,
   type AuditLogEntry
 } from "@shared/schema";
 import { db } from "./db";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 
 // Enhanced storage interface for OncoVista AI
 export interface IStorage {
@@ -61,6 +64,12 @@ export interface IStorage {
   getCdProtocolByCode(code: string): Promise<CdProtocol | undefined>;
   createCdProtocol(protocol: InsertCdProtocol): Promise<CdProtocol>;
   updateCdProtocol(id: string, updates: Partial<CdProtocol>): Promise<CdProtocol | undefined>;
+  
+  // Oncology medications
+  getOncologyMedications(filters?: { classification?: string; cancerType?: string; route?: string; search?: string }): Promise<OncologyMedication[]>;
+  getOncologyMedication(id: string): Promise<OncologyMedication | undefined>;
+  createOncologyMedication(medication: InsertOncologyMedication): Promise<OncologyMedication>;
+  updateOncologyMedication(id: string, updates: Partial<OncologyMedication>): Promise<OncologyMedication | undefined>;
   
   // Dashboard data
   getDashboardStats(): Promise<{
@@ -343,6 +352,44 @@ export class DatabaseStorage implements IStorage {
       .where(eq(cdProtocols.id, id))
       .returning();
     return protocol || undefined;
+  }
+
+  // Oncology medications methods
+  async getOncologyMedications(filters?: { classification?: string; cancerType?: string; route?: string; search?: string }): Promise<OncologyMedication[]> {
+    let query = db.select().from(oncologyMedications);
+    
+    if (filters?.search) {
+      // Simple search implementation - can be enhanced with full-text search
+      const searchTerm = `%${filters.search.toLowerCase()}%`;
+      query = query.where(
+        // Search by name or classification
+        sql`LOWER(${oncologyMedications.name}) LIKE ${searchTerm} OR LOWER(${oncologyMedications.classification}) LIKE ${searchTerm}`
+      );
+    }
+    
+    return await query;
+  }
+
+  async getOncologyMedication(id: string): Promise<OncologyMedication | undefined> {
+    const [medication] = await db.select().from(oncologyMedications).where(eq(oncologyMedications.id, id));
+    return medication || undefined;
+  }
+
+  async createOncologyMedication(insertMedication: InsertOncologyMedication): Promise<OncologyMedication> {
+    const [medication] = await db
+      .insert(oncologyMedications)
+      .values(insertMedication)
+      .returning();
+    return medication;
+  }
+
+  async updateOncologyMedication(id: string, updates: Partial<OncologyMedication>): Promise<OncologyMedication | undefined> {
+    const [medication] = await db
+      .update(oncologyMedications)
+      .set(updates)
+      .where(eq(oncologyMedications.id, id))
+      .returning();
+    return medication || undefined;
   }
 }
 
