@@ -156,9 +156,9 @@ const NCCNInpatientProtocols = () => (
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Bed className="h-5 w-5 text-blue-600" />
-          NCCN Colon Cancer Inpatient Management (COL-C)
+          NCCN Small Cell Lung Cancer Inpatient Management (SCLC-1)
         </CardTitle>
-        <CardDescription>Principles of Surgery and Locoregional Therapies - Version 3.2025</CardDescription>
+        <CardDescription>Comprehensive Inpatient SCLC Protocols - Version 4.2025</CardDescription>
       </CardHeader>
       <CardContent>
         <Accordion type="single" collapsible className="w-full">

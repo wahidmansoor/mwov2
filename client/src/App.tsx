@@ -20,6 +20,7 @@ import MedicalOncologyView from "@/modules/handbook/MedicalOncologyView";
 import RadiationOncologyView from "@/modules/handbook/RadiationOncologyView";
 import PalliativeCareView from "@/modules/handbook/PalliativeCareView";
 import PalliativeCareModule from "@/modules/palliative/PalliativeCareModule";
+import SCLCModule from "@/modules/sclc/SCLCModule";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -56,6 +57,12 @@ function Router() {
       <Route path="/inpatient">
         <Layout>
           <InpatientModule />
+        </Layout>
+      </Route>
+      
+      <Route path="/sclc">
+        <Layout>
+          <SCLCModule />
         </Layout>
       </Route>
       

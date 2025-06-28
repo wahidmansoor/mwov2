@@ -130,6 +130,51 @@ const ClinicalCalculators = () => {
           </CardContent>
         </Card>
 
+        <Card className="border-l-4 border-l-purple-500">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Calculator className="h-5 w-5 text-purple-600" />
+              NCCN SCLC Carboplatin AUC Calculator
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div>
+                  <label className="text-sm font-medium">Target AUC</label>
+                  <Select>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select AUC" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="5">AUC 5 (Elderly &gt;70)</SelectItem>
+                      <SelectItem value="5.5">AUC 5.5</SelectItem>
+                      <SelectItem value="6">AUC 6 (Standard)</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <label className="text-sm font-medium">Age (years)</label>
+                  <Input placeholder="65" type="number" />
+                </div>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div>
+                  <label className="text-sm font-medium">Weight (kg)</label>
+                  <Input placeholder="70" type="number" />
+                </div>
+                <div>
+                  <label className="text-sm font-medium">Serum Creatinine (mg/dL)</label>
+                  <Input placeholder="1.0" type="number" step="0.1" />
+                </div>
+              </div>
+              <Button className="w-full">
+                Calculate Carboplatin Dose
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+
         <Card className="border-l-4 border-l-blue-500">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -375,7 +420,7 @@ const RedFlagAlerts = () => (
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <AlertTriangle className="h-5 w-5 text-red-600" />
-            NCCN Colon Cancer Emergency Signs
+            NCCN SCLC Emergency Signs
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -383,32 +428,32 @@ const RedFlagAlerts = () => (
             <Alert className="bg-red-50 border-red-200">
               <AlertTriangle className="h-4 w-4 text-red-600" />
               <AlertDescription className="text-red-800">
-                <strong>Bowel Obstruction</strong><br/>
-                Abdominal pain, distension, vomiting: urgent imaging & surgery consult
+                <strong>Superior Vena Cava Syndrome</strong><br/>
+                Face/neck swelling, dyspnea, chest pain: urgent CT chest & oncology consult
               </AlertDescription>
             </Alert>
             
             <Alert className="bg-orange-50 border-orange-200">
               <Zap className="h-4 w-4 text-orange-600" />
               <AlertDescription className="text-orange-800">
-                <strong>GI Bleeding</strong><br/>
-                Melena, hematochezia, hematemesis: immediate CBC, type & cross
+                <strong>SIADH (Hyponatremia)</strong><br/>
+                Na+ &lt;130 mEq/L with confusion: fluid restriction & demeclocycline
               </AlertDescription>
             </Alert>
             
             <Alert className="bg-purple-50 border-purple-200">
               <Droplets className="h-4 w-4 text-purple-600" />
               <AlertDescription className="text-purple-800">
-                <strong>Perforation</strong><br/>
-                Acute abdomen + fever: urgent CT scan & surgical evaluation
+                <strong>Lambert-Eaton Syndrome</strong><br/>
+                Proximal weakness, hyporeflexia: EMG & anti-VGCC antibodies
               </AlertDescription>
             </Alert>
             
             <Alert className="bg-blue-50 border-blue-200">
               <Shield className="h-4 w-4 text-blue-600" />
               <AlertDescription className="text-blue-800">
-                <strong>Liver Failure</strong><br/>
-                Jaundice + coagulopathy + encephalopathy: hepatology consult
+                <strong>Brain Metastases</strong><br/>
+                Headache, seizures, focal deficits: urgent brain MRI & neurosurgery
               </AlertDescription>
             </Alert>
           </div>

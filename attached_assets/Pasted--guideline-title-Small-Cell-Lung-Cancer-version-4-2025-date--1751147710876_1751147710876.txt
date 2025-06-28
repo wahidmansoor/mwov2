@@ -1,0 +1,618 @@
+{
+  "guideline": {
+    "title": "Small Cell Lung Cancer",
+    "version": "4.2025",
+    "date": "01/13/2025",
+    "copyright": "© 2025 National Comprehensive Cancer Network® (NCCN®)",
+    "sections": [
+      {
+        "id": "overview",
+        "title": "Overview",
+        "content": "This section provides a general overview of small cell lung cancer (SCLC), including its incidence, etiology, and characteristic behavior. The importance of smoking cessation and clinical trial participation is highlighted.  It also introduces the NCCN Guidelines for SCLC and their relation to the VA (Veterans Administration) and TNM staging systems.",
+        "metadata": {
+          "topic": "general"
+        }
+      },
+      {
+        "id": "diagnosis",
+        "title": "Diagnosis",
+        "content": "The diagnosis section provides information on screening, manifestations, and pathology.",
+        "metadata": {
+          "topic": "diagnosis"
+        },
+        "subsections": [
+          {
+            "id": "screening",
+            "title": "Screening",
+            "content": "While low-dose CT screening is effective for NSCLC, it is not recommended for SCLC due to the aggressive nature of the disease and the potential for symptomatic disease to develop between screenings.",
+            "metadata": {
+              "topic": "screening"
+            }
+          },
+          {
+            "id": "manifestations",
+            "title": "Manifestations",
+            "content": "Patients with SCLC often present with a large hilar mass and mediastinal lymphadenopathy, along with systemic symptoms depending on the presence of metastases.  Paraneoplastic syndromes are common.",
+            "metadata": {
+              "topic": "manifestations"
+            }
+          },
+          {
+            "id": "pathology",
+            "title": "Pathology",
+            "content": "SCLC is a poorly differentiated neuroendocrine carcinoma. Histological evaluation is performed to determine the histologic classification of lung tumors and relevant staging parameters. Immunohistochemistry is helpful in distinguishing SCLC from NSCLC or other neuroendocrine tumors.  Comprehensive molecular profiling may be considered in certain cases (extensive/relapsed SCLC, never smokers, etc.).",
+            "metadata": {
+              "topic": "pathology"
+            },
+          }
+        ]
+      },
+      {
+        "id": "evaluation",
+        "title": "Evaluation",
+        "content": "The evaluation section outlines the necessary steps for staging and assessing the extent of the disease.",
+        "metadata": {
+          "topic": "evaluation"
+        },
+        "subsections": [
+          {
+            "id": "staging_systems",
+            "title": "Staging Systems",
+            "content": "SCLC staging incorporates both the AJCC TNM system and the VA scheme for limited and extensive stage disease.",
+            "metadata": {
+              "topic": "staging"
+            }
+          },
+          {
+            "id": "initial_evaluation",
+            "title": "Initial Evaluation",
+            "content": "The workup for SCLC should be expedited with studies done in parallel whenever possible.  This includes a history and physical, pathology review, complete blood count (CBC), electrolytes, liver function tests (LFTs), blood urea nitrogen (BUN), creatinine, chest/abdomen/pelvis (C/A/P) CT with contrast, brain MRI (preferred) or CT with contrast, and FDG-PET/CT scan (skull base to mid-thigh).",
+            "metadata": {
+              "topic": "initial evaluation"
+            },
+            "recommendations": [
+              {
+                "id": "rec-1",
+                "text": "A CT scan with contrast of the chest, abdomen, and pelvis (C/A/P CT) should be performed.",
+                "category": "1",
+                "metadata": {
+                  "assessment": "imaging",
+                  "priority": "high"
+                }
+              },
+              {
+                "id": "rec-2",
+                "text": "Brain MRI (preferred) or CT scan with contrast.",
+                "category": "1",
+                "metadata": {
+                  "assessment": "imaging",
+                  "priority": "high"
+                }
+              },
+              {
+                "id": "rec-3",
+                "text": "An FDG-PET/CT scan (skull base to mid-thigh) should be performed, if needed to clarify the extent of disease.",
+                "category": "1",
+                "metadata": {
+                  "assessment": "imaging",
+                  "priority": "high"
+                }
+              },
+              {
+                "id": "rec-4",
+                "text": "Comprehensive molecular profiling via blood, tissue, or both can be considered in rare cases, particularly for patients with extensive stage/relapsed SCLC who do not smoke tobacco, lightly smoke, have remote smoking history, or have a diagnostic or therapeutic dilemma, or at time of relapse, if not previously done, because this may change management.",
+                "category": "2A",
+                "metadata": {
+                  "assessment": "molecular profiling",
+                  "priority": "medium",
+                  "patient_selection": "extensive stage/relapsed SCLC, specific smoking history, or diagnostic/therapeutic dilemma"
+                }
+              }
+            ]
+          },
+          {
+            "id": "additional_workup",
+            "title": "Additional Workup",
+            "content": "Additional workup may include thoracentesis for pleural effusion, pulmonary function tests (PFTs) for surgery or RT, bone imaging if FDG-PET/CT is equivocal, and unilateral bone marrow aspiration/biopsy in select patients.",
+            "metadata": {
+              "topic": "additional workup"
+            }
+          }
+        ]
+      },
+      {
+        "id": "staging_tables",
+        "title": "Staging Tables",
+        "content": "The following tables provide key information for staging of SCLC.",
+        "metadata": {
+          "topic": "staging"
+        },
+        "subsections": [
+          {
+            "id": "table1_definitions",
+            "title": "Table 1 - Definition of SCLC Stages",
+            "table": {
+              "headers": [],
+              "rows": [
+                ["(1) Limited stage: Stage I-III (T any, N any, M0) that can be safely treated with definitive radiation doses. Excludes T3-4 due to multiple lung nodules that are too extensive or have tumor/nodal volume that is too large to be encompassed in a tolerable radiation plan."],
+                ["(2) Extensive stage: Stage IV (T any, N any, M 1a/b/c), or T3-4 due to multiple lung nodules that are too extensive or have tumor/nodal volume that is too large to be encompassed in a tolerable radiation plan."]
+              ]
+            }
+          },
+          {
+            "id": "table2_ajcc_tnm",
+            "title": "Table 2 - American Joint Committee on Cancer (AJCC) Eighth ed., 2017 Definitions of TNM",
+            "table": {
+              "headers": ["T", "Primary Tumor"],
+              "rows": [
+                ["TX", "Primary tumor cannot be assessed, or tumor proven by the presence of malignant cells in sputum or bronchial washings but not visualized by imaging or bronchoscopy"],
+                ["T0", "No evidence of primary tumor"],
+                ["Tis", "Carcinoma in situ"],
+                ["T1", "Tumor ≤3 cm in greatest dimension, surrounded by lung or visceral pleura, without bronchoscopic evidence of invasion more proximal than the lobar bronchus (i.e., not in the main bronchus)"],
+                ["T1mi", "Minimally invasive adenocarcinoma: adenocarcinoma (≤3 cm in greatest dimension) with a predominantly lepidic pattern and ≤5 mm invasion in greatest dimension"],
+                ["T1a", "Tumor ≤1 cm in greatest dimension. A superficial, spreading tumor of any size whose invasive component is limited to the bronchial wall and may extend proximal to the main bronchus also is classified as T1a, but these tumors are uncommon."],
+                ["T1b", "Tumor >1 cm but ≤2 cm in greatest dimension"],
+                ["T1c", "Tumor >2 cm but ≤3 cm in greatest dimension"],
+                ["T2", "Tumor >3 cm but ≤5 cm or having any of the following features: (1) Involves the main bronchus, regardless of distance to the carina, but without involvement of the carina; (2) Invades visceral pleura (PL1 or PL2); (3) Associated with atelectasis or obstructive pneumonitis that extends to the hilar region, involving part or all of the lung. T2 tumors with these features are classified as T2a if ≤4 cm or if the size cannot be determined and T2b if >4 cm but ≤5 cm."],
+                ["T2a", "Tumor >3 cm but ≤4 cm in greatest dimension"],
+                ["T2b", "Tumor >4 cm but ≤5 cm in greatest dimension"],
+                ["T3", "Tumor >5 cm but ≤7 cm in greatest dimension or directly invading any of the following: parietal pleura (PL3), chest wall (including superior sulcus tumors), phrenic nerve, parietal pericardium; or separate tumor nodule(s) in the same lobe as the primary"],
+                ["T4", "Tumor >7 cm or tumor of any size invading one or more of the following: diaphragm, mediastinum, heart, great vessels, trachea, recurrent laryngeal nerve, esophagus, vertebral body, or carina; separate tumor nodule(s) in an ipsilateral lobe different from that of the primary"]
+
+              ]
+            }
+          },
+          {
+            "id": "table3_ajcc_prognostic_groups",
+            "title": "Table 3. AJCC Prognostic Groups",
+            "table": {
+              "headers": ["T", "N", "M", "Stage", "T", "N", "M", "Stage"],
+              "rows": [
+                ["TX", "N0", "M0", "Occult carcinoma", "T1a", "N0", "M0", "Stage IA1"],
+                ["Tis", "N0", "M0", "Stage 0", "T1b", "N0", "M0", "Stage IA2"],
+                ["", "", "", "", "T1c", "N0", "M0", "Stage IA3"],
+                ["", "", "", "", "T2a", "N0", "M0", "Stage IB"],
+                ["", "", "", "", "T2b", "N0", "M0", "Stage IIA"],
+                ["", "", "", "", "T1a", "N1", "M0", "Stage IIA"],
+                ["", "", "", "", "T1b", "N1", "M0", ""],
+                ["", "", "", "", "T1c", "N1", "M0", ""],
+                ["", "", "", "", "T2a", "N1", "M0", ""],
+                ["", "", "", "", "T2b", "N1", "M0", ""],
+                ["", "", "", "", "T3", "N0", "M0", "Stage IIIA"],
+                ["", "", "", "", "T1a", "N2", "M0", ""],
+                ["", "", "", "", "T1b", "N2", "M0", ""],
+                ["", "", "", "", "T1c", "N2", "M0", ""],
+                ["", "", "", "", "T2a", "N2", "M0", ""],
+                ["", "", "", "", "T2b", "N2", "M0", ""],
+                ["", "", "", "", "T3", "N1", "M0", ""],
+                ["", "", "", "", "T4", "N0", "M0", ""],
+                ["", "", "", "", "T4", "N1", "M0", ""],
+                ["", "", "", "", "T1a", "N3", "M0", "Stage IIIB"],
+                ["", "", "", "", "T1b", "N3", "M0", ""],
+                ["", "", "", "", "T1c", "N3", "M0", ""],
+                ["", "", "", "", "T2a", "N3", "M0", ""],
+                ["", "", "", "", "T2b", "N3", "M0", ""],
+                ["", "", "", "", "T3", "N2", "M0", ""],
+                ["", "", "", "", "T4", "N2", "M0", ""],
+                ["", "", "", "", "T3", "N3", "M0", "Stage IIIC"],
+                ["Any T", "Any N", "M1", "Stage IV"],
+                ["Any T", "Any N", "M1a", "Stage IVA"],
+                ["", "", "", "", "Any T", "Any N", "M1b", "Stage IVB"],
+                ["", "", "", "", "Any T", "Any N", "M1c", ""],
+               ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "prognostic_factors",
+        "title": "Prognostic Factors",
+        "content": "Poor performance status (PS) (3-4), extensive-stage SCLC, weight loss, and elevated LDH are adverse prognostic factors. Age <70 years, normal LDH, and stage I disease are associated with favorable prognosis in patients with limited-stage SCLC.",
+        "metadata": {
+          "topic": "prognosis"
+        }
+      },
+      {
+        "id": "treatment",
+        "title": "Treatment",
+        "content": "Treatment strategies vary based on the stage of the disease.  Surgery is considered for early-stage disease, followed by systemic therapy and/or radiation therapy, where indicated. Systemic therapy is a cornerstone of treatment. Radiation therapy plays a role in both limited and extensive stage. ",
+        "metadata": {
+          "topic": "treatment"
+        },
+        "subsections": [
+          {
+            "id": "surgical_resection",
+            "title": "Surgical Resection of Stage I-IIA SCLC",
+            "content": "Surgery is only recommended for certain patients with stage I–IIA SCLC. Before resection, all patients should undergo mediastinoscopy or other surgical mediastinal staging to rule out occult nodal disease. For patients with clinical stage I-IIA SCLC with negative mediastinal lymph nodes confirmed by mediastinal staging, surgery can include patients with clinical limited stage IIA SCLC based on the staging criteria that includes tumors up to 5 cm in diameter (T2b) without lymph node involvement (N0). If resection is performed, the NCCN SCLC Panel recommends lobectomy (preferred) with mediastinal lymph node dissection or systematic lymph node sampling (e.g., ≥3 N2 and ≥1 N1 stations). The Panel does not recommend pneumonectomy if nodal metastatic disease needs to be encompassed.  Following surgery, adjuvant chemotherapy or chemoradiation is recommended based on the absence or presence of nodal metastases.",
+            "metadata": {
+              "topic": "surgical resection",
+              "stage": "I-IIA"
+            },
+            "recommendations": [
+              {
+                "id": "rec-5",
+                "text": "Lobectomy (preferred) with mediastinal lymph node dissection or sampling.",
+                "category": "NA",
+                "metadata": {
+                  "procedure": "lobectomy",
+                  "lymph_node_dissection": "yes",
+                  "surgical_approach": "definitive"
+                }
+              },
+              {
+                "id": "rec-6",
+                "text": "Adjuvant chemotherapy for patients without nodal metastases (N0).",
+                "category": "NA",
+                "metadata": {
+                  "treatment_type": "chemotherapy",
+                  "adjuvant": "yes",
+                  "nodal_status": "N0"
+                }
+              },
+              {
+                "id": "rec-7",
+                "text": "Concurrent or sequential chemotherapy and postoperative mediastinal radiation therapy for patients with N+ disease.",
+                "category": "NA",
+                "metadata": {
+                  "treatment_type": "chemotherapy",
+                  "treatment_type": "radiation therapy",
+                  "adjuvant": "yes",
+                  "nodal_status": "N+"
+                }
+              }
+            ]
+          },
+          {
+            "id": "systemic_therapy",
+            "title": "Systemic Therapy",
+            "content": "Systemic therapy is essential for all patients with SCLC. Adjuvant chemotherapy is recommended for patients with early-stage SCLC who have had surgery or SABR. For patients with limited-stage SCLC who are not eligible for surgery or have positive mediastinal staging, chemotherapy with concurrent thoracic RT is recommended. For patients with extensive-stage SCLC, systemic therapy alone is recommended. ",
+            "metadata": {
+              "topic": "systemic therapy"
+            },
+            "subsections": [
+              {
+                "id": "cisplatin_vs_carboplatin",
+                "title": "Cisplatin Versus Carboplatin",
+                "content": "Carboplatin is frequently substituted for cisplatin to reduce the risk of emesis, neuropathy, and nephropathy. However, the use of carboplatin carries a greater risk of myelosuppression.",
+                "metadata": {
+                  "topic": "chemotherapy",
+                  "agent": "cisplatin",
+                  "agent": "carboplatin"
+                }
+              },
+              {
+                "id": "limited_stage_sclc",
+                "title": "Limited-Stage SCLC",
+                "content": "Etoposide plus cisplatin is the most commonly used first-line combination chemotherapy regimen for patients with limited-stage SCLC. The preferred regimens for limited-stage SCLC are based on the dosing used in the CONVERT trial. If pathologic lymph node involvement is found at surgery (N1 or N2) for patients with stage I–IIA (T1–2, N0, M0), then thoracic RT can be added concurrently or sequentially to etoposide/cisplatin. Treatment with etoposide/cisplatin plus definitive thoracic RT showed response rates of 70% to 90% with a median overall survival of 25 to 30 months and 5-year overall survival rates of 31% to 34%.",
+                "metadata": {
+                  "topic": "chemotherapy",
+                  "stage": "limited"
+                },
+                "recommendations": [
+                  {
+                    "id": "rec-8",
+                    "text": "Cisplatin 75 mg/m² day 1 and etoposide 100 mg/m² days 1, 2, 3.",
+                    "category": "1",
+                    "metadata": {
+                      "agent": "cisplatin",
+                      "agent": "etoposide",
+                      "regimen": "cisplatin/etoposide",
+                      "dose_cisplatin": "75 mg/m²",
+                      "dose_etoposide": "100 mg/m²",
+                      "schedule": "days 1, 2, 3",
+                      "stage": "limited"
+                    }
+                  },
+                  {
+                    "id": "rec-9",
+                    "text": "Cisplatin 60 mg/m² day 1 and etoposide 120 mg/m² days 1, 2, 3.",
+                    "category": "1",
+                    "metadata": {
+                      "agent": "cisplatin",
+                      "agent": "etoposide",
+                      "regimen": "cisplatin/etoposide",
+                      "dose_cisplatin": "60 mg/m²",
+                      "dose_etoposide": "120 mg/m²",
+                      "schedule": "days 1, 2, 3",
+                      "stage": "limited"
+                    }
+                  },
+                  {
+                    "id": "rec-10",
+                    "text": "Cisplatin 25 mg/m² days 1, 2, 3 and etoposide 100 mg/m² days 1, 2, 3",
+                    "category": "NA",
+                    "metadata": {
+                      "agent": "cisplatin",
+                      "agent": "etoposide",
+                      "regimen": "cisplatin/etoposide",
+                      "dose_cisplatin": "25 mg/m²",
+                      "dose_etoposide": "100 mg/m²",
+                      "schedule": "days 1, 2, 3",
+                      "stage": "limited"
+                    }
+                  },
+                  {
+                    "id": "rec-11",
+                    "text": "Carboplatin area under the curve (AUC) 5-6 day 1 and etoposide 100 mg/m² days 1, 2, 3",
+                    "category": "NA",
+                    "metadata": {
+                      "agent": "carboplatin",
+                      "agent": "etoposide",
+                      "regimen": "carboplatin/etoposide",
+                      "dose_carboplatin": "AUC 5-6",
+                      "dose_etoposide": "100 mg/m²",
+                      "schedule": "days 1, 2, 3",
+                      "stage": "limited"
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "durvalumab_consolidation_therapy",
+                "title": "Durvalumab Consolidation Therapy",
+                "content": "Patients with limited stage who did not experience disease progression after systemic therapy + concurrent RT may continue durvalumab until disease progression or intolerable toxicity, or for a maximum of 24 months. If prophylactic cranial irradiation (PCI) is being considered in this setting it should be given prior to consolidation durvalumab.",
+                "metadata": {
+                  "topic": "immunotherapy",
+                  "agent": "durvalumab",
+                  "stage": "limited"
+                },
+                "recommendations": [
+                  {
+                    "id": "rec-12",
+                    "text": "Durvalumab 1500 mg day 1 every 28 days.",
+                    "category": "1",
+                    "metadata": {
+                      "agent": "durvalumab",
+                      "dose_durvalumab": "1500 mg",
+                      "schedule": "day 1 every 28 days",
+                      "stage": "limited",
+                      "treatment_type": "consolidation"
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "extensive_stage_sclc",
+                "title": "Extensive-Stage SCLC",
+                "content": "The preferred regimens for patients with extensive-stage SCLC include chemotherapy with the programmed death ligand 1 (PD-L1)-targeted immune checkpoint inhibitors, atezolizumab or durvalumab. Contraindications for treatment with PD-1/PD-L1 inhibitors include active or previously documented autoimmune disease and/or concurrent use of immunosuppressive agents. Maintenance immunotherapy should continue until progression or intolerable toxicity.",
+                "metadata": {
+                  "topic": "chemotherapy",
+                  "stage": "extensive"
+                },
+                "recommendations": [
+                  {
+                    "id": "rec-13",
+                    "text": "Carboplatin AUC 5 day 1 and etoposide 100 mg/m² days 1, 2, 3 and atezolizumab 1200 mg day 1 every 21 days x 4 cycles followed by maintenance atezolizumab 1200 mg day 1, every 21 days.",
+                    "category": "1",
+                    "metadata": {
+                      "agent": "carboplatin",
+                      "agent": "etoposide",
+                      "agent": "atezolizumab",
+                      "regimen": "carboplatin/etoposide/atezolizumab",
+                      "dose_carboplatin": "AUC 5",
+                      "dose_etoposide": "100 mg/m²",
+                      "dose_atezolizumab": "1200 mg",
+                      "schedule_cycle": "day 1, every 21 days",
+                      "stage": "extensive"
+                    }
+                  },
+                  {
+                    "id": "rec-14",
+                    "text": "Carboplatin AUC 5 day 1 and etoposide 100 mg/m² days 1, 2, 3 and atezolizumab 1200 mg day 1 every 21 days x 4 cycles followed by maintenance atezolizumab 1680 mg day 1, every 28 days.",
+                    "category": "1",
+                    "metadata": {
+                      "agent": "carboplatin",
+                      "agent": "etoposide",
+                      "agent": "atezolizumab",
+                      "regimen": "carboplatin/etoposide/atezolizumab",
+                      "dose_carboplatin": "AUC 5",
+                      "dose_etoposide": "100 mg/m²",
+                      "dose_atezolizumab": "1200 mg",
+                      "schedule_cycle": "day 1, every 21 days",
+                      "stage": "extensive"
+                    }
+                  },
+                  {
+                    "id": "rec-15",
+                    "text": "Carboplatin AUC 5-6 day 1 and etoposide 80-100 mg/m² days 1, 2, 3 and durvalumab 1500 mg day 1 every 21 days x 4 cycles followed by maintenance durvalumab 1500 mg day 1 every 28 days.",
+                    "category": "1",
+                    "metadata": {
+                      "agent": "carboplatin",
+                      "agent": "etoposide",
+                      "agent": "durvalumab",
+                      "regimen": "carboplatin/etoposide/durvalumab",
+                      "dose_carboplatin": "AUC 5-6",
+                      "dose_etoposide": "80-100 mg/m²",
+                      "dose_durvalumab": "1500 mg",
+                      "schedule_cycle": "day 1, every 21 days",
+                      "stage": "extensive"
+                    }
+                  },
+                  {
+                    "id": "rec-16",
+                    "text": "Cisplatin 75–80 mg/m² day 1 and etoposide 80–100 mg/m² days 1, 2, 3 and durvalumab 1500 mg day 1 every 21 days x 4 cycles followed by maintenance durvalumab 1500 mg day 1 every 28 days.",
+                    "category": "1",
+                    "metadata": {
+                      "agent": "cisplatin",
+                      "agent": "etoposide",
+                      "agent": "durvalumab",
+                      "regimen": "cisplatin/etoposide/durvalumab",
+                      "dose_cisplatin": "75-80 mg/m²",
+                      "dose_etoposide": "80-100 mg/m²",
+                      "dose_durvalumab": "1500 mg",
+                      "schedule_cycle": "day 1, every 21 days",
+                      "stage": "extensive"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "older_patients",
+            "title": "Older Patients",
+            "content": "Patients over 70 should have treatment tolerance considered. 4 cycles of carboplatin plus etoposide seem to yield favorable results, because the area-under-the-curve (AUC) dosing of carboplatin takes into account the declining renal function of the patient. Targetting carboplatin to an AUC of 5, rather than 6, is more reasonable in the population >70 years.",
+            "metadata": {
+              "topic": "special populations",
+              "population": "older adults"
+            }
+          }
+        ]
+      },
+      {
+        "id": "surveillance_for_relapse",
+        "title": "Surveillance for Relapse",
+        "content": "Regular surveillance is crucial to detect relapse. Patients with SCLC should have brain MRI or CT scans to monitor for relapse, and CT scans of chest/abdomen/pelvis.",
+        "metadata": {
+          "topic": "surveillance"
+        },
+        "recommendations": [
+          {
+            "id": "rec-17",
+            "text": "Oncology follow-up visits every 3 months during years 1-2, every 6 months during year 3, then annually after completion of initial therapy (limited stage).",
+            "category": "NA",
+            "metadata": {
+              "schedule": "every 3 months (years 1-2), every 6 months (year 3), then annually",
+              "stage": "limited",
+              "therapy_type": "initial"
+            }
+          },
+          {
+            "id": "rec-18",
+            "text": "Oncology follow-up visits every 2 months during year 1, every 3-4 months during years 2-3, then every 6 months during years 4-5, then annually after completion of initial or subsequent therapy (extensive stage).",
+            "category": "NA",
+            "metadata": {
+              "schedule": "every 2 months (year 1), every 3-4 months (years 2-3), every 6 months (years 4-5), then annually",
+              "stage": "extensive",
+              "therapy_type": "initial and subsequent"
+            }
+          },
+          {
+            "id": "rec-19",
+            "text": "Provide survivorship care plan after completion of initial therapy.",
+            "category": "NA",
+            "metadata": {
+              "treatment_type": "survivorship",
+              "therapy_type": "initial"
+            }
+          },
+          {
+            "id": "rec-20",
+            "text": "Brain MRI (preferred) or CT with contrast every 3-4 months during year 1, then every 6 months afterwards, then as clinically indicated (regardless of PCI status).",
+            "category": "NA",
+            "metadata": {
+              "assessment": "imaging",
+              "imaging_type": "brain MRI or CT with contrast",
+              "schedule": "every 3-4 months (year 1), every 6 months (year 2), then as clinically indicated",
+              "stage": "all",
+              "pci_status": "independent"
+            }
+          },
+          {
+            "id": "rec-21",
+            "text": "New pulmonary nodule should initiate workup for potential new primary.",
+            "category": "NA",
+            "metadata": {
+              "assessment": "imaging",
+              "imaging_type": "pulmonary nodule",
+              "action": "workup"
+            }
+          },
+          {
+            "id": "rec-22",
+            "text": "Smoking cessation intervention is recommended.",
+            "category": "NA",
+            "metadata": {
+              "action": "smoking cessation",
+              "intervention": "yes"
+            }
+          },
+          {
+            "id": "rec-23",
+            "text": "FDG-PET/CT is not recommended for routine follow-up unless a contrast CT or MRI is contraindicated.",
+            "category": "NA",
+            "metadata": {
+              "assessment": "imaging",
+              "imaging_type": "fdg-pet/ct",
+              "contraindication": "contrast ct or mri"
+            }
+          }
+        ]
+      },
+      {
+        "id": "subsequent_systemic_therapy",
+        "title": "Subsequent Systemic Therapy",
+        "content": "For disease relapse or progressive disease, subsequent systemic therapy is recommended. Clinical trial enrollment is the preferred regimen. Subsequent therapy options include platinum-based doublets (preferred), lurbinectedin, topotecan, irinotecan, and tarlatamab-dlle (useful in certain circumstances).",
+        "metadata": {
+          "topic": "subsequent therapy"
+        },
+        "recommendations": [
+          {
+            "id": "rec-24",
+            "text": "Re-treatment with platinum-based doublet may be considered for CTFI 3–6 months (CTFI = Chemotherapy-Free Interval)",
+            "category": "NA",
+            "metadata": {
+              "treatment_type": "chemotherapy",
+              "regimen_type": "platinum-based",
+              "ctfi": "3-6 months",
+              "preference": "consider"
+            }
+          },
+          {
+            "id": "rec-25",
+            "text": "Lurbinectedin.",
+            "category": "2A",
+            "metadata": {
+              "agent": "lurbinectedin",
+              "preference": "preferred",
+              "ctfi": "6 months or less"
+            }
+          },
+          {
+            "id": "rec-26",
+            "text": "Topotecan (oral [PO] or intravenous [IV]).",
+            "category": "2A",
+            "metadata": {
+              "agent": "topotecan",
+              "route": "oral or intravenous",
+              "preference": "preferred",
+              "ctfi": "6 months or less"
+            }
+          },
+          {
+            "id": "rec-27",
+            "text": "Irinotecan.",
+            "category": "2A",
+            "metadata": {
+              "agent": "irinotecan",
+              "preference": "preferred",
+              "ctfi": "6 months or less"
+            }
+          },
+          {
+            "id": "rec-28",
+            "text": "Tarlatamab-dlle.",
+            "category": "2A",
+            "metadata": {
+              "agent": "tarlatamab-dlle",
+              "preference": "preferred",
+              "ctfi": "6 months or less"
+            }
+          },
+          {
+            "id": "rec-29",
+            "text": "Re-treatment with platinum-based doublet (CTFI 3–6 months)",
+            "category": "NA",
+            "metadata": {
+              "treatment_type": "chemotherapy",
+              "regimen_type": "platinum-based",
+              "ctfi": "3-6 months",
+              "preference": "consider"
+            }
+          },
+          {
+            "id": "rec-30",
+            "text": "Nivolumab or pembrolizumab (if not previously treated with an ICI).",
+            "category": "2A",
+            "metadata": {
+              "

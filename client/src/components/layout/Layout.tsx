@@ -64,7 +64,13 @@ const coreModules: NavItem[] = [
     icon: Heart,
     color: "medical-green"
   },
-
+  {
+    id: "sclc",
+    name: "SCLC Guidelines",
+    href: "/sclc",
+    icon: Stethoscope,
+    color: "medical-blue"
+  }
 ];
 
 const clinicalTools: NavItem[] = [

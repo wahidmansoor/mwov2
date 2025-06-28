@@ -45,6 +45,18 @@ OncoVista AI is a comprehensive medical-grade oncology platform providing AI-pow
 
 ## Recent Changes (June 28, 2025)
 
+### NCCN Version 4.2025 Small Cell Lung Cancer (SCLC) Integration (COMPLETED)
+- Successfully integrated comprehensive NCCN Version 4.2025 SCLC guidelines across all OncoVista modules
+- Created dedicated SCLC module with 6 comprehensive sections: Overview, Diagnosis, Staging, Treatment, Surveillance, and Calculators
+- Enhanced Clinical Tools module with SCLC-specific Carboplatin AUC calculator using Calvert formula
+- Enhanced Clinical Tools Red Flag Alerts with SCLC emergency protocols: SVCS, SIADH, Lambert-Eaton syndrome, brain metastases
+- Enhanced Inpatient module with NCCN Small Cell Lung Cancer inpatient management protocols (SCLC-1)
+- Integrated authentic NCCN v4.2025 treatment protocols including limited stage, extensive stage, and subsequent therapy options
+- Added comprehensive staging tables with AJCC TNM and VA Limited/Extensive classification systems
+- Implemented drug dosing protocols for cisplatin/etoposide, carboplatin/etoposide, atezolizumab, and durvalumab combinations
+- Added surveillance schedules differentiated by disease stage with specific imaging and follow-up protocols
+- Added SCLC module to navigation system and routing for seamless platform integration
+
 ### NCCN Version 3.2025 Colon Cancer Data Distribution (COMPLETED)
 - Successfully distributed comprehensive NCCN Version 3.2025 colon cancer clinical data across all 8 platform modules
 - Enhanced OPD module with colon cancer screening protocols, MSI/MMR testing, RAS/BRAF testing, and ctDNA monitoring guidelines

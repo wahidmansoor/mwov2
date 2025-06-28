@@ -306,6 +306,8 @@ export const insertBiomarkerGuidelinesSchema = createInsertSchema(biomarkerGuide
   updatedAt: true,
 });
 
+
+
 // Type exports
 export type User = typeof users.$inferSelect;
 export type InsertUser = z.infer<typeof insertUserSchema>;
@@ -327,3 +329,9 @@ export type ClinicalDecisionSupport = typeof clinicalDecisionSupport.$inferSelec
 export type InsertClinicalDecisionSupport = z.infer<typeof insertClinicalDecisionSupportSchema>;
 export type BiomarkerGuideline = typeof biomarkerGuidelines.$inferSelect;
 export type InsertBiomarkerGuideline = z.infer<typeof insertBiomarkerGuidelinesSchema>;
+export type SclcGuideline = typeof sclcGuidelines.$inferSelect;
+export type InsertSclcGuideline = z.infer<typeof insertSclcGuidelinesSchema>;
+export type SclcProtocol = typeof sclcProtocols.$inferSelect;
+export type InsertSclcProtocol = z.infer<typeof insertSclcProtocolsSchema>;
+export type SclcStagingTable = typeof sclcStagingTables.$inferSelect;
+export type InsertSclcStagingTable = z.infer<typeof insertSclcStagingTablesSchema>;
