@@ -19,6 +19,7 @@ import HandbookModule from "@/modules/handbook/HandbookModule";
 import MedicalOncologyView from "@/modules/handbook/MedicalOncologyView";
 import RadiationOncologyView from "@/modules/handbook/RadiationOncologyView";
 import PalliativeCareView from "@/modules/handbook/PalliativeCareView";
+import PalliativeCareModule from "@/modules/palliative/PalliativeCareModule";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -79,6 +80,12 @@ function Router() {
       <Route path="/analytics">
         <Layout>
           <AnalyticsModule />
+        </Layout>
+      </Route>
+      
+      <Route path="/palliative">
+        <Layout>
+          <PalliativeCareModule />
         </Layout>
       </Route>
       
