@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -149,48 +149,87 @@ const NCCNAdverseEvents = () => (
   </div>
 );
 
-// NCCN Breast Cancer Inpatient Protocols
+// NCCN Colon Cancer Inpatient Protocols
 const NCCNInpatientProtocols = () => (
   <div className="space-y-6">
-    <Card className="border-l-4 border-l-green-500">
+    <Card className="border-l-4 border-l-blue-500">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <Bed className="h-5 w-5 text-green-600" />
-          NCCN Breast Cancer Inpatient Management
+          <Bed className="h-5 w-5 text-blue-600" />
+          NCCN Colon Cancer Inpatient Management (COL-C)
         </CardTitle>
+        <CardDescription>Principles of Surgery and Locoregional Therapies - Version 3.2025</CardDescription>
       </CardHeader>
       <CardContent>
         <Accordion type="single" collapsible className="w-full">
-          <AccordionItem value="neoadjuvant-monitoring">
-            <AccordionTrigger>Neoadjuvant Therapy Monitoring (BINV-7)</AccordionTrigger>
+          <AccordionItem value="perioperative-management">
+            <AccordionTrigger>Perioperative Colon Cancer Management</AccordionTrigger>
             <AccordionContent>
               <div className="space-y-4">
-                <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200">
-                  <h4 className="font-semibold text-green-800 dark:text-green-300 mb-2">Pre-Treatment Assessment</h4>
+                <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200">
+                  <h4 className="font-semibold text-blue-800 dark:text-blue-300 mb-2">Pre-operative Assessment</h4>
                   <ul className="text-sm space-y-1">
-                    <li>• ECHO or MUGA if anthracycline planned</li>
-                    <li>• Baseline CBC, CMP, LFTs</li>
-                    <li>• Pregnancy test if applicable</li>
+                    <li>• Complete colonoscopy with biopsy</li>
+                    <li>• CT chest/abdomen/pelvis with IV contrast</li>
+                    <li>• CEA level baseline</li>
+                    <li>• CBC, comprehensive metabolic panel</li>
                     <li>• Performance status evaluation</li>
                   </ul>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded">
-                    <h5 className="font-medium text-sm mb-2">AC-T Regimen Monitoring</h5>
+                    <h5 className="font-medium text-sm mb-2">Surgical Planning</h5>
                     <ul className="text-xs space-y-1">
-                      <li>• Doxorubicin 60mg/m² + Cyclophosphamide 600mg/m²</li>
-                      <li>• q2-3 weeks × 4 cycles</li>
-                      <li>• Then Paclitaxel 80mg/m² weekly × 12</li>
-                      <li>• Monitor CBC weekly</li>
+                      <li>• Multidisciplinary team evaluation</li>
+                      <li>• Adequate lymph node harvest (≥12 nodes)</li>
+                      <li>• Consider en bloc resection for T4 tumors</li>
+                      <li>• Intraoperative assessment of liver</li>
                     </ul>
                   </div>
                   <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded">
-                    <h5 className="font-medium text-sm mb-2">TCH Regimen (HER2+)</h5>
+                    <h5 className="font-medium text-sm mb-2">Post-operative Monitoring</h5>
                     <ul className="text-xs space-y-1">
-                      <li>• Docetaxel 75mg/m² + Carboplatin AUC 6</li>
-                      <li>• Trastuzumab 8mg/kg → 6mg/kg</li>
-                      <li>• q3 weeks × 6 cycles</li>
-                      <li>• ECHO q3 months</li>
+                      <li>• Daily CBC and basic metabolic panel</li>
+                      <li>• Monitor for anastomotic leak</li>
+                      <li>• Early mobilization protocols</li>
+                      <li>• DVT prophylaxis per guidelines</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+          
+          <AccordionItem value="metastatic-management">
+            <AccordionTrigger>Metastatic Disease Management</AccordionTrigger>
+            <AccordionContent>
+              <div className="space-y-4">
+                <div className="p-4 bg-orange-50 dark:bg-orange-900/20 rounded-lg border border-orange-200">
+                  <h4 className="font-semibold text-orange-800 dark:text-orange-300 mb-2">Resectable Metastases</h4>
+                  <ul className="text-sm space-y-1">
+                    <li>• Multidisciplinary evaluation required</li>
+                    <li>• Consider neoadjuvant chemotherapy</li>
+                    <li>• Hepatic artery infusion for liver-limited disease</li>
+                    <li>• SBRT for oligometastatic disease</li>
+                  </ul>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="p-3 bg-green-50 dark:bg-green-900/20 rounded">
+                    <h5 className="font-medium text-sm mb-2">Liver Metastases</h5>
+                    <ul className="text-xs space-y-1">
+                      <li>• Consider hepatic resection if feasible</li>
+                      <li>• Thermal ablation for lesions ≤3 cm</li>
+                      <li>• Portal vein embolization for future liver remnant</li>
+                      <li>• Two-stage hepatectomy consideration</li>
+                    </ul>
+                  </div>
+                  <div className="p-3 bg-purple-50 dark:bg-purple-900/20 rounded">
+                    <h5 className="font-medium text-sm mb-2">Lung Metastases</h5>
+                    <ul className="text-xs space-y-1">
+                      <li>• Pulmonary resection if limited disease</li>
+                      <li>• SBRT for inoperable lesions</li>
+                      <li>• Consider simultaneous vs staged resection</li>
+                      <li>• Adequate pulmonary function assessment</li>
                     </ul>
                   </div>
                 </div>

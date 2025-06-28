@@ -130,6 +130,78 @@ const ClinicalCalculators = () => {
           </CardContent>
         </Card>
 
+        <Card className="border-l-4 border-l-blue-500">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Calculator className="h-5 w-5 text-blue-600" />
+              NCCN Colon Cancer Risk Calculator
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div>
+                  <label className="text-sm font-medium">T Stage</label>
+                  <Select>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select T stage" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="t1">T1 - Submucosa</SelectItem>
+                      <SelectItem value="t2">T2 - Muscularis propria</SelectItem>
+                      <SelectItem value="t3">T3 - Subserosa/perirectal tissue</SelectItem>
+                      <SelectItem value="t4">T4 - Adjacent organs/structures</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <label className="text-sm font-medium">N Stage</label>
+                  <Select>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select N stage" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="n0">N0 - No regional nodes</SelectItem>
+                      <SelectItem value="n1">N1 - 1-3 regional nodes</SelectItem>
+                      <SelectItem value="n2">N2 - 4+ regional nodes</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div>
+                  <label className="text-sm font-medium">MMR Status</label>
+                  <Select>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select MMR status" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="pmmr">pMMR/MSS (Proficient)</SelectItem>
+                      <SelectItem value="dmmr">dMMR/MSI-H (Deficient)</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <label className="text-sm font-medium">Grade</label>
+                  <Select>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select grade" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="well">Well differentiated</SelectItem>
+                      <SelectItem value="moderate">Moderately differentiated</SelectItem>
+                      <SelectItem value="poor">Poorly differentiated</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+              <Button className="w-full">
+                Calculate Risk & Recommendations
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+
         <Card className="border-l-4 border-l-green-500">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -303,7 +375,7 @@ const RedFlagAlerts = () => (
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <AlertTriangle className="h-5 w-5 text-red-600" />
-            Oncologic Emergencies
+            NCCN Colon Cancer Emergency Signs
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -311,32 +383,32 @@ const RedFlagAlerts = () => (
             <Alert className="bg-red-50 border-red-200">
               <AlertTriangle className="h-4 w-4 text-red-600" />
               <AlertDescription className="text-red-800">
-                <strong>Febrile Neutropenia</strong><br/>
-                Fever ≥38.3°C + ANC &lt;500. Start antibiotics within 1 hour.
+                <strong>Bowel Obstruction</strong><br/>
+                Abdominal pain, distension, vomiting: urgent imaging & surgery consult
               </AlertDescription>
             </Alert>
             
             <Alert className="bg-orange-50 border-orange-200">
               <Zap className="h-4 w-4 text-orange-600" />
               <AlertDescription className="text-orange-800">
-                <strong>Tumor Lysis Syndrome</strong><br/>
-                Hyperuricemia, hyperkalemia, hyperphosphatemia, hypocalcemia
+                <strong>GI Bleeding</strong><br/>
+                Melena, hematochezia, hematemesis: immediate CBC, type & cross
               </AlertDescription>
             </Alert>
             
             <Alert className="bg-purple-50 border-purple-200">
               <Droplets className="h-4 w-4 text-purple-600" />
               <AlertDescription className="text-purple-800">
-                <strong>Hypercalcemia</strong><br/>
-                Ca²⁺ &gt;12 mg/dL: IV hydration + bisphosphonate
+                <strong>Perforation</strong><br/>
+                Acute abdomen + fever: urgent CT scan & surgical evaluation
               </AlertDescription>
             </Alert>
             
             <Alert className="bg-blue-50 border-blue-200">
               <Shield className="h-4 w-4 text-blue-600" />
               <AlertDescription className="text-blue-800">
-                <strong>SVCS</strong><br/>
-                Superior vena cava syndrome: face/neck swelling, dyspnea
+                <strong>Liver Failure</strong><br/>
+                Jaundice + coagulopathy + encephalopathy: hepatology consult
               </AlertDescription>
             </Alert>
           </div>

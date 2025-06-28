@@ -26,13 +26,14 @@ export default function QualityOfLife() {
       icon: Activity,
       description: "Management of physical symptoms that impact daily functioning",
       color: "bg-red-50 border-red-200 dark:bg-red-900/20 dark:border-red-800",
-      symptoms: ["Pain", "Dyspnea", "Fatigue", "Nausea", "Anorexia", "Insomnia", "Constipation", "Weakness"],
+      symptoms: ["Pain", "Dyspnea", "Fatigue", "Nausea", "Anorexia", "Insomnia", "Constipation", "Weakness", "Bowel obstruction"],
       interventions: [
-        "WHO analgesic ladder for systematic pain management",
-        "Low-dose opioids (morphine 2.5-5mg PO) for dyspnea relief",
-        "Prophylactic laxatives with all opioid regimens",
-        "Antiemetics targeting specific nausea pathways",
-        "Sleep hygiene and non-pharmacological sleep aids"
+        "NCCN pain management protocols with morphine 5-15mg PO q4h for severe pain",
+        "Octreotide 150-300 mcg SC TID for malignant bowel obstruction",
+        "Prophylactic senna 8.6mg BID with all opioid regimens",
+        "5-HT3 antagonists (ondansetron 4-8mg q8h) for chemotherapy-induced nausea",
+        "Methylphenidate 5-10mg BID for cancer-related fatigue",
+        "Dexamethasone 4-8mg daily for appetite stimulation"
       ],
       assessment: ["Numeric rating scales (0-10)", "Edmonton Symptom Assessment Scale", "Memorial Symptom Assessment Scale"]
     },
