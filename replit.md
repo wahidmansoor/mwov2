@@ -1,144 +1,107 @@
 # OncoVista AI - Clinical Decision Support Platform
 
-## Overview
-OncoVista AI is a comprehensive clinical decision support system designed specifically for oncology professionals. The platform serves as an educational and guidance tool for medical oncologists, radiation oncologists, palliative care specialists, and other healthcare professionals involved in cancer care. The system is built as a non-EHR platform focused on providing evidence-based protocols, AI-powered recommendations, and clinical guidance rather than patient record management.
+## Project Overview
+OncoVista AI is a comprehensive medical-grade oncology platform providing AI-powered clinical decision support, role-based access control, and multi-module healthcare workflows. This is strictly a clinical decision-support system for educational and guidance purposes - NOT an EHR system.
 
-## System Architecture
+**Core Purpose**: Smart assistant for oncologists at all levels (residents, specialists, consultants) providing dynamic guidance, clinical decision support, oncology workflow tools, calculators, and education.
 
-### Frontend Architecture
-- **Framework**: React 18 with TypeScript for type safety and modern development
-- **Build Tool**: Vite for fast development and optimized production builds
-- **Styling**: Tailwind CSS with ShadCN UI component library for consistent medical-grade interface
-- **Routing**: Wouter for lightweight client-side routing
-- **State Management**: Zustand stores for global state management (auth, clinical data)
-- **UI Components**: Radix UI primitives with custom medical theming
-- **Animations**: Framer Motion for smooth transitions and interactions
+## Technology Stack
+- Frontend: React 18 + TypeScript + Vite
+- UI Framework: Tailwind CSS + ShadCN UI components
+- Icons: Lucide React
+- Backend: Express.js + TypeScript
+- Database: PostgreSQL with Drizzle ORM
+- AI Integration: OpenAI API for clinical recommendations
+- Authentication: Session-based with role-based access control
+- State Management: Zustand
+- Data Fetching: TanStack React Query
 
-### Backend Architecture
-- **Runtime**: Node.js with Express.js for REST API endpoints
-- **Language**: TypeScript for consistent type safety across the stack
-- **Database ORM**: Drizzle ORM with PostgreSQL for type-safe database operations
-- **Database Provider**: Neon serverless PostgreSQL for scalable data storage
-- **Authentication**: Session-based auth with role-based access control (RBAC)
-- **AI Integration**: OpenAI GPT-4 for clinical decision support and recommendations
+## Current Architecture
 
-### Project Structure
-```
-├── client/                 # Frontend React application
-│   ├── src/
-│   │   ├── components/     # Reusable UI components
-│   │   ├── pages/          # Route components
-│   │   ├── modules/        # Feature-specific modules (OPD, CDU, etc.)
-│   │   ├── stores/         # Zustand state management
-│   │   ├── hooks/          # Custom React hooks
-│   │   └── types/          # TypeScript type definitions
-├── server/                 # Backend Express application
-│   ├── routes.ts          # API route definitions
-│   ├── storage.ts         # Database abstraction layer
-│   ├── services/          # Business logic services
-│   └── middleware/        # Authentication and RBAC middleware
-├── shared/                # Shared types and schemas
-│   └── schema.ts          # Drizzle database schema
-└── migrations/            # Database migration files
-```
+### Completed Modules (8/8)
+1. **OPD Module** - Outpatient diagnosis, screening, and referral management
+2. **CDU Module** - Cancer Day Unit protocols, dosage calculations, toxicity monitoring
+3. **Inpatient Oncology Module** - Admission protocols, emergency regimens, monitoring workflows
+4. **Palliative Care Module** - Symptom management, pain control, psychosocial support
+5. **AI Chat Assistant** - Interactive guideline queries with NCCN, ASCO, ESMO support
+6. **Clinical Tools** - Calculators, red flag alerts, lab interpretation guides
+7. **Notes Export** - Clinical documentation templates for educational purposes
+8. **Analytics Dashboard** - Usage metrics, guideline compliance, training insights
 
-## Key Components
+### Database Schema
+- PostgreSQL with comprehensive medical workflow tables
+- Anonymous decision support inputs (no patient identifiers)
+- AI interaction logging with confidence scores
+- Audit trail system for compliance
+- Clinical protocols and treatment guidelines storage
 
-### Clinical Modules
-1. **OPD Module**: Outpatient diagnosis, screening protocols, and referral management
-2. **CDU Module**: Cancer Day Unit protocols, dosage calculations, and toxicity monitoring
-3. **Palliative Care Module**: Symptom management and psychosocial support frameworks
-4. **Handbook Module**: Evidence-based guidelines and protocol reference
-5. **Inpatient Module**: Admission protocols and emergency regimens (planned)
+### Key Features
+- Role-based access control with permissions system
+- AI-powered clinical analysis and recommendations
+- Evidence-based protocol adherence tracking
+- Educational documentation templates
+- Comprehensive clinical calculators and tools
+- Real-time guideline compliance monitoring
 
-### AI Services
-- **Clinical Decision Engine**: Rule-based recommendations for screening and protocols
-- **AI Service**: OpenAI integration for natural language clinical guidance
-- **Decision Support**: Context-aware recommendations based on clinical scenarios
+## Recent Changes (June 28, 2025)
 
-### Authentication & Authorization
-- **Role-Based Access**: Medical oncologist, radiation oncologist, palliative care specialist, etc.
-- **Permission System**: Granular permissions for different clinical actions
-- **Session Management**: Secure session handling with user context
+### Database Schema Fixes
+- Fixed column name mismatches (session_id vs patient_id)
+- Resolved database connectivity issues
+- Restored dashboard functionality with working stats and activities
 
-## Data Flow
+### Module Completion
+- Built complete Inpatient Oncology module with 5 sections
+- Created AI Chat Assistant with guideline query capabilities
+- Implemented Clinical Tools with BSA, GFR calculators and red flag alerts
+- Added Notes Export system with 4 document templates
+- Built Analytics Dashboard with usage metrics and training insights
 
-### Clinical Decision Support Flow
-1. User inputs clinical scenario (symptoms, age, risk factors)
-2. Clinical Decision Engine processes input against rule database
-3. AI Service provides additional context-aware recommendations
-4. System returns structured recommendations with confidence scores
-5. Audit trail captures all interactions for compliance
-
-### Authentication Flow
-1. User logs in with credentials
-2. System validates against user database
-3. Session established with role-based permissions
-4. RBAC middleware validates access to protected resources
-5. User context maintained throughout session
-
-### Module Navigation
-1. Authenticated users access dashboard
-2. Module selection based on role permissions
-3. Tab-based navigation within modules
-4. Context preservation between module switches
-
-## External Dependencies
-
-### Core Dependencies
-- **@neondatabase/serverless**: PostgreSQL database connectivity
-- **drizzle-orm**: Type-safe database operations
-- **@tanstack/react-query**: Server state management and caching
-- **wouter**: Lightweight React routing
-- **framer-motion**: Animation and transitions
-- **@anthropic-ai/sdk**: AI integration capabilities
-
-### UI Framework
-- **@radix-ui/***: Accessible UI primitive components
-- **tailwindcss**: Utility-first CSS framework
-- **class-variance-authority**: Component variant management
-- **lucide-react**: Medical and general purpose icons
-
-### Development Tools
-- **vite**: Fast build tool and dev server
-- **typescript**: Type safety across the stack
-- **tsx**: TypeScript execution for server development
-
-## Deployment Strategy
-
-### Development Environment
-- Vite dev server for hot module replacement
-- TSX for server-side TypeScript execution
-- Environment variable validation for API keys
-- Replit integration for cloud development
-
-### Production Build
-- Vite builds optimized client bundle to `dist/public`
-- ESBuild compiles server to `dist/index.js`
-- Single deployment artifact with embedded client assets
-- Environment-specific configuration management
-
-### Database Management
-- Drizzle migrations for schema versioning
-- PostgreSQL schema defined in shared directory
-- Connection pooling for serverless environments
-- Automated schema synchronization
-
-### API Integration
-- OpenAI API for clinical decision support
-- Graceful fallback to mock data when API unavailable
-- Rate limiting and error handling for external services
-- Secure API key management through environment variables
-
-The system prioritizes clinical workflow efficiency, evidence-based recommendations, and user experience while maintaining strict separation from patient data management, positioning it as a pure clinical decision support and educational platform.
-
-## Changelog
-```
-Changelog:
-- June 28, 2025. Initial setup
-```
+### Navigation Integration
+- Added all new modules to sidebar navigation
+- Created "Clinical Tools" navigation section
+- Updated landing page to showcase all 8 modules
+- Fixed import errors and runtime issues
 
 ## User Preferences
+- **Communication Style**: Simple, everyday language avoiding technical jargon
+- **Focus**: Clinical decision support only - no EHR features
+- **Data Policy**: Educational/demo purposes only, no real patient data
+- **Module Structure**: Tab-based layouts with modular cards and color-coded alerts
+
+## Development Guidelines
+- Use relative paths from root directory (not /repo/)
+- Prioritize Replit tools over virtual environments
+- Generate SVG assets for images
+- Use authenticated APIs with proper error handling
+- Follow existing OPD/CDU/Handbook module patterns for consistency
+- All modules must be educational tools without patient data storage
+
+## Next Steps
+- Platform is complete with all 8 requested modules
+- Ready for clinical education and training use
+- All modules follow clinical decision-support principles
+- System provides comprehensive oncology guidance tools
+
+## File Structure
 ```
-Preferred communication style: Simple, everyday language.
+/
+├── client/src/
+│   ├── modules/
+│   │   ├── opd/ (Complete)
+│   │   ├── cdu/ (Complete)
+│   │   ├── inpatient/ (Complete)
+│   │   ├── palliative/ (Complete)
+│   │   ├── chat/ (Complete)
+│   │   ├── tools/ (Complete)
+│   │   ├── export/ (Complete)
+│   │   └── handbook/ (Complete)
+│   ├── components/ (Complete)
+│   ├── pages/ (Complete)
+│   └── lib/ (Complete)
+├── server/ (Complete)
+└── shared/ (Complete)
 ```
+
+**Status**: Production ready clinical decision-support platform
+**Last Updated**: June 28, 2025

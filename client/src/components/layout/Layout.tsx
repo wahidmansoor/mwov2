@@ -15,6 +15,9 @@ import {
   Bed,
   Book,
   BarChart3,
+  MessageCircle,
+  Calculator,
+  FileText,
   Bell,
   User
 } from "lucide-react";
@@ -48,6 +51,13 @@ const coreModules: NavItem[] = [
     color: "medical-purple"
   },
   {
+    id: "inpatient",
+    name: "Inpatient",
+    href: "/inpatient",
+    icon: Bed,
+    color: "medical-orange"
+  },
+  {
     id: "palliative",
     name: "Palliative Care",
     href: "/palliative",
@@ -55,6 +65,30 @@ const coreModules: NavItem[] = [
     color: "medical-green"
   },
 
+];
+
+const clinicalTools: NavItem[] = [
+  {
+    id: "chat",
+    name: "AI Assistant",
+    href: "/chat",
+    icon: MessageCircle,
+    color: "blue-400"
+  },
+  {
+    id: "tools",
+    name: "Clinical Tools",
+    href: "/tools",
+    icon: Calculator,
+    color: "purple-400"
+  },
+  {
+    id: "export",
+    name: "Notes Export",
+    href: "/export",
+    icon: FileText,
+    color: "green-400"
+  }
 ];
 
 const resources: NavItem[] = [
@@ -142,6 +176,26 @@ function Sidebar({ className = "" }: { className?: string }) {
             </div>
             <div className="space-y-2">
               {coreModules.map((item) => (
+                <Button
+                  key={item.id}
+                  variant={isActive(item.href) ? "default" : "ghost"}
+                  onClick={() => setLocation(item.href)}
+                  className="w-full justify-start"
+                >
+                  <item.icon className={`w-4 h-4 mr-3 ${isActive(item.href) ? 'text-white' : `text-${item.color}`}`} />
+                  {item.name}
+                </Button>
+              ))}
+            </div>
+          </div>
+
+          {/* Clinical Tools */}
+          <div>
+            <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">
+              Clinical Tools
+            </div>
+            <div className="space-y-2">
+              {clinicalTools.map((item) => (
                 <Button
                   key={item.id}
                   variant={isActive(item.href) ? "default" : "ghost"}

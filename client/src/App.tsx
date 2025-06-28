@@ -10,6 +10,11 @@ import Layout from "@/components/layout/Layout";
 import OPDModule from "@/modules/opd/OPDModule";
 import CDUModule from "@/modules/cdu/CDUModule";
 import PalliativeModule from "@/modules/palliative/PalliativeModule";
+import InpatientModule from "@/modules/inpatient/InpatientModule";
+import ChatAssistant from "@/modules/chat/ChatAssistant";
+import ToolsBar from "@/modules/tools/ToolsBar";
+import NotesExport from "@/modules/export/NotesExport";
+import AnalyticsModule from "@/modules/analytics/AnalyticsModule";
 import HandbookModule from "@/modules/handbook/HandbookModule";
 import NotFound from "@/pages/not-found";
 
@@ -41,6 +46,36 @@ function Router() {
       <Route path="/palliative">
         <Layout>
           <PalliativeModule />
+        </Layout>
+      </Route>
+      
+      <Route path="/inpatient">
+        <Layout>
+          <InpatientModule />
+        </Layout>
+      </Route>
+      
+      <Route path="/chat">
+        <Layout>
+          <ChatAssistant />
+        </Layout>
+      </Route>
+      
+      <Route path="/tools">
+        <Layout>
+          <ToolsBar />
+        </Layout>
+      </Route>
+      
+      <Route path="/export">
+        <Layout>
+          <NotesExport />
+        </Layout>
+      </Route>
+      
+      <Route path="/analytics">
+        <Layout>
+          <AnalyticsModule />
         </Layout>
       </Route>
       

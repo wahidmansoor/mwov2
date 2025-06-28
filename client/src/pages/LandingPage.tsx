@@ -17,7 +17,8 @@ import {
   UserCheck,
   ChartLine,
   ArrowRight,
-  CheckCircle
+  CheckCircle,
+  Activity
 } from "lucide-react";
 
 const modules = [
@@ -38,6 +39,14 @@ const modules = [
     href: "/cdu"
   },
   {
+    id: "inpatient",
+    name: "Inpatient Oncology",
+    description: "Admission protocols, emergency regimens, and comprehensive inpatient care workflows.",
+    icon: Bed,
+    color: "medical-orange",
+    href: "/inpatient"
+  },
+  {
     id: "palliative",
     name: "Palliative Care",
     description: "Symptom management, pain control, and psychosocial support frameworks.",
@@ -45,7 +54,22 @@ const modules = [
     color: "medical-green",
     href: "/palliative"
   },
-
+  {
+    id: "chat",
+    name: "AI Assistant",
+    description: "Interactive clinical guidance with NCCN, ASCO, and ESMO guidelines support.",
+    icon: Brain,
+    color: "blue-500",
+    href: "/chat"
+  },
+  {
+    id: "tools",
+    name: "Clinical Tools",
+    description: "Calculators, red flag alerts, lab interpretation, and quick reference guides.",
+    icon: Activity,
+    color: "purple-500",
+    href: "/tools"
+  }
 ];
 
 const features = [
