@@ -56,6 +56,14 @@ OncoVista AI is a comprehensive medical-grade oncology platform providing AI-pow
 - Implemented Clinical Tools with BSA, GFR calculators and red flag alerts
 - Added Notes Export system with 4 document templates
 - Built Analytics Dashboard with usage metrics and training insights
+- Created comprehensive PalliativeCareModule with 5 clinical sections
+
+### CDU Module Enhancement
+- Integrated comprehensive CD protocols database with real clinical data
+- Created cdProtocols table with full schema (27 fields including dosing, monitoring, contraindications)
+- Enhanced CDU Treatment Protocols segment with database-driven functionality
+- Added protocol search, filtering, and detailed view capabilities
+- Implemented AC-T breast cancer protocol as reference data from SQL file
 
 ### Navigation Integration
 - Added all new modules to sidebar navigation

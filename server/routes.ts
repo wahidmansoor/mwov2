@@ -201,6 +201,50 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // CD Protocols routes
+  app.get("/api/cd-protocols", authMiddleware, async (req, res) => {
+    try {
+      const { tumourGroup, treatmentIntent, code } = req.query;
+      const protocols = await storage.getCdProtocols({
+        tumourGroup: tumourGroup as string,
+        treatmentIntent: treatmentIntent as string,
+        code: code as string
+      });
+      res.json(protocols);
+    } catch (error) {
+      console.error("Failed to get CD protocols:", error);
+      res.status(500).json({ message: "Failed to get CD protocols" });
+    }
+  });
+
+  app.get("/api/cd-protocols/:id", authMiddleware, async (req, res) => {
+    try {
+      const protocol = await storage.getCdProtocol(req.params.id);
+      if (protocol) {
+        res.json(protocol);
+      } else {
+        res.status(404).json({ message: "Protocol not found" });
+      }
+    } catch (error) {
+      console.error("Failed to get CD protocol:", error);
+      res.status(500).json({ message: "Failed to get CD protocol" });
+    }
+  });
+
+  app.get("/api/cd-protocols/code/:code", authMiddleware, async (req, res) => {
+    try {
+      const protocol = await storage.getCdProtocolByCode(req.params.code);
+      if (protocol) {
+        res.json(protocol);
+      } else {
+        res.status(404).json({ message: "Protocol not found" });
+      }
+    } catch (error) {
+      console.error("Failed to get CD protocol by code:", error);
+      res.status(500).json({ message: "Failed to get CD protocol" });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }

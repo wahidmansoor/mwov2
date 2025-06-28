@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
@@ -8,6 +9,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Progress } from "@/components/ui/progress";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
 import { 
   Syringe, 
   Calculator, 
@@ -20,174 +24,353 @@ import {
   Activity,
   Heart,
   Droplets,
-  Brain
+  Brain,
+  Search,
+  Eye,
+  Download,
+  Filter
 } from "lucide-react";
 
-const TreatmentProtocols = () => (
-  <div className="space-y-6">
-    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <Card className="border-l-4 border-l-blue-500">
-        <CardHeader className="pb-3">
-          <CardTitle className="flex items-center gap-2 text-lg">
-            <FileText className="h-5 w-5 text-blue-600" />
-            Active Protocols
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-3">
-            {[
-              { name: "FOLFOX", indication: "Colorectal", cycles: "12", status: "active" },
-              { name: "AC-T", indication: "Breast", cycles: "8", status: "active" },
-              { name: "Carboplatin-Paclitaxel", indication: "Lung", cycles: "6", status: "review" }
-            ].map((protocol, i) => (
-              <div key={i} className="p-3 border rounded-lg">
+interface CdProtocol {
+  id: string;
+  code: string;
+  tumourGroup: string;
+  tumourSupergroup?: string;
+  treatmentIntent: string;
+  summary: string;
+  eligibility: any;
+  precautions: string[];
+  treatment: any;
+  tests?: string[];
+  doseModifications?: any;
+  referenceList?: string[];
+  cycleInfo?: any;
+  preMedications?: any;
+  postMedications?: any;
+  supportiveCare?: any;
+  rescueAgents?: any;
+  monitoring?: any;
+  toxicityMonitoring?: any;
+  interactions?: any;
+  contraindications?: string[];
+  version: string;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+const ProtocolDetailDialog = ({ protocol }: { protocol: CdProtocol }) => (
+  <DialogContent className="max-w-4xl max-h-[90vh]">
+    <DialogHeader>
+      <DialogTitle className="flex items-center gap-2">
+        <FileText className="h-5 w-5" />
+        {protocol.code} - {protocol.tumourGroup} Cancer Protocol
+      </DialogTitle>
+    </DialogHeader>
+    <ScrollArea className="max-h-[70vh]">
+      <div className="space-y-6 p-4">
+        <div className="grid md:grid-cols-2 gap-4">
+          <div>
+            <h4 className="font-medium mb-2">Treatment Intent</h4>
+            <Badge className="bg-blue-100 text-blue-800">{protocol.treatmentIntent}</Badge>
+          </div>
+          <div>
+            <h4 className="font-medium mb-2">Version</h4>
+            <span className="text-sm">{protocol.version}</span>
+          </div>
+        </div>
+
+        <div>
+          <h4 className="font-medium mb-2">Summary</h4>
+          <p className="text-sm text-muted-foreground">{protocol.summary}</p>
+        </div>
+
+        <Separator />
+
+        <div className="grid md:grid-cols-2 gap-6">
+          <div>
+            <h4 className="font-medium mb-3 flex items-center gap-2">
+              <Shield className="h-4 w-4 text-orange-500" />
+              Eligibility Criteria
+            </h4>
+            {protocol.eligibility?.summary && (
+              <div className="space-y-2">
+                {protocol.eligibility.summary.map((item: string, i: number) => (
+                  <div key={i} className="text-sm p-2 bg-green-50 dark:bg-green-900/20 rounded">
+                    {item}
+                  </div>
+                ))}
+              </div>
+            )}
+            {protocol.eligibility?.criteria && (
+              <div className="mt-3 space-y-1">
+                {Object.entries(protocol.eligibility.criteria).map(([key, value], i) => (
+                  <div key={i} className="text-sm">
+                    <span className="font-medium">{key}:</span> {value as string}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <div>
+            <h4 className="font-medium mb-3 flex items-center gap-2">
+              <AlertTriangle className="h-4 w-4 text-red-500" />
+              Precautions
+            </h4>
+            <div className="space-y-2">
+              {protocol.precautions?.map((precaution: string, i: number) => (
+                <div key={i} className="text-sm p-2 bg-amber-50 dark:bg-amber-900/20 rounded border-l-2 border-amber-400">
+                  {precaution}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <Separator />
+
+        <div>
+          <h4 className="font-medium mb-3 flex items-center gap-2">
+            <Syringe className="h-4 w-4 text-blue-500" />
+            Treatment Regimen
+          </h4>
+          {protocol.treatment?.drugs && (
+            <div className="space-y-3">
+              <div className="grid gap-3">
+                {protocol.treatment.drugs.map((drug: any, i: number) => (
+                  <div key={i} className="p-3 border rounded-lg bg-blue-50 dark:bg-blue-900/20">
+                    <div className="font-medium">{drug.name}</div>
+                    <div className="text-sm text-muted-foreground">
+                      {drug.dose} • {drug.route} • {drug.schedule}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {protocol.treatment.cycles && (
+                <div className="p-3 bg-gray-50 dark:bg-gray-900/20 rounded">
+                  <span className="font-medium">Cycles:</span> {protocol.treatment.cycles}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+
+        {protocol.cycleInfo && (
+          <div>
+            <h4 className="font-medium mb-3 flex items-center gap-2">
+              <Clock className="h-4 w-4 text-purple-500" />
+              Cycle Information
+            </h4>
+            <div className="grid md:grid-cols-3 gap-3">
+              {protocol.cycleInfo.cycle_length && (
+                <div className="p-3 border rounded">
+                  <div className="font-medium text-sm">Cycle Length</div>
+                  <div className="text-sm text-muted-foreground">{protocol.cycleInfo.cycle_length}</div>
+                </div>
+              )}
+              {protocol.cycleInfo.total_cycles && (
+                <div className="p-3 border rounded">
+                  <div className="font-medium text-sm">Total Cycles</div>
+                  <div className="text-sm text-muted-foreground">{protocol.cycleInfo.total_cycles}</div>
+                </div>
+              )}
+              {protocol.cycleInfo.administration_time && (
+                <div className="p-3 border rounded">
+                  <div className="font-medium text-sm">Administration Time</div>
+                  <div className="text-sm text-muted-foreground">{protocol.cycleInfo.administration_time}</div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {protocol.monitoring && (
+          <div>
+            <h4 className="font-medium mb-3 flex items-center gap-2">
+              <Activity className="h-4 w-4 text-green-500" />
+              Monitoring Requirements
+            </h4>
+            <div className="space-y-3">
+              {Object.entries(protocol.monitoring).map(([key, tests], i) => (
+                <div key={i} className="p-3 border rounded">
+                  <div className="font-medium text-sm capitalize">{key.replace('_', ' ')}</div>
+                  <div className="text-sm text-muted-foreground mt-1">
+                    {Array.isArray(tests) ? tests.join(', ') : tests as string}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {protocol.contraindications && protocol.contraindications.length > 0 && (
+          <div>
+            <h4 className="font-medium mb-3 flex items-center gap-2">
+              <AlertTriangle className="h-4 w-4 text-red-600" />
+              Contraindications
+            </h4>
+            <div className="space-y-2">
+              {protocol.contraindications.map((contraindication: string, i: number) => (
+                <div key={i} className="text-sm p-2 bg-red-50 dark:bg-red-900/20 rounded border-l-2 border-red-500">
+                  {contraindication}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </ScrollArea>
+  </DialogContent>
+);
+
+const TreatmentProtocols = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedTumourGroup, setSelectedTumourGroup] = useState("");
+  const [selectedIntent, setSelectedIntent] = useState("");
+
+  const { data: protocols = [], isLoading } = useQuery<CdProtocol[]>({
+    queryKey: ['/api/cd-protocols', selectedTumourGroup, selectedIntent],
+    queryFn: async () => {
+      const params = new URLSearchParams();
+      if (selectedTumourGroup) params.append('tumourGroup', selectedTumourGroup);
+      if (selectedIntent) params.append('treatmentIntent', selectedIntent);
+      
+      const response = await fetch(`/api/cd-protocols?${params}`);
+      if (!response.ok) throw new Error('Failed to fetch protocols');
+      return response.json();
+    }
+  });
+
+  const filteredProtocols = protocols.filter(protocol =>
+    protocol.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    protocol.tumourGroup.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    protocol.summary.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const tumourGroups = Array.from(new Set(protocols.map(p => p.tumourGroup)));
+  const treatmentIntents = Array.from(new Set(protocols.map(p => p.treatmentIntent)));
+
+  return (
+    <div className="space-y-6">
+      <div className="grid md:grid-cols-4 gap-4">
+        <div className="relative">
+          <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+          <Input
+            placeholder="Search protocols..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="pl-9"
+          />
+        </div>
+        
+        <Select value={selectedTumourGroup} onValueChange={setSelectedTumourGroup}>
+          <SelectTrigger>
+            <SelectValue placeholder="All cancer types" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="">All cancer types</SelectItem>
+            {tumourGroups.map(group => (
+              <SelectItem key={group} value={group}>{group}</SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+
+        <Select value={selectedIntent} onValueChange={setSelectedIntent}>
+          <SelectTrigger>
+            <SelectValue placeholder="All intents" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="">All intents</SelectItem>
+            {treatmentIntents.map(intent => (
+              <SelectItem key={intent} value={intent}>{intent}</SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+
+        <Button 
+          variant="outline" 
+          onClick={() => {
+            setSearchTerm("");
+            setSelectedTumourGroup("");
+            setSelectedIntent("");
+          }}
+        >
+          <Filter className="h-4 w-4 mr-2" />
+          Clear Filters
+        </Button>
+      </div>
+
+      {isLoading ? (
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {[1, 2, 3].map(i => (
+            <Card key={i} className="animate-pulse">
+              <CardHeader>
+                <div className="h-4 bg-gray-300 rounded w-3/4"></div>
+                <div className="h-3 bg-gray-200 rounded w-1/2"></div>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2">
+                  <div className="h-3 bg-gray-200 rounded"></div>
+                  <div className="h-3 bg-gray-200 rounded w-2/3"></div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      ) : (
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {filteredProtocols.map((protocol) => (
+            <Card key={protocol.id} className="border-l-4 border-l-blue-500 hover:shadow-md transition-shadow">
+              <CardHeader className="pb-3">
                 <div className="flex justify-between items-start mb-2">
-                  <h4 className="font-medium">{protocol.name}</h4>
-                  <Badge className={protocol.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-amber-100 text-amber-800'}>
+                  <CardTitle className="text-lg">{protocol.code}</CardTitle>
+                  <Badge className="bg-green-100 text-green-800">
                     {protocol.status}
                   </Badge>
                 </div>
-                <p className="text-sm text-muted-foreground">{protocol.indication} • {protocol.cycles} cycles</p>
-                <Button className="w-full mt-2" size="sm" variant="outline">
-                  View Protocol
-                </Button>
-              </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
+                <CardDescription>
+                  {protocol.tumourGroup} • {protocol.treatmentIntent}
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground mb-4 line-clamp-3">
+                  {protocol.summary}
+                </p>
+                <div className="flex gap-2">
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button className="flex-1" size="sm">
+                        <Eye className="h-4 w-4 mr-2" />
+                        View Details
+                      </Button>
+                    </DialogTrigger>
+                    <ProtocolDetailDialog protocol={protocol} />
+                  </Dialog>
+                  <Button variant="outline" size="sm">
+                    <Download className="h-4 w-4" />
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      )}
 
-      <Card className="border-l-4 border-l-purple-500">
-        <CardHeader className="pb-3">
-          <CardTitle className="flex items-center gap-2 text-lg">
-            <Zap className="h-5 w-5 text-purple-600" />
-            Quick Start
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            <div>
-              <label className="text-sm font-medium">Cancer Type</label>
-              <Select>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select cancer type" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="breast">Breast Cancer</SelectItem>
-                  <SelectItem value="lung">Lung Cancer</SelectItem>
-                  <SelectItem value="colorectal">Colorectal Cancer</SelectItem>
-                  <SelectItem value="lymphoma">Lymphoma</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div>
-              <label className="text-sm font-medium">Stage</label>
-              <Select>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select stage" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="early">Early Stage</SelectItem>
-                  <SelectItem value="locally-advanced">Locally Advanced</SelectItem>
-                  <SelectItem value="metastatic">Metastatic</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <Button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700">
-              Find Protocols
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
-
-      <Card className="border-l-4 border-l-green-500">
-        <CardHeader className="pb-3">
-          <CardTitle className="flex items-center gap-2 text-lg">
-            <Activity className="h-5 w-5 text-green-600" />
-            Today's Schedule
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-3">
-            <div className="p-3 bg-blue-50 rounded-lg">
-              <p className="font-medium text-sm">09:00 - Cycle 3 Day 1</p>
-              <p className="text-xs text-muted-foreground">FOLFOX Protocol</p>
-            </div>
-            <div className="p-3 bg-green-50 rounded-lg">
-              <p className="font-medium text-sm">11:30 - Pre-medications</p>
-              <p className="text-xs text-muted-foreground">AC Protocol Day 1</p>
-            </div>
-            <div className="p-3 bg-amber-50 rounded-lg">
-              <p className="font-medium text-sm">14:00 - Follow-up Labs</p>
-              <p className="text-xs text-muted-foreground">Carboplatin monitoring</p>
-            </div>
-            <Button variant="outline" className="w-full">
-              View Full Schedule
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
+      {filteredProtocols.length === 0 && !isLoading && (
+        <Card className="text-center py-8">
+          <CardContent>
+            <FileText className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+            <h3 className="font-medium mb-2">No protocols found</h3>
+            <p className="text-sm text-muted-foreground">
+              Try adjusting your search criteria or filters
+            </p>
+          </CardContent>
+        </Card>
+      )}
     </div>
-
-    <Card>
-      <CardHeader>
-        <CardTitle>Protocol Library</CardTitle>
-        <CardDescription>Evidence-based treatment protocols by indication</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <Accordion type="single" collapsible>
-          <AccordionItem value="breast">
-            <AccordionTrigger>Breast Cancer Protocols</AccordionTrigger>
-            <AccordionContent>
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="p-4 border rounded-lg">
-                  <h4 className="font-medium mb-2">AC-T (Adjuvant)</h4>
-                  <p className="text-sm text-muted-foreground mb-3">
-                    Doxorubicin + Cyclophosphamide → Paclitaxel
-                  </p>
-                  <div className="text-xs space-y-1">
-                    <p>• 4 cycles AC q2-3 weeks</p>
-                    <p>• 4 cycles Paclitaxel weekly</p>
-                    <p>• Duration: ~4-5 months</p>
-                  </div>
-                </div>
-                <div className="p-4 border rounded-lg">
-                  <h4 className="font-medium mb-2">TCH (HER2+)</h4>
-                  <p className="text-sm text-muted-foreground mb-3">
-                    Docetaxel + Carboplatin + Trastuzumab
-                  </p>
-                  <div className="text-xs space-y-1">
-                    <p>• 6 cycles q3 weeks</p>
-                    <p>• Trastuzumab continuation</p>
-                    <p>• Duration: 1 year total</p>
-                  </div>
-                </div>
-              </div>
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="lung">
-            <AccordionTrigger>Lung Cancer Protocols</AccordionTrigger>
-            <AccordionContent>
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="p-4 border rounded-lg">
-                  <h4 className="font-medium mb-2">Carboplatin-Paclitaxel</h4>
-                  <p className="text-sm text-muted-foreground mb-3">
-                    Standard first-line NSCLC
-                  </p>
-                  <div className="text-xs space-y-1">
-                    <p>• 4-6 cycles q3 weeks</p>
-                    <p>• Maintenance options</p>
-                    <p>• PD-L1 combinations</p>
-                  </div>
-                </div>
-              </div>
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
-      </CardContent>
-    </Card>
-  </div>
-);
+  );
+};
 
 const DosageCalculator = () => {
   const [height, setHeight] = useState("");

@@ -5,6 +5,7 @@ import {
   aiInteractions, 
   auditLog, 
   treatmentProtocols,
+  cdProtocols,
   type User, 
   type InsertUser,
   type DecisionSupportInput,
@@ -14,6 +15,8 @@ import {
   type AiInteraction,
   type InsertAiInteraction,
   type TreatmentProtocol,
+  type CdProtocol,
+  type InsertCdProtocol,
   type AuditLogEntry
 } from "@shared/schema";
 import { db } from "./db";
@@ -51,6 +54,13 @@ export interface IStorage {
   // Treatment protocols
   getTreatmentProtocols(filters?: { tumourGroup?: string }): Promise<TreatmentProtocol[]>;
   getTreatmentProtocol(id: string): Promise<TreatmentProtocol | undefined>;
+  
+  // CD protocols (Cancer Day Unit treatment protocols)
+  getCdProtocols(filters?: { tumourGroup?: string; treatmentIntent?: string; code?: string }): Promise<CdProtocol[]>;
+  getCdProtocol(id: string): Promise<CdProtocol | undefined>;
+  getCdProtocolByCode(code: string): Promise<CdProtocol | undefined>;
+  createCdProtocol(protocol: InsertCdProtocol): Promise<CdProtocol>;
+  updateCdProtocol(id: string, updates: Partial<CdProtocol>): Promise<CdProtocol | undefined>;
   
   // Dashboard data
   getDashboardStats(): Promise<{
@@ -289,6 +299,50 @@ export class DatabaseStorage implements IStorage {
     return activities.sort((a, b) => 
       new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
     ).slice(0, 10);
+  }
+
+  // CD protocols implementation
+  async getCdProtocols(filters?: { tumourGroup?: string; treatmentIntent?: string; code?: string }): Promise<CdProtocol[]> {
+    let query = db.select().from(cdProtocols);
+    
+    if (filters?.tumourGroup) {
+      query = query.where(eq(cdProtocols.tumourGroup, filters.tumourGroup));
+    }
+    if (filters?.treatmentIntent) {
+      query = query.where(eq(cdProtocols.treatmentIntent, filters.treatmentIntent));
+    }
+    if (filters?.code) {
+      query = query.where(eq(cdProtocols.code, filters.code));
+    }
+    
+    return await query;
+  }
+
+  async getCdProtocol(id: string): Promise<CdProtocol | undefined> {
+    const [protocol] = await db.select().from(cdProtocols).where(eq(cdProtocols.id, id));
+    return protocol || undefined;
+  }
+
+  async getCdProtocolByCode(code: string): Promise<CdProtocol | undefined> {
+    const [protocol] = await db.select().from(cdProtocols).where(eq(cdProtocols.code, code));
+    return protocol || undefined;
+  }
+
+  async createCdProtocol(insertProtocol: InsertCdProtocol): Promise<CdProtocol> {
+    const [protocol] = await db
+      .insert(cdProtocols)
+      .values(insertProtocol)
+      .returning();
+    return protocol;
+  }
+
+  async updateCdProtocol(id: string, updates: Partial<CdProtocol>): Promise<CdProtocol | undefined> {
+    const [protocol] = await db
+      .update(cdProtocols)
+      .set(updates)
+      .where(eq(cdProtocols.id, id))
+      .returning();
+    return protocol || undefined;
   }
 }
 

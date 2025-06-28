@@ -125,6 +125,38 @@ export const symptomManagement = pgTable("symptom_management", {
   updatedAt: timestamp("updated_at").defaultNow(),
 });
 
+// CD (Cancer Day Unit) protocols - comprehensive treatment protocols
+export const cdProtocols = pgTable("cd_protocols", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  code: varchar("code", { length: 50 }).notNull().unique(),
+  tumourGroup: varchar("tumour_group", { length: 100 }).notNull(),
+  tumourSupergroup: varchar("tumour_supergroup", { length: 100 }),
+  treatmentIntent: varchar("treatment_intent", { length: 50 }).notNull(),
+  summary: text("summary").notNull(),
+  eligibility: jsonb("eligibility").notNull(),
+  precautions: jsonb("precautions").notNull(),
+  treatment: jsonb("treatment").notNull(),
+  tests: jsonb("tests"),
+  doseModifications: jsonb("dose_modifications"),
+  referenceList: jsonb("reference_list"),
+  cycleInfo: jsonb("cycle_info"),
+  preMedications: jsonb("pre_medications"),
+  postMedications: jsonb("post_medications"),
+  supportiveCare: jsonb("supportive_care"),
+  rescueAgents: jsonb("rescue_agents"),
+  monitoring: jsonb("monitoring"),
+  toxicityMonitoring: jsonb("toxicity_monitoring"),
+  interactions: jsonb("interactions"),
+  contraindications: jsonb("contraindications"),
+  version: varchar("version", { length: 20 }).notNull(),
+  status: varchar("status", { length: 20 }).default("active"),
+  createdBy: uuid("created_by").references(() => users.id),
+  updatedBy: uuid("updated_by").references(() => users.id),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+  lastReviewed: timestamp("last_reviewed"),
+});
+
 // Schema exports
 export const insertUserSchema = createInsertSchema(users).omit({
   id: true,
@@ -149,6 +181,12 @@ export const insertAiInteractionSchema = createInsertSchema(aiInteractions).omit
   createdAt: true,
 });
 
+export const insertCdProtocolSchema = createInsertSchema(cdProtocols).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
 // Type exports
 export type User = typeof users.$inferSelect;
 export type InsertUser = z.infer<typeof insertUserSchema>;
@@ -159,4 +197,6 @@ export type InsertClinicalProtocol = z.infer<typeof insertClinicalProtocolSchema
 export type AiInteraction = typeof aiInteractions.$inferSelect;
 export type InsertAiInteraction = z.infer<typeof insertAiInteractionSchema>;
 export type TreatmentProtocol = typeof treatmentProtocols.$inferSelect;
+export type CdProtocol = typeof cdProtocols.$inferSelect;
+export type InsertCdProtocol = z.infer<typeof insertCdProtocolSchema>;
 export type AuditLogEntry = typeof auditLog.$inferSelect;
