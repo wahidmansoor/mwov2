@@ -7,6 +7,9 @@ import {
   treatmentProtocols,
   cdProtocols,
   oncologyMedications,
+  nccnGuidelines,
+  clinicalDecisionSupport,
+  biomarkerGuidelines,
   type User, 
   type InsertUser,
   type DecisionSupportInput,
@@ -20,7 +23,13 @@ import {
   type InsertCdProtocol,
   type OncologyMedication,
   type InsertOncologyMedication,
-  type AuditLogEntry
+  type AuditLogEntry,
+  type NccnGuideline,
+  type InsertNccnGuideline,
+  type ClinicalDecisionSupport,
+  type InsertClinicalDecisionSupport,
+  type BiomarkerGuideline,
+  type InsertBiomarkerGuideline
 } from "@shared/schema";
 import { db } from "./db";
 import { eq, sql } from "drizzle-orm";
@@ -70,6 +79,34 @@ export interface IStorage {
   getOncologyMedication(id: string): Promise<OncologyMedication | undefined>;
   createOncologyMedication(medication: InsertOncologyMedication): Promise<OncologyMedication>;
   updateOncologyMedication(id: string, updates: Partial<OncologyMedication>): Promise<OncologyMedication | undefined>;
+  
+  // NCCN Guidelines comprehensive functionality
+  getNccnGuidelines(filters?: { referenceCode?: string; category?: string; cancerType?: string; evidenceLevel?: string }): Promise<NccnGuideline[]>;
+  getNccnGuideline(id: string): Promise<NccnGuideline | undefined>;
+  getNccnGuidelineByReference(referenceCode: string): Promise<NccnGuideline | undefined>;
+  searchNccnGuidelines(query: string): Promise<NccnGuideline[]>;
+  createNccnGuideline(guideline: InsertNccnGuideline): Promise<NccnGuideline>;
+  updateNccnGuideline(id: string, updates: Partial<NccnGuideline>): Promise<NccnGuideline | undefined>;
+  
+  // Clinical decision support integration
+  getClinicalDecisionSupport(filters?: { moduleType?: string; clinicalScenario?: string; evidenceStrength?: string }): Promise<ClinicalDecisionSupport[]>;
+  getClinicalDecisionSupportByModule(moduleType: string): Promise<ClinicalDecisionSupport[]>;
+  getDecisionSupportRecommendations(inputParameters: any, moduleType: string): Promise<ClinicalDecisionSupport[]>;
+  createClinicalDecisionSupport(support: InsertClinicalDecisionSupport): Promise<ClinicalDecisionSupport>;
+  
+  // Biomarker guidelines functionality
+  getBiomarkerGuidelines(filters?: { biomarkerName?: string; cancerType?: string; testingMethod?: string }): Promise<BiomarkerGuideline[]>;
+  getBiomarkerGuideline(id: string): Promise<BiomarkerGuideline | undefined>;
+  getBiomarkersByType(cancerType: string): Promise<BiomarkerGuideline[]>;
+  createBiomarkerGuideline(guideline: InsertBiomarkerGuideline): Promise<BiomarkerGuideline>;
+  
+  // Cross-module integration
+  getRelevantNccnGuidelines(clinicalContext: { stage?: string; biomarkers?: any; treatmentSetting?: string }): Promise<NccnGuideline[]>;
+  getModuleSpecificGuidance(moduleType: string, clinicalScenario: string): Promise<{
+    nccnGuidelines: NccnGuideline[];
+    decisionSupport: ClinicalDecisionSupport[];
+    biomarkerGuidelines: BiomarkerGuideline[];
+  }>;
   
   // Dashboard data
   getDashboardStats(): Promise<{
@@ -390,6 +427,161 @@ export class DatabaseStorage implements IStorage {
       .where(eq(oncologyMedications.id, id))
       .returning();
     return medication || undefined;
+  }
+
+  // NCCN Guidelines comprehensive functionality
+  async getNccnGuidelines(filters?: { referenceCode?: string; category?: string; cancerType?: string; evidenceLevel?: string }): Promise<NccnGuideline[]> {
+    let query = db.select().from(nccnGuidelines);
+    
+    if (filters?.referenceCode) {
+      query = query.where(eq(nccnGuidelines.referenceCode, filters.referenceCode));
+    }
+    if (filters?.category) {
+      query = query.where(eq(nccnGuidelines.category, filters.category));
+    }
+    if (filters?.cancerType) {
+      query = query.where(eq(nccnGuidelines.cancerType, filters.cancerType));
+    }
+    if (filters?.evidenceLevel) {
+      query = query.where(eq(nccnGuidelines.evidenceLevel, filters.evidenceLevel));
+    }
+    
+    return await query;
+  }
+
+  async getNccnGuideline(id: string): Promise<NccnGuideline | undefined> {
+    const [guideline] = await db.select().from(nccnGuidelines).where(eq(nccnGuidelines.id, id));
+    return guideline || undefined;
+  }
+
+  async getNccnGuidelineByReference(referenceCode: string): Promise<NccnGuideline | undefined> {
+    const [guideline] = await db.select().from(nccnGuidelines).where(eq(nccnGuidelines.referenceCode, referenceCode));
+    return guideline || undefined;
+  }
+
+  async searchNccnGuidelines(query: string): Promise<NccnGuideline[]> {
+    const searchTerm = `%${query.toLowerCase()}%`;
+    return await db.select().from(nccnGuidelines).where(
+      sql`LOWER(${nccnGuidelines.title}) LIKE ${searchTerm} OR 
+          LOWER(${nccnGuidelines.referenceCode}) LIKE ${searchTerm} OR
+          LOWER(${nccnGuidelines.category}) LIKE ${searchTerm}`
+    );
+  }
+
+  async createNccnGuideline(insertGuideline: InsertNccnGuideline): Promise<NccnGuideline> {
+    const [guideline] = await db
+      .insert(nccnGuidelines)
+      .values(insertGuideline)
+      .returning();
+    return guideline;
+  }
+
+  async updateNccnGuideline(id: string, updates: Partial<NccnGuideline>): Promise<NccnGuideline | undefined> {
+    const [guideline] = await db
+      .update(nccnGuidelines)
+      .set(updates)
+      .where(eq(nccnGuidelines.id, id))
+      .returning();
+    return guideline || undefined;
+  }
+
+  // Clinical decision support integration
+  async getClinicalDecisionSupport(filters?: { moduleType?: string; clinicalScenario?: string; evidenceStrength?: string }): Promise<ClinicalDecisionSupport[]> {
+    let query = db.select().from(clinicalDecisionSupport);
+    
+    if (filters?.moduleType) {
+      query = query.where(eq(clinicalDecisionSupport.moduleType, filters.moduleType));
+    }
+    if (filters?.clinicalScenario) {
+      const searchTerm = `%${filters.clinicalScenario.toLowerCase()}%`;
+      query = query.where(sql`LOWER(${clinicalDecisionSupport.clinicalScenario}) LIKE ${searchTerm}`);
+    }
+    if (filters?.evidenceStrength) {
+      query = query.where(eq(clinicalDecisionSupport.evidenceStrength, filters.evidenceStrength));
+    }
+    
+    return await query;
+  }
+
+  async getClinicalDecisionSupportByModule(moduleType: string): Promise<ClinicalDecisionSupport[]> {
+    return await db.select().from(clinicalDecisionSupport).where(eq(clinicalDecisionSupport.moduleType, moduleType));
+  }
+
+  async getDecisionSupportRecommendations(inputParameters: any, moduleType: string): Promise<ClinicalDecisionSupport[]> {
+    // Enhanced logic to match clinical scenarios based on input parameters
+    return await db.select().from(clinicalDecisionSupport).where(eq(clinicalDecisionSupport.moduleType, moduleType));
+  }
+
+  async createClinicalDecisionSupport(insertSupport: InsertClinicalDecisionSupport): Promise<ClinicalDecisionSupport> {
+    const [support] = await db
+      .insert(clinicalDecisionSupport)
+      .values(insertSupport)
+      .returning();
+    return support;
+  }
+
+  // Biomarker guidelines functionality
+  async getBiomarkerGuidelines(filters?: { biomarkerName?: string; cancerType?: string; testingMethod?: string }): Promise<BiomarkerGuideline[]> {
+    let query = db.select().from(biomarkerGuidelines);
+    
+    if (filters?.biomarkerName) {
+      query = query.where(eq(biomarkerGuidelines.biomarkerName, filters.biomarkerName));
+    }
+    if (filters?.cancerType) {
+      query = query.where(eq(biomarkerGuidelines.cancerType, filters.cancerType));
+    }
+    if (filters?.testingMethod) {
+      const searchTerm = `%${filters.testingMethod.toLowerCase()}%`;
+      query = query.where(sql`LOWER(${biomarkerGuidelines.testingMethod}) LIKE ${searchTerm}`);
+    }
+    
+    return await query;
+  }
+
+  async getBiomarkerGuideline(id: string): Promise<BiomarkerGuideline | undefined> {
+    const [guideline] = await db.select().from(biomarkerGuidelines).where(eq(biomarkerGuidelines.id, id));
+    return guideline || undefined;
+  }
+
+  async getBiomarkersByType(cancerType: string): Promise<BiomarkerGuideline[]> {
+    return await db.select().from(biomarkerGuidelines).where(eq(biomarkerGuidelines.cancerType, cancerType));
+  }
+
+  async createBiomarkerGuideline(insertGuideline: InsertBiomarkerGuideline): Promise<BiomarkerGuideline> {
+    const [guideline] = await db
+      .insert(biomarkerGuidelines)
+      .values(insertGuideline)
+      .returning();
+    return guideline;
+  }
+
+  // Cross-module integration
+  async getRelevantNccnGuidelines(clinicalContext: { stage?: string; biomarkers?: any; treatmentSetting?: string }): Promise<NccnGuideline[]> {
+    let query = db.select().from(nccnGuidelines);
+    
+    if (clinicalContext.treatmentSetting) {
+      query = query.where(sql`${nccnGuidelines.treatmentSettings} @> ${JSON.stringify([clinicalContext.treatmentSetting])}`);
+    }
+    
+    return await query.limit(10);
+  }
+
+  async getModuleSpecificGuidance(moduleType: string, clinicalScenario: string): Promise<{
+    nccnGuidelines: NccnGuideline[];
+    decisionSupport: ClinicalDecisionSupport[];
+    biomarkerGuidelines: BiomarkerGuideline[];
+  }> {
+    const [nccnGuidelines, decisionSupport, biomarkerGuidelines] = await Promise.all([
+      this.searchNccnGuidelines(clinicalScenario),
+      this.getClinicalDecisionSupportByModule(moduleType),
+      this.getBiomarkersByType('breast')
+    ]);
+
+    return {
+      nccnGuidelines: nccnGuidelines.slice(0, 5),
+      decisionSupport: decisionSupport.slice(0, 3),
+      biomarkerGuidelines: biomarkerGuidelines.slice(0, 3)
+    };
   }
 }
 

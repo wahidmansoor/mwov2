@@ -276,6 +276,192 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // NCCN Guidelines comprehensive API endpoints
+  app.get("/api/nccn/guidelines", authMiddleware, async (req, res) => {
+    try {
+      const { referenceCode, category, cancerType, evidenceLevel } = req.query;
+      const guidelines = await storage.getNccnGuidelines({
+        referenceCode: referenceCode as string,
+        category: category as string,
+        cancerType: cancerType as string,
+        evidenceLevel: evidenceLevel as string
+      });
+      res.json(guidelines);
+    } catch (error) {
+      console.error("Failed to get NCCN guidelines:", error);
+      res.status(500).json({ message: "Failed to get NCCN guidelines" });
+    }
+  });
+
+  app.get("/api/nccn/guidelines/:id", authMiddleware, async (req, res) => {
+    try {
+      const guideline = await storage.getNccnGuideline(req.params.id);
+      if (guideline) {
+        res.json(guideline);
+      } else {
+        res.status(404).json({ message: "NCCN guideline not found" });
+      }
+    } catch (error) {
+      console.error("Failed to get NCCN guideline:", error);
+      res.status(500).json({ message: "Failed to get NCCN guideline" });
+    }
+  });
+
+  app.get("/api/nccn/guidelines/reference/:code", authMiddleware, async (req, res) => {
+    try {
+      const guideline = await storage.getNccnGuidelineByReference(req.params.code);
+      if (guideline) {
+        res.json(guideline);
+      } else {
+        res.status(404).json({ message: "NCCN guideline not found" });
+      }
+    } catch (error) {
+      console.error("Failed to get NCCN guideline by reference:", error);
+      res.status(500).json({ message: "Failed to get NCCN guideline" });
+    }
+  });
+
+  app.get("/api/nccn/search", authMiddleware, async (req, res) => {
+    try {
+      const { q } = req.query;
+      if (!q) {
+        res.status(400).json({ message: "Search query required" });
+        return;
+      }
+      const guidelines = await storage.searchNccnGuidelines(q as string);
+      res.json(guidelines);
+    } catch (error) {
+      console.error("Failed to search NCCN guidelines:", error);
+      res.status(500).json({ message: "Failed to search NCCN guidelines" });
+    }
+  });
+
+  // Clinical decision support API endpoints
+  app.get("/api/clinical-decision-support", authMiddleware, async (req, res) => {
+    try {
+      const { moduleType, clinicalScenario, evidenceStrength } = req.query;
+      const support = await storage.getClinicalDecisionSupport({
+        moduleType: moduleType as string,
+        clinicalScenario: clinicalScenario as string,
+        evidenceStrength: evidenceStrength as string
+      });
+      res.json(support);
+    } catch (error) {
+      console.error("Failed to get clinical decision support:", error);
+      res.status(500).json({ message: "Failed to get clinical decision support" });
+    }
+  });
+
+  app.get("/api/clinical-decision-support/module/:moduleType", authMiddleware, async (req, res) => {
+    try {
+      const support = await storage.getClinicalDecisionSupportByModule(req.params.moduleType);
+      res.json(support);
+    } catch (error) {
+      console.error("Failed to get module decision support:", error);
+      res.status(500).json({ message: "Failed to get module decision support" });
+    }
+  });
+
+  app.post("/api/clinical-decision-support/recommendations", authMiddleware, async (req, res) => {
+    try {
+      const { inputParameters, moduleType } = req.body;
+      const recommendations = await storage.getDecisionSupportRecommendations(inputParameters, moduleType);
+      res.json(recommendations);
+    } catch (error) {
+      console.error("Failed to get decision support recommendations:", error);
+      res.status(500).json({ message: "Failed to get recommendations" });
+    }
+  });
+
+  // Biomarker guidelines API endpoints
+  app.get("/api/biomarker-guidelines", authMiddleware, async (req, res) => {
+    try {
+      const { biomarkerName, cancerType, testingMethod } = req.query;
+      const guidelines = await storage.getBiomarkerGuidelines({
+        biomarkerName: biomarkerName as string,
+        cancerType: cancerType as string,
+        testingMethod: testingMethod as string
+      });
+      res.json(guidelines);
+    } catch (error) {
+      console.error("Failed to get biomarker guidelines:", error);
+      res.status(500).json({ message: "Failed to get biomarker guidelines" });
+    }
+  });
+
+  app.get("/api/biomarker-guidelines/cancer/:type", authMiddleware, async (req, res) => {
+    try {
+      const guidelines = await storage.getBiomarkersByType(req.params.type);
+      res.json(guidelines);
+    } catch (error) {
+      console.error("Failed to get biomarkers by type:", error);
+      res.status(500).json({ message: "Failed to get biomarkers" });
+    }
+  });
+
+  // Cross-module integration endpoints
+  app.post("/api/guidance/relevant", authMiddleware, async (req, res) => {
+    try {
+      const { stage, biomarkers, treatmentSetting } = req.body;
+      const guidelines = await storage.getRelevantNccnGuidelines({
+        stage,
+        biomarkers,
+        treatmentSetting
+      });
+      res.json(guidelines);
+    } catch (error) {
+      console.error("Failed to get relevant guidelines:", error);
+      res.status(500).json({ message: "Failed to get relevant guidelines" });
+    }
+  });
+
+  app.get("/api/guidance/module/:moduleType/:scenario", authMiddleware, async (req, res) => {
+    try {
+      const { moduleType, scenario } = req.params;
+      const guidance = await storage.getModuleSpecificGuidance(moduleType, decodeURIComponent(scenario));
+      res.json(guidance);
+    } catch (error) {
+      console.error("Failed to get module-specific guidance:", error);
+      res.status(500).json({ message: "Failed to get module guidance" });
+    }
+  });
+
+  // Enhanced analytics for NCCN integration
+  app.get("/api/analytics/nccn-usage", authMiddleware, async (req, res) => {
+    try {
+      // Get NCCN guidelines usage statistics
+      const guidelines = await storage.getNccnGuidelines();
+      const decisionSupport = await storage.getClinicalDecisionSupport();
+      const biomarkers = await storage.getBiomarkerGuidelines();
+      
+      const stats = {
+        totalGuidelines: guidelines.length,
+        guidelinesByCategory: guidelines.reduce((acc: any, g) => {
+          acc[g.category] = (acc[g.category] || 0) + 1;
+          return acc;
+        }, {}),
+        evidenceLevels: guidelines.reduce((acc: any, g) => {
+          acc[g.evidenceLevel || 'Unknown'] = (acc[g.evidenceLevel || 'Unknown'] || 0) + 1;
+          return acc;
+        }, {}),
+        decisionSupportByModule: decisionSupport.reduce((acc: any, ds) => {
+          acc[ds.moduleType] = (acc[ds.moduleType] || 0) + 1;
+          return acc;
+        }, {}),
+        biomarkersByType: biomarkers.reduce((acc: any, bg) => {
+          acc[bg.biomarkerName] = (acc[bg.biomarkerName] || 0) + 1;
+          return acc;
+        }, {}),
+        lastUpdated: new Date().toISOString()
+      };
+      
+      res.json(stats);
+    } catch (error) {
+      console.error("Failed to get NCCN analytics:", error);
+      res.status(500).json({ message: "Failed to get analytics" });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }

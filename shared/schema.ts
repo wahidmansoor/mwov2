@@ -222,6 +222,90 @@ export const insertOncologyMedicationSchema = createInsertSchema(oncologyMedicat
   updatedAt: true,
 });
 
+// NCCN Guidelines comprehensive database
+export const nccnGuidelines = pgTable("nccn_guidelines", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  referenceCode: varchar("reference_code", { length: 50 }).notNull(), // BINV-1, DCIS-1, etc.
+  title: varchar("title", { length: 500 }).notNull(),
+  category: varchar("category", { length: 100 }).notNull(), // invasive, dcis, special_considerations, etc.
+  cancerType: varchar("cancer_type", { length: 100 }).default("breast"),
+  version: varchar("version", { length: 50 }).notNull().default("4.2025"),
+  releaseDate: varchar("release_date", { length: 50 }),
+  content: jsonb("content").notNull(), // Full guideline content
+  evidenceLevel: varchar("evidence_level", { length: 50 }), // Category 1, 2A, 2B
+  consensusLevel: varchar("consensus_level", { length: 50 }), // uniform, consensus, etc.
+  applicableStages: jsonb("applicable_stages"), // Array of cancer stages
+  biomarkerRequirements: jsonb("biomarker_requirements"), // HER2, ER, PR, etc.
+  treatmentSettings: jsonb("treatment_settings"), // adjuvant, neoadjuvant, metastatic
+  specialPopulations: jsonb("special_populations"), // pregnancy, elderly, male, etc.
+  crossReferences: jsonb("cross_references"), // Related NCCN sections
+  evidenceReferences: jsonb("evidence_references"), // Scientific citations
+  updatesFromPrevious: text("updates_from_previous"), // Version changes
+  clinicalDecisionPoints: jsonb("clinical_decision_points"), // Key decision nodes
+  monitoringRequirements: jsonb("monitoring_requirements"), // Follow-up protocols
+  contraindications: jsonb("contraindications"), // Safety considerations
+  alternativeApproaches: jsonb("alternative_approaches"), // Other options
+  qualityMeasures: jsonb("quality_measures"), // Performance indicators
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+// Clinical decision support lookup table
+export const clinicalDecisionSupport = pgTable("clinical_decision_support", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  moduleType: varchar("module_type", { length: 100 }).notNull(), // opd, cdu, inpatient, etc.
+  clinicalScenario: varchar("clinical_scenario", { length: 500 }).notNull(),
+  inputParameters: jsonb("input_parameters").notNull(), // Age, stage, biomarkers, etc.
+  nccnReferences: jsonb("nccn_references").notNull(), // Array of applicable NCCN sections
+  recommendedActions: jsonb("recommended_actions").notNull(),
+  alternativeOptions: jsonb("alternative_options"),
+  riskStratification: varchar("risk_stratification", { length: 100 }),
+  evidenceStrength: varchar("evidence_strength", { length: 50 }),
+  consensusLevel: varchar("consensus_level", { length: 50 }),
+  applicabilityScore: decimal("applicability_score", { precision: 3, scale: 2 }),
+  lastReviewed: timestamp("last_reviewed"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+// Biomarker testing guidelines
+export const biomarkerGuidelines = pgTable("biomarker_guidelines", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  biomarkerName: varchar("biomarker_name", { length: 100 }).notNull(),
+  testingMethod: varchar("testing_method", { length: 200 }).notNull(),
+  cancerType: varchar("cancer_type", { length: 100 }).notNull(),
+  clinicalIndications: jsonb("clinical_indications").notNull(),
+  nccnReference: varchar("nccn_reference", { length: 50 }),
+  evidenceLevel: varchar("evidence_level", { length: 50 }),
+  testingTiming: varchar("testing_timing", { length: 200 }),
+  interpretationCriteria: jsonb("interpretation_criteria"),
+  therapeuticImplications: jsonb("therapeutic_implications"),
+  qualityRequirements: jsonb("quality_requirements"),
+  reportingStandards: jsonb("reporting_standards"),
+  costConsiderations: text("cost_considerations"),
+  specialConsiderations: jsonb("special_considerations"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const insertNccnGuidelinesSchema = createInsertSchema(nccnGuidelines).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertClinicalDecisionSupportSchema = createInsertSchema(clinicalDecisionSupport).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertBiomarkerGuidelinesSchema = createInsertSchema(biomarkerGuidelines).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
 // Type exports
 export type User = typeof users.$inferSelect;
 export type InsertUser = z.infer<typeof insertUserSchema>;
@@ -237,3 +321,9 @@ export type InsertCdProtocol = z.infer<typeof insertCdProtocolSchema>;
 export type OncologyMedication = typeof oncologyMedications.$inferSelect;
 export type InsertOncologyMedication = z.infer<typeof insertOncologyMedicationSchema>;
 export type AuditLogEntry = typeof auditLog.$inferSelect;
+export type NccnGuideline = typeof nccnGuidelines.$inferSelect;
+export type InsertNccnGuideline = z.infer<typeof insertNccnGuidelinesSchema>;
+export type ClinicalDecisionSupport = typeof clinicalDecisionSupport.$inferSelect;
+export type InsertClinicalDecisionSupport = z.infer<typeof insertClinicalDecisionSupportSchema>;
+export type BiomarkerGuideline = typeof biomarkerGuidelines.$inferSelect;
+export type InsertBiomarkerGuideline = z.infer<typeof insertBiomarkerGuidelinesSchema>;
