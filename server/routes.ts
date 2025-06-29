@@ -226,7 +226,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // CD Protocols routes
-  app.get("/api/cd-protocols", isAuthenticated, async (req: any, res) => {
+  app.get("/api/cd-protocols", authMiddleware, async (req: any, res) => {
     try {
       const { tumourGroup, treatmentIntent, code } = req.query;
       const protocols = await storage.getCdProtocols({
@@ -241,7 +241,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/cd-protocols/:id", isAuthenticated, async (req: any, res) => {
+  app.get("/api/cd-protocols/:id", authMiddleware, async (req: any, res) => {
     try {
       const protocol = await storage.getCdProtocol(req.params.id);
       if (protocol) {
