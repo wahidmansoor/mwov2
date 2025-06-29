@@ -8,7 +8,19 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
   // Check if DEV_MODE is enabled
   if (process.env.DEV_MODE === 'true') {
     console.log("Auth bypassed for dev");
-    // Create a mock user session for development
+    
+    // Check if user is already authenticated via session (from local login)
+    if (req.session && (req.session as any).user) {
+      (req as any).user = (req.session as any).user;
+      return next();
+    }
+    
+    // If no session user, check if user is already set on request
+    if ((req as any).user) {
+      return next();
+    }
+    
+    // Create a default mock user session for development (fallback)
     (req as any).user = {
       claims: {
         sub: 'dev-user-123',

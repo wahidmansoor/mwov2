@@ -29,8 +29,11 @@ export async function handleLocalLogin(req: Request, res: Response) {
         expires_at: Math.floor(Date.now() / 1000) + 3600 // 1 hour from now
       };
 
-      // Store user data on request object for development
-      if (req) {
+      // Store user data in session for development
+      if (req.session) {
+        (req.session as any).user = sessionUser;
+        (req as any).user = sessionUser;
+      } else {
         (req as any).user = sessionUser;
       }
 

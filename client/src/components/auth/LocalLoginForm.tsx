@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { AlertCircle, Loader2 } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { queryClient } from "@/lib/queryClient";
 
 interface LocalLoginFormProps {
   onSuccess?: () => void;
@@ -34,9 +35,13 @@ export default function LocalLoginForm({ onSuccess }: LocalLoginFormProps) {
 
       if (response.ok) {
         console.log('Local login successful');
+        // Invalidate auth cache to trigger refetch
+        queryClient.invalidateQueries({ queryKey: ["/api/auth/user"] });
         onSuccess?.();
         // Reload to trigger auth state change
-        window.location.reload();
+        setTimeout(() => {
+          window.location.reload();
+        }, 100);
       } else {
         setError(data.message || 'Login failed');
       }
