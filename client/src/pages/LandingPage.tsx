@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Logo from "@/components/common/Logo";
 import { useAuth } from "@/hooks/useAuth";
+import LocalLoginForm from "@/components/auth/LocalLoginForm";
 import { 
   Shield, 
   Brain, 
@@ -83,16 +84,34 @@ export default function LandingPage() {
   const [, setLocation] = useLocation();
   const { isAuthenticated } = useAuth();
   const [isVisible, setIsVisible] = useState(false);
+  const [showLocalLogin, setShowLocalLogin] = useState(false);
+  const [isDevMode, setIsDevMode] = useState(false);
 
   useEffect(() => {
     setIsVisible(true);
+    
+    // Check if we're in development mode
+    const checkDevMode = async () => {
+      try {
+        const response = await fetch('/api/dev-mode-check');
+        setIsDevMode(response.ok);
+      } catch {
+        setIsDevMode(false);
+      }
+    };
+    checkDevMode();
+
     if (isAuthenticated) {
       setLocation("/dashboard");
     }
   }, [isAuthenticated, setLocation]);
 
   const handleSignIn = () => {
-    window.location.href = "/api/login";
+    if (isDevMode) {
+      setShowLocalLogin(true);
+    } else {
+      window.location.href = "/api/login";
+    }
   };
 
   const handleAccessPlatform = () => {
@@ -103,6 +122,31 @@ export default function LandingPage() {
     }
   };
 
+  // Show local login form if in development mode and requested
+  if (showLocalLogin && isDevMode) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 flex items-center justify-center p-4">
+        <div className="w-full max-w-md">
+          <div className="text-center mb-6">
+            <Logo />
+            <h1 className="mt-4 text-2xl font-bold text-slate-900">OncoVista AI</h1>
+            <p className="text-slate-600">Development Environment</p>
+          </div>
+          <LocalLoginForm onSuccess={() => setShowLocalLogin(false)} />
+          <div className="text-center mt-4">
+            <Button 
+              variant="ghost" 
+              onClick={() => setShowLocalLogin(false)}
+              className="text-sm"
+            >
+              Back to Landing Page
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
       {/* Header */}
@@ -111,13 +155,20 @@ export default function LandingPage() {
           <div className="flex justify-between items-center h-16">
             <Logo />
             
-            <Button 
-              onClick={handleSignIn}
-              className="bg-medical-blue hover:bg-medical-blue-dark text-white shadow-lg hover:shadow-xl transition-all duration-200"
-            >
-              <UserCheck className="w-4 h-4 mr-2" />
-              Sign In
-            </Button>
+            <div className="flex items-center space-x-2">
+              {isDevMode && (
+                <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-md">
+                  DEV MODE
+                </span>
+              )}
+              <Button 
+                onClick={handleSignIn}
+                className="bg-medical-blue hover:bg-medical-blue-dark text-white shadow-lg hover:shadow-xl transition-all duration-200"
+              >
+                <UserCheck className="w-4 h-4 mr-2" />
+                {isDevMode ? "Local Sign In" : "Sign In"}
+              </Button>
+            </div>
           </div>
         </div>
       </header>

@@ -2,6 +2,8 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { setupAuth, isAuthenticated } from "./replitAuth";
+import { authMiddleware } from "./authMiddleware";
+import { handleLocalLogin, isLocalDevMode } from "./localAuth";
 import { rbacMiddleware } from "./middleware/rbac";
 import { aiService } from "./services/aiService";
 import { clinicalDecisionEngine } from "./services/clinicalDecisionEngine";
@@ -9,11 +11,34 @@ import { insertDecisionSupportInputSchema, insertAiInteractionSchema } from "@sh
 import { z } from "zod";
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Auth middleware
-  await setupAuth(app);
+  // Setup authentication based on environment
+  if (!isLocalDevMode()) {
+    // Production: Use Replit Auth
+    await setupAuth(app);
+  }
 
-  // Auth routes
-  app.get('/api/auth/user', isAuthenticated, async (req: any, res) => {
+  // Development mode check endpoint
+  app.get('/api/dev-mode-check', (req, res) => {
+    if (isLocalDevMode()) {
+      res.json({ devMode: true });
+    } else {
+      res.status(404).json({ devMode: false });
+    }
+  });
+
+  // Local development authentication routes
+  if (isLocalDevMode()) {
+    app.post('/api/local/login', handleLocalLogin);
+    
+    app.get('/api/local/logout', (req, res) => {
+      req.session.destroy(() => {
+        res.json({ success: true });
+      });
+    });
+  }
+
+  // Auth routes - works for both local dev and production
+  app.get('/api/auth/user', authMiddleware, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       const user = await storage.getUser(userId);
@@ -24,7 +49,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/auth/me", isAuthenticated, async (req: any, res) => {
+  app.get("/api/auth/me", authMiddleware, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       const user = await storage.getUser(userId);
@@ -47,7 +72,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Patient evaluation routes
-  app.post("/api/patient-evaluations", isAuthenticated, rbacMiddleware(["create_evaluations"]), async (req: any, res) => {
+  app.post("/api/patient-evaluations", authMiddleware, rbacMiddleware(["create_evaluations"]), async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       const validatedData = insertDecisionSupportInputSchema.parse({
@@ -78,7 +103,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/patient-evaluations", isAuthenticated, rbacMiddleware(["view_patient_data"]), async (req: any, res) => {
+  app.get("/api/patient-evaluations", authMiddleware, rbacMiddleware(["view_patient_data"]), async (req: any, res) => {
     try {
       const evaluations = await storage.getDecisionSupportInputs();
       res.json(evaluations);
@@ -88,7 +113,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/patient-evaluations/:id", isAuthenticated, rbacMiddleware(["view_patient_data"]), async (req: any, res) => {
+  app.get("/api/patient-evaluations/:id", authMiddleware, rbacMiddleware(["view_patient_data"]), async (req: any, res) => {
     try {
       const evaluation = await storage.getDecisionSupportInput(req.params.id);
       if (evaluation) {
@@ -103,7 +128,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // AI analysis routes
-  app.post("/api/ai/analyze-patient", isAuthenticated, rbacMiddleware(["use_ai_recommendations"]), async (req: any, res) => {
+  app.post("/api/ai/analyze-patient", authMiddleware, rbacMiddleware(["use_ai_recommendations"]), async (req: any, res) => {
     try {
       const startTime = Date.now();
       
@@ -135,7 +160,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Clinical protocols routes
-  app.get("/api/clinical-protocols", isAuthenticated, rbacMiddleware(["view_protocols"]), async (req: any, res) => {
+  app.get("/api/clinical-protocols", authMiddleware, rbacMiddleware(["view_protocols"]), async (req: any, res) => {
     try {
       const { cancerType, stage } = req.query;
       const protocols = await storage.getClinicalProtocols({ 
@@ -150,7 +175,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Dashboard routes
-  app.get("/api/dashboard/stats", isAuthenticated, async (req: any, res) => {
+  app.get("/api/dashboard/stats", authMiddleware, async (req: any, res) => {
     try {
       const stats = await storage.getDashboardStats();
       res.json(stats);
@@ -160,7 +185,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/dashboard/activities", isAuthenticated, async (req: any, res) => {
+  app.get("/api/dashboard/activities", authMiddleware, async (req: any, res) => {
     try {
       const activities = await storage.getRecentActivities();
       res.json(activities);
@@ -211,7 +236,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/cd-protocols/code/:code", isAuthenticated, async (req: any, res) => {
+  app.get("/api/cd-protocols/code/:code", authMiddleware, async (req: any, res) => {
     try {
       const protocol = await storage.getCdProtocolByCode(req.params.code);
       if (protocol) {
@@ -226,7 +251,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Oncology Medications routes
-  app.get("/api/oncology-medications", isAuthenticated, async (req: any, res) => {
+  app.get("/api/oncology-medications", authMiddleware, async (req: any, res) => {
     try {
       const { classification, cancerType, route, search } = req.query;
       const medications = await storage.getOncologyMedications({
@@ -342,7 +367,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/clinical-decision-support/recommendations", isAuthenticated, async (req: any, res) => {
+  app.post("/api/clinical-decision-support/recommendations", authMiddleware, async (req: any, res) => {
     try {
       const { inputParameters, moduleType } = req.body;
       const recommendations = await storage.getDecisionSupportRecommendations(inputParameters, moduleType);
@@ -354,7 +379,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Biomarker guidelines API endpoints
-  app.get("/api/biomarker-guidelines", isAuthenticated, async (req: any, res) => {
+  app.get("/api/biomarker-guidelines", authMiddleware, async (req: any, res) => {
     try {
       const { biomarkerName, cancerType, testingMethod } = req.query;
       const guidelines = await storage.getBiomarkerGuidelines({
@@ -369,7 +394,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/biomarker-guidelines/cancer/:type", isAuthenticated, async (req: any, res) => {
+  app.get("/api/biomarker-guidelines/cancer/:type", authMiddleware, async (req: any, res) => {
     try {
       const guidelines = await storage.getBiomarkersByType(req.params.type);
       res.json(guidelines);
