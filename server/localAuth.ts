@@ -1,13 +1,12 @@
 import type { Request, Response } from "express";
-import { storage } from "./storage";
 
 // Local development user credentials
 const LOCAL_USER = {
   email: 'local@test.com',
   password: 'test1234', // Plain text for development
-  id: 'dev-user-123',
+  id: '9bd3c162-767d-4e15-83ac-3515b6e31979', // Use existing user ID
   firstName: 'Local',
-  lastName: 'User',
+  lastName: 'Dev',
   profileImageUrl: null
 };
 
@@ -16,17 +15,8 @@ export async function handleLocalLogin(req: Request, res: Response) {
 
   // Simple plain-text comparison for development
   if (email === LOCAL_USER.email && password === LOCAL_USER.password) {
-    // Create or update the local user in the database
     try {
-      await storage.upsertUser({
-        id: LOCAL_USER.id,
-        email: LOCAL_USER.email,
-        firstName: LOCAL_USER.firstName,
-        lastName: LOCAL_USER.lastName,
-        profileImageUrl: LOCAL_USER.profileImageUrl,
-      });
-
-      // Create session data
+      // Create session data for existing local user
       const sessionUser = {
         claims: {
           sub: LOCAL_USER.id,
@@ -39,14 +29,15 @@ export async function handleLocalLogin(req: Request, res: Response) {
         expires_at: Math.floor(Date.now() / 1000) + 3600 // 1 hour from now
       };
 
-      // Store in session
-      (req as any).user = sessionUser;
-      (req.session as any).user = sessionUser;
+      // Store user data on request object for development
+      if (req) {
+        (req as any).user = sessionUser;
+      }
 
       console.log("Local development login successful for:", email);
       res.json({ success: true, user: sessionUser.claims });
     } catch (error) {
-      console.error("Error creating local user:", error);
+      console.error("Error during local login:", error);
       res.status(500).json({ message: "Login failed" });
     }
   } else {

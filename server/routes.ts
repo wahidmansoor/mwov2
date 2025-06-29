@@ -11,10 +11,14 @@ import { insertDecisionSupportInputSchema, insertAiInteractionSchema } from "@sh
 import { z } from "zod";
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Setup authentication based on environment
+  // Setup authentication and session middleware for both environments
   if (!isLocalDevMode()) {
-    // Production: Use Replit Auth
+    // Production: Use Replit Auth (includes session setup)
     await setupAuth(app);
+  } else {
+    // Development: Setup basic session middleware for local auth
+    const { getSession } = await import("./replitAuth");
+    app.use(getSession());
   }
 
   // Development mode check endpoint
