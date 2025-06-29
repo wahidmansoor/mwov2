@@ -33,6 +33,8 @@ import CancerBiology from "../content/chapter1/CancerBiology";
 import HallmarksOfCancer from "../content/chapter1/HallmarksOfCancer";
 import TumorMicroenvironment from "../content/chapter1/TumorMicroenvironment";
 import Carcinogenesis from "../content/chapter1/Carcinogenesis";
+import GeneticEpigeneticMechanisms from "../content/chapter1/GeneticEpigeneticMechanisms";
+import EnvironmentalLifestyleFactors from "../content/chapter1/EnvironmentalLifestyleFactors";
 
 // Generate comprehensive educational content based on the chapter selection and specialty
 const generateChapterContent = (chapter: SelectedChapter, specialty: string): React.ReactNode => {
@@ -55,6 +57,12 @@ const generateChapterContent = (chapter: SelectedChapter, specialty: string): Re
     }
     if (title.includes('1.2 Carcinogenesis')) {
       return <Carcinogenesis />;
+    }
+    if (title.includes('1.2.1 Genetic and Epigenetic Mechanisms')) {
+      return <GeneticEpigeneticMechanisms />;
+    }
+    if (title.includes('1.2.2 Environmental and Lifestyle Risk Factors')) {
+      return <EnvironmentalLifestyleFactors />;
     }
     
     // Fallback content for other sections
