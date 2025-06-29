@@ -43,7 +43,19 @@ OncoVista AI is a comprehensive medical-grade oncology platform providing AI-pow
 - Comprehensive clinical calculators and tools
 - Real-time guideline compliance monitoring
 
-## Recent Changes (June 28, 2025)
+## Recent Changes (June 29, 2025)
+
+### NCCN Version 2.2025 Ampullary Adenocarcinoma Integration (COMPLETED)
+- Successfully integrated comprehensive NCCN Version 2.2025 Ampullary Adenocarcinoma guidelines across all OncoVista modules
+- Enhanced OPD module with comprehensive workup protocols (AMP-1) including genetic testing requirements for 11 genes
+- Enhanced CDU module with localized disease treatment protocols and perioperative immunotherapy guidance
+- Enhanced Inpatient module with postoperative adjuvant treatment protocols (AMP-5) and complication management
+- Enhanced Palliative Care module with metastatic disease management protocols (AMP-6) and symptom control
+- Enhanced Clinical Tools module with genetic risk assessment calculator and comprehensive gene panel recommendations
+- Integrated 9 comprehensive guidelines, 5 clinical decision support entries, and 5 biomarker guidelines
+- Added authentic systemic therapy protocols including HER2-targeted, PD-L1-directed, and MSI-H/dMMR immunotherapy
+- Implemented comprehensive biomarker testing guidelines for HER2, PD-L1, MSI-H/dMMR, CLDN18.2, and hereditary cancer genes
+- Cross-module integration ensures consistent ampullary adenocarcinoma guidance throughout the platform
 
 ### NCCN Version 4.2025 Small Cell Lung Cancer (SCLC) Integration (COMPLETED)
 - Successfully integrated comprehensive NCCN Version 4.2025 SCLC guidelines across all OncoVista modules

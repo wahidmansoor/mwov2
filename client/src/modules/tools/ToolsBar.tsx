@@ -247,6 +247,79 @@ const ClinicalCalculators = () => {
           </CardContent>
         </Card>
 
+        <Card className="border-l-4 border-l-amber-500">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <TestTube className="h-5 w-5 text-amber-600" />
+              NCCN Ampullary Adenocarcinoma Genetic Risk Assessment
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div className="p-3 bg-amber-50 dark:bg-amber-800/20 rounded border-l-4 border-amber-400">
+                <p className="text-sm font-medium">NCCN Category 1 Recommendation</p>
+                <p className="text-xs text-muted-foreground">Genetic testing required for all confirmed ampullary adenocarcinoma patients</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div>
+                  <label className="text-sm font-medium">Family History</label>
+                  <Select>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select family history" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="positive">Positive for cancer</SelectItem>
+                      <SelectItem value="negative">Negative</SelectItem>
+                      <SelectItem value="unknown">Unknown</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <label className="text-sm font-medium">Previous Cancer History</label>
+                  <Select>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select history" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="none">No previous cancer</SelectItem>
+                      <SelectItem value="breast">Breast cancer</SelectItem>
+                      <SelectItem value="colorectal">Colorectal cancer</SelectItem>
+                      <SelectItem value="pancreatic">Pancreatic cancer</SelectItem>
+                      <SelectItem value="other">Other cancer type</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+              <div>
+                <label className="text-sm font-medium">Recommended Gene Panel (NCCN v2.2025)</label>
+                <div className="mt-2 p-3 bg-gray-50 dark:bg-gray-800 rounded">
+                  <div className="grid grid-cols-3 gap-2 text-xs">
+                    <Badge variant="outline">ATM</Badge>
+                    <Badge variant="outline">BRCA1</Badge>
+                    <Badge variant="outline">BRCA2</Badge>
+                    <Badge variant="outline">CDKN2A</Badge>
+                    <Badge variant="outline">MLH1</Badge>
+                    <Badge variant="outline">MSH2</Badge>
+                    <Badge variant="outline">MSH6</Badge>
+                    <Badge variant="outline">PALB2</Badge>
+                    <Badge variant="outline">PMS2</Badge>
+                    <Badge variant="outline">STK11</Badge>
+                    <Badge variant="outline">TP53</Badge>
+                  </div>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <Button className="w-full" variant="default">
+                  Generate Genetic Counseling Referral
+                </Button>
+                <Button className="w-full" variant="outline">
+                  View NCCN Testing Guidelines
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
         <Card className="border-l-4 border-l-green-500">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">

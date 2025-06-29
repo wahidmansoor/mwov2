@@ -26,12 +26,49 @@ const NCCNScreeningProtocols = () => (
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Shield className="h-5 w-5 text-blue-600" />
-          NCCN Colon Cancer Screening & Diagnostic Guidelines
+          NCCN Multi-Cancer Screening & Diagnostic Guidelines
         </CardTitle>
-        <CardDescription>Evidence-based protocols from NCCN Guidelines Version 3.2025</CardDescription>
+        <CardDescription>Evidence-based protocols from NCCN Guidelines (Colon v3.2025, SCLC v4.2025, Ampullary v2.2025)</CardDescription>
       </CardHeader>
       <CardContent>
         <Accordion type="single" collapsible className="w-full">
+          <AccordionItem value="ampullary-workup">
+            <AccordionTrigger>Ampullary Adenocarcinoma Workup (AMP-1) - NCCN v2.2025</AccordionTrigger>
+            <AccordionContent>
+              <div className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="p-4 bg-amber-50 dark:bg-amber-800/20 rounded-lg">
+                    <h4 className="font-semibold text-sm mb-2">Clinical Suspicion Workup</h4>
+                    <ul className="text-sm space-y-1">
+                      <li>• Digital rectal examination (DRE)</li>
+                      <li>• Inguinal lymph node evaluation</li>
+                      <li>• Consider biopsy/FNA if suspicious nodes</li>
+                      <li>• Chest/abdomen/pelvis CT or MRI</li>
+                      <li>• Consider FDG-PET/CT or FDG-PET/MRI</li>
+                      <li>• Anoscopy</li>
+                      <li>• HIV testing (if status unknown)</li>
+                      <li>• Gynecologic exam with cervical screening</li>
+                    </ul>
+                  </div>
+                  <div className="p-4 bg-purple-50 dark:bg-purple-800/20 rounded-lg">
+                    <h4 className="font-semibold text-sm mb-2">Genetic Testing (Category 1)</h4>
+                    <ul className="text-sm space-y-1">
+                      <li>• <strong>Required for all confirmed cases</strong></li>
+                      <li>• Comprehensive gene panels for hereditary syndromes</li>
+                      <li>• Test genes: ATM, BRCA1, BRCA2, CDKN2A</li>
+                      <li>• MLH1, MSH2, MSH6, PALB2, PMS2</li>
+                      <li>• STK11, TP53</li>
+                      <li>• Genetic counseling for positive results</li>
+                      <li>• Family history assessment</li>
+                    </ul>
+                  </div>
+                </div>
+                <div className="p-3 bg-yellow-50 dark:bg-yellow-800/20 rounded border-l-4 border-yellow-400">
+                  <p className="text-sm"><strong>Special Populations:</strong> Fertility counseling for appropriate patients, HIV-positive patients require specialized protocols</p>
+                </div>
+              </div>
+            </AccordionContent>
+          </AccordionItem>
           <AccordionItem value="colon-workup">
             <AccordionTrigger>Colon Cancer Workup & Staging (COL-2)</AccordionTrigger>
             <AccordionContent>

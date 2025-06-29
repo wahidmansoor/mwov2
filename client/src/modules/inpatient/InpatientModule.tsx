@@ -284,8 +284,9 @@ const AdmissionProtocols = () => (
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Shield className="h-5 w-5 text-blue-600" />
-          Admission Criteria Assessment
+          Multi-Cancer Admission Criteria Assessment
         </CardTitle>
+        <CardDescription>Including NCCN Ampullary Adenocarcinoma v2.2025 postoperative protocols</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="grid md:grid-cols-2 gap-6">

@@ -1,0 +1,384 @@
+{
+  "guideline_title": "NCCN Guidelines for Ampullary Adenocarcinoma",
+  "version": "2.2025",
+  "last_updated": "January 10, 2025",
+  "sections": [
+    {
+      "title": "Summary of the Guidelines Updates",
+      "description": "Overview of the changes and updates made to the guidelines since the last version.",
+      "content": [
+        {
+          "update_type": "General",
+          "details": "References updated throughout the guidelines.",
+          "reference_numbers": []  // Array of relevant reference numbers, if any.  Leave empty if no references are applicable
+        },
+        {
+          "update_type": "AMP-3 of 9",
+          "details": "Footnote I added:  Nivolumab and hyaluronidase-nvhy is not approved for concurrent use with IV ipilimumab; however, for nivolumab monotherapy, nivolumab and hyaluronidase-nvhy \nsubcutaneous injection may be substituted for IV nivolumab. Nivolumab and hyaluronidase-nvhy has different dosing and administration instructions compared to IV nivolumab.",
+          "reference_numbers": []
+        },
+        {
+          "update_type": "AMP-E 5 of 9",
+          "details": "A new footnote was added to clarify the use bispecific antibody therapy in patients with CD20-negative lymphomas: In the setting of CD20-negative lymphomas, the activity of CD3 x CD20 bispecific antibody therapy is unclear. Rebiopsy to confirm CD20 positivity is recommended prior to initiating CD3 x CD20 bispecific antibody therapy.",
+          "reference_numbers": []
+        },
+        {
+          "update_type": "AMP-F 4 of 9",
+          "details": "Added link to Table 4, 4A of 20 (likely the regimens)",
+          "reference_numbers": []
+        },
+        {
+          "update_type": "AMP-C 5 of 5",
+          "details": "Footnote  added: An FDA-approved biosimilar is an appropriate substitute for trastuzumab.",
+          "reference_numbers": []
+        }
+      ]
+    },
+    {
+      "title": "Clinical Suspicion of Ampullary Neoplasm (AMP-1)",
+      "description": "Workup for patients with clinical suspicion of ampullary neoplasm.",
+      "content": [
+        {
+          "item": "Workup",
+          "details": [
+            "Digital rectal examination (DRE)",
+            "Inguinal lymph node evaluation",
+            "Consider biopsy or fine needle aspiration (FNA) if suspicious nodes",
+            "Chest/abdomen/pelvis CT or MRI",
+            "Consider FDG-PET/CT or FDG-PET/MRI",
+            "Anoscopy",
+            "HIV testing (if HIV status unknown)",
+            "Gynecologic exam, including screening for cervical cancer",
+            "Fertility risk discussion/counseling in appropriate patients"
+          ],
+          "notes": "Genetic testing for inherited mutations is recommended for any patient with confirmed ampullary adenocarcinoma or positive family history of cancer, using comprehensive gene panels for hereditary cancer syndromes. Genetic counseling is recommended for patients who test positive for a pathogenic mutation (ATM, BRCA1, BRCA2, CDKN2A, MLH1, MSH2, MSH6, PALB2, PMS2, STK11, and TP53) or for patients with a positive family history of cancer, regardless of mutation status.",
+          "footnotes": [
+            {
+              "marker": "b",
+              "text": "Genetic testing for inherited mutations is recommended for any patient with confirmed ampullary adenocarcinoma or positive family history of cancer, using comprehensive gene panels for hereditary cancer syndromes. Genetic counseling is recommended for patients who test positive for a pathogenic mutation (ATM, BRCA1, BRCA2, CDKN2A, MLH1, MSH2, MSH6, PALB2, PMS2, STK11, and TP53) or for patients with a positive family history of cancer, regardless of mutation status."
+            }
+          ]
+        }
+      ],
+      "footnotes": [
+        {
+          "marker": "a",
+          "text": "Principles of Diagnosis, Imaging, and Staging (AMP-A)."
+        },
+        {
+          "marker": "j",
+          "text": "See Staging (ST-1) for tumor classification."
+        }
+      ]
+    },
+      {
+        "title": "Ampullary Adenoma (AMP-2)",
+        "description": "Treatment of ampullary adenoma.",
+        "content": [
+          {
+            "item": "Treatment",
+            "details": "Endoscopic removal (preferred), surgical ampullectomy, or pancreatoduodenectomy (See Principles of Surgical Technique in the algorithm)",
+            "footnotes": []
+          }
+        ],
+        "footnotes": [
+          {
+            "marker": "c",
+            "text": "Principles of Surgical Technique (AMP-C)."
+          }
+        ]
+      },
+      {
+        "title": "Adenocarcinoma (AMP-3)",
+        "description": "Treatment of adenocarcinoma.",
+        "content": [
+          {
+            "item": "Treatment",
+            "details": "Adenocarcinoma confirmed\n-> (see treatment options) -> if not previously noted\n-> stage I/II -> (see treatment options) -> stage III/IV",
+            "footnotes": []
+          },
+           {
+            "item": "Treatment",
+            "details": "(If there is no indication)",
+            "footnotes": []
+          }
+        ],
+        "footnotes": [
+          {
+            "marker": "b",
+            "text": "Genetic testing for inherited mutations is recommended for any patient with confirmed ampullary adenocarcinoma or positive family history of cancer, using comprehensive gene panels for hereditary cancer syndromes. Genetic counseling is recommended for patients who test positive for a pathogenic mutation (ATM, BRCA1, BRCA2, CDKN2A, MLH1, MSH2, MSH6, PALB2, PMS2, STK11, and TP53) or for patients with a positive family history of cancer, regardless of mutation status."
+          }
+        ]
+      },
+    {
+      "title": "Localized Disease (AMP-4)",
+      "description": "Treatment of localized disease.",
+      "content": [
+        {
+          "treatment_type": "Surgery (preferred)",
+          "details": "Pancreatoduodenectomy with or without adjuvant chemoradiation. (see GAST-F 4 of 20 for regimens)",
+          "footnotes": [
+            {
+              "marker": "d",
+              "text": "Principles of Pathologic Review and Biomarker Testing (GAST-B)."
+            },
+            {
+              "marker": "f",
+              "text": "Principles of Surgery (GAST-C)."
+            },
+            {
+              "marker": "o",
+              "text": "Surgery as primary therapy is appropriate for ≥T1b cancer or actively bleeding cancer, or when postoperative therapy is preferred."
+            },
+            {
+              "marker": "p",
+              "text": "Principles of Systemic Therapy (GAST-F)."
+            },
+            {
+              "marker": "q",
+              "text": "In patients with a microsatellite instability-high (MSI-H)/mismatch repair deficient (dMMR) tumor, perioperative immunotherapy should be considered in consultation with a multidisciplinary team. The role of surgery after biopsy proven and radiologic/metabolic complete response on neoadjuvant immunotherapy is unclear."
+            }
+          ]
+        },
+         {
+            "treatment_type": "Chemoradiation or Systemic Therapy",
+            "details": "Perioperative chemoradiation or Systemic Therapy,  if tumor is MSI-H/dMMR (category 2A)",
+            "footnotes": []
+          }
+      ],
+        "footnotes": [
+          {
+            "marker": "k",
+            "text": "Medically able to tolerate major surgery."
+          },
+          {
+            "marker": "n",
+            "text": "Principles of Multidisciplinary Team Approach (GAST-E)."
+          }
+      ]
+    },
+    {
+      "title": "Postoperative Adjuvant Treatment (AMP-5)",
+      "description": "Treatment after surgery",
+      "content": [
+        {
+          "treatment_type": "Surgical Outcomes for Patients Who Have Received Systemic Therapy (GAST-5)",
+          "details": "Chemotherapy - Chemotherapy with or without chemoradiation p(1),r(Also GAST-F)",
+          "footnotes": [
+            {
+              "marker": "p",
+              "text": "Principles of Systemic Therapy (GAST-F)."
+            },
+             {
+              "marker": "r",
+              "text": "Principles of Radiation Therapy (GAST-G)."
+            }
+          ]
+        },
+         {
+            "treatment_type": "Surgical Outcomes for Patients Who Have Received Systemic Therapy (GAST-5)",
+            "details": "Chemoradiation and Chemotherapy",
+            "footnotes": []
+          }
+      ],
+        "footnotes": [
+        ]
+    },
+    {
+      "title": "Metastatic Disease (AMP-6)",
+      "description": "Treatment of metastatic disease",
+      "content": [
+        {
+          "treatment_type": "Palliative Management (GAST-9)",
+          "details": "Palliative Management (GAST-9)",
+          "footnotes": []
+        }
+      ],
+        "footnotes": [
+           {
+            "marker": "d",
+            "text": "Principles of Pathologic Review and Biomarker Testing (GAST-B)."
+          },
+            {
+              "marker": "f",
+              "text": "Principles of Surgery (GAST-C)."
+            }
+      ]
+    },
+      {
+        "title": "Disease Progression (AMP-7)",
+        "description": "Treatment of progression disease",
+        "content": [
+          {
+            "treatment_type": "Palliative Management (GAST-9)",
+            "details": "Palliative Management (GAST-9)",
+            "footnotes": []
+          }
+        ],
+          "footnotes": [
+        ]
+      },
+    {
+      "title": "Principles of Diagnosis, Imaging, and Staging (AMP-A)",
+      "description": "Principles of Diagnosis, Imaging, and Staging",
+      "content": [
+          {
+            "item": "Dose of Radiation",
+            "details": "• 45–50.4 Gy (1.8 Gy/day) (total 25–28 fractions)",
+              "notes": "Higher doses may be used for positive surgical margins in selected cases as a boost to that area.",
+              "reference_numbers": []
+            }
+        ],
+        "footnotes": []
+      },
+    {
+      "title": "Principles of Systemic Therapy (AMP-E)",
+      "description": "Guidelines for Systemic Therapy for locally advanced, recurrent, or metastatic disease",
+      "content": [
+        {
+          "item": "First-Line Therapy",
+          "details": "Fluoropyrimidine (fluorouracil or capecitabine), oxaliplatin, and trastuzumab",
+          "category": "Category 1 for HER2 overexpression positive",
+          "footnotes": []
+        },
+          {
+            "item": "First-Line Therapy",
+            "details": "Fluoropyrimidine (fluorouracil or capecitabine), oxaliplatin, trastuzumab, and pembrolizumab for PD-L1 CPS ≥1",
+          "category": "Category 1",
+          "footnotes": []
+        },
+          {
+            "item": "First-Line Therapy",
+            "details": "Fluoropyrimidine (fluorouracil or capecitabine), cisplatin, and trastuzumab",
+          "category": "Category 1 for HER2 overexpression positive",
+          "footnotes": []
+        },
+          {
+            "item": "First-Line Therapy",
+            "details": "Fluoropyrimidine (fluorouracil or capecitabine), cisplatin, trastuzumab, and pembrolizumab for PD-L1 CPS ≥1",
+          "category": "Category 1",
+          "footnotes": []
+        },
+          {
+            "item": "First-Line Therapy",
+            "details": "Fluoropyrimidine (fluorouracil or capecitabine), oxaliplatin, and nivolumab for PD-L1 CPS ≥1",
+          "category": "Category 1 for PD-L1 CPS ≥5",
+          "footnotes": []
+        },
+          {
+            "item": "First-Line Therapy",
+            "details": "Fluoropyrimidine (fluorouracil or capecitabine), oxaliplatin, and pembrolizumab for PD-L1 CPS ≥1",
+          "category": "Category 1 for PD-L1 CPS ≥5",
+          "footnotes": []
+        },
+          {
+            "item": "First-Line Therapy",
+            "details": "Fluoropyrimidine (fluorouracil or capecitabine), oxaliplatin, and tislelizumab-jsgr for PD-L1 CPS ≥1",
+          "category": "Category 1 for PD-L1 CPS ≥5",
+          "footnotes": []
+        },
+          {
+            "item": "First-Line Therapy",
+            "details": "Fluoropyrimidine (fluorouracil or capecitabine), oxaliplatin, and zolbetuximab-clzb for CLDN18.2 positive",
+          "category": "Category 1",
+          "footnotes": []
+        },
+          {
+            "item": "First-Line Therapy",
+            "details": "Fluoropyrimidine (fluorouracil or capecitabine) and oxaliplatin",
+          "category": "Not applicable",
+          "footnotes": []
+        },
+          {
+            "item": "First-Line Therapy",
+            "details": "Fluoropyrimidine (fluorouracil or capecitabine), cisplatin, and pembrolizumab for PD-L1 CPS ≥1",
+          "category": "Not applicable",
+          "footnotes": []
+        },
+          {
+            "item": "First-Line Therapy",
+            "details": "Fluoropyrimidine (fluorouracil or capecitabine), cisplatin, and tislelizumab-jsgr for PD-L1 CPS ≥1",
+          "category": "Not applicable",
+          "footnotes": []
+        },
+           {
+            "item": "First-Line Therapy",
+            "details": "Pembrolizumab for MSI-H/dMMR tumors (independent of PD-L1 status)",
+          "category": "Not applicable",
+          "footnotes": []
+        },
+           {
+            "item": "First-Line Therapy",
+            "details": "Dostarlimab-gxly for MSI-H/dMMR tumors",
+          "category": "Not applicable",
+          "footnotes": []
+        },
+          {
+            "item": "First-Line Therapy",
+            "details": "Nivolumab and ipilimumab",
+          "category": "Not applicable",
+          "footnotes": []
+        }
+      ]
+    },
+      {
+        "title": "Principles of Surgery (ANAL-A)",
+        "description": "Principles of surgery",
+        "content":[
+            {
+            "item": "Local Excision",
+            "details": "1 cm margins",
+            "footnotes": []
+          },
+             {
+            "item": "Surgical resection",
+            "details": "The goals of surgery is to achieve an R0 resection, which is a margin-negative resection (ie, no tumor remaining).",
+             "reference_numbers": []
+          },
+             {
+            "item": "Incision and Margins",
+            "details": "Surgical resection should include the removal of the regional lymph nodes (lymphadenectomy)",
+             "reference_numbers": []
+          }
+        ]
+      }
+  ],
+   "abbreviations": {
+       "IHC Panel": "Immunohistochemistry panel"
+   },
+   "footnotes": [
+     {
+       "number": "a",
+       "text": "These are meant to be general guidelines. Interpretation of results should be based on individual circumstances and may vary. Not all tests will be required in every case."
+     },
+     {
+       "number": "b",
+       "text": "An FDA-approved biosimilar is an appropriate substitute for any recommended systemic biologic therapy in the NCCN Guidelines. Rituximab and hyaluronidase human \ninjection for subcutaneous use may be substituted for rituximab after patients have received the first full dose of rituximab by intravenous infusion."
+     },
+      {
+       "number": "c",
+       "text": "For patients with a better prognosis, higher risk of infection, and cytopenias, the panel recommends offering treatment with a less intensive chemotherapy regimen."
+     },
+        {
+       "number": "d",
+       "text": "In patients with a low burden of disease, the addition of immunotherapy to chemotherapy may be considered via the benefit of immunotherapy"
+     },
+       {
+       "number": "e",
+       "text": "Palliative radiation can be done. For radiation, more detail see the section."
+     },
+        {
+       "number": "f",
+       "text": "Hepatitis B testing is indicated because of the risk of reactivation with immunotherapy + chemotherapy. Tests include HBsAg and core antibody for a patient with no risk factors. For patients with risk factors or previous history of hepatitis B, add e-antigen (NHODG-B). If positive, check viral load and consider consult with gastroenterologist."
+     },
+        {
+       "number": "g",
+       "text": "The recommended regimen for first-line chemotherapy should be selected based on the patient's condition and the features of the disease."
+     },
+     {
+       "number": "h",
+       "text": "The choice of therapy requires consideration of many factors, including age, comorbidities, and future treatment possibilities (eg. HDT/ASCR). Therefore, treatment \nselection is highly individualized."
+     },
+      {
+       "number": "i",
+       "text": "The results from the trials are for patients with primary disease, recurrence, or progressive disease after another treatment.
