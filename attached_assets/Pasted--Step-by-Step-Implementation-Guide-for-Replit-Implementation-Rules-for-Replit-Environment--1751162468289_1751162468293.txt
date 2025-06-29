@@ -1,0 +1,936 @@
+# Step-by-Step Implementation Guide for Replit
+📋 Implementation Rules for Replit Environment
+
+•	**Follow ONLY the current step** - Do not implement features from future steps
+•	**Stop at step boundaries** - Wait for explicit instruction to proceed
+•	**Focus on educational value** - Every feature should teach or guide oncologists
+•	**No EHR integration** - This is a guidance app, not a patient data system
+•	**Replit-specific considerations** - Use Replit's file structure and available packages
+
+---
+
+## 🛠️ Replit Environment Setup Considerations
+
+### **File Structure for Replit**
+```
+src/
+├── components/
+│   ├── education/
+│   │   ├── AIChatAssistant.tsx
+│   │   ├── LearningDashboard.tsx
+│   │   ├── ProtocolEducation.tsx
+│   │   └── CaseScenarios.tsx
+│   └── [existing components]
+├── services/
+│   ├── aiAssistant.ts
+│   ├── learningAnalytics.ts
+│   └── questionEngine.ts
+├── types/
+│   ├── learning.ts
+│   └── education.ts
+└── utils/
+    ├── promptBuilder.ts
+    └── educationHelpers.ts
+```
+
+### **Replit Package Management**
+- Use `npm install` for new dependencies
+- Leverage Replit's built-in package detection
+- Utilize available libraries: React, TypeScript, Tailwind CSS, Recharts
+
+---
+
+## 🎯 PHASE 1: Core Educational Features (Weeks 1-2)
+
+### **STEP 1.1: Enhanced AI Teaching Assistant Foundation**
+**Duration:** 2-3 days  
+**Files to modify:** `src/components/education/AIChatAssistant.tsx`, `src/services/aiAssistant.ts`, `src/utils/promptBuilder.ts`
+
+**Replit Development Prompt:**
+```typescript
+/*
+STEP 1.1: AI Teaching Assistant Foundation - Replit Implementation
+ONLY implement the foundational teaching assistant features listed below.
+DO NOT proceed to advanced features or other steps.
+
+=== REPLIT ENVIRONMENT SETUP ===
+1. Create new folder: src/components/education/
+2. Create new folder: src/services/
+3. Install dependencies if needed: npm install lucide-react recharts
+
+=== IMPLEMENTATION REQUIREMENTS ===
+Create an enhanced AI teaching assistant that:
+1. Uses Socratic method questioning instead of direct answers
+2. Asks "Why do you think that?" follow-up questions
+3. Provides hints progressively (hint system with 3 levels)
+4. Tracks user confidence level for each topic
+5. Adapts questioning style based on user experience level
+
+=== FILES TO CREATE/MODIFY ===
+
+// src/components/education/AIChatAssistant.tsx
+- Add teaching mode toggle button (using Tailwind classes)
+- Create confidence slider component (1-5 scale)
+- Implement experience level selector (Resident, Fellow, Attending)
+- Add 3-level hint system UI (gentle → moderate → direct)
+- Use React useState for local state management
+- Style with existing Tailwind theme
+
+// src/services/aiAssistant.ts
+- Implement Socratic questioning logic
+- Create confidence tracking functions
+- Add experience-based response adaptation
+- Store data in localStorage (Replit compatible)
+
+// src/utils/promptBuilder.ts
+- Add educational prompt templates
+- Create question generation templates
+- Implement hint progression logic
+
+=== REPLIT SPECIFIC CONSIDERATIONS ===
+- Use localStorage for data persistence (no external DB)
+- Leverage Replit's hot reload for quick testing
+- Use console.log for debugging in Replit console
+- Test UI responsiveness in Replit's preview window
+
+=== UI COMPONENTS TO CREATE ===
+- Teaching Mode Toggle (switch component)
+- Confidence Slider (range input with Tailwind styling)
+- Experience Level Selector (radio buttons or dropdown)
+- Hint System Display (progressive reveal cards)
+- Question Difficulty Indicator
+
+=== TYPESCRIPT INTERFACES ===
+```typescript
+interface TeachingSession {
+  id: string;
+  topic: string;
+  confidenceLevel: number;
+  experienceLevel: 'resident' | 'fellow' | 'attending';
+  hintsUsed: number;
+  questionsAsked: string[];
+  responses: string[];
+  timestamp: Date;
+}
+
+interface SocraticQuestion {
+  question: string;
+  followUpQuestions: string[];
+  hints: string[];
+  difficulty: number;
+  category: string;
+}
+```
+
+=== TESTING IN REPLIT ===
+- Use Replit's preview to test responsive design
+- Test localStorage persistence by refreshing preview
+- Verify console output for debugging
+- Test on mobile view using Replit's device toggle
+
+=== DO NOT IMPLEMENT ===
+- Scenario-based learning (Step 1.2)
+- Advanced analytics (Phase 2)
+- Complex AI features (Phase 3)
+- External API integrations
+
+Stop implementation here. Test in Replit preview and wait for next step instruction.
+*/
+```
+
+### **STEP 1.2: Question Generation Engine**
+**Duration:** 1-2 days  
+**Files to modify:** `src/utils/promptBuilder.ts`, create `src/services/questionEngine.ts`
+
+**Replit Development Prompt:**
+```typescript
+/*
+STEP 1.2: Question Generation Engine - Replit Implementation
+ONLY implement the question generation system listed below.
+DO NOT proceed to protocol learning or other features.
+
+=== REPLIT SETUP ===
+- Work in existing src/ structure
+- Use Replit's file explorer to create new files
+- Test functionality using Replit console and preview
+
+=== IMPLEMENTATION REQUIREMENTS ===
+Create a question generation engine that:
+1. Generates Socratic questions based on oncology topics
+2. Creates follow-up questions based on user responses
+3. Provides question difficulty adjustment
+4. Tracks question effectiveness
+
+=== FILES TO CREATE/MODIFY ===
+
+// src/services/questionEngine.ts (NEW FILE)
+- Main question generation logic
+- Question template library (50+ templates)
+- Difficulty adjustment algorithm
+- Question effectiveness scoring
+- Follow-up question chaining
+
+// src/utils/promptBuilder.ts (MODIFY)
+- Add question templates for oncology scenarios
+- Create template categories (protocols, side effects, diagnosis)
+- Implement question difficulty scoring (1-10 scale)
+
+// src/components/education/AIChatAssistant.tsx (UPDATE)
+- Integrate question engine
+- Display question difficulty indicators
+- Show question categories
+- Track question-answer effectiveness
+
+=== ONCOLOGY QUESTION CATEGORIES ===
+1. Treatment Protocols (15+ questions)
+2. Side Effect Management (10+ questions)
+3. Diagnostic Workup (10+ questions)
+4. Drug Interactions (8+ questions)
+5. Emergency Management (7+ questions)
+
+=== REPLIT IMPLEMENTATION PATTERN ===
+```typescript
+// src/services/questionEngine.ts
+export class QuestionEngine {
+  private questionTemplates: QuestionTemplate[];
+  private difficultyScorer: DifficultyScorer;
+  
+  constructor() {
+    this.questionTemplates = this.loadQuestionTemplates();
+    this.difficultyScorer = new DifficultyScorer();
+  }
+  
+  generateQuestion(topic: string, difficulty: number): SocraticQuestion {
+    // Implementation here
+  }
+  
+  generateFollowUp(previousQ: string, userResponse: string): string {
+    // Implementation here
+  }
+  
+  trackEffectiveness(questionId: string, didLearn: boolean): void {
+    // Store in localStorage for Replit compatibility
+  }
+}
+```
+
+=== QUESTION TEMPLATE EXAMPLES ===
+```typescript
+const questionTemplates = [
+  {
+    id: 'protocol_selection_1',
+    category: 'protocols',
+    difficulty: 3,
+    template: "What factors would you consider when choosing between adjuvant chemotherapy options for this patient?",
+    followUpTemplates: [
+      "Why is [specific factor] important in this decision?",
+      "How would you weigh [factor A] against [factor B]?"
+    ],
+    hints: [
+      "Consider patient-specific factors...",
+      "Think about tumor characteristics and staging...",
+      "Review performance status and comorbidities..."
+    ]
+  }
+  // Add 49+ more templates
+];
+```
+
+=== REPLIT TESTING ===
+- Test question generation in Replit console
+- Verify localStorage data persistence
+- Check question difficulty progression
+- Test follow-up question chaining
+
+=== LOCALSTORAGE STRUCTURE FOR REPLIT ===
+```typescript
+// Store question effectiveness data
+const questionData = {
+  questionHistory: QuestionSession[],
+  effectivenessScores: { [questionId: string]: number },
+  userPreferences: UserPreferences,
+  lastUpdate: timestamp
+};
+```
+
+=== DO NOT IMPLEMENT ===
+- Full learning scenarios (Step 1.3)
+- Complex analytics (Phase 2)
+- Assessment systems (Phase 3)
+- Protocol learning integration (Step 2.1)
+
+Stop implementation here. Test question generation in Replit and wait for next step instruction.
+*/
+```
+
+### **STEP 1.3: Learning Progress Tracking**
+**Duration:** 2-3 days  
+**Files to create:** `src/services/learningAnalytics.ts`, `src/components/education/LearningDashboard.tsx`
+
+**Replit Development Prompt:**
+```typescript
+/*
+STEP 1.3: Learning Progress Tracking - Replit Implementation
+ONLY implement the basic learning analytics listed below.
+DO NOT proceed to advanced dashboard features or visualizations.
+
+=== REPLIT ENVIRONMENT ===
+- Use Replit's localStorage for data persistence
+- Leverage Recharts for basic visualizations (already available)
+- Test with Replit's preview window for immediate feedback
+
+=== IMPLEMENTATION REQUIREMENTS ===
+Create a learning progress tracking system that:
+1. Tracks topics covered and confidence levels
+2. Identifies knowledge gaps
+3. Records learning session data
+4. Calculates basic learning metrics
+
+=== FILES TO CREATE ===
+
+// src/services/learningAnalytics.ts (NEW FILE)
+- Core tracking logic and calculations
+- localStorage management for Replit
+- Learning metrics calculation
+- Knowledge gap identification
+
+// src/components/education/LearningDashboard.tsx (NEW FILE)
+- Basic progress display components
+- Simple charts using Recharts
+- Topic coverage visualization
+- Session history display
+
+// src/types/learning.ts (NEW FILE)
+- TypeScript interfaces for learning data
+- Progress tracking types
+- Analytics data structures
+
+=== REPLIT SPECIFIC IMPLEMENTATION ===
+```typescript
+// src/services/learningAnalytics.ts
+export class LearningAnalytics {
+  private readonly STORAGE_KEY = 'oncology_learning_data';
+  
+  constructor() {
+    this.initializeStorage();
+  }
+  
+  // Use localStorage (Replit compatible)
+  private saveToStorage(data: LearningData): void {
+    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(data));
+  }
+  
+  private loadFromStorage(): LearningData | null {
+    const stored = localStorage.getItem(this.STORAGE_KEY);
+    return stored ? JSON.parse(stored) : null;
+  }
+  
+  trackSession(session: LearningSession): void {
+    // Implementation with localStorage persistence
+  }
+  
+  calculateMetrics(): LearningMetrics {
+    // Basic metrics calculation
+  }
+  
+  identifyGaps(): KnowledgeGap[] {
+    // Gap analysis logic
+  }
+}
+```
+
+=== ONCOLOGY TOPIC CATEGORIES (20+) ===
+```typescript
+const ONCOLOGY_TOPICS = [
+  'Breast Cancer Protocols',
+  'Lung Cancer Management',
+  'Hematologic Malignancies',
+  'Neutropenic Fever',
+  'Chemotherapy Side Effects',
+  'Radiation Therapy',
+  'Immunotherapy',
+  'Palliative Care',
+  'Tumor Staging',
+  'Drug Interactions',
+  'Emergency Management',
+  'Supportive Care',
+  'Pediatric Oncology',
+  'Gynecologic Cancers',
+  'GI Malignancies',
+  'Head & Neck Cancers',
+  'CNS Tumors',
+  'Bone & Soft Tissue',
+  'Skin Cancers',
+  'Survivorship Care'
+];
+```
+
+=== LEARNING METRICS TO TRACK ===
+1. Topics covered per session
+2. Average confidence level per topic
+3. Session duration and frequency
+4. Question success rates
+5. Learning velocity (topics/week)
+6. Knowledge retention scores
+7. Areas needing review
+
+=== BASIC VISUALIZATION COMPONENTS ===
+```typescript
+// Using Recharts in Replit
+import { BarChart, LineChart, PieChart } from 'recharts';
+
+// Simple progress charts
+- Confidence levels by topic (horizontal bar chart)
+- Learning sessions over time (line chart)
+- Topic distribution (pie chart)
+- Weekly learning velocity (area chart)
+```
+
+=== REPLIT TESTING APPROACH ===
+- Test localStorage persistence by refreshing preview
+- Verify chart rendering in Replit's preview window
+- Use console.log to debug analytics calculations
+- Test responsive design with Replit's device toggle
+
+=== TYPESCRIPT INTERFACES ===
+```typescript
+interface LearningSession {
+  id: string;
+  timestamp: Date;
+  duration: number; // minutes
+  topicsStudied: string[];
+  confidenceLevels: { [topic: string]: number };
+  questionsAnswered: number;
+  correctAnswers: number;
+}
+
+interface LearningMetrics {
+  totalStudyTime: number;
+  topicsCompleted: number;
+  averageConfidence: number;
+  learningVelocity: number;
+  streakDays: number;
+}
+
+interface KnowledgeGap {
+  topic: string;
+  confidenceLevel: number;
+  timeSinceLastStudy: number;
+  recommendedAction: string;
+}
+```
+
+=== DO NOT IMPLEMENT ===
+- Advanced visualizations (Phase 2)
+- Peer comparison features (Phase 3)
+- Complex analytics algorithms (Phase 3)
+- External data synchronization
+
+Stop implementation here. Test analytics in Replit and wait for next step instruction.
+*/
+```
+
+### **STEP 1.4: Basic Learning Dashboard**
+**Duration:** 2-3 days  
+**Files to modify:** `src/components/Dashboard.tsx`, `src/components/education/LearningDashboard.tsx`, update routing
+
+**Replit Development Prompt:**
+```typescript
+/*
+STEP 1.4: Basic Learning Dashboard - Replit Implementation
+ONLY implement the basic dashboard components listed below.
+DO NOT proceed to advanced visualizations or recommendation systems.
+
+=== REPLIT SETUP ===
+- Modify existing Dashboard.tsx in src/components/
+- Complete LearningDashboard.tsx from Step 1.3
+- Update routing using React Router (if available) or state management
+- Use Tailwind CSS classes for styling (available in Replit)
+
+=== IMPLEMENTATION REQUIREMENTS ===
+Create a basic learning dashboard that:
+1. Shows learning progress overview
+2. Displays confidence levels by topic
+3. Lists recent study sessions
+4. Shows knowledge gaps and recommendations
+
+=== FILES TO MODIFY/CREATE ===
+
+// src/components/Dashboard.tsx (MODIFY)
+- Add learning section to existing dashboard
+- Create navigation to learning dashboard
+- Integrate learning metrics overview
+- Maintain existing dashboard functionality
+
+// src/components/education/LearningDashboard.tsx (COMPLETE)
+- Complete basic dashboard from Step 1.3
+- Add responsive grid layout using Tailwind
+- Implement loading states and error boundaries
+- Create interactive components
+
+=== REPLIT DASHBOARD LAYOUT ===
+```typescript
+// Responsive grid using Tailwind CSS
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+  {/* Progress Overview Cards */}
+  <div className="col-span-full">
+    <ProgressOverview />
+  </div>
+  
+  {/* Confidence Chart */}
+  <div className="col-span-full lg:col-span-2">
+    <ConfidenceByTopic />
+  </div>
+  
+  {/* Recent Activity */}
+  <div className="col-span-1">
+    <RecentActivity />
+  </div>
+  
+  {/* Knowledge Gaps */}
+  <div className="col-span-full md:col-span-1">
+    <KnowledgeGaps />
+  </div>
+  
+  {/* Quick Actions */}
+  <div className="col-span-full md:col-span-1">
+    <QuickActions />
+  </div>
+</div>
+```
+
+=== DASHBOARD SECTIONS ===
+
+**1. Progress Overview (4 Key Metrics Cards)**
+```typescript
+const ProgressOverview = () => {
+  const metrics = useLearningMetrics();
+  
+  return (
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <MetricCard 
+        title="Topics Studied" 
+        value={metrics.topicsCompleted}
+        icon="📚"
+        trend="+3 this week"
+      />
+      <MetricCard 
+        title="Study Hours" 
+        value={metrics.totalStudyTime}
+        icon="⏱️"
+        trend="+2.5 hrs"
+      />
+      <MetricCard 
+        title="Avg Confidence" 
+        value={`${metrics.averageConfidence}/5`}
+        icon="📊"
+        trend="+0.3 points"
+      />
+      <MetricCard 
+        title="Streak Days" 
+        value={metrics.streakDays}
+        icon="🔥"
+        trend="Keep it up!"
+      />
+    </div>
+  );
+};
+```
+
+**2. Confidence by Topic (Recharts Bar Chart)**
+```typescript
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+
+const ConfidenceByTopic = () => {
+  const confidenceData = useConfidenceData();
+  
+  return (
+    <div className="bg-white p-6 rounded-lg shadow">
+      <h3 className="text-lg font-semibold mb-4">Confidence by Topic</h3>
+      <ResponsiveContainer width="100%" height={300}>
+        <BarChart data={confidenceData}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="topic" />
+          <YAxis domain={[0, 5]} />
+          <Tooltip />
+          <Bar dataKey="confidence" fill="#3B82F6" />
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
+  );
+};
+```
+
+**3. Recent Activity Timeline**
+```typescript
+const RecentActivity = () => {
+  const recentSessions = useRecentSessions(10); // Last 10 sessions
+  
+  return (
+    <div className="bg-white p-6 rounded-lg shadow">
+      <h3 className="text-lg font-semibold mb-4">Recent Activity</h3>
+      <div className="space-y-3">
+        {recentSessions.map(session => (
+          <div key={session.id} className="flex items-center space-x-3">
+            <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+            <div className="flex-1">
+              <p className="text-sm font-medium">{session.mainTopic}</p>
+              <p className="text-xs text-gray-500">
+                {session.duration}min • {formatDate(session.timestamp)}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+```
+
+**4. Knowledge Gaps & Recommendations**
+```typescript
+const KnowledgeGaps = () => {
+  const gaps = useKnowledgeGaps();
+  
+  return (
+    <div className="bg-yellow-50 p-6 rounded-lg border border-yellow-200">
+      <h3 className="text-lg font-semibold mb-4 text-yellow-800">
+        Areas for Review
+      </h3>
+      <div className="space-y-3">
+        {gaps.slice(0, 5).map(gap => (
+          <div key={gap.topic} className="flex justify-between items-center">
+            <span className="text-sm">{gap.topic}</span>
+            <span className="text-xs bg-yellow-200 px-2 py-1 rounded">
+              {gap.confidenceLevel}/5
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+```
+
+**5. Quick Actions**
+```typescript
+const QuickActions = () => {
+  return (
+    <div className="bg-white p-6 rounded-lg shadow">
+      <h3 className="text-lg font-semibold mb-4">Quick Actions</h3>
+      <div className="space-y-2">
+        <button className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
+          Start Study Session
+        </button>
+        <button className="w-full bg-gray-100 text-gray-700 py-2 px-4 rounded hover:bg-gray-200">
+          Review Weak Areas
+        </button>
+        <button className="w-full bg-gray-100 text-gray-700 py-2 px-4 rounded hover:bg-gray-200">
+          Take Assessment
+        </button>
+      </div>
+    </div>
+  );
+};
+```
+
+=== REPLIT SPECIFIC CONSIDERATIONS ===
+- Use Replit's hot reload to test dashboard updates
+- Optimize for Replit's preview window sizing
+- Test responsive breakpoints in Replit's device simulator
+- Use localStorage data from previous steps
+- Implement proper loading states for data fetching
+
+=== ERROR BOUNDARIES FOR REPLIT ===
+```typescript
+class DashboardErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+  
+  static getDerivedStateFromError(error) {
+    return { hasError: true };
+  }
+  
+  componentDidCatch(error, errorInfo) {
+    console.log('Dashboard Error:', error, errorInfo);
+  }
+  
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="p-6 text-center">
+          <h2>Something went wrong with the dashboard.</h2>
+          <button onClick={() => this.setState({ hasError: false })}>
+            Try again
+          </button>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+```
+
+=== TESTING IN REPLIT ===
+- Test all dashboard sections render correctly
+- Verify responsiveness across device sizes
+- Check chart interactions and data loading
+- Test navigation between dashboard sections
+- Verify localStorage data integration
+
+=== DO NOT IMPLEMENT ===
+- Advanced analytics (Phase 2)
+- Peer comparison features (Phase 3)
+- External integrations (Phase 3)
+- Complex recommendation algorithms (Phase 2)
+
+Stop implementation here. Test complete dashboard in Replit and wait for next step instruction.
+*/
+```
+
+---
+
+## 🎯 PHASE 2: Interactive Learning Features
+
+### **STEP 2.1: Protocol Learning Enhancement**
+**Files to modify:** Protocol-related components, create `src/components/education/ProtocolEducation.tsx`
+
+**Replit Development Prompt:**
+```typescript
+/*
+STEP 2.1: Protocol Learning Enhancement - Replit Implementation
+ONLY implement the educational protocol features listed below.
+DO NOT proceed to advanced scenarios or other learning modules.
+
+=== REPLIT SETUP ===
+- Locate existing protocol components in src/
+- Create new education folder if not exists
+- Use existing protocol data structure
+- Enhance with educational overlays
+
+=== IMPLEMENTATION REQUIREMENTS ===
+Enhance the existing protocol system with educational features:
+1. Add "Why this protocol?" explanations
+2. Include contraindication warnings with education
+3. Show alternative protocols with rationale
+4. Add learning objectives for each protocol
+
+=== FILES TO MODIFY/CREATE ===
+
+// src/components/education/ProtocolEducation.tsx (NEW)
+- Educational overlay system
+- Protocol comparison interface
+- Learning objectives display
+- Evidence level indicators
+
+// Existing protocol components (MODIFY)
+- Add educational content integration
+- Include "Learn More" buttons
+- Add contraindication alerts
+- Show alternative options
+
+=== PROTOCOL EDUCATIONAL ENHANCEMENT ===
+```typescript
+// Educational overlay component
+const ProtocolEducationOverlay = ({ protocol }: { protocol: Protocol }) => {
+  return (
+    <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+      <h4 className="font-semibold text-blue-800 mb-2">Learning Points</h4>
+      
+      {/* Why this protocol? */}
+      <div className="mb-3">
+        <h5 className="font-medium">Why this protocol?</h5>
+        <p className="text-sm text-gray-700">{protocol.rationale}</p>
+      </div>
+      
+      {/* Key mechanisms */}
+      <div className="mb-3">
+        <h5 className="font-medium">Mechanism of Action</h5>
+        <ul className="text-sm text-gray-700 list-disc ml-4">
+          {protocol.mechanisms.map(mechanism => (
+            <li key={mechanism}>{mechanism}</li>
+          ))}
+        </ul>
+      </div>
+      
+      {/* Evidence level */}
+      <div className="mb-3">
+        <h5 className="font-medium">Evidence Level</h5>
+        <span className={`px-2 py-1 rounded text-sm ${getEvidenceLevelColor(protocol.evidenceLevel)}`}>
+          {protocol.evidenceLevel}
+        </span>
+      </div>
+    </div>
+  );
+};
+```
+
+=== EDUCATIONAL CONTENT STRUCTURE ===
+```typescript
+interface EducationalProtocol extends Protocol {
+  rationale: string;
+  mechanisms: string[];
+  contraindications: Contraindication[];
+  alternatives: AlternativeProtocol[];
+  learningObjectives: string[];
+  evidenceLevel: 'IA' | 'IB' | 'IIA' | 'IIB' | 'III';
+  redFlags: string[];
+  monitoringPoints: MonitoringPoint[];
+}
+
+interface Contraindication {
+  condition: string;
+  severity: 'absolute' | 'relative';
+  explanation: string;
+  alternatives: string[];
+}
+
+interface AlternativeProtocol {
+  name: string;
+  indication: string;
+  prosAndCons: {
+    pros: string[];
+    cons: string[];
+  };
+  whenToConsider: string;
+}
+```
+
+=== INTERACTIVE EDUCATIONAL FEATURES ===
+
+**1. Protocol Comparison Tool**
+```typescript
+const ProtocolComparison = ({ protocols }: { protocols: EducationalProtocol[] }) => {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {protocols.map(protocol => (
+        <div key={protocol.id} className="border rounded-lg p-4">
+          <h4 className="font-semibold">{protocol.name}</h4>
+          
+          <div className="mt-3">
+            <h5 className="text-sm font-medium text-green-700">Pros:</h5>
+            <ul className="text-sm list-disc ml-4">
+              {protocol.prosAndCons.pros.map(pro => <li key={pro}>{pro}</li>)}
+            </ul>
+          </div>
+          
+          <div className="mt-2">
+            <h5 className="text-sm font-medium text-red-700">Cons:</h5>
+            <ul className="text-sm list-disc ml-4">
+              {protocol.prosAndCons.cons.map(con => <li key={con}>{con}</li>)}
+            </ul>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+```
+
+**2. Contraindication Alert System**
+```typescript
+const ContraindicationAlert = ({ contraindication }: { contraindication: Contraindication }) => {
+  const alertColor = contraindication.severity === 'absolute' ? 'red' : 'yellow';
+  
+  return (
+    <div className={`bg-${alertColor}-50 border border-${alertColor}-200 p-3 rounded-lg`}>
+      <div className="flex items-center">
+        <span className="text-lg">⚠️</span>
+        <span className={`ml-2 font-medium text-${alertColor}-800`}>
+          {contraindication.severity === 'absolute' ? 'Absolute' : 'Relative'} Contraindication
+        </span>
+      </div>
+      
+      <p className="mt-2 text-sm">{contraindication.explanation}</p>
+      
+      {contraindication.alternatives.length > 0 && (
+        <div className="mt-2">
+          <p className="text-sm font-medium">Consider alternatives:</p>
+          <ul className="text-sm list-disc ml-4">
+            {contraindication.alternatives.map(alt => <li key={alt}>{alt}</li>)}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+};
+```
+
+**3. "Ask Me Anything" Protocol Assistant**
+```typescript
+const ProtocolAssistant = ({ protocol }: { protocol: EducationalProtocol }) => {
+  const [question, setQuestion] = useState('');
+  const [response, setResponse] = useState('');
+  
+  const commonQuestions = [
+    "When should I avoid this protocol?",
+    "What are the most common side effects?",
+    "How do I monitor patients on this protocol?",
+    "What are the alternatives to this protocol?",
+    "What drug interactions should I watch for?"
+  ];
+  
+  return (
+    <div className="bg-gray-50 p-4 rounded-lg">
+      <h4 className="font-semibold mb-3">Ask About This Protocol</h4>
+      
+      <div className="mb-3">
+        <label className="block text-sm font-medium mb-1">
+          Common Questions:
+        </label>
+        <div className="space-y-1">
+          {commonQuestions.map(q => (
+            <button
+              key={q}
+              onClick={() => setQuestion(q)}
+              className="block w-full text-left text-sm bg-white p-2 rounded border hover:bg-gray-50"
+            >
+              {q}
+            </button>
+          ))}
+        </div>
+      </div>
+      
+      <div>
+        <textarea
+          value={question}
+          onChange={(e) => setQuestion(e.target.value)}
+          placeholder="Or ask your own question..."
+          className="w-full p-2 border rounded"
+          rows={3}
+        />
+        <button className="mt-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+          Get Answer
+        </button>
+      </div>
+    </div>
+  );
+};
+```
+
+=== REPLIT TESTING ===
+- Test educational overlays in Replit preview
+- Verify contraindication alerts display correctly
+- Test protocol comparison interactions
+- Check mobile responsiveness
+- Verify localStorage integration for tracking
+
+=== EDUCATIONAL CONTENT TO ADD ===
+For each existing protocol, add:
+1. **Rationale**: Why this protocol is chosen
+2. **Mechanism**: How the drugs work
+3. **Contraindications**: When not to use (absolute/relative)
+4. **Alternatives**: Other options and when to consider them
+5. **Monitoring**: What to watch for during treatment
+6. **Red Flags**: Emergency situations to recognize
+
+=== DO NOT IMPLEMENT ===
+- Full case scenarios (Step 2.2)
+- Advanced AI questioning (Phase 3)
+- Complex simulation features (Phase 3)
+- External guideline integration (Phase 3)
+
+Stop implementation here. Test protocol education features in Replit and wait for next step instruction.
+*/

@@ -19,7 +19,8 @@ import {
   Calculator,
   FileText,
   Bell,
-  User
+  User,
+  GraduationCap
 } from "lucide-react";
 
 interface LayoutProps {
@@ -104,6 +105,13 @@ const resources: NavItem[] = [
     href: "/handbook",
     icon: Book,
     color: "slate-400"
+  },
+  {
+    id: "education",
+    name: "Education Module",
+    href: "/education",
+    icon: GraduationCap,
+    color: "blue-500"
   },
   {
     id: "analytics",

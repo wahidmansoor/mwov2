@@ -21,6 +21,7 @@ import RadiationOncologyView from "@/modules/handbook/RadiationOncologyView";
 import PalliativeCareView from "@/modules/handbook/PalliativeCareView";
 import PalliativeCareModule from "@/modules/palliative/PalliativeCareModule";
 import SCLCModule from "@/modules/sclc/SCLCModule";
+import OncologyEducationModule from "@/modules/education/OncologyEducationModule";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -119,6 +120,12 @@ function Router() {
           <PalliativeCareView />
         </Layout>
       )} />
+      
+      <Route path="/education">
+        <Layout>
+          <OncologyEducationModule />
+        </Layout>
+      </Route>
       
       {/* Fallback to 404 */}
       <Route component={NotFound} />
