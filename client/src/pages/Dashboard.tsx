@@ -3,8 +3,13 @@ import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useLocation } from "wouter";
 import { useAuth } from "@/hooks/useAuth";
+import ClinicalAlertSystem from "@/components/clinical/ClinicalAlertSystem";
+import BiomarkerTrendAnalysis from "@/components/clinical/BiomarkerTrendAnalysis";
+import PatientJourneyTracker from "@/components/clinical/PatientJourneyTracker";
+import SmartReferralSystem from "@/components/clinical/SmartReferralSystem";
 import {
   Users,
   Brain,
@@ -17,7 +22,9 @@ import {
   ChartLine,
   Bell,
   ArrowUp,
-  CheckCircle
+  CheckCircle,
+  Activity,
+  Zap
 } from "lucide-react";
 
 interface DashboardStats {
@@ -335,6 +342,67 @@ export default function Dashboard() {
           </Card>
         </motion.div>
       </div>
+
+      {/* Advanced Clinical Intelligence Section */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.8 }}
+        className="mt-8"
+      >
+        <Card className="border-2 border-medical-blue">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-3 text-xl">
+              <Zap className="h-6 w-6 text-medical-blue" />
+              Advanced Clinical Intelligence Hub
+              <span className="text-sm bg-medical-blue text-white px-2 py-1 rounded-full">
+                Real-Time
+              </span>
+            </CardTitle>
+            <p className="text-slate-600">
+              Comprehensive clinical decision support with intelligent alerts, biomarker analytics, patient journey tracking, and automated referral systems
+            </p>
+          </CardHeader>
+          <CardContent>
+            <Tabs defaultValue="alerts" className="w-full">
+              <TabsList className="grid w-full grid-cols-4">
+                <TabsTrigger value="alerts" className="flex items-center gap-2">
+                  <AlertTriangle className="h-4 w-4" />
+                  Clinical Alerts
+                </TabsTrigger>
+                <TabsTrigger value="biomarkers" className="flex items-center gap-2">
+                  <Activity className="h-4 w-4" />
+                  Biomarker Trends
+                </TabsTrigger>
+                <TabsTrigger value="journey" className="flex items-center gap-2">
+                  <ChartLine className="h-4 w-4" />
+                  Patient Journey
+                </TabsTrigger>
+                <TabsTrigger value="referrals" className="flex items-center gap-2">
+                  <Users className="h-4 w-4" />
+                  Smart Referrals
+                </TabsTrigger>
+              </TabsList>
+              
+              <TabsContent value="alerts" className="mt-6">
+                <ClinicalAlertSystem />
+              </TabsContent>
+              
+              <TabsContent value="biomarkers" className="mt-6">
+                <BiomarkerTrendAnalysis />
+              </TabsContent>
+              
+              <TabsContent value="journey" className="mt-6">
+                <PatientJourneyTracker />
+              </TabsContent>
+              
+              <TabsContent value="referrals" className="mt-6">
+                <SmartReferralSystem />
+              </TabsContent>
+            </Tabs>
+          </CardContent>
+        </Card>
+      </motion.div>
     </div>
   );
 }
