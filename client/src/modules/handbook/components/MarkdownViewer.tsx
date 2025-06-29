@@ -42,6 +42,12 @@ import HistoryEvolution from '../content/radiation-chapter1/HistoryEvolution';
 import BasicRadiationPhysics from '../content/radiation-chapter1/BasicRadiationPhysics';
 import RadiationBiology from '../content/radiation-chapter1/RadiationBiology';
 
+// Import palliative care components
+import PalliativeCareIntroduction from '../content/palliative-chapter1/Introduction';
+import DefinitionScope from '../content/palliative-chapter1/DefinitionScope';
+import PalliativeHistoryEvolution from '../content/palliative-chapter1/HistoryEvolution';
+import ModelsOfCare from '../content/palliative-chapter1/ModelsOfCare';
+
 // Generate comprehensive educational content based on the chapter selection and specialty
 const generateChapterContent = (chapter: SelectedChapter, specialty: string): React.ReactNode => {
   const { title, level, id } = chapter;
@@ -85,6 +91,22 @@ const generateChapterContent = (chapter: SelectedChapter, specialty: string): Re
     }
     if (title.includes('1.3 Radiation Biology')) {
       return <RadiationBiology />;
+    }
+  }
+
+  // Palliative Care Content with React Components
+  if (specialty === 'palliative') {
+    if (title.includes('Chapter 1: Foundations of Palliative Care')) {
+      return <PalliativeCareIntroduction />;
+    }
+    if (title.includes('1.1 Definition and Scope')) {
+      return <DefinitionScope />;
+    }
+    if (title.includes('1.2 History and Evolution')) {
+      return <PalliativeHistoryEvolution />;
+    }
+    if (title.includes('1.3 Models of Palliative Care Delivery')) {
+      return <ModelsOfCare />;
     }
   }
 
