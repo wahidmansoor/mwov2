@@ -10,6 +10,7 @@ import ClinicalAlertSystem from "@/components/clinical/ClinicalAlertSystem";
 import BiomarkerTrendAnalysis from "@/components/clinical/BiomarkerTrendAnalysis";
 import PatientJourneyTracker from "@/components/clinical/PatientJourneyTracker";
 import SmartReferralSystem from "@/components/clinical/SmartReferralSystem";
+import EmotionCheckInWidget from "@/components/clinical/EmotionCheckInWidget";
 import {
   Users,
   Brain,
@@ -24,7 +25,8 @@ import {
   ArrowUp,
   CheckCircle,
   Activity,
-  Zap
+  Zap,
+  Heart
 } from "lucide-react";
 
 interface DashboardStats {
@@ -365,7 +367,7 @@ export default function Dashboard() {
           </CardHeader>
           <CardContent>
             <Tabs defaultValue="alerts" className="w-full">
-              <TabsList className="grid w-full grid-cols-4">
+              <TabsList className="grid w-full grid-cols-5">
                 <TabsTrigger value="alerts" className="flex items-center gap-2">
                   <AlertTriangle className="h-4 w-4" />
                   Clinical Alerts
@@ -381,6 +383,10 @@ export default function Dashboard() {
                 <TabsTrigger value="referrals" className="flex items-center gap-2">
                   <Users className="h-4 w-4" />
                   Smart Referrals
+                </TabsTrigger>
+                <TabsTrigger value="wellness" className="flex items-center gap-2">
+                  <Heart className="h-4 w-4" />
+                  Wellness Check
                 </TabsTrigger>
               </TabsList>
               
@@ -398,6 +404,10 @@ export default function Dashboard() {
               
               <TabsContent value="referrals" className="mt-6">
                 <SmartReferralSystem />
+              </TabsContent>
+              
+              <TabsContent value="wellness" className="mt-6">
+                <EmotionCheckInWidget />
               </TabsContent>
             </Tabs>
           </CardContent>
