@@ -27,63 +27,47 @@ interface MarkdownViewerProps {
   specialty: string;
 }
 
+// Import React components for Chapter 1 sections
+import IntroductionToOncology from "../content/chapter1/Introduction";
+import CancerBiology from "../content/chapter1/CancerBiology";
+import HallmarksOfCancer from "../content/chapter1/HallmarksOfCancer";
+import TumorMicroenvironment from "../content/chapter1/TumorMicroenvironment";
+import Carcinogenesis from "../content/chapter1/Carcinogenesis";
+
 // Generate comprehensive educational content based on the chapter selection and specialty
-const generateChapterContent = (chapter: SelectedChapter, specialty: string): string => {
+const generateChapterContent = (chapter: SelectedChapter, specialty: string): React.ReactNode => {
   const { title, level, id } = chapter;
   
-  // Medical Oncology Content
+  // Medical Oncology Content with React Components
   if (specialty === 'medical') {
+    // Chapter 1: Principles of Oncology sections
+    if (title.includes('Chapter 1') || title.includes('Principles of Oncology')) {
+      return <IntroductionToOncology />;
+    }
+    if (title.includes('1.1 Cancer Biology')) {
+      return <CancerBiology />;
+    }
+    if (title.includes('1.1.1 Hallmarks of Cancer')) {
+      return <HallmarksOfCancer />;
+    }
+    if (title.includes('1.1.3 Tumor Microenvironment')) {
+      return <TumorMicroenvironment />;
+    }
+    if (title.includes('1.2 Carcinogenesis')) {
+      return <Carcinogenesis />;
+    }
+    
+    // Fallback content for other sections
     if (title.includes('Cancer Biology')) {
-      return `# Cancer Biology
-
-## Overview
-Cancer biology encompasses the fundamental mechanisms underlying malignant transformation and tumor progression. Understanding these processes is crucial for effective clinical management.
-
-## Hallmarks of Cancer
-The hallmarks of cancer represent the biological capabilities acquired during tumor development:
-
-### 1. Self-Sufficiency in Growth Signals
-- **Oncogenes**: Mutated or overexpressed normal genes that promote cell growth
-- **Growth factor independence**: Tumors produce their own growth signals
-- **Clinical relevance**: Targeted therapies against growth factor receptors
-
-### 2. Insensitivity to Growth-Inhibitory Signals
-- **Tumor suppressor genes**: p53, Rb, APC
-- **Cell cycle checkpoints**: G1/S and G2/M transitions
-- **Contact inhibition loss**: Allows unlimited proliferation
-
-### 3. Evasion of Apoptosis
-- **p53 pathway disruption**: Most common in human cancers
-- **Bcl-2 family dysregulation**: Anti-apoptotic protein overexpression
-- **Therapeutic implications**: Targeting apoptotic pathways
-
-### 4. Limitless Replicative Potential
-- **Telomerase activation**: Present in 90% of cancers
-- **Senescence bypass**: Unlimited cell divisions
-- **Immortalization**: Essential for tumor progression
-
-### 5. Sustained Angiogenesis
-- **VEGF pathway**: Primary angiogenic stimulus
-- **Hypoxia-inducible factors**: HIF-1α regulation
-- **Anti-angiogenic therapy**: Bevacizumab and other agents
-
-### 6. Tissue Invasion and Metastasis
-- **EMT (Epithelial-Mesenchymal Transition)**: Critical for invasion
-- **Matrix metalloproteinases**: Basement membrane degradation
-- **Metastatic cascade**: Circulation, extravasation, colonization
-
-## Clinical Applications
-Understanding cancer biology informs:
-- **Biomarker development**: Predictive and prognostic markers
-- **Therapeutic targets**: Precision medicine approaches
-- **Resistance mechanisms**: Strategies to overcome drug resistance
-- **Prevention strategies**: Risk assessment and screening
-
-## Key Learning Points
-1. Cancer is a genetic disease requiring multiple mutations
-2. Normal cellular pathways become dysregulated
-3. Understanding biology enables targeted interventions
-4. Tumor heterogeneity poses therapeutic challenges`;
+      return (
+        <div className="prose dark:prose-invert max-w-none">
+          <h1>Cancer Biology</h1>
+          <p>Comprehensive cancer biology content covering molecular mechanisms, hallmarks of cancer, and clinical applications.</p>
+          <div className="bg-blue-50 dark:bg-blue-950/20 p-4 rounded-lg">
+            <p className="text-sm">This section provides detailed coverage of cancer biology fundamentals essential for clinical practice.</p>
+          </div>
+        </div>
+      );
     }
     
     if (title.includes('Chemotherapy')) {
@@ -512,9 +496,15 @@ export default function MarkdownViewer({ chapter, specialty }: MarkdownViewerPro
       </CardHeader>
       
       <CardContent className="p-6">
-        <div className="prose prose-gray dark:prose-invert max-w-none">
-          {formatContent(content)}
-        </div>
+        {typeof content === 'string' ? (
+          <div className="prose prose-gray dark:prose-invert max-w-none">
+            {formatContent(content)}
+          </div>
+        ) : (
+          <div className="w-full">
+            {content}
+          </div>
+        )}
         
         <Separator className="my-8" />
         
