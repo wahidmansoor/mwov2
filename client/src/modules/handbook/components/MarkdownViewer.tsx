@@ -36,6 +36,12 @@ import Carcinogenesis from "../content/chapter1/Carcinogenesis";
 import GeneticEpigeneticMechanisms from "../content/chapter1/GeneticEpigeneticMechanisms";
 import EnvironmentalLifestyleFactors from "../content/chapter1/EnvironmentalLifestyleFactors";
 
+// Import radiation oncology components
+import RadiationOncologyIntroduction from '../content/radiation-chapter1/Introduction';
+import HistoryEvolution from '../content/radiation-chapter1/HistoryEvolution';
+import BasicRadiationPhysics from '../content/radiation-chapter1/BasicRadiationPhysics';
+import RadiationBiology from '../content/radiation-chapter1/RadiationBiology';
+
 // Generate comprehensive educational content based on the chapter selection and specialty
 const generateChapterContent = (chapter: SelectedChapter, specialty: string): React.ReactNode => {
   const { title, level, id } = chapter;
@@ -64,8 +70,26 @@ const generateChapterContent = (chapter: SelectedChapter, specialty: string): Re
     if (title.includes('1.2.2 Environmental and Lifestyle Risk Factors')) {
       return <EnvironmentalLifestyleFactors />;
     }
-    
-    // Fallback content for other sections
+  }
+
+  // Radiation Oncology Content with React Components
+  if (specialty === 'radiation') {
+    if (title.includes('Chapter 1: Fundamentals of Radiation Oncology')) {
+      return <RadiationOncologyIntroduction />;
+    }
+    if (title.includes('1.1 History and Evolution of Radiation Therapy')) {
+      return <HistoryEvolution />;
+    }
+    if (title.includes('1.2 Basic Radiation Physics')) {
+      return <BasicRadiationPhysics />;
+    }
+    if (title.includes('1.3 Radiation Biology')) {
+      return <RadiationBiology />;
+    }
+  }
+
+  // Medical Oncology Fallback content for other sections
+  if (specialty === 'medical') {
     if (title.includes('Cancer Biology')) {
       return (
         <div className="prose dark:prose-invert max-w-none">
