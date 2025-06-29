@@ -238,7 +238,7 @@ const NCCNScreeningProtocols = () => (
                       <li>• TTF-1 positive (80-90%)</li>
                       <li>• Synaptophysin positive</li>
                       <li>• Chromogranin A positive</li>
-                      <li>• Ki-67 proliferation index >80%</li>
+                      <li>• Ki-67 proliferation index &gt;80%</li>
                     </ul>
                   </div>
                   <div className="p-3 bg-green-50 dark:bg-green-800/20 rounded">
