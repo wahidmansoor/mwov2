@@ -1,0 +1,1463 @@
+[
+  {
+    "id": "854fb500-96f7-4ef2-b61a-d14ed35af74f",
+    "moduleType": "general",
+    "clinicalScenario": "Breast Cancer",
+    "inputParameters": {
+      "patientFactors": "required",
+      "clinicalContext": "variable"
+    },
+    "nccnReferences": [
+      "General NCCN"
+    ],
+    "recommendedActions": [],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 2A",
+    "consensusLevel": null,
+    "applicabilityScore": "0.80",
+    "lastReviewed": null,
+    "createdAt": "2025-06-28T17:06:27.907Z",
+    "updatedAt": "2025-06-28T17:06:27.907Z"
+  },
+  {
+    "id": "9fbb1864-e296-4054-988e-bea1379d94a0",
+    "moduleType": "general",
+    "clinicalScenario": "Systemic Adjuvant Treatment",
+    "inputParameters": {
+      "patientFactors": "required",
+      "clinicalContext": "variable"
+    },
+    "nccnReferences": [
+      "General NCCN"
+    ],
+    "recommendedActions": [
+      "HR-Positive – HER2-Positive Disease (BINV-5)",
+      "HR-Positive – HER2-Negative Disease:",
+      "HR-Negative – HER2-Positive Disease (BINV-9)",
+      "HR-Negative – HER2-Negative Disease (BINV-10)",
+      "Favorable Histologies (BINV-11)"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 2A",
+    "consensusLevel": null,
+    "applicabilityScore": "0.80",
+    "lastReviewed": null,
+    "createdAt": "2025-06-28T17:06:28.036Z",
+    "updatedAt": "2025-06-28T17:06:28.036Z"
+  },
+  {
+    "id": "ed37682f-3359-499d-8c3a-94f5cad7925c",
+    "moduleType": "general",
+    "clinicalScenario": "UPDATES",
+    "inputParameters": {
+      "patientFactors": "required",
+      "clinicalContext": "variable"
+    },
+    "nccnReferences": [
+      "General NCCN"
+    ],
+    "recommendedActions": [
+      "Second line: HER2 IHC 0+ moved to new row and fam-trastuzumab deruxtecan-nxki was changed from a category 1, preferred recommendation to a",
+      "Footnote verbiage was updated to align with FDA approved scoring and CAP reporting: The distinction between HER2 test results of IHC 0/absent",
+      "Footnote f revised: Fam-trastuzumab deruxtecan-nxki may be used for HER2 IHC 0+ 1+ or 2+/ISH negative, in those previously treated with at least",
+      "Second Line, row 3 revised: No germline BRCA1/2 mutation and HER2 IHC 0+, 1+ , or 2+/ISH negative.",
+      "Second Line, row 3, column 2: Fam-trastuzumab deruxtecan-nxki changed from a category 1, preferred to a category 2A, other recommended regimen.",
+      "Footnote k revised: Fam-trastuzumab deruxtecan may be considered in a later line for HER2 IHC 0+, 1+ or 2+/ISH negative, if not used in second line"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 1",
+    "consensusLevel": null,
+    "applicabilityScore": "0.80",
+    "lastReviewed": null,
+    "createdAt": "2025-06-28T17:06:28.110Z",
+    "updatedAt": "2025-06-28T17:06:28.110Z"
+  },
+  {
+    "id": "2953238c-b0fc-4db0-b23e-be8b0a3a8433",
+    "moduleType": "cdu",
+    "clinicalScenario": "Systemic therapy selection and administration",
+    "inputParameters": {
+      "stage": "required",
+      "biomarkers": "required",
+      "comorbidities": "recommended",
+      "performanceStatus": "required"
+    },
+    "nccnReferences": [
+      "BINV-20"
+    ],
+    "recommendedActions": [
+      "Last node, added \"and Supportive Care\".",
+      "Regimen revised: AC (doxorubicin/cyclophosphamide) followed or preceded by carboplatin + taxane (paclitaxel or docetaxel).",
+      "Added dosing for AC followed or preceded by carboplatin + taxane (paclitaxel).",
+      "Erratum: \"Datopotamab deruxtecan-dlnk is indicated as second- or subsequent-line therapy for those who have received a prior endocrine-based",
+      "For Breast Cancer Version 1.2025, BINV-M 6 of 10: Dosing correction for AC followed or preceded by carboplatin + docetaxel.",
+      "Regimen clarified: TC followed by or preceded by AC was replaced with AC (doxorubicin/cyclophosphamide) followed or preceded by carboplatin +",
+      "Erratum: Paclitaxel + trastuzumab + pertuzumab was inadvertently listed under \"Adjuvant setting only\". This has been corrected and this regimen is",
+      "Footnotes were adjusted in the table.",
+      "Dosing added for AC followed or preceded by carboplatin + docetaxel.",
+      "Formatting change for Docetaxel + Carboplatin + Pembrolizumab.",
+      "Dosing correction for Docetaxel + Carboplatin + Pembrolizumab.",
+      "Reference 34 added: Sohn J, Kim GM, Jung KH, et al. A randomized, multicenter, open-label, phase III trial comparing anthracyclines followed by"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 2A",
+    "consensusLevel": null,
+    "applicabilityScore": "0.90",
+    "lastReviewed": null,
+    "createdAt": "2025-06-28T17:06:28.266Z",
+    "updatedAt": "2025-06-28T17:06:28.266Z"
+  },
+  {
+    "id": "0238e03e-aa7e-4723-8fa5-b10e734b4918",
+    "moduleType": "general",
+    "clinicalScenario": "BINV-20",
+    "inputParameters": {
+      "patientFactors": "required",
+      "clinicalContext": "variable"
+    },
+    "nccnReferences": [
+      "General NCCN"
+    ],
+    "recommendedActions": [
+      "Last node, added \"and Supportive Care\".",
+      "Regimen revised: AC (doxorubicin/cyclophosphamide) followed or preceded by carboplatin + taxane (paclitaxel or docetaxel).",
+      "Added dosing for AC followed or preceded by carboplatin + taxane (paclitaxel).",
+      "Erratum: \"Datopotamab deruxtecan-dlnk is indicated as second- or subsequent-line therapy for those who have received a prior endocrine-based",
+      "For Breast Cancer Version 1.2025, BINV-M 6 of 10: Dosing correction for AC followed or preceded by carboplatin + docetaxel.",
+      "Regimen clarified: TC followed by or preceded by AC was replaced with AC (doxorubicin/cyclophosphamide) followed or preceded by carboplatin +",
+      "Erratum: Paclitaxel + trastuzumab + pertuzumab was inadvertently listed under \"Adjuvant setting only\". This has been corrected and this regimen is",
+      "Footnotes were adjusted in the table.",
+      "Dosing added for AC followed or preceded by carboplatin + docetaxel.",
+      "Formatting change for Docetaxel + Carboplatin + Pembrolizumab.",
+      "Dosing correction for Docetaxel + Carboplatin + Pembrolizumab.",
+      "Reference 34 added: Sohn J, Kim GM, Jung KH, et al. A randomized, multicenter, open-label, phase III trial comparing anthracyclines followed by"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 2A",
+    "consensusLevel": null,
+    "applicabilityScore": "0.80",
+    "lastReviewed": null,
+    "createdAt": "2025-06-28T17:06:28.341Z",
+    "updatedAt": "2025-06-28T17:06:28.341Z"
+  },
+  {
+    "id": "21dee01e-bcc9-4efa-a953-0f4594e8735f",
+    "moduleType": "general",
+    "clinicalScenario": "DCIS-1",
+    "inputParameters": {
+      "patientFactors": "required",
+      "clinicalContext": "variable"
+    },
+    "nccnReferences": [
+      "General NCCN"
+    ],
+    "recommendedActions": [
+      "Footnote g revised: Surgical axillary staging should not be performed for preoperative (biopsy-determined) pure DCIS unless there is some clinical-pathologic",
+      "Footnote h added: A SLNB may be considered in the setting of 1) mastectomy for DCIS, 2) excision in an anatomic location compromising the performance of",
+      "Footnote m, last sentence revised: Select patients with \"low\" risk DCIS may be considered suitable for APBI/PBI or omission of RT (endocrine therapy alone, if"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 2A",
+    "consensusLevel": null,
+    "applicabilityScore": "0.80",
+    "lastReviewed": null,
+    "createdAt": "2025-06-28T17:06:28.489Z",
+    "updatedAt": "2025-06-28T17:06:28.489Z"
+  },
+  {
+    "id": "3335681b-6745-4f3c-93b7-0a6ffea257cd",
+    "moduleType": "general",
+    "clinicalScenario": "DCIS-2",
+    "inputParameters": {
+      "patientFactors": "required",
+      "clinicalContext": "variable"
+    },
+    "nccnReferences": [
+      "General NCCN"
+    ],
+    "recommendedActions": [
+      "Surveillance/Follow-up, 2nd bullet revised: First mammogram 6–12 mo, after end of RT, if given, or after BCS therapy (category 2B) if no RT is given",
+      "Footnote q revised: The standard dose of tamoxifen is 20 mg/day for 5 years. Low-dose tamoxifen (5 mg/day or 10 mg/every other day, for 3 years) is"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 2B",
+    "consensusLevel": null,
+    "applicabilityScore": "0.80",
+    "lastReviewed": null,
+    "createdAt": "2025-06-28T17:06:28.640Z",
+    "updatedAt": "2025-06-28T17:06:28.640Z"
+  },
+  {
+    "id": "796b0686-952a-4aac-be05-662f4c37931d",
+    "moduleType": "opd",
+    "clinicalScenario": "Initial breast cancer workup and staging",
+    "inputParameters": {
+      "age": "required",
+      "symptoms": "required",
+      "familyHistory": "recommended",
+      "priorBreastImaging": "recommended"
+    },
+    "nccnReferences": [
+      "BINV-1"
+    ],
+    "recommendedActions": [
+      "Workup",
+      "Clinical Stage"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 2A",
+    "consensusLevel": null,
+    "applicabilityScore": "0.95",
+    "lastReviewed": null,
+    "createdAt": "2025-06-28T17:06:28.788Z",
+    "updatedAt": "2025-06-28T17:06:28.788Z"
+  },
+  {
+    "id": "4062b643-f941-470f-99f3-0db32cd1c284",
+    "moduleType": "cdu",
+    "clinicalScenario": "Systemic therapy selection and administration",
+    "inputParameters": {
+      "stage": "required",
+      "biomarkers": "required",
+      "comorbidities": "recommended",
+      "performanceStatus": "required"
+    },
+    "nccnReferences": [
+      "BINV-2"
+    ],
+    "recommendedActions": [
+      "Column headers added: Surgery, Adjuvant Systemic Therapy, Nodal Status, RT",
+      "Column 2",
+      "pN1a pathway, bullet 1 revised: cT1–T3 2, cN0",
+      "pN1a pathway, \"No\" node, last column revised: Whole breast RT with inclusion of any portion of the undissected axilla at risk ± boost to tumor bed",
+      "Footnote o revised: Sentinel node biopsy may be omitted based on the SSO Choosing Wisely recommendation in patients ≥70 years of age with HR+/",
+      "Footnote p added: Determined by surgery, clinical findings, or radiographic imaging.",
+      "Footnote q added: Based on emerging data from the SOUND trial, patients with HR+/HER2-negative tumors, pT1, N0 (node negative by axillary"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 1",
+    "consensusLevel": null,
+    "applicabilityScore": "0.90",
+    "lastReviewed": null,
+    "createdAt": "2025-06-28T17:06:28.937Z",
+    "updatedAt": "2025-06-28T17:06:28.937Z"
+  },
+  {
+    "id": "9e136bea-b76a-4eea-ab25-36ec5eac5e4d",
+    "moduleType": "general",
+    "clinicalScenario": "BINV-2",
+    "inputParameters": {
+      "patientFactors": "required",
+      "clinicalContext": "variable"
+    },
+    "nccnReferences": [
+      "General NCCN"
+    ],
+    "recommendedActions": [
+      "Column headers added: Surgery, Adjuvant Systemic Therapy, Nodal Status, RT",
+      "Column 2",
+      "pN1a pathway, bullet 1 revised: cT1–T3 2, cN0",
+      "pN1a pathway, \"No\" node, last column revised: Whole breast RT with inclusion of any portion of the undissected axilla at risk ± boost to tumor bed",
+      "Footnote o revised: Sentinel node biopsy may be omitted based on the SSO Choosing Wisely recommendation in patients ≥70 years of age with HR+/",
+      "Footnote p added: Determined by surgery, clinical findings, or radiographic imaging.",
+      "Footnote q added: Based on emerging data from the SOUND trial, patients with HR+/HER2-negative tumors, pT1, N0 (node negative by axillary"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 1",
+    "consensusLevel": null,
+    "applicabilityScore": "0.80",
+    "lastReviewed": null,
+    "createdAt": "2025-06-28T17:06:29.162Z",
+    "updatedAt": "2025-06-28T17:06:29.162Z"
+  },
+  {
+    "id": "f4585feb-37a0-4659-bac7-8f1beaf31dae",
+    "moduleType": "general",
+    "clinicalScenario": "BINV-17",
+    "inputParameters": {
+      "patientFactors": "required",
+      "clinicalContext": "variable"
+    },
+    "nccnReferences": [
+      "General NCCN"
+    ],
+    "recommendedActions": [
+      "Endocrine therapy"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 2A",
+    "consensusLevel": null,
+    "applicabilityScore": "0.80",
+    "lastReviewed": null,
+    "createdAt": "2025-06-28T17:06:31.484Z",
+    "updatedAt": "2025-06-28T17:06:31.484Z"
+  },
+  {
+    "id": "08e900f6-4791-482f-93fb-f5009e336c49",
+    "moduleType": "cdu",
+    "clinicalScenario": "Systemic therapy selection and administration",
+    "inputParameters": {
+      "stage": "required",
+      "biomarkers": "required",
+      "comorbidities": "recommended",
+      "performanceStatus": "required"
+    },
+    "nccnReferences": [
+      "BINV-5"
+    ],
+    "recommendedActions": [
+      "pT1c-pT3 pathway revised: Adjuvant chemotherapy with trastuzumab (category 1) (± pertuzumab for pT2-T3) and endocrine therapy",
+      "Footnote hh revised: The prognosis of benefit of HER2-targeted therapy is uncertain in patients with HER2-positive breast cancer with pT1a–b, N0",
+      "Footnote ii revised: Adjuvant chemotherapy with weekly paclitaxel and trastuzumab can be considered for pT1,N0,M0, HER2-positive cancers,"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 1",
+    "consensusLevel": null,
+    "applicabilityScore": "0.90",
+    "lastReviewed": null,
+    "createdAt": "2025-06-28T17:06:29.461Z",
+    "updatedAt": "2025-06-28T17:06:29.461Z"
+  },
+  {
+    "id": "35b4e138-bf58-49c4-9f59-e2c4dad0c71e",
+    "moduleType": "inpatient",
+    "clinicalScenario": "Treatment monitoring and toxicity management",
+    "inputParameters": {
+      "vitalSigns": "required",
+      "toxicityGrade": "required",
+      "currentTreatment": "required"
+    },
+    "nccnReferences": [
+      "BINV-5"
+    ],
+    "recommendedActions": [
+      "pT1c-pT3 pathway revised: Adjuvant chemotherapy with trastuzumab (category 1) (± pertuzumab for pT2-T3) and endocrine therapy",
+      "Footnote hh revised: The prognosis of benefit of HER2-targeted therapy is uncertain in patients with HER2-positive breast cancer with pT1a–b, N0",
+      "Footnote ii revised: Adjuvant chemotherapy with weekly paclitaxel and trastuzumab can be considered for pT1,N0,M0, HER2-positive cancers,"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 1",
+    "consensusLevel": null,
+    "applicabilityScore": "0.85",
+    "lastReviewed": null,
+    "createdAt": "2025-06-28T17:06:29.537Z",
+    "updatedAt": "2025-06-28T17:06:29.537Z"
+  },
+  {
+    "id": "c2cc4001-964b-4773-b8d6-2a22a3e3e9a1",
+    "moduleType": "general",
+    "clinicalScenario": "BINV-5",
+    "inputParameters": {
+      "patientFactors": "required",
+      "clinicalContext": "variable"
+    },
+    "nccnReferences": [
+      "General NCCN"
+    ],
+    "recommendedActions": [
+      "pT1c-pT3 pathway revised: Adjuvant chemotherapy with trastuzumab (category 1) (± pertuzumab for pT2-T3) and endocrine therapy",
+      "Footnote hh revised: The prognosis of benefit of HER2-targeted therapy is uncertain in patients with HER2-positive breast cancer with pT1a–b, N0",
+      "Footnote ii revised: Adjuvant chemotherapy with weekly paclitaxel and trastuzumab can be considered for pT1,N0,M0, HER2-positive cancers,"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 1",
+    "consensusLevel": null,
+    "applicabilityScore": "0.80",
+    "lastReviewed": null,
+    "createdAt": "2025-06-28T17:06:29.771Z",
+    "updatedAt": "2025-06-28T17:06:29.771Z"
+  },
+  {
+    "id": "36d882b2-c872-4b7b-990c-48de7f881a94",
+    "moduleType": "cdu",
+    "clinicalScenario": "Systemic therapy selection and administration",
+    "inputParameters": {
+      "stage": "required",
+      "biomarkers": "required",
+      "comorbidities": "recommended",
+      "performanceStatus": "required"
+    },
+    "nccnReferences": [
+      "BINV-6"
+    ],
+    "recommendedActions": [
+      "Middle pathway, column 3, new node added: Determine if candidate for chemotherapy (Also for BINV-7)",
+      "Footnote removed: Addition of 1 year of adjuvant olaparib is an option for select patients with germline BRCA1/2 mutation after completion of adjuvant"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 2A",
+    "consensusLevel": null,
+    "applicabilityScore": "0.90",
+    "lastReviewed": null,
+    "createdAt": "2025-06-28T17:06:29.918Z",
+    "updatedAt": "2025-06-28T17:06:29.918Z"
+  },
+  {
+    "id": "d95627ae-79d0-419a-9370-8f0c73fc97dd",
+    "moduleType": "general",
+    "clinicalScenario": "BINV-6",
+    "inputParameters": {
+      "patientFactors": "required",
+      "clinicalContext": "variable"
+    },
+    "nccnReferences": [
+      "General NCCN"
+    ],
+    "recommendedActions": [
+      "Middle pathway, column 3, new node added: Determine if candidate for chemotherapy (Also for BINV-7)",
+      "Footnote removed: Addition of 1 year of adjuvant olaparib is an option for select patients with germline BRCA1/2 mutation after completion of adjuvant"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 2A",
+    "consensusLevel": null,
+    "applicabilityScore": "0.80",
+    "lastReviewed": null,
+    "createdAt": "2025-06-28T17:06:29.993Z",
+    "updatedAt": "2025-06-28T17:06:29.993Z"
+  },
+  {
+    "id": "eeb3ac89-96df-4853-bf85-8c11aa1b8734",
+    "moduleType": "cdu",
+    "clinicalScenario": "Systemic therapy selection and administration",
+    "inputParameters": {
+      "stage": "required",
+      "biomarkers": "required",
+      "comorbidities": "recommended",
+      "performanceStatus": "required"
+    },
+    "nccnReferences": [
+      "BINV-7"
+    ],
+    "recommendedActions": [
+      "Not a candidate for chemotherapy, last column, new node added: Adjuvant endocrine therapy ± ovarian suppression/ablation. Consider adjuvant"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 2A",
+    "consensusLevel": null,
+    "applicabilityScore": "0.90",
+    "lastReviewed": null,
+    "createdAt": "2025-06-28T17:06:30.141Z",
+    "updatedAt": "2025-06-28T17:06:30.141Z"
+  },
+  {
+    "id": "69ae4347-14b4-43d5-ab1d-b2d34e770d17",
+    "moduleType": "general",
+    "clinicalScenario": "BINV-7",
+    "inputParameters": {
+      "patientFactors": "required",
+      "clinicalContext": "variable"
+    },
+    "nccnReferences": [
+      "General NCCN"
+    ],
+    "recommendedActions": [
+      "Not a candidate for chemotherapy, last column, new node added: Adjuvant endocrine therapy ± ovarian suppression/ablation. Consider adjuvant"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 2A",
+    "consensusLevel": null,
+    "applicabilityScore": "0.80",
+    "lastReviewed": null,
+    "createdAt": "2025-06-28T17:06:30.214Z",
+    "updatedAt": "2025-06-28T17:06:30.214Z"
+  },
+  {
+    "id": "723695f4-a461-43ed-bdf7-7ad10352e1bd",
+    "moduleType": "cdu",
+    "clinicalScenario": "Systemic therapy selection and administration",
+    "inputParameters": {
+      "stage": "required",
+      "biomarkers": "required",
+      "comorbidities": "recommended",
+      "performanceStatus": "required"
+    },
+    "nccnReferences": [
+      "BINV-8"
+    ],
+    "recommendedActions": [
+      "Bottom pathway revised: Adjuvant chemotherapy followed by endocrine therapy ± ovarian suppression/ablation (category 1). Consider adjuvant"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 1",
+    "consensusLevel": null,
+    "applicabilityScore": "0.90",
+    "lastReviewed": null,
+    "createdAt": "2025-06-28T17:06:30.363Z",
+    "updatedAt": "2025-06-28T17:06:30.363Z"
+  },
+  {
+    "id": "6876e3e4-0065-46d8-9cb2-954cf894eb40",
+    "moduleType": "general",
+    "clinicalScenario": "BINV-8",
+    "inputParameters": {
+      "patientFactors": "required",
+      "clinicalContext": "variable"
+    },
+    "nccnReferences": [
+      "General NCCN"
+    ],
+    "recommendedActions": [
+      "Bottom pathway revised: Adjuvant chemotherapy followed by endocrine therapy ± ovarian suppression/ablation (category 1). Consider adjuvant"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 1",
+    "consensusLevel": null,
+    "applicabilityScore": "0.80",
+    "lastReviewed": null,
+    "createdAt": "2025-06-28T17:06:30.436Z",
+    "updatedAt": "2025-06-28T17:06:30.436Z"
+  },
+  {
+    "id": "d93f199a-e87e-4454-9c9e-e33e83701ace",
+    "moduleType": "cdu",
+    "clinicalScenario": "Systemic therapy selection and administration",
+    "inputParameters": {
+      "stage": "required",
+      "biomarkers": "required",
+      "comorbidities": "recommended",
+      "performanceStatus": "required"
+    },
+    "nccnReferences": [
+      "BINV-9"
+    ],
+    "recommendedActions": [
+      "pT1c-pT3 pathway revised: Adjuvant chemotherapy with trastuzumab (category 1) (± pertuzumab for pT2-T3)"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 1",
+    "consensusLevel": null,
+    "applicabilityScore": "0.90",
+    "lastReviewed": null,
+    "createdAt": "2025-06-28T17:06:30.583Z",
+    "updatedAt": "2025-06-28T17:06:30.583Z"
+  },
+  {
+    "id": "7de8aeb7-2b61-43ae-b571-ad152c0b45c5",
+    "moduleType": "general",
+    "clinicalScenario": "BINV-9",
+    "inputParameters": {
+      "patientFactors": "required",
+      "clinicalContext": "variable"
+    },
+    "nccnReferences": [
+      "General NCCN"
+    ],
+    "recommendedActions": [
+      "pT1c-pT3 pathway revised: Adjuvant chemotherapy with trastuzumab (category 1) (± pertuzumab for pT2-T3)"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 1",
+    "consensusLevel": null,
+    "applicabilityScore": "0.80",
+    "lastReviewed": null,
+    "createdAt": "2025-06-28T17:06:30.657Z",
+    "updatedAt": "2025-06-28T17:06:30.657Z"
+  },
+  {
+    "id": "5d735b63-d349-47ea-a4df-304ff07f84fa",
+    "moduleType": "opd",
+    "clinicalScenario": "Initial breast cancer workup and staging",
+    "inputParameters": {
+      "age": "required",
+      "symptoms": "required",
+      "familyHistory": "recommended",
+      "priorBreastImaging": "recommended"
+    },
+    "nccnReferences": [
+      "BINV-10"
+    ],
+    "recommendedActions": [
+      "Last column, middle pathway revised: Consider adjuvant chemotherapy and adjuvant olaparib if germline BRCA1/2 mutation, see BINV-M for eligibility",
+      "Last column, bottom pathway revised: Adjuvant chemotherapy (category 1) and adjuvant olaparib if germline BRCA1/2 mutation, see BINV-M for"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 1",
+    "consensusLevel": null,
+    "applicabilityScore": "0.95",
+    "lastReviewed": null,
+    "createdAt": "2025-06-28T17:06:30.804Z",
+    "updatedAt": "2025-06-28T17:06:30.804Z"
+  },
+  {
+    "id": "25df14a3-9e26-4170-bbe6-926131faf37a",
+    "moduleType": "cdu",
+    "clinicalScenario": "Systemic therapy selection and administration",
+    "inputParameters": {
+      "stage": "required",
+      "biomarkers": "required",
+      "comorbidities": "recommended",
+      "performanceStatus": "required"
+    },
+    "nccnReferences": [
+      "BINV-10"
+    ],
+    "recommendedActions": [
+      "Last column, middle pathway revised: Consider adjuvant chemotherapy and adjuvant olaparib if germline BRCA1/2 mutation, see BINV-M for eligibility",
+      "Last column, bottom pathway revised: Adjuvant chemotherapy (category 1) and adjuvant olaparib if germline BRCA1/2 mutation, see BINV-M for"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 1",
+    "consensusLevel": null,
+    "applicabilityScore": "0.90",
+    "lastReviewed": null,
+    "createdAt": "2025-06-28T17:06:30.878Z",
+    "updatedAt": "2025-06-28T17:06:30.878Z"
+  },
+  {
+    "id": "afd2ff3e-d57d-4429-834f-28eeccf63cfc",
+    "moduleType": "general",
+    "clinicalScenario": "BINV-10",
+    "inputParameters": {
+      "patientFactors": "required",
+      "clinicalContext": "variable"
+    },
+    "nccnReferences": [
+      "General NCCN"
+    ],
+    "recommendedActions": [
+      "Last column, middle pathway revised: Consider adjuvant chemotherapy and adjuvant olaparib if germline BRCA1/2 mutation, see BINV-M for eligibility",
+      "Last column, bottom pathway revised: Adjuvant chemotherapy (category 1) and adjuvant olaparib if germline BRCA1/2 mutation, see BINV-M for"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 1",
+    "consensusLevel": null,
+    "applicabilityScore": "0.80",
+    "lastReviewed": null,
+    "createdAt": "2025-06-28T17:06:30.952Z",
+    "updatedAt": "2025-06-28T17:06:30.952Z"
+  },
+  {
+    "id": "74e7918a-1638-417e-8530-519057f27df2",
+    "moduleType": "opd",
+    "clinicalScenario": "Initial breast cancer workup and staging",
+    "inputParameters": {
+      "age": "required",
+      "symptoms": "required",
+      "familyHistory": "recommended",
+      "priorBreastImaging": "recommended"
+    },
+    "nccnReferences": [
+      "BINV-14"
+    ],
+    "recommendedActions": [
+      "Footnote t added: Special Considerations for Breast Cancer in Males (Sex Assigned at Birth) (BINV-J). (Also for BINV-15 and BINV-16)"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 2A",
+    "consensusLevel": null,
+    "applicabilityScore": "0.95",
+    "lastReviewed": null,
+    "createdAt": "2025-06-28T17:06:31.099Z",
+    "updatedAt": "2025-06-28T17:06:31.099Z"
+  },
+  {
+    "id": "8bfcc6b8-2603-4329-9695-07c7178b0c96",
+    "moduleType": "opd",
+    "clinicalScenario": "Initial breast cancer workup and staging",
+    "inputParameters": {
+      "age": "required",
+      "symptoms": "required",
+      "familyHistory": "recommended",
+      "priorBreastImaging": "recommended"
+    },
+    "nccnReferences": [
+      "BINV-16"
+    ],
+    "recommendedActions": [
+      "Footnote removed: High-risk criteria include stage II–III TNBC. The use of adjuvant pembrolizumab (category 2A) may be individualized."
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 2A",
+    "consensusLevel": null,
+    "applicabilityScore": "0.95",
+    "lastReviewed": null,
+    "createdAt": "2025-06-28T17:06:31.248Z",
+    "updatedAt": "2025-06-28T17:06:31.248Z"
+  },
+  {
+    "id": "281ab36b-bac3-46f8-8d1a-b6d7f5720d03",
+    "moduleType": "opd",
+    "clinicalScenario": "Initial breast cancer workup and staging",
+    "inputParameters": {
+      "age": "required",
+      "symptoms": "required",
+      "familyHistory": "recommended",
+      "priorBreastImaging": "recommended"
+    },
+    "nccnReferences": [
+      "BINV-17"
+    ],
+    "recommendedActions": [
+      "Endocrine therapy"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 2A",
+    "consensusLevel": null,
+    "applicabilityScore": "0.95",
+    "lastReviewed": null,
+    "createdAt": "2025-06-28T17:06:31.395Z",
+    "updatedAt": "2025-06-28T17:06:31.395Z"
+  },
+  {
+    "id": "c8ff5961-c262-4d09-a4de-8ff7de1d6242",
+    "moduleType": "opd",
+    "clinicalScenario": "Initial breast cancer workup and staging",
+    "inputParameters": {
+      "age": "required",
+      "symptoms": "required",
+      "familyHistory": "recommended",
+      "priorBreastImaging": "recommended"
+    },
+    "nccnReferences": [
+      "BINV-18"
+    ],
+    "recommendedActions": [
+      "Workup, Imaging for systemic staging",
+      "Footnote iii revised: Tumor tissue or plasma-based circulating tumor DNA (ctDNA) assays may be used and each of these have benefits and limitations for diagnosis",
+      "Footnote kkk added: In the setting of oligometastatic breast cancer, the currently available data do not support ablative metastasis-directed RT (ie, stereotactic body"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 2A",
+    "consensusLevel": null,
+    "applicabilityScore": "0.95",
+    "lastReviewed": null,
+    "createdAt": "2025-06-28T17:06:31.633Z",
+    "updatedAt": "2025-06-28T17:06:31.633Z"
+  },
+  {
+    "id": "da305ff1-810b-4ad8-902a-75cc5fde51f9",
+    "moduleType": "general",
+    "clinicalScenario": "BINV-18",
+    "inputParameters": {
+      "patientFactors": "required",
+      "clinicalContext": "variable"
+    },
+    "nccnReferences": [
+      "General NCCN"
+    ],
+    "recommendedActions": [
+      "Workup, Imaging for systemic staging",
+      "Footnote iii revised: Tumor tissue or plasma-based circulating tumor DNA (ctDNA) assays may be used and each of these have benefits and limitations for diagnosis",
+      "Footnote kkk added: In the setting of oligometastatic breast cancer, the currently available data do not support ablative metastasis-directed RT (ie, stereotactic body"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 2A",
+    "consensusLevel": null,
+    "applicabilityScore": "0.80",
+    "lastReviewed": null,
+    "createdAt": "2025-06-28T17:06:31.786Z",
+    "updatedAt": "2025-06-28T17:06:31.786Z"
+  },
+  {
+    "id": "7c3aef57-0e1a-47c4-b3c7-ef8605b6c2d8",
+    "moduleType": "opd",
+    "clinicalScenario": "Initial breast cancer workup and staging",
+    "inputParameters": {
+      "age": "required",
+      "symptoms": "required",
+      "familyHistory": "recommended",
+      "priorBreastImaging": "recommended"
+    },
+    "nccnReferences": [
+      "BINV-19"
+    ],
+    "recommendedActions": [
+      "Column 3",
+      "Footnote mmm revised: In patients with a local breast recurrence after BCS who had a prior SLNB, a repeat SLNB may be considered although the accuracy of repeat"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 2A",
+    "consensusLevel": null,
+    "applicabilityScore": "0.95",
+    "lastReviewed": null,
+    "createdAt": "2025-06-28T17:06:31.933Z",
+    "updatedAt": "2025-06-28T17:06:31.933Z"
+  },
+  {
+    "id": "45962c69-24e6-4a1c-8b2a-5b0aad9bc77d",
+    "moduleType": "general",
+    "clinicalScenario": "BINV-19",
+    "inputParameters": {
+      "patientFactors": "required",
+      "clinicalContext": "variable"
+    },
+    "nccnReferences": [
+      "General NCCN"
+    ],
+    "recommendedActions": [
+      "Column 3",
+      "Footnote mmm revised: In patients with a local breast recurrence after BCS who had a prior SLNB, a repeat SLNB may be considered although the accuracy of repeat"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 2A",
+    "consensusLevel": null,
+    "applicabilityScore": "0.80",
+    "lastReviewed": null,
+    "createdAt": "2025-06-28T17:06:32.007Z",
+    "updatedAt": "2025-06-28T17:06:32.007Z"
+  },
+  {
+    "id": "500ca0fe-0f9c-4b91-a4f7-3bee5c28cd8b",
+    "moduleType": "general",
+    "clinicalScenario": "BINV-22",
+    "inputParameters": {
+      "patientFactors": "required",
+      "clinicalContext": "variable"
+    },
+    "nccnReferences": [
+      "General NCCN"
+    ],
+    "recommendedActions": [
+      "Footnote removed: If progression on initial endocrine therapy, switch to a different endocrine therapy option."
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 2A",
+    "consensusLevel": null,
+    "applicabilityScore": "0.80",
+    "lastReviewed": null,
+    "createdAt": "2025-06-28T17:06:32.155Z",
+    "updatedAt": "2025-06-28T17:06:32.155Z"
+  },
+  {
+    "id": "92e11f4c-9c21-4086-8610-65a67a199968",
+    "moduleType": "cdu",
+    "clinicalScenario": "Systemic therapy selection and administration",
+    "inputParameters": {
+      "stage": "required",
+      "biomarkers": "required",
+      "comorbidities": "recommended",
+      "performanceStatus": "required"
+    },
+    "nccnReferences": [
+      "BINV-25"
+    ],
+    "recommendedActions": [
+      "Top pathway, column 4 revised: Systemic therapy + ± HER2-targeted therapy until progression",
+      "Footnote cccc revised: Continue HER2-targeted therapy following progression on first-line HER2-targeted chemotherapy for metastatic breast cancer. The optimal"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 2A",
+    "consensusLevel": null,
+    "applicabilityScore": "0.90",
+    "lastReviewed": null,
+    "createdAt": "2025-06-28T17:06:32.302Z",
+    "updatedAt": "2025-06-28T17:06:32.302Z"
+  },
+  {
+    "id": "8dc905b2-b69d-46f8-9f94-4dfa5438f065",
+    "moduleType": "general",
+    "clinicalScenario": "BINV-25",
+    "inputParameters": {
+      "patientFactors": "required",
+      "clinicalContext": "variable"
+    },
+    "nccnReferences": [
+      "General NCCN"
+    ],
+    "recommendedActions": [
+      "Top pathway, column 4 revised: Systemic therapy + ± HER2-targeted therapy until progression",
+      "Footnote cccc revised: Continue HER2-targeted therapy following progression on first-line HER2-targeted chemotherapy for metastatic breast cancer. The optimal"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 2A",
+    "consensusLevel": null,
+    "applicabilityScore": "0.80",
+    "lastReviewed": null,
+    "createdAt": "2025-06-28T17:06:32.524Z",
+    "updatedAt": "2025-06-28T17:06:32.524Z"
+  },
+  {
+    "id": "719f2ec2-39af-4a34-9031-50d107b1e81b",
+    "moduleType": "cdu",
+    "clinicalScenario": "Systemic therapy selection and administration",
+    "inputParameters": {
+      "stage": "required",
+      "biomarkers": "required",
+      "comorbidities": "recommended",
+      "performanceStatus": "required"
+    },
+    "nccnReferences": [
+      "BINV-26"
+    ],
+    "recommendedActions": [
+      "Column 4 revised: Alternate systemic therapy + HER2-targeted therapy until progression"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 2A",
+    "consensusLevel": null,
+    "applicabilityScore": "0.90",
+    "lastReviewed": null,
+    "createdAt": "2025-06-28T17:06:32.669Z",
+    "updatedAt": "2025-06-28T17:06:32.669Z"
+  },
+  {
+    "id": "c8918b2d-90e0-47c9-8f68-fbe184f6f3d1",
+    "moduleType": "general",
+    "clinicalScenario": "BINV-26",
+    "inputParameters": {
+      "patientFactors": "required",
+      "clinicalContext": "variable"
+    },
+    "nccnReferences": [
+      "General NCCN"
+    ],
+    "recommendedActions": [
+      "Column 4 revised: Alternate systemic therapy + HER2-targeted therapy until progression"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 2A",
+    "consensusLevel": null,
+    "applicabilityScore": "0.80",
+    "lastReviewed": null,
+    "createdAt": "2025-06-28T17:06:32.891Z",
+    "updatedAt": "2025-06-28T17:06:32.891Z"
+  },
+  {
+    "id": "c860c220-5061-4500-950e-69088f31a8f0",
+    "moduleType": "general",
+    "clinicalScenario": "BINV-28",
+    "inputParameters": {
+      "patientFactors": "required",
+      "clinicalContext": "variable"
+    },
+    "nccnReferences": [
+      "General NCCN"
+    ],
+    "recommendedActions": [
+      "New section: Principles of Survivorship for Those Living with Advanced or Metastatic Breast Cancer",
+      "Footnote d revised: The distinction between HER2 IHC 0 with no membrane staining from IHC 0+ with faint, partial membrane staining in ≤10%, 1+, or 2+/ISH negative"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 2A",
+    "consensusLevel": null,
+    "applicabilityScore": "0.80",
+    "lastReviewed": null,
+    "createdAt": "2025-06-28T17:06:33.260Z",
+    "updatedAt": "2025-06-28T17:06:33.260Z"
+  },
+  {
+    "id": "b1ee9e7d-2edb-46bb-86a1-47f4b4f714f8",
+    "moduleType": "OPD",
+    "clinicalScenario": "Ampullary Adenocarcinoma Screening",
+    "inputParameters": {
+      "symptoms": [
+        "Abdominal pain",
+        "Jaundice",
+        "Weight loss"
+      ],
+      "cancerType": "Ampullary Adenocarcinoma",
+      "riskFactors": [
+        "Family history",
+        "Hereditary cancer syndromes"
+      ]
+    },
+    "nccnReferences": [
+      "AMP-1"
+    ],
+    "recommendedActions": [
+      "Digital rectal examination and inguinal lymph node evaluation",
+      "Chest/abdomen/pelvis CT or MRI imaging",
+      "Consider FDG-PET/CT for staging",
+      "Genetic testing for hereditary cancer syndromes",
+      "HIV testing if status unknown"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 1",
+    "consensusLevel": null,
+    "applicabilityScore": null,
+    "lastReviewed": null,
+    "createdAt": "2025-06-29T00:16:25.128Z",
+    "updatedAt": "2025-06-29T00:16:25.128Z"
+  },
+  {
+    "id": "b8eac020-e1f5-4339-835a-633104f7a592",
+    "moduleType": "CDU",
+    "clinicalScenario": "Ampullary Adenocarcinoma Treatment Protocols",
+    "inputParameters": {
+      "stage": "Localized",
+      "biomarkers": [
+        "HER2",
+        "MSI-H",
+        "dMMR"
+      ],
+      "performanceStatus": "Good"
+    },
+    "nccnReferences": [
+      "AMP-4"
+    ],
+    "recommendedActions": [
+      "Pancreatoduodenectomy with adjuvant chemoradiation",
+      "Perioperative immunotherapy for MSI-H/dMMR tumors",
+      "HER2-targeted therapy for HER2+ tumors",
+      "Multidisciplinary team consultation"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 1",
+    "consensusLevel": null,
+    "applicabilityScore": null,
+    "lastReviewed": null,
+    "createdAt": "2025-06-29T00:16:25.212Z",
+    "updatedAt": "2025-06-29T00:16:25.212Z"
+  },
+  {
+    "id": "19caaf79-fef7-4fb1-93bd-f03851fcff4d",
+    "moduleType": "Inpatient",
+    "clinicalScenario": "Postoperative Ampullary Adenocarcinoma Management",
+    "inputParameters": {
+      "pathology": "R0 resection",
+      "complications": "None",
+      "surgicalStatus": "Post-pancreatoduodenectomy"
+    },
+    "nccnReferences": [
+      "AMP-5"
+    ],
+    "recommendedActions": [
+      "Adjuvant chemotherapy with or without chemoradiation",
+      "Follow GAST-F systemic therapy principles",
+      "Regular surveillance imaging",
+      "Nutritional support and pancreatic enzyme replacement"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 1",
+    "consensusLevel": null,
+    "applicabilityScore": null,
+    "lastReviewed": null,
+    "createdAt": "2025-06-29T00:16:25.287Z",
+    "updatedAt": "2025-06-29T00:16:25.287Z"
+  },
+  {
+    "id": "6243de95-27b1-4679-ab03-dec7e1f09f84",
+    "moduleType": "Palliative",
+    "clinicalScenario": "Metastatic Ampullary Adenocarcinoma",
+    "inputParameters": {
+      "stage": "Metastatic",
+      "symptoms": [
+        "Pain",
+        "Jaundice",
+        "Fatigue"
+      ],
+      "performanceStatus": "ECOG 2"
+    },
+    "nccnReferences": [
+      "AMP-6"
+    ],
+    "recommendedActions": [
+      "Palliative care consultation",
+      "Symptom-directed management",
+      "Biliary stenting for jaundice",
+      "Nutritional support",
+      "Psychosocial support"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 1",
+    "consensusLevel": null,
+    "applicabilityScore": null,
+    "lastReviewed": null,
+    "createdAt": "2025-06-29T00:16:25.362Z",
+    "updatedAt": "2025-06-29T00:16:25.362Z"
+  },
+  {
+    "id": "b516b132-df93-4e3e-bd2a-f5850b25853a",
+    "moduleType": "Clinical Tools",
+    "clinicalScenario": "Ampullary Adenocarcinoma Risk Assessment",
+    "inputParameters": {
+      "biomarkers": [
+        "BRCA1",
+        "BRCA2",
+        "MLH1",
+        "MSH2"
+      ],
+      "familyHistory": "Positive",
+      "geneticTesting": "Required"
+    },
+    "nccnReferences": [
+      "AMP-1"
+    ],
+    "recommendedActions": [
+      "Genetic counseling referral",
+      "Comprehensive gene panel testing",
+      "Family screening recommendations",
+      "Risk-reducing strategies discussion"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 1",
+    "consensusLevel": null,
+    "applicabilityScore": null,
+    "lastReviewed": null,
+    "createdAt": "2025-06-29T00:16:25.437Z",
+    "updatedAt": "2025-06-29T00:16:25.437Z"
+  },
+  {
+    "id": "b49ba27e-d2d8-4307-acac-ece5fa4fc799",
+    "moduleType": "OPD",
+    "clinicalScenario": "Ampullary Adenocarcinoma Screening",
+    "inputParameters": {
+      "symptoms": [
+        "Abdominal pain",
+        "Jaundice",
+        "Weight loss"
+      ],
+      "cancerType": "Ampullary Adenocarcinoma",
+      "riskFactors": [
+        "Family history",
+        "Hereditary cancer syndromes"
+      ]
+    },
+    "nccnReferences": [
+      "AMP-1"
+    ],
+    "recommendedActions": [
+      "Digital rectal examination and inguinal lymph node evaluation",
+      "Chest/abdomen/pelvis CT or MRI imaging",
+      "Consider FDG-PET/CT for staging",
+      "Genetic testing for hereditary cancer syndromes",
+      "HIV testing if status unknown"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 1",
+    "consensusLevel": null,
+    "applicabilityScore": null,
+    "lastReviewed": null,
+    "createdAt": "2025-06-29T00:17:04.547Z",
+    "updatedAt": "2025-06-29T00:17:04.547Z"
+  },
+  {
+    "id": "a0b3cb77-982d-4013-a56f-2e6e2633ddf5",
+    "moduleType": "CDU",
+    "clinicalScenario": "Ampullary Adenocarcinoma Treatment Protocols",
+    "inputParameters": {
+      "stage": "Localized",
+      "biomarkers": [
+        "HER2",
+        "MSI-H",
+        "dMMR"
+      ],
+      "performanceStatus": "Good"
+    },
+    "nccnReferences": [
+      "AMP-4"
+    ],
+    "recommendedActions": [
+      "Pancreatoduodenectomy with adjuvant chemoradiation",
+      "Perioperative immunotherapy for MSI-H/dMMR tumors",
+      "HER2-targeted therapy for HER2+ tumors",
+      "Multidisciplinary team consultation"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 1",
+    "consensusLevel": null,
+    "applicabilityScore": null,
+    "lastReviewed": null,
+    "createdAt": "2025-06-29T00:17:04.625Z",
+    "updatedAt": "2025-06-29T00:17:04.625Z"
+  },
+  {
+    "id": "31b8921b-add9-4200-abd3-83293852f203",
+    "moduleType": "Inpatient",
+    "clinicalScenario": "Postoperative Ampullary Adenocarcinoma Management",
+    "inputParameters": {
+      "pathology": "R0 resection",
+      "complications": "None",
+      "surgicalStatus": "Post-pancreatoduodenectomy"
+    },
+    "nccnReferences": [
+      "AMP-5"
+    ],
+    "recommendedActions": [
+      "Adjuvant chemotherapy with or without chemoradiation",
+      "Follow GAST-F systemic therapy principles",
+      "Regular surveillance imaging",
+      "Nutritional support and pancreatic enzyme replacement"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 1",
+    "consensusLevel": null,
+    "applicabilityScore": null,
+    "lastReviewed": null,
+    "createdAt": "2025-06-29T00:17:04.701Z",
+    "updatedAt": "2025-06-29T00:17:04.701Z"
+  },
+  {
+    "id": "14c5c5d1-70b9-4631-b2e3-14a6ca83f296",
+    "moduleType": "Palliative",
+    "clinicalScenario": "Metastatic Ampullary Adenocarcinoma",
+    "inputParameters": {
+      "stage": "Metastatic",
+      "symptoms": [
+        "Pain",
+        "Jaundice",
+        "Fatigue"
+      ],
+      "performanceStatus": "ECOG 2"
+    },
+    "nccnReferences": [
+      "AMP-6"
+    ],
+    "recommendedActions": [
+      "Palliative care consultation",
+      "Symptom-directed management",
+      "Biliary stenting for jaundice",
+      "Nutritional support",
+      "Psychosocial support"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 1",
+    "consensusLevel": null,
+    "applicabilityScore": null,
+    "lastReviewed": null,
+    "createdAt": "2025-06-29T00:17:04.785Z",
+    "updatedAt": "2025-06-29T00:17:04.785Z"
+  },
+  {
+    "id": "a68a065a-38a5-4f7c-8642-709064340193",
+    "moduleType": "Clinical Tools",
+    "clinicalScenario": "Ampullary Adenocarcinoma Risk Assessment",
+    "inputParameters": {
+      "biomarkers": [
+        "BRCA1",
+        "BRCA2",
+        "MLH1",
+        "MSH2"
+      ],
+      "familyHistory": "Positive",
+      "geneticTesting": "Required"
+    },
+    "nccnReferences": [
+      "AMP-1"
+    ],
+    "recommendedActions": [
+      "Genetic counseling referral",
+      "Comprehensive gene panel testing",
+      "Family screening recommendations",
+      "Risk-reducing strategies discussion"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 1",
+    "consensusLevel": null,
+    "applicabilityScore": null,
+    "lastReviewed": null,
+    "createdAt": "2025-06-29T00:17:04.862Z",
+    "updatedAt": "2025-06-29T00:17:04.862Z"
+  },
+  {
+    "id": "225bf84f-6aef-4c8c-ae33-e3d797b94405",
+    "moduleType": "OPD",
+    "clinicalScenario": "Bone Cancer Workup and Age-Based Evaluation",
+    "inputParameters": {
+      "age": "Variable",
+      "imaging": "Abnormal x-ray",
+      "presentation": "Symptomatic bone lesion"
+    },
+    "nccnReferences": [
+      "BONE-1"
+    ],
+    "recommendedActions": [
+      "Age <40: Refer to orthopedic oncologist immediately",
+      "Age ≥40: Workup for bone metastasis first",
+      "Multidisciplinary team evaluation",
+      "Biopsy at treating institution only",
+      "Complete staging workup per NCCN guidelines"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 2A",
+    "consensusLevel": null,
+    "applicabilityScore": null,
+    "lastReviewed": null,
+    "createdAt": "2025-06-29T00:26:38.366Z",
+    "updatedAt": "2025-06-29T00:26:38.366Z"
+  },
+  {
+    "id": "b7385616-d867-4b30-a9ab-65e275a62833",
+    "moduleType": "CDU",
+    "clinicalScenario": "Osteosarcoma Treatment Protocols",
+    "inputParameters": {
+      "age": "Pediatric/Young Adult",
+      "stage": "Localized",
+      "resectability": "Resectable"
+    },
+    "nccnReferences": [
+      "OSTEO-1",
+      "OSTEO-2"
+    ],
+    "recommendedActions": [
+      "Neoadjuvant chemotherapy (MAP or doxorubicin/cisplatin)",
+      "Surgical resection with wide margins",
+      "Histologic response assessment",
+      "Adjuvant chemotherapy based on response",
+      "Fertility consultation consideration"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 2A",
+    "consensusLevel": null,
+    "applicabilityScore": null,
+    "lastReviewed": null,
+    "createdAt": "2025-06-29T00:26:38.442Z",
+    "updatedAt": "2025-06-29T00:26:38.442Z"
+  },
+  {
+    "id": "4e8a78d4-f08f-41e8-9c99-43121e8ddb8f",
+    "moduleType": "CDU",
+    "clinicalScenario": "Ewing Sarcoma Systemic Therapy",
+    "inputParameters": {
+      "age": "Pediatric/Young Adult",
+      "stage": "Localized or Metastatic",
+      "cytogenetics": "EWSR1 rearrangement confirmed"
+    },
+    "nccnReferences": [
+      "EW-1",
+      "EW-2"
+    ],
+    "recommendedActions": [
+      "Multi-agent chemotherapy (VDC/IE or similar)",
+      "Local therapy (surgery and/or radiation)",
+      "FDG-PET/CT for staging and response",
+      "Consider clinical trial participation",
+      "Cytogenetic confirmation essential"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 2A",
+    "consensusLevel": null,
+    "applicabilityScore": null,
+    "lastReviewed": null,
+    "createdAt": "2025-06-29T00:26:38.516Z",
+    "updatedAt": "2025-06-29T00:26:38.516Z"
+  },
+  {
+    "id": "dcb5cec4-76e3-4b73-bfae-3d5cbe3935c7",
+    "moduleType": "Inpatient",
+    "clinicalScenario": "Bone Cancer Postoperative Management",
+    "inputParameters": {
+      "margins": "Negative",
+      "surgery": "Wide resection completed",
+      "complications": "Standard postoperative care"
+    },
+    "nccnReferences": [
+      "OSTEO-2",
+      "BONE-A"
+    ],
+    "recommendedActions": [
+      "Assess surgical margins and histologic response",
+      "Plan adjuvant therapy based on tumor type",
+      "Monitor for surgical complications",
+      "Physical therapy and rehabilitation",
+      "Discharge planning with oncology follow-up"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 2A",
+    "consensusLevel": null,
+    "applicabilityScore": null,
+    "lastReviewed": null,
+    "createdAt": "2025-06-29T00:26:38.589Z",
+    "updatedAt": "2025-06-29T00:26:38.589Z"
+  },
+  {
+    "id": "c58ca63a-bde5-4d02-b78d-dd6a6aaf2f2c",
+    "moduleType": "Palliative",
+    "clinicalScenario": "Metastatic Bone Cancer Symptom Management",
+    "inputParameters": {
+      "stage": "Metastatic",
+      "symptoms": "Pain, functional limitation",
+      "performance": "Declining"
+    },
+    "nccnReferences": [
+      "OSTEO-4",
+      "CHON-4"
+    ],
+    "recommendedActions": [
+      "Palliative radiation therapy for pain control",
+      "Multidisciplinary palliative care consultation",
+      "Pain management optimization",
+      "Functional assessment and support",
+      "Psychosocial support for patient and family"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 2A",
+    "consensusLevel": null,
+    "applicabilityScore": null,
+    "lastReviewed": null,
+    "createdAt": "2025-06-29T00:26:38.662Z",
+    "updatedAt": "2025-06-29T00:26:38.662Z"
+  },
+  {
+    "id": "2e0d6bd3-a60d-414e-ab1a-dbc094dc440d",
+    "moduleType": "Clinical Tools",
+    "clinicalScenario": "Bone Cancer Risk Assessment and Staging",
+    "inputParameters": {
+      "size": "Variable",
+      "location": "Variable",
+      "tumorType": "Variable"
+    },
+    "nccnReferences": [
+      "BONE-1",
+      "TEAM-1"
+    ],
+    "recommendedActions": [
+      "Complete staging workup per tumor type",
+      "Multidisciplinary team evaluation",
+      "Risk stratification based on histology",
+      "Treatment planning optimization",
+      "Prognostic factor assessment"
+    ],
+    "alternativeOptions": null,
+    "riskStratification": null,
+    "evidenceStrength": "Category 2A",
+    "consensusLevel": null,
+    "applicabilityScore": null,
+    "lastReviewed": null,
+    "createdAt": "2025-06-29T00:26:38.734Z",
+    "updatedAt": "2025-06-29T00:26:38.734Z"
+  }
+]
