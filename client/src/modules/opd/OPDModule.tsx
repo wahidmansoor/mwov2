@@ -28,10 +28,71 @@ const NCCNScreeningProtocols = () => (
           <Shield className="h-5 w-5 text-blue-600" />
           NCCN Multi-Cancer Screening & Diagnostic Guidelines
         </CardTitle>
-        <CardDescription>Evidence-based protocols from NCCN Guidelines (Colon v3.2025, SCLC v4.2025, Ampullary v2.2025)</CardDescription>
+        <CardDescription>Evidence-based protocols from NCCN Guidelines (Bone v1.2025, Colon v3.2025, SCLC v4.2025, Ampullary v2.2025)</CardDescription>
       </CardHeader>
       <CardContent>
         <Accordion type="single" collapsible className="w-full">
+          <AccordionItem value="bone-workup">
+            <AccordionTrigger>Bone Cancer Workup (BONE-1) - NCCN v1.2025</AccordionTrigger>
+            <AccordionContent>
+              <div className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="p-4 bg-orange-50 dark:bg-orange-800/20 rounded-lg">
+                    <h4 className="font-semibold text-sm mb-2">Age &lt;40 Years</h4>
+                    <ul className="text-sm space-y-1">
+                      <li>• <strong>Immediate referral to orthopedic oncologist</strong></li>
+                      <li>• Biopsy should be performed at treating institution</li>
+                      <li>• Multidisciplinary team evaluation required</li>
+                      <li>• Consider primary bone tumor</li>
+                    </ul>
+                  </div>
+                  <div className="p-4 bg-blue-50 dark:bg-blue-800/20 rounded-lg">
+                    <h4 className="font-semibold text-sm mb-2">Age ≥40 Years</h4>
+                    <ul className="text-sm space-y-1">
+                      <li>• Workup for potential bone metastasis first</li>
+                      <li>• History and physical examination</li>
+                      <li>• Bone scan or FDG-PET/CT (Category 2B)</li>
+                      <li>• Chest x-ray and C/A/P CT with contrast</li>
+                      <li>• SPEP, PSA (males), mammogram (females)</li>
+                      <li>• CBC, CMP with calcium assessment</li>
+                    </ul>
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                  <div className="p-3 bg-red-50 dark:bg-red-800/20 rounded">
+                    <h5 className="font-medium text-sm mb-1">Osteosarcoma Workup</h5>
+                    <ul className="text-xs space-y-1">
+                      <li>• Plain radiographs of primary</li>
+                      <li>• Chest CT, MRI primary site</li>
+                      <li>• Alkaline phosphatase, LDH</li>
+                      <li>• Fertility consultation consideration</li>
+                    </ul>
+                  </div>
+                  <div className="p-3 bg-purple-50 dark:bg-purple-800/20 rounded">
+                    <h5 className="font-medium text-sm mb-1">Ewing Sarcoma Workup</h5>
+                    <ul className="text-xs space-y-1">
+                      <li>• FDG-PET/CT head-to-toe (preferred)</li>
+                      <li>• Cytogenetic testing (EWSR1)</li>
+                      <li>• Molecular testing if negative</li>
+                      <li>• LDH baseline assessment</li>
+                    </ul>
+                  </div>
+                  <div className="p-3 bg-green-50 dark:bg-green-800/20 rounded">
+                    <h5 className="font-medium text-sm mb-1">Chondrosarcoma</h5>
+                    <ul className="text-xs space-y-1">
+                      <li>• Grade and location critical</li>
+                      <li>• Radiologic features assessment</li>
+                      <li>• Subtype classification</li>
+                      <li>• Multidisciplinary evaluation</li>
+                    </ul>
+                  </div>
+                </div>
+                <div className="p-3 bg-yellow-50 dark:bg-yellow-800/20 rounded border-l-4 border-yellow-400">
+                  <p className="text-sm"><strong>Critical Decision Point:</strong> Age-based algorithm determines initial approach - immediate oncology referral for patients &lt;40 vs metastatic workup for patients ≥40</p>
+                </div>
+              </div>
+            </AccordionContent>
+          </AccordionItem>
           <AccordionItem value="ampullary-workup">
             <AccordionTrigger>Ampullary Adenocarcinoma Workup (AMP-1) - NCCN v2.2025</AccordionTrigger>
             <AccordionContent>

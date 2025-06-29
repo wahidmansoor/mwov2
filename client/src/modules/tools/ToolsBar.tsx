@@ -320,6 +320,79 @@ const ClinicalCalculators = () => {
           </CardContent>
         </Card>
 
+        <Card className="border-l-4 border-l-orange-500">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Activity className="h-5 w-5 text-orange-600" />
+              NCCN Bone Cancer Biomarker Assessment
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div className="p-3 bg-orange-50 dark:bg-orange-800/20 rounded border-l-4 border-orange-400">
+                <p className="text-sm font-medium">NCCN Category 2A Recommendations</p>
+                <p className="text-xs text-muted-foreground">Essential biomarkers for bone cancer diagnosis and monitoring</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div>
+                  <label className="text-sm font-medium">Cancer Type</label>
+                  <Select>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select bone cancer type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="osteosarcoma">Osteosarcoma</SelectItem>
+                      <SelectItem value="ewing">Ewing Sarcoma</SelectItem>
+                      <SelectItem value="chondrosarcoma">Chondrosarcoma</SelectItem>
+                      <SelectItem value="chordoma">Chordoma</SelectItem>
+                      <SelectItem value="gctb">Giant Cell Tumor</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <label className="text-sm font-medium">Patient Age</label>
+                  <Select>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select age group" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="pediatric">Pediatric (&lt;18)</SelectItem>
+                      <SelectItem value="young-adult">Young Adult (18-40)</SelectItem>
+                      <SelectItem value="adult">Adult (&gt;40)</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+              <div>
+                <label className="text-sm font-medium">Required Biomarkers (NCCN v1.2025)</label>
+                <div className="mt-2 p-3 bg-gray-50 dark:bg-gray-800 rounded">
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    <div className="space-y-1">
+                      <p className="font-medium">Osteosarcoma:</p>
+                      <Badge variant="outline">Alkaline Phosphatase</Badge>
+                      <Badge variant="outline">LDH</Badge>
+                    </div>
+                    <div className="space-y-1">
+                      <p className="font-medium">Ewing Sarcoma:</p>
+                      <Badge variant="outline">EWSR1 Rearrangement</Badge>
+                      <Badge variant="outline">CIC-DUX4</Badge>
+                      <Badge variant="outline">BCOR-CCNB3</Badge>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <Button className="w-full" variant="default">
+                  Calculate Risk Stratification
+                </Button>
+                <Button className="w-full" variant="outline">
+                  Generate Testing Order Set
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
         <Card className="border-l-4 border-l-green-500">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">

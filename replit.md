@@ -45,6 +45,18 @@ OncoVista AI is a comprehensive medical-grade oncology platform providing AI-pow
 
 ## Recent Changes (June 29, 2025)
 
+### NCCN Version 1.2025 Bone Cancer Integration (COMPLETED)
+- Successfully integrated comprehensive NCCN Version 1.2025 Bone Cancer guidelines covering all primary bone tumor types
+- Enhanced OPD module with age-based diagnostic algorithms: immediate orthopedic oncology referral for patients <40 vs metastatic workup for patients ≥40
+- Enhanced CDU module with tumor-specific treatment protocols for osteosarcoma, Ewing sarcoma, chondrosarcoma, chordoma, and giant cell tumor
+- Enhanced Inpatient module with postoperative management protocols and multidisciplinary care coordination
+- Enhanced Palliative Care module with bone cancer-specific pain management and palliative radiation therapy protocols
+- Enhanced Clinical Tools module with biomarker assessment tools including alkaline phosphatase, LDH, and cytogenetic testing (EWSR1, CIC-DUX4, BCOR-CCNB3)
+- Integrated 18 comprehensive guidelines, 6 clinical decision support entries, and 5 biomarker guidelines
+- Added authentic treatment protocols for neoadjuvant/adjuvant chemotherapy, surgical resection, and radiation therapy
+- Implemented comprehensive workup protocols including fertility consultation considerations for osteosarcoma patients
+- Cross-module integration ensures consistent bone cancer guidance with multidisciplinary team approach
+
 ### NCCN Version 2.2025 Ampullary Adenocarcinoma Integration (COMPLETED)
 - Successfully integrated comprehensive NCCN Version 2.2025 Ampullary Adenocarcinoma guidelines across all OncoVista modules
 - Enhanced OPD module with comprehensive workup protocols (AMP-1) including genetic testing requirements for 11 genes
