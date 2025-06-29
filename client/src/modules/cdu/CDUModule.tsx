@@ -744,45 +744,168 @@ const TreatmentPlanSelector = () => {
     // Generate protocol recommendations based on selections
     const protocols = [];
     
-    if (selectedCancerType === "Breast Cancer" && selectedBiomarkers.includes("HER2+")) {
-      protocols.push({
-        name: "TCH (Docetaxel + Carboplatin + Trastuzumab)",
-        intent: selectedTreatmentIntent,
-        guidelines: ["NCCN v3.2025", "ESMO 2024"],
-        drugs: ["Docetaxel 75mg/m²", "Carboplatin AUC 6", "Trastuzumab 8mg/kg loading"],
-        alerts: ["Cardiac monitoring required", "Consider fertility preservation"]
-      });
+    // Breast Cancer Recommendations
+    if (selectedCancerType === "Breast Cancer") {
+      if (selectedBiomarkers.includes("HER2+")) {
+        if (selectedTreatmentIntent === "Neoadjuvant" || selectedTreatmentIntent === "Curative") {
+          protocols.push({
+            name: "TCH (Docetaxel + Carboplatin + Trastuzumab)",
+            intent: selectedTreatmentIntent,
+            guidelines: ["NCCN Breast v3.2025", "ESMO 2024"],
+            drugs: ["Docetaxel 75mg/m² q3w", "Carboplatin AUC 6 q3w", "Trastuzumab 8mg/kg loading, then 6mg/kg q3w"],
+            alerts: ["ECHO/MUGA before treatment", "Fertility counseling if age <40"]
+          });
+        }
+        if (selectedTreatmentIntent === "Palliative") {
+          protocols.push({
+            name: "Trastuzumab + Pertuzumab + Docetaxel",
+            intent: selectedTreatmentIntent,
+            guidelines: ["NCCN Breast v3.2025", "ESMO 2024"],
+            drugs: ["Trastuzumab 8mg/kg loading, then 6mg/kg q3w", "Pertuzumab 840mg loading, then 420mg q3w", "Docetaxel 75mg/m² q3w"],
+            alerts: ["Cardiac monitoring q3mo", "Monitor for diarrhea"]
+          });
+        }
+      } else if (selectedBiomarkers.includes("Triple Negative")) {
+        protocols.push({
+          name: "AC-T (Doxorubicin/Cyclophosphamide → Paclitaxel)",
+          intent: selectedTreatmentIntent,
+          guidelines: ["NCCN Breast v3.2025", "ESMO 2024"],
+          drugs: ["Doxorubicin 60mg/m² + Cyclophosphamide 600mg/m² q2w x4", "Then Paclitaxel 80mg/m² weekly x12"],
+          alerts: ["ECHO before anthracyclines", "Consider pembrolizumab if PD-L1+"]
+        });
+      } else if (selectedBiomarkers.includes("ER+")) {
+        protocols.push({
+          name: "CDK4/6 Inhibitor + Hormone Therapy",
+          intent: selectedTreatmentIntent,
+          guidelines: ["NCCN Breast v3.2025", "ESMO 2024"],
+          drugs: ["Palbociclib 125mg days 1-21 q4w", "Letrozole 2.5mg daily (or fulvestrant)"],
+          alerts: ["CBC with diff q2w x2 cycles, then q4w", "Monitor for neutropenia"]
+        });
+      }
     }
 
-    if (selectedCancerType === "Lung Cancer (NSCLC)" && selectedBiomarkers.includes("EGFR+")) {
-      protocols.push({
-        name: "Osimertinib Monotherapy",
-        intent: selectedTreatmentIntent,
-        guidelines: ["NCCN v1.2025", "ESMO 2024"],
-        drugs: ["Osimertinib 80mg PO daily"],
-        alerts: ["Monitor for QTc prolongation", "Consider CNS imaging"]
-      });
+    // Lung Cancer NSCLC Recommendations
+    if (selectedCancerType === "Lung Cancer (NSCLC)") {
+      if (selectedBiomarkers.includes("EGFR+")) {
+        protocols.push({
+          name: "Osimertinib",
+          intent: selectedTreatmentIntent,
+          guidelines: ["NCCN NSCLC v1.2025", "ESMO 2024"],
+          drugs: ["Osimertinib 80mg PO daily"],
+          alerts: ["Monitor QTc interval", "Brain MRI q12w", "T790M testing at progression"]
+        });
+      } else if (selectedBiomarkers.includes("ALK+")) {
+        protocols.push({
+          name: "Alectinib",
+          intent: selectedTreatmentIntent,
+          guidelines: ["NCCN NSCLC v1.2025", "ESMO 2024"],
+          drugs: ["Alectinib 600mg PO BID with food"],
+          alerts: ["Monitor LFTs", "Brain imaging q8-12w", "Consider lorlatinib if CNS progression"]
+        });
+      } else if (selectedBiomarkers.includes("PD-L1 High")) {
+        protocols.push({
+          name: "Pembrolizumab Monotherapy",
+          intent: selectedTreatmentIntent,
+          guidelines: ["NCCN NSCLC v1.2025", "ESMO 2024"],
+          drugs: ["Pembrolizumab 200mg IV q3w or 400mg q6w"],
+          alerts: ["Monitor for pneumonitis", "Thyroid function q6w", "Consider adding chemotherapy if PD-L1 <50%"]
+        });
+      }
     }
 
-    if (selectedCancerType === "Colorectal Cancer" && selectedBiomarkers.includes("KRAS Wild-type")) {
-      protocols.push({
-        name: "FOLFIRI + Cetuximab",
-        intent: selectedTreatmentIntent,
-        guidelines: ["NCCN v3.2025", "ESMO 2024"],
-        drugs: ["Irinotecan 180mg/m²", "5-FU 400mg/m² bolus", "Leucovorin 400mg/m²", "Cetuximab 400mg/m²"],
-        alerts: ["Skin toxicity monitoring", "UGT1A1 testing recommended"]
-      });
+    // Colorectal Cancer Recommendations
+    if (selectedCancerType === "Colorectal Cancer") {
+      if (selectedBiomarkers.includes("KRAS Wild-type") && selectedTreatmentIntent === "Palliative") {
+        protocols.push({
+          name: "FOLFIRI + Cetuximab",
+          intent: selectedTreatmentIntent,
+          guidelines: ["NCCN Colon v3.2025", "ESMO 2024"],
+          drugs: ["Irinotecan 180mg/m²", "5-FU 400mg/m² bolus + 2400mg/m² CI", "Leucovorin 400mg/m²", "Cetuximab 400mg/m² loading, then 250mg/m² weekly"],
+          alerts: ["UGT1A1 testing for irinotecan", "Skin rash management", "Hypomagnesemia monitoring"]
+        });
+      } else if (selectedBiomarkers.includes("MSI-H")) {
+        protocols.push({
+          name: "Pembrolizumab",
+          intent: selectedTreatmentIntent,
+          guidelines: ["NCCN Colon v3.2025", "FDA Approval"],
+          drugs: ["Pembrolizumab 200mg IV q3w"],
+          alerts: ["Monitor for immune-related AEs", "Consider first-line therapy", "Durable responses expected"]
+        });
+      } else if (selectedTreatmentIntent === "Adjuvant") {
+        protocols.push({
+          name: "FOLFOX",
+          intent: selectedTreatmentIntent,
+          guidelines: ["NCCN Colon v3.2025", "ESMO 2024"],
+          drugs: ["Oxaliplatin 85mg/m²", "5-FU 400mg/m² bolus + 2400mg/m² CI", "Leucovorin 400mg/m²"],
+          alerts: ["Peripheral neuropathy monitoring", "Cold sensitivity counseling", "6 months duration"]
+        });
+      }
     }
 
-    // Default fallback recommendations
+    // SCLC Recommendations
+    if (selectedCancerType === "Lung Cancer (SCLC)") {
+      if (selectedStage.includes("I") || selectedStage.includes("II") || selectedStage.includes("III")) {
+        protocols.push({
+          name: "Cisplatin/Etoposide + Concurrent RT",
+          intent: "Curative",
+          guidelines: ["NCCN SCLC v4.2025", "ESMO 2024"],
+          drugs: ["Cisplatin 75mg/m² day 1", "Etoposide 100mg/m² days 1-3", "Concurrent thoracic RT"],
+          alerts: ["Audiometry baseline", "Renal function monitoring", "Consider PCI if CR/PR"]
+        });
+      } else {
+        protocols.push({
+          name: "Carboplatin/Etoposide + Atezolizumab",
+          intent: selectedTreatmentIntent,
+          guidelines: ["NCCN SCLC v4.2025", "FDA Approval"],
+          drugs: ["Carboplatin AUC 5", "Etoposide 100mg/m² days 1-3", "Atezolizumab 1200mg day 1"],
+          alerts: ["Monitor for pneumonitis", "Maintenance atezolizumab", "PCI consideration"]
+        });
+      }
+    }
+
+    // Gastric Cancer Recommendations
+    if (selectedCancerType === "Gastric Cancer") {
+      if (selectedBiomarkers.includes("HER2+")) {
+        protocols.push({
+          name: "FOLFOX + Trastuzumab",
+          intent: selectedTreatmentIntent,
+          guidelines: ["NCCN Gastric v2.2025", "ESMO 2024"],
+          drugs: ["Oxaliplatin 85mg/m²", "5-FU 400mg/m² bolus + 2400mg/m² CI", "Leucovorin 400mg/m²", "Trastuzumab 8mg/kg loading, then 6mg/kg q3w"],
+          alerts: ["Cardiac monitoring", "HER2 retesting at progression", "Consider T-DXd at progression"]
+        });
+      } else {
+        protocols.push({
+          name: "FOLFOX or ECX",
+          intent: selectedTreatmentIntent,
+          guidelines: ["NCCN Gastric v2.2025", "ESMO 2024"],
+          drugs: ["FOLFOX: Oxaliplatin 85mg/m² + 5-FU/LV", "ECX: Epirubicin 50mg/m² + Cisplatin 60mg/m² + Capecitabine 625mg/m² BID"],
+          alerts: ["Nutritional assessment", "Consider ramucirumab second-line", "PD-L1 testing"]
+        });
+      }
+    }
+
+    // Add more cancer types and protocols as needed
+    
+    // If no specific protocols match, provide appropriate guidance
     if (protocols.length === 0) {
-      protocols.push({
-        name: "Standard Chemotherapy Protocol",
-        intent: selectedTreatmentIntent,
-        guidelines: ["NCCN 2025", "ESMO 2024"],
-        drugs: ["Protocol-specific agents based on cancer type"],
-        alerts: ["Complete staging required", "Multidisciplinary team consultation recommended"]
-      });
+      // Create stage-appropriate fallback recommendations
+      if (selectedTreatmentIntent === "Palliative") {
+        protocols.push({
+          name: "Palliative Chemotherapy (Cancer Type Specific)",
+          intent: selectedTreatmentIntent,
+          guidelines: ["NCCN 2025", "ESMO 2024"],
+          drugs: [`Standard ${selectedCancerType.toLowerCase()} palliative regimens`, "Consider immunotherapy if appropriate", "Targeted therapy based on molecular testing"],
+          alerts: ["Performance status assessment", "Symptom palliation priority", "Multidisciplinary team consultation recommended"]
+        });
+      } else {
+        protocols.push({
+          name: "Standard Treatment Protocol",
+          intent: selectedTreatmentIntent,
+          guidelines: ["NCCN 2025", "ESMO 2024"],
+          drugs: [`Stage-appropriate ${selectedCancerType.toLowerCase()} therapy`, "Consider molecular profiling", "Multidisciplinary planning required"],
+          alerts: ["Complete staging workup needed", "Fertility preservation consideration", "Clinical trial evaluation recommended"]
+        });
+      }
     }
 
     return protocols;
