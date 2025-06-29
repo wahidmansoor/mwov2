@@ -18,13 +18,13 @@ OncoVista AI is a comprehensive medical-grade oncology platform providing AI-pow
 
 ## Current Architecture
 
-### Completed Modules (9/9)
-1. **OPD Module** - Outpatient diagnosis, screening, and referral management
-2. **CDU Module** - Cancer Day Unit protocols, dosage calculations, toxicity monitoring
-3. **Inpatient Oncology Module** - Admission protocols, emergency regimens, monitoring workflows
-4. **Palliative Care Module** - Symptom management, pain control, psychosocial support
+### Completed Modules (8/8)
+1. **OPD Module** - Outpatient diagnosis, screening, and referral management (includes SCLC diagnostic protocols)
+2. **CDU Module** - Cancer Day Unit protocols, dosage calculations, toxicity monitoring (includes SCLC treatment regimens)
+3. **Inpatient Oncology Module** - Admission protocols, emergency regimens, monitoring workflows (includes SCLC inpatient management)
+4. **Palliative Care Module** - Symptom management, pain control, psychosocial support (includes SCLC supportive care)
 5. **AI Chat Assistant** - Interactive guideline queries with NCCN, ASCO, ESMO support
-6. **Clinical Tools** - Calculators, red flag alerts, lab interpretation guides
+6. **Clinical Tools** - Calculators, red flag alerts, lab interpretation guides (includes SCLC calculator and emergency protocols)
 7. **Notes Export** - Clinical documentation templates for educational purposes
 8. **Analytics Dashboard** - Usage metrics, guideline compliance, training insights
 9. **Oncology Education Module** - AI-powered adaptive learning system with Socratic questioning and analytics
@@ -45,6 +45,17 @@ OncoVista AI is a comprehensive medical-grade oncology platform providing AI-pow
 - Real-time guideline compliance monitoring
 
 ## Recent Changes (June 29, 2025)
+
+### SCLC Module Removal and Cross-Module Integration (COMPLETED)
+- Successfully removed standalone SCLC Guidelines module from core navigation as requested
+- Distributed all SCLC Version 4.2025 data across relevant existing modules for better clinical workflow integration
+- SCLC diagnostic protocols now integrated in OPD module alongside other cancer screening protocols
+- SCLC treatment regimens distributed to CDU module with other chemotherapy protocols
+- SCLC inpatient management protocols integrated in Inpatient module (SCLC-1)
+- SCLC emergency protocols and Carboplatin calculator remain in Clinical Tools module
+- Removed SCLC route from App.tsx and navigation structure while preserving all clinical content
+- Updated documentation to reflect 8 core modules instead of 9, with SCLC content distributed appropriately
+- Maintained authentic NCCN Version 4.2025 SCLC guidelines across all modules for comprehensive cancer care
 
 ### Local Development Authentication System (COMPLETED)
 - Successfully implemented comprehensive local development authentication bypass system
@@ -136,17 +147,17 @@ OncoVista AI is a comprehensive medical-grade oncology platform providing AI-pow
 - Implemented comprehensive biomarker testing guidelines for HER2, PD-L1, MSI-H/dMMR, CLDN18.2, and hereditary cancer genes
 - Cross-module integration ensures consistent ampullary adenocarcinoma guidance throughout the platform
 
-### NCCN Version 4.2025 Small Cell Lung Cancer (SCLC) Integration (COMPLETED)
-- Successfully integrated comprehensive NCCN Version 4.2025 SCLC guidelines across all OncoVista modules
-- Created dedicated SCLC module with 6 comprehensive sections: Overview, Diagnosis, Staging, Treatment, Surveillance, and Calculators
+### NCCN Version 4.2025 Small Cell Lung Cancer (SCLC) Cross-Module Integration (COMPLETED)
+- Successfully distributed comprehensive NCCN Version 4.2025 SCLC guidelines across all relevant OncoVista modules
+- Integrated SCLC diagnostic protocols into OPD module for comprehensive outpatient screening and diagnosis
+- Enhanced CDU module with SCLC treatment regimens including cisplatin/etoposide, carboplatin/etoposide, atezolizumab, and durvalumab combinations
 - Enhanced Clinical Tools module with SCLC-specific Carboplatin AUC calculator using Calvert formula
 - Enhanced Clinical Tools Red Flag Alerts with SCLC emergency protocols: SVCS, SIADH, Lambert-Eaton syndrome, brain metastases
 - Enhanced Inpatient module with NCCN Small Cell Lung Cancer inpatient management protocols (SCLC-1)
 - Integrated authentic NCCN v4.2025 treatment protocols including limited stage, extensive stage, and subsequent therapy options
 - Added comprehensive staging tables with AJCC TNM and VA Limited/Extensive classification systems
-- Implemented drug dosing protocols for cisplatin/etoposide, carboplatin/etoposide, atezolizumab, and durvalumab combinations
 - Added surveillance schedules differentiated by disease stage with specific imaging and follow-up protocols
-- Added SCLC module to navigation system and routing for seamless platform integration
+- Removed standalone SCLC module in favor of integrated cross-module approach for better clinical workflow
 
 ### NCCN Version 3.2025 Colon Cancer Data Distribution (COMPLETED)
 - Successfully distributed comprehensive NCCN Version 3.2025 colon cancer clinical data across all 8 platform modules
