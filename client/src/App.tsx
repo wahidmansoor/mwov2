@@ -3,7 +3,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./lib/queryClient";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { AuthProvider } from "@/components/auth/AuthProvider";
+import { useAuth } from "@/hooks/useAuth";
 import LandingPage from "@/pages/LandingPage";
 import Dashboard from "@/pages/Dashboard";
 import Layout from "@/components/layout/Layout";
@@ -25,12 +25,25 @@ import OncologyEducationModule from "@/modules/education/OncologyEducationModule
 import NotFound from "@/pages/not-found";
 
 function Router() {
+  const { isAuthenticated, isLoading } = useAuth();
+
+  if (isLoading || !isAuthenticated) {
+    return (
+      <Switch>
+        <Route path="/" component={LandingPage} />
+        <Route component={NotFound} />
+      </Switch>
+    );
+  }
+
   return (
     <Switch>
-      {/* Public Routes */}
-      <Route path="/" component={LandingPage} />
+      <Route path="/" component={() => (
+        <Layout>
+          <Dashboard />
+        </Layout>
+      )} />
       
-      {/* Protected Routes with Layout */}
       <Route path="/dashboard">
         <Layout>
           <Dashboard />
@@ -91,43 +104,42 @@ function Router() {
         </Layout>
       </Route>
       
-      <Route path="/palliative">
-        <Layout>
-          <PalliativeCareModule />
-        </Layout>
-      </Route>
-      
-      <Route path="/handbook" component={() => (
-        <Layout>
-          <HandbookModule />
-        </Layout>
-      )} />
-      
-      <Route path="/handbook/medical" component={() => (
-        <Layout>
-          <MedicalOncologyView />
-        </Layout>
-      )} />
-      
-      <Route path="/handbook/radiation" component={() => (
-        <Layout>
-          <RadiationOncologyView />
-        </Layout>
-      )} />
-      
-      <Route path="/handbook/palliative" component={() => (
-        <Layout>
-          <PalliativeCareView />
-        </Layout>
-      )} />
-      
       <Route path="/education">
         <Layout>
           <OncologyEducationModule />
         </Layout>
       </Route>
       
-      {/* Fallback to 404 */}
+      <Route path="/handbook">
+        <Layout>
+          <HandbookModule />
+        </Layout>
+      </Route>
+      
+      <Route path="/handbook/medical-oncology/:chapter?/:section?">
+        <Layout>
+          <MedicalOncologyView />
+        </Layout>
+      </Route>
+      
+      <Route path="/handbook/radiation-oncology/:chapter?/:section?">
+        <Layout>
+          <RadiationOncologyView />
+        </Layout>
+      </Route>
+      
+      <Route path="/handbook/palliative-care/:chapter?/:section?">
+        <Layout>
+          <PalliativeCareView />
+        </Layout>
+      </Route>
+      
+      <Route path="/palliative-care">
+        <Layout>
+          <PalliativeCareModule />
+        </Layout>
+      </Route>
+      
       <Route component={NotFound} />
     </Switch>
   );
@@ -136,12 +148,10 @@ function Router() {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <TooltipProvider>
-          <Toaster />
-          <Router />
-        </TooltipProvider>
-      </AuthProvider>
+      <TooltipProvider>
+        <Toaster />
+        <Router />
+      </TooltipProvider>
     </QueryClientProvider>
   );
 }

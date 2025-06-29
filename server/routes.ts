@@ -1,7 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { authMiddleware } from "./middleware/auth";
+import { setupAuth, isAuthenticated } from "./replitAuth";
 import { rbacMiddleware } from "./middleware/rbac";
 import { aiService } from "./services/aiService";
 import { clinicalDecisionEngine } from "./services/clinicalDecisionEngine";
@@ -9,46 +9,25 @@ import { insertDecisionSupportInputSchema, insertAiInteractionSchema } from "@sh
 import { z } from "zod";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Auth middleware
+  await setupAuth(app);
+
   // Auth routes
-  app.post("/api/auth/login", async (req, res) => {
+  app.get('/api/auth/user', isAuthenticated, async (req: any, res) => {
     try {
-      // Mock authentication for demo
-      const { email, password } = req.body;
-      
-      if (email && password) {
-        const user = await storage.getUserByEmail(email);
-        if (user) {
-          // In production, verify password hash
-          req.session.userId = user.id;
-          res.json({
-            id: user.id,
-            email: user.email,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            role: user.role,
-            department: user.department
-          });
-        } else {
-          res.status(401).json({ message: "Invalid credentials" });
-        }
-      } else {
-        res.status(400).json({ message: "Email and password required" });
-      }
+      const userId = req.user.claims.sub;
+      const user = await storage.getUser(userId);
+      res.json(user);
     } catch (error) {
-      console.error("Login error:", error);
-      res.status(500).json({ message: "Login failed" });
+      console.error("Error fetching user:", error);
+      res.status(500).json({ message: "Failed to fetch user" });
     }
   });
 
-  app.post("/api/auth/logout", (req, res) => {
-    req.session.destroy(() => {
-      res.json({ message: "Logged out successfully" });
-    });
-  });
-
-  app.get("/api/auth/me", authMiddleware, async (req, res) => {
+  app.get("/api/auth/me", isAuthenticated, async (req: any, res) => {
     try {
-      const user = await storage.getUser(req.userId!);
+      const userId = req.user.claims.sub;
+      const user = await storage.getUser(userId);
       if (user) {
         res.json({
           id: user.id,
@@ -68,19 +47,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Patient evaluation routes
-  app.post("/api/patient-evaluations", authMiddleware, rbacMiddleware(["create_evaluations"]), async (req, res) => {
+  app.post("/api/patient-evaluations", isAuthenticated, rbacMiddleware(["create_evaluations"]), async (req: any, res) => {
     try {
+      const userId = req.user.claims.sub;
       const validatedData = insertDecisionSupportInputSchema.parse({
         ...req.body,
-        createdBy: req.userId
+        createdBy: userId
       });
       
       const evaluation = await storage.createDecisionSupportInput(validatedData);
       
       // Log the activity
       await storage.createAuditLog({
-        userId: req.userId!,
-        userRole: req.user?.role || "unknown",
+        userId: userId,
+        userRole: "user",
         action: "create_decision_support_input",
         resource: "decision_support_input",
         resourceId: evaluation.id,
@@ -98,7 +78,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/patient-evaluations", authMiddleware, rbacMiddleware(["view_patient_data"]), async (req, res) => {
+  app.get("/api/patient-evaluations", isAuthenticated, rbacMiddleware(["view_patient_data"]), async (req: any, res) => {
     try {
       const evaluations = await storage.getDecisionSupportInputs();
       res.json(evaluations);
@@ -108,7 +88,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/patient-evaluations/:id", authMiddleware, rbacMiddleware(["view_patient_data"]), async (req, res) => {
+  app.get("/api/patient-evaluations/:id", isAuthenticated, rbacMiddleware(["view_patient_data"]), async (req: any, res) => {
     try {
       const evaluation = await storage.getDecisionSupportInput(req.params.id);
       if (evaluation) {
@@ -123,7 +103,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // AI analysis routes
-  app.post("/api/ai/analyze-patient", authMiddleware, rbacMiddleware(["use_ai_recommendations"]), async (req, res) => {
+  app.post("/api/ai/analyze-patient", isAuthenticated, rbacMiddleware(["use_ai_recommendations"]), async (req: any, res) => {
     try {
       const startTime = Date.now();
       
@@ -134,13 +114,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       // Log AI interaction
       const aiInteraction = {
-        userId: req.userId!,
+        userId: req.user.claims.sub,
         sessionId: req.sessionID,
         moduleType: "opd",
         intent: "patient_analysis",
         inputContext: req.body,
         aiResponse: analysis,
-        confidenceScore: analysis.overallRiskScore / 100,
+        confidenceScore: (analysis.overallRiskScore / 100).toFixed(2),
         responseTimeMs: responseTime,
         modelVersion: "gpt-4o"
       };
@@ -155,7 +135,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Clinical protocols routes
-  app.get("/api/clinical-protocols", authMiddleware, rbacMiddleware(["view_protocols"]), async (req, res) => {
+  app.get("/api/clinical-protocols", isAuthenticated, rbacMiddleware(["view_protocols"]), async (req: any, res) => {
     try {
       const { cancerType, stage } = req.query;
       const protocols = await storage.getClinicalProtocols({ 
@@ -170,7 +150,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Dashboard routes
-  app.get("/api/dashboard/stats", authMiddleware, async (req, res) => {
+  app.get("/api/dashboard/stats", isAuthenticated, async (req: any, res) => {
     try {
       const stats = await storage.getDashboardStats();
       res.json(stats);
@@ -180,7 +160,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/dashboard/activities", authMiddleware, async (req, res) => {
+  app.get("/api/dashboard/activities", isAuthenticated, async (req: any, res) => {
     try {
       const activities = await storage.getRecentActivities();
       res.json(activities);
@@ -191,7 +171,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Treatment protocols routes
-  app.get("/api/treatment-protocols", authMiddleware, rbacMiddleware(["view_protocols"]), async (req, res) => {
+  app.get("/api/treatment-protocols", isAuthenticated, rbacMiddleware(["view_protocols"]), async (req: any, res) => {
     try {
       const protocols = await storage.getTreatmentProtocols();
       res.json(protocols);
@@ -202,7 +182,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // CD Protocols routes
-  app.get("/api/cd-protocols", authMiddleware, async (req, res) => {
+  app.get("/api/cd-protocols", isAuthenticated, async (req: any, res) => {
     try {
       const { tumourGroup, treatmentIntent, code } = req.query;
       const protocols = await storage.getCdProtocols({
@@ -217,7 +197,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/cd-protocols/:id", authMiddleware, async (req, res) => {
+  app.get("/api/cd-protocols/:id", isAuthenticated, async (req: any, res) => {
     try {
       const protocol = await storage.getCdProtocol(req.params.id);
       if (protocol) {
@@ -231,7 +211,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/cd-protocols/code/:code", authMiddleware, async (req, res) => {
+  app.get("/api/cd-protocols/code/:code", isAuthenticated, async (req: any, res) => {
     try {
       const protocol = await storage.getCdProtocolByCode(req.params.code);
       if (protocol) {
@@ -246,7 +226,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Oncology Medications routes
-  app.get("/api/oncology-medications", authMiddleware, async (req, res) => {
+  app.get("/api/oncology-medications", isAuthenticated, async (req: any, res) => {
     try {
       const { classification, cancerType, route, search } = req.query;
       const medications = await storage.getOncologyMedications({
@@ -262,7 +242,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/oncology-medications/:id", authMiddleware, async (req, res) => {
+  app.get("/api/oncology-medications/:id", isAuthenticated, async (req: any, res) => {
     try {
       const medication = await storage.getOncologyMedication(req.params.id);
       if (medication) {
@@ -277,7 +257,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // NCCN Guidelines comprehensive API endpoints
-  app.get("/api/nccn/guidelines", authMiddleware, async (req, res) => {
+  app.get("/api/nccn/guidelines", isAuthenticated, async (req: any, res) => {
     try {
       const { referenceCode, category, cancerType, evidenceLevel } = req.query;
       const guidelines = await storage.getNccnGuidelines({
@@ -293,7 +273,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/nccn/guidelines/:id", authMiddleware, async (req, res) => {
+  app.get("/api/nccn/guidelines/:id", isAuthenticated, async (req: any, res) => {
     try {
       const guideline = await storage.getNccnGuideline(req.params.id);
       if (guideline) {
@@ -307,7 +287,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/nccn/guidelines/reference/:code", authMiddleware, async (req, res) => {
+  app.get("/api/nccn/guidelines/reference/:code", isAuthenticated, async (req: any, res) => {
     try {
       const guideline = await storage.getNccnGuidelineByReference(req.params.code);
       if (guideline) {
@@ -321,7 +301,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/nccn/search", authMiddleware, async (req, res) => {
+  app.get("/api/nccn/search", isAuthenticated, async (req: any, res) => {
     try {
       const { q } = req.query;
       if (!q) {
@@ -337,7 +317,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Clinical decision support API endpoints
-  app.get("/api/clinical-decision-support", authMiddleware, async (req, res) => {
+  app.get("/api/clinical-decision-support", isAuthenticated, async (req: any, res) => {
     try {
       const { moduleType, clinicalScenario, evidenceStrength } = req.query;
       const support = await storage.getClinicalDecisionSupport({
@@ -352,7 +332,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/clinical-decision-support/module/:moduleType", authMiddleware, async (req, res) => {
+  app.get("/api/clinical-decision-support/module/:moduleType", isAuthenticated, async (req: any, res) => {
     try {
       const support = await storage.getClinicalDecisionSupportByModule(req.params.moduleType);
       res.json(support);
@@ -362,7 +342,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/clinical-decision-support/recommendations", authMiddleware, async (req, res) => {
+  app.post("/api/clinical-decision-support/recommendations", isAuthenticated, async (req: any, res) => {
     try {
       const { inputParameters, moduleType } = req.body;
       const recommendations = await storage.getDecisionSupportRecommendations(inputParameters, moduleType);
@@ -374,7 +354,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Biomarker guidelines API endpoints
-  app.get("/api/biomarker-guidelines", authMiddleware, async (req, res) => {
+  app.get("/api/biomarker-guidelines", isAuthenticated, async (req: any, res) => {
     try {
       const { biomarkerName, cancerType, testingMethod } = req.query;
       const guidelines = await storage.getBiomarkerGuidelines({
@@ -389,7 +369,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/biomarker-guidelines/cancer/:type", authMiddleware, async (req, res) => {
+  app.get("/api/biomarker-guidelines/cancer/:type", isAuthenticated, async (req: any, res) => {
     try {
       const guidelines = await storage.getBiomarkersByType(req.params.type);
       res.json(guidelines);
@@ -400,7 +380,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Cross-module integration endpoints
-  app.post("/api/guidance/relevant", authMiddleware, async (req, res) => {
+  app.post("/api/guidance/relevant", isAuthenticated, async (req: any, res) => {
     try {
       const { stage, biomarkers, treatmentSetting } = req.body;
       const guidelines = await storage.getRelevantNccnGuidelines({
@@ -415,7 +395,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/guidance/module/:moduleType/:scenario", authMiddleware, async (req, res) => {
+  app.get("/api/guidance/module/:moduleType/:scenario", isAuthenticated, async (req: any, res) => {
     try {
       const { moduleType, scenario } = req.params;
       const guidance = await storage.getModuleSpecificGuidance(moduleType, decodeURIComponent(scenario));
@@ -427,7 +407,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Enhanced analytics for NCCN integration
-  app.get("/api/analytics/nccn-usage", authMiddleware, async (req, res) => {
+  app.get("/api/analytics/nccn-usage", isAuthenticated, async (req: any, res) => {
     try {
       // Get NCCN guidelines usage statistics
       const guidelines = await storage.getNccnGuidelines();

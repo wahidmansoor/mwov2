@@ -81,7 +81,7 @@ const features = [
 
 export default function LandingPage() {
   const [, setLocation] = useLocation();
-  const { isAuthenticated, login } = useAuth();
+  const { isAuthenticated } = useAuth();
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -91,12 +91,8 @@ export default function LandingPage() {
     }
   }, [isAuthenticated, setLocation]);
 
-  const handleSignIn = async () => {
-    try {
-      await login();
-    } catch (error) {
-      console.error("Authentication failed:", error);
-    }
+  const handleSignIn = () => {
+    window.location.href = "/api/login";
   };
 
   const handleAccessPlatform = () => {
