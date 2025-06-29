@@ -196,6 +196,68 @@ const NCCNScreeningProtocols = () => (
             </AccordionContent>
           </AccordionItem>
           
+          <AccordionItem value="sclc-screening">
+            <AccordionTrigger>Small Cell Lung Cancer Screening (SCLC-1) - NCCN v4.2025</AccordionTrigger>
+            <AccordionContent>
+              <div className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="p-4 bg-red-50 dark:bg-red-800/20 rounded-lg">
+                    <h4 className="font-semibold text-sm mb-2">Initial Evaluation (Category 1)</h4>
+                    <ul className="text-sm space-y-1">
+                      <li>• History and physical examination</li>
+                      <li>• Pathology review with IHC markers</li>
+                      <li>• Complete blood count (CBC)</li>
+                      <li>• Comprehensive metabolic panel</li>
+                      <li>• Liver function tests</li>
+                      <li>• Performance status assessment</li>
+                    </ul>
+                  </div>
+                  <div className="p-4 bg-blue-50 dark:bg-blue-800/20 rounded-lg">
+                    <h4 className="font-semibold text-sm mb-2">Imaging Studies</h4>
+                    <ul className="text-sm space-y-1">
+                      <li>• CT chest/abdomen/pelvis with contrast</li>
+                      <li>• Brain MRI (preferred) or CT with contrast</li>
+                      <li>• FDG-PET/CT (skull base to mid-thigh)</li>
+                      <li>• Pulmonary function tests (if surgery considered)</li>
+                    </ul>
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                  <div className="p-3 bg-orange-50 dark:bg-orange-800/20 rounded">
+                    <h5 className="font-medium text-sm mb-1">Paraneoplastic Syndromes</h5>
+                    <ul className="text-xs space-y-1">
+                      <li>• SIADH (hyponatremia)</li>
+                      <li>• Lambert-Eaton syndrome</li>
+                      <li>• Cushing syndrome (ectopic ACTH)</li>
+                      <li>• Neurological paraneoplastic syndromes</li>
+                    </ul>
+                  </div>
+                  <div className="p-3 bg-purple-50 dark:bg-purple-800/20 rounded">
+                    <h5 className="font-medium text-sm mb-1">Pathological Features</h5>
+                    <ul className="text-xs space-y-1">
+                      <li>• TTF-1 positive (80-90%)</li>
+                      <li>• Synaptophysin positive</li>
+                      <li>• Chromogranin A positive</li>
+                      <li>• Ki-67 proliferation index >80%</li>
+                    </ul>
+                  </div>
+                  <div className="p-3 bg-green-50 dark:bg-green-800/20 rounded">
+                    <h5 className="font-medium text-sm mb-1">Molecular Profiling</h5>
+                    <ul className="text-xs space-y-1">
+                      <li>• Recommended for extensive stage</li>
+                      <li>• Non-smokers or light smokers</li>
+                      <li>• At time of relapse if not done</li>
+                      <li>• Diagnostic dilemma cases</li>
+                    </ul>
+                  </div>
+                </div>
+                <div className="p-3 bg-red-50 dark:bg-red-800/20 rounded border-l-4 border-red-400">
+                  <p className="text-sm"><strong>Critical Decision Point:</strong> 70% present with extensive stage disease requiring immediate systemic therapy evaluation</p>
+                </div>
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+          
           <AccordionItem value="staging">
             <AccordionTrigger>Staging & Risk Stratification</AccordionTrigger>
             <AccordionContent>
