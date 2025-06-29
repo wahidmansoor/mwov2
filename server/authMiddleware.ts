@@ -36,18 +36,19 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
   }
 
   // Use the existing Replit Auth middleware for production
-  if (!req.isAuthenticated() || !req.user) {
+  // Check if user is authenticated via session or passport
+  const user = (req as any).user;
+  
+  if (!user) {
     return res.status(401).json({ message: "Unauthorized" });
   }
 
-  const user = req.user as any;
-  if (!user.expires_at) {
-    return res.status(401).json({ message: "Unauthorized" });
-  }
-
-  const now = Math.floor(Date.now() / 1000);
-  if (now > user.expires_at) {
-    return res.status(401).json({ message: "Token expired" });
+  // Check token expiration if exists
+  if (user.expires_at) {
+    const now = Math.floor(Date.now() / 1000);
+    if (now > user.expires_at) {
+      return res.status(401).json({ message: "Token expired" });
+    }
   }
 
   next();

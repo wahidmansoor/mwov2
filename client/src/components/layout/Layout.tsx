@@ -155,7 +155,7 @@ function Sidebar({ className = "" }: { className?: string }) {
               {user ? `${user.firstName} ${user.lastName}` : "Loading..."}
             </p>
             <p className="text-xs text-slate-500 truncate">
-              {user?.role?.replace(/_/g, " ").replace(/\b\w/g, l => l.toUpperCase()) || "Loading..."}
+              {user?.role?.replace(/_/g, " ").replace(/\b\w/g, (l: string) => l.toUpperCase()) || "Loading..."}
             </p>
           </div>
         </div>
