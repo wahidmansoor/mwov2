@@ -693,110 +693,327 @@ const ToxicityManagement = () => (
   </div>
 );
 
-const DiseaseProgressTracker = () => (
-  <div className="space-y-6">
-    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-      {[
-        { metric: "Response Rate", value: "85%", change: "+5%", trend: "up" },
-        { metric: "Progression-Free", value: "8.2 mo", change: "+0.8", trend: "up" },
-        { metric: "Dose Intensity", value: "92%", change: "-3%", trend: "down" },
-        { metric: "Toxicity Rate", value: "23%", change: "-8%", trend: "down" }
-      ].map((metric, i) => (
-        <Card key={i} className="border-l-4 border-l-blue-500">
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium">{metric.metric}</p>
-                <p className="text-2xl font-bold">{metric.value}</p>
-              </div>
-              <div className={`flex items-center gap-1 ${metric.trend === 'up' ? 'text-green-600' : 'text-red-600'}`}>
-                <TrendingUp className={`h-4 w-4 ${metric.trend === 'down' ? 'rotate-180' : ''}`} />
-                <span className="text-sm">{metric.change}</span>
-              </div>
+const TreatmentPlanSelector = () => {
+  const [selectedCancerType, setSelectedCancerType] = useState("");
+  const [selectedStage, setSelectedStage] = useState("");
+  const [selectedHistology, setSelectedHistology] = useState("");
+  const [selectedBiomarkers, setSelectedBiomarkers] = useState<string[]>([]);
+  const [selectedMolecularProfile, setSelectedMolecularProfile] = useState("");
+  const [selectedTreatmentIntent, setSelectedTreatmentIntent] = useState("");
+  const [selectedLineOfTreatment, setSelectedLineOfTreatment] = useState("");
+  const [selectedPreviousTreatments, setSelectedPreviousTreatments] = useState<string[]>([]);
+  const [selectedReasonForChange, setSelectedReasonForChange] = useState("");
+  const [showRecommendations, setShowRecommendations] = useState(false);
+
+  // Treatment selection data constants
+  const cancerTypes = [
+    "Breast Cancer", "Lung Cancer (NSCLC)", "Lung Cancer (SCLC)", "Colorectal Cancer", 
+    "Gastric Cancer", "Pancreatic Cancer", "Hepatocellular Carcinoma", "Ovarian Cancer",
+    "Prostate Cancer", "Melanoma", "Renal Cell Carcinoma", "Bladder Cancer",
+    "Head and Neck Cancer", "Lymphoma (Hodgkin)", "Lymphoma (Non-Hodgkin)", "Leukemia (AML)"
+  ];
+
+  const stages = ["Stage 0", "Stage I", "Stage IA", "Stage IB", "Stage II", "Stage IIA", "Stage IIB", 
+                 "Stage III", "Stage IIIA", "Stage IIIB", "Stage IIIC", "Stage IV", "Stage IVA", "Stage IVB"];
+
+  const histologyOptions = {
+    "Breast Cancer": ["Invasive Ductal Carcinoma", "Invasive Lobular Carcinoma", "Mucinous", "Tubular", "Inflammatory"],
+    "Lung Cancer (NSCLC)": ["Adenocarcinoma", "Squamous Cell", "Large Cell", "NSCLC-NOS"],
+    "Colorectal Cancer": ["Adenocarcinoma", "Mucinous", "Signet Ring", "Neuroendocrine"],
+    "default": ["Adenocarcinoma", "Squamous Cell", "Undifferentiated", "Mixed"]
+  };
+
+  const biomarkerOptions = {
+    "Breast Cancer": ["ER+", "ER-", "PR+", "PR-", "HER2+", "HER2-", "Triple Negative"],
+    "Lung Cancer (NSCLC)": ["EGFR+", "ALK+", "ROS1+", "BRAF+", "KRAS+", "PD-L1 High", "PD-L1 Low"],
+    "Colorectal Cancer": ["KRAS Wild-type", "KRAS Mutant", "BRAF+", "MSI-H", "MSS", "HER2+"],
+    "default": ["PD-L1 High", "PD-L1 Low", "MSI-H", "MSS", "HER2+", "HER2-"]
+  };
+
+  const molecularProfiles = ["KRAS G12C", "BRAF V600E", "NTRK Fusion", "RET Fusion", "PIK3CA", "TP53", "BRCA1/2"];
+  const treatmentIntents = ["Curative", "Palliative", "Neoadjuvant", "Adjuvant"];
+  const lineOfTreatments = ["1st Line", "2nd Line", "3rd Line", "Maintenance", "Adjuvant", "Neoadjuvant"];
+  const previousTreatments = ["Surgery", "Radiation", "Chemotherapy", "Immunotherapy", "Targeted Therapy", "Hormone Therapy"];
+  const reasonsForChange = ["Disease Progression", "Toxicity/Intolerance", "Treatment Completion", "Patient Choice"];
+
+  const generateRecommendations = () => {
+    if (!selectedCancerType || !selectedStage || !selectedTreatmentIntent) {
+      return null;
+    }
+
+    // Generate protocol recommendations based on selections
+    const protocols = [];
+    
+    if (selectedCancerType === "Breast Cancer" && selectedBiomarkers.includes("HER2+")) {
+      protocols.push({
+        name: "TCH (Docetaxel + Carboplatin + Trastuzumab)",
+        intent: selectedTreatmentIntent,
+        guidelines: ["NCCN v3.2025", "ESMO 2024"],
+        drugs: ["Docetaxel 75mg/m²", "Carboplatin AUC 6", "Trastuzumab 8mg/kg loading"],
+        alerts: ["Cardiac monitoring required", "Consider fertility preservation"]
+      });
+    }
+
+    if (selectedCancerType === "Lung Cancer (NSCLC)" && selectedBiomarkers.includes("EGFR+")) {
+      protocols.push({
+        name: "Osimertinib Monotherapy",
+        intent: selectedTreatmentIntent,
+        guidelines: ["NCCN v1.2025", "ESMO 2024"],
+        drugs: ["Osimertinib 80mg PO daily"],
+        alerts: ["Monitor for QTc prolongation", "Consider CNS imaging"]
+      });
+    }
+
+    if (selectedCancerType === "Colorectal Cancer" && selectedBiomarkers.includes("KRAS Wild-type")) {
+      protocols.push({
+        name: "FOLFIRI + Cetuximab",
+        intent: selectedTreatmentIntent,
+        guidelines: ["NCCN v3.2025", "ESMO 2024"],
+        drugs: ["Irinotecan 180mg/m²", "5-FU 400mg/m² bolus", "Leucovorin 400mg/m²", "Cetuximab 400mg/m²"],
+        alerts: ["Skin toxicity monitoring", "UGT1A1 testing recommended"]
+      });
+    }
+
+    // Default fallback recommendations
+    if (protocols.length === 0) {
+      protocols.push({
+        name: "Standard Chemotherapy Protocol",
+        intent: selectedTreatmentIntent,
+        guidelines: ["NCCN 2025", "ESMO 2024"],
+        drugs: ["Protocol-specific agents based on cancer type"],
+        alerts: ["Complete staging required", "Multidisciplinary team consultation recommended"]
+      });
+    }
+
+    return protocols;
+  };
+
+  const recommendations = showRecommendations ? generateRecommendations() : null;
+
+  return (
+    <div className="space-y-6">
+      <div className="grid lg:grid-cols-2 gap-6">
+        {/* Input Panel */}
+        <Card className="border-l-4 border-l-blue-500">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Brain className="h-5 w-5 text-blue-600" />
+              Treatment Selection Criteria
+            </CardTitle>
+            <CardDescription>
+              Select patient and disease characteristics to receive evidence-based treatment recommendations
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {/* Cancer Type */}
+            <div>
+              <label className="text-sm font-medium mb-2 block">Cancer Type *</label>
+              <Select value={selectedCancerType} onValueChange={setSelectedCancerType}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select cancer type" />
+                </SelectTrigger>
+                <SelectContent>
+                  {cancerTypes.map(type => (
+                    <SelectItem key={type} value={type}>{type}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
+
+            {/* Stage */}
+            <div>
+              <label className="text-sm font-medium mb-2 block">Stage *</label>
+              <Select value={selectedStage} onValueChange={setSelectedStage}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select stage" />
+                </SelectTrigger>
+                <SelectContent>
+                  {stages.map(stage => (
+                    <SelectItem key={stage} value={stage}>{stage}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Histology */}
+            {selectedCancerType && (
+              <div>
+                <label className="text-sm font-medium mb-2 block">Histology/Subtype</label>
+                <Select value={selectedHistology} onValueChange={setSelectedHistology}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select histology" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {(histologyOptions[selectedCancerType as keyof typeof histologyOptions] || histologyOptions.default).map(hist => (
+                      <SelectItem key={hist} value={hist}>{hist}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            )}
+
+            {/* Biomarkers */}
+            {selectedCancerType && (
+              <div>
+                <label className="text-sm font-medium mb-2 block">IHC/Biomarkers</label>
+                <div className="grid grid-cols-2 gap-2">
+                  {(biomarkerOptions[selectedCancerType as keyof typeof biomarkerOptions] || biomarkerOptions.default).map(marker => (
+                    <div key={marker} className="flex items-center space-x-2">
+                      <input
+                        type="checkbox"
+                        id={marker}
+                        checked={selectedBiomarkers.includes(marker)}
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setSelectedBiomarkers([...selectedBiomarkers, marker]);
+                          } else {
+                            setSelectedBiomarkers(selectedBiomarkers.filter(m => m !== marker));
+                          }
+                        }}
+                        className="rounded"
+                      />
+                      <label htmlFor={marker} className="text-sm">{marker}</label>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Treatment Intent */}
+            <div>
+              <label className="text-sm font-medium mb-2 block">Treatment Intent *</label>
+              <Select value={selectedTreatmentIntent} onValueChange={setSelectedTreatmentIntent}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select intent" />
+                </SelectTrigger>
+                <SelectContent>
+                  {treatmentIntents.map(intent => (
+                    <SelectItem key={intent} value={intent}>{intent}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Line of Treatment */}
+            <div>
+              <label className="text-sm font-medium mb-2 block">Line of Treatment</label>
+              <Select value={selectedLineOfTreatment} onValueChange={setSelectedLineOfTreatment}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select line" />
+                </SelectTrigger>
+                <SelectContent>
+                  {lineOfTreatments.map(line => (
+                    <SelectItem key={line} value={line}>{line}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            <Button 
+              onClick={() => setShowRecommendations(true)}
+              className="w-full"
+              disabled={!selectedCancerType || !selectedStage || !selectedTreatmentIntent}
+            >
+              <Search className="h-4 w-4 mr-2" />
+              Generate Treatment Recommendations
+            </Button>
           </CardContent>
         </Card>
-      ))}
-    </div>
 
-    <div className="grid md:grid-cols-2 gap-6">
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Activity className="h-5 w-5 text-blue-600" />
-            Treatment Timeline
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            {[
-              { date: "2024-01-15", event: "Treatment Start", status: "completed", details: "FOLFOX Cycle 1" },
-              { date: "2024-02-05", event: "First Response", status: "completed", details: "Partial Response (30% reduction)" },
-              { date: "2024-03-10", event: "Mid-treatment", status: "completed", details: "Continued response" },
-              { date: "2024-04-15", event: "Next Assessment", status: "upcoming", details: "Cycle 8 evaluation" }
-            ].map((event, i) => (
-              <div key={i} className="flex items-start gap-3">
-                <div className={`w-3 h-3 rounded-full mt-2 ${
-                  event.status === 'completed' ? 'bg-green-500' : 
-                  event.status === 'upcoming' ? 'bg-blue-500' : 'bg-gray-300'
-                }`} />
-                <div className="flex-1">
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <p className="font-medium">{event.event}</p>
-                      <p className="text-sm text-muted-foreground">{event.details}</p>
+        {/* Output Panel */}
+        <Card className="border-l-4 border-l-green-500">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Syringe className="h-5 w-5 text-green-600" />
+              Treatment Recommendations
+            </CardTitle>
+            <CardDescription>
+              Evidence-based treatment options for selected criteria
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            {!showRecommendations ? (
+              <div className="text-center py-8">
+                <Brain className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+                <p className="text-muted-foreground">
+                  Complete the selection criteria to view treatment recommendations
+                </p>
+              </div>
+            ) : recommendations && recommendations.length > 0 ? (
+              <div className="space-y-4">
+                {recommendations.map((protocol, i) => (
+                  <div key={i} className="border rounded-lg p-4 space-y-3">
+                    <div className="flex items-start justify-between">
+                      <h4 className="font-medium text-lg">{protocol.name}</h4>
+                      <Badge className="bg-blue-100 text-blue-800">{protocol.intent}</Badge>
                     </div>
-                    <span className="text-sm text-muted-foreground">{event.date}</span>
+                    
+                    <div className="grid md:grid-cols-2 gap-3">
+                      <div>
+                        <h5 className="font-medium text-sm mb-2">Supporting Guidelines</h5>
+                        <div className="space-y-1">
+                          {protocol.guidelines.map((guideline, j) => (
+                            <Badge key={j} variant="outline" className="mr-1">{guideline}</Badge>
+                          ))}
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <h5 className="font-medium text-sm mb-2">Drug Regimen</h5>
+                        <div className="space-y-1">
+                          {protocol.drugs.map((drug, j) => (
+                            <div key={j} className="text-sm p-2 bg-blue-50 dark:bg-blue-900/20 rounded">
+                              {drug}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    {protocol.alerts.length > 0 && (
+                      <div>
+                        <h5 className="font-medium text-sm mb-2 flex items-center gap-1 text-amber-600">
+                          <AlertTriangle className="h-4 w-4" />
+                          Clinical Alerts
+                        </h5>
+                        <div className="space-y-1">
+                          {protocol.alerts.map((alert, j) => (
+                            <div key={j} className="text-sm p-2 bg-amber-50 dark:bg-amber-900/20 rounded border-l-2 border-amber-400">
+                              {alert}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    <div className="flex gap-2 pt-2">
+                      <Button size="sm" variant="outline">
+                        <Eye className="h-4 w-4 mr-1" />
+                        View Details
+                      </Button>
+                      <Button size="sm" variant="outline">
+                        <Download className="h-4 w-4 mr-1" />
+                        Export PDF
+                      </Button>
+                    </div>
                   </div>
-                </div>
+                ))}
               </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <TrendingUp className="h-5 w-5 text-green-600" />
-            Response Tracking
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            <div className="p-4 bg-green-50 rounded-lg">
-              <h4 className="font-medium text-green-900">Current Response</h4>
-              <p className="text-2xl font-bold text-green-800">Partial Response</p>
-              <p className="text-sm text-green-700">45% reduction in target lesions</p>
-            </div>
-            
-            <div className="space-y-3">
-              <h4 className="font-medium">Imaging Results</h4>
-              <div className="space-y-2">
-                <div className="flex justify-between items-center p-2 border rounded">
-                  <span className="text-sm">Baseline</span>
-                  <span className="text-sm font-medium">120mm (sum)</span>
-                </div>
-                <div className="flex justify-between items-center p-2 border rounded">
-                  <span className="text-sm">Cycle 4</span>
-                  <span className="text-sm font-medium">85mm (-29%)</span>
-                </div>
-                <div className="flex justify-between items-center p-2 border rounded">
-                  <span className="text-sm">Cycle 6</span>
-                  <span className="text-sm font-medium">66mm (-45%)</span>
-                </div>
+            ) : (
+              <div className="text-center py-8">
+                <AlertTriangle className="h-12 w-12 mx-auto text-amber-500 mb-4" />
+                <p className="text-muted-foreground">
+                  No specific recommendations available for the selected criteria.
+                  Consider multidisciplinary team consultation.
+                </p>
               </div>
-            </div>
-
-            <Button className="w-full" variant="outline">
-              Schedule Next Imaging
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
+            )}
+          </CardContent>
+        </Card>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default function CDUModule() {
   const [activeTab, setActiveTab] = useState("protocols");
@@ -832,7 +1049,7 @@ export default function CDUModule() {
               Toxicity Management
             </TabsTrigger>
             <TabsTrigger value="progress" className="data-[state=active]:bg-purple-600 data-[state=active]:text-white">
-              Disease Progress Tracker
+              🧬 Treatment Plan Selector
             </TabsTrigger>
           </TabsList>
 
@@ -849,7 +1066,7 @@ export default function CDUModule() {
           </TabsContent>
           
           <TabsContent value="progress">
-            <DiseaseProgressTracker />
+            <TreatmentPlanSelector />
           </TabsContent>
         </Tabs>
       </div>
