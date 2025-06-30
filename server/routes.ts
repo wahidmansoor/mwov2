@@ -146,6 +146,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // CDU Treatment Protocols API - serving authentic cd_protocols data
+  app.get('/api/cdu/protocols', authMiddleware, async (req, res) => {
+    try {
+      const protocols = await storage.getCDProtocols();
+      res.json(protocols);
+    } catch (error) {
+      console.error('Error fetching cd_protocols:', error);
+      res.status(500).json({ error: 'Failed to fetch treatment protocols' });
+    }
+  });
+
   // OPD Module Risk Calculation endpoints
   app.post('/api/opd/risk-assessment', authMiddleware, async (req, res) => {
     const { calculateRiskAssessment } = await import('./api/riskCalculation');
@@ -249,6 +260,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Failed to get CD protocols:", error);
       res.status(500).json({ message: "Failed to get CD protocols" });
+    }
+  });
+
+  // CDU Module specific endpoint for treatment protocols
+  app.get("/api/cdu/protocols", authMiddleware, async (req: any, res) => {
+    try {
+      const { tumourGroup, treatmentIntent, code } = req.query;
+      const protocols = await storage.getCdProtocols({
+        tumourGroup: tumourGroup as string,
+        treatmentIntent: treatmentIntent as string,
+        code: code as string
+      });
+      res.json(protocols);
+    } catch (error) {
+      console.error("Failed to get CDU protocols:", error);
+      res.status(500).json({ message: "Failed to get CDU protocols" });
     }
   });
 

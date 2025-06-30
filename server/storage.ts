@@ -71,6 +71,7 @@ export interface IStorage {
   
   // CD protocols (Cancer Day Unit treatment protocols)
   getCdProtocols(filters?: { tumourGroup?: string; treatmentIntent?: string; code?: string }): Promise<CdProtocol[]>;
+  getCDProtocols(): Promise<CdProtocol[]>; // Capital letters for API compatibility
   getCdProtocol(id: string): Promise<CdProtocol | undefined>;
   getCdProtocolByCode(code: string): Promise<CdProtocol | undefined>;
   createCdProtocol(protocol: InsertCdProtocol): Promise<CdProtocol>;
@@ -402,6 +403,16 @@ export class DatabaseStorage implements IStorage {
       .where(eq(cdProtocols.id, id))
       .returning();
     return protocol || undefined;
+  }
+
+  // Capital letters version for API compatibility
+  async getCDProtocols(): Promise<CdProtocol[]> {
+    return await db.select().from(cdProtocols);
+  }
+
+  // Capital letters version for API compatibility
+  async getCDProtocols(): Promise<CdProtocol[]> {
+    return await db.select().from(cdProtocols);
   }
 
   // Oncology medications methods
