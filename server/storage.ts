@@ -12,6 +12,11 @@ import {
   biomarkerGuidelines,
   treatmentPlanCriteria,
   treatmentPlanMappings,
+  symptomScores,
+  symptomProtocols,
+  painAssessments,
+  opioidConversions,
+  breakthroughPain,
   type User, 
   type InsertUser,
   type UpsertUser,
@@ -36,7 +41,17 @@ import {
   type TreatmentPlanCriteria,
   type InsertTreatmentPlanCriteria,
   type TreatmentPlanMapping,
-  type InsertTreatmentPlanMapping
+  type InsertTreatmentPlanMapping,
+  type SymptomScore,
+  type InsertSymptomScore,
+  type SymptomProtocol,
+  type InsertSymptomProtocol,
+  type PainAssessment,
+  type InsertPainAssessment,
+  type OpioidConversion,
+  type InsertOpioidConversion,
+  type BreakthroughPain,
+  type InsertBreakthroughPain
 } from "@shared/schema";
 import { db } from "./db";
 import { eq, sql } from "drizzle-orm";
@@ -150,6 +165,18 @@ export interface IStorage {
     timestamp: string;
     status: "completed" | "pending" | "alert";
   }>>;
+
+  // Palliative care functionality
+  getSymptomScores(filters?: { sessionId?: string; symptom?: string }): Promise<SymptomScore[]>;
+  createSymptomScore(score: InsertSymptomScore): Promise<SymptomScore>;
+  getSymptomProtocols(filters?: { symptom?: string; severityLevel?: string }): Promise<SymptomProtocol[]>;
+  createSymptomProtocol(protocol: InsertSymptomProtocol): Promise<SymptomProtocol>;
+  getPainAssessments(filters?: { sessionId?: string }): Promise<PainAssessment[]>;
+  createPainAssessment(assessment: InsertPainAssessment): Promise<PainAssessment>;
+  getOpioidConversions(filters?: { fromMed?: string; toMed?: string }): Promise<OpioidConversion[]>;
+  createOpioidConversion(conversion: InsertOpioidConversion): Promise<OpioidConversion>;
+  getBreakthroughPain(filters?: { sessionId?: string }): Promise<BreakthroughPain[]>;
+  createBreakthroughPain(episode: InsertBreakthroughPain): Promise<BreakthroughPain>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -878,6 +905,94 @@ export class DatabaseStorage implements IStorage {
       decisionSupport: decisionSupport.slice(0, 3),
       biomarkerGuidelines: biomarkerGuidelines.slice(0, 3)
     };
+  }
+
+  // Palliative care implementation methods
+  async getSymptomScores(filters?: { sessionId?: string; symptom?: string }): Promise<SymptomScore[]> {
+    let query = db.select().from(symptomScores);
+    
+    if (filters?.sessionId) {
+      query = query.where(eq(symptomScores.sessionId, filters.sessionId));
+    }
+    
+    if (filters?.symptom) {
+      query = query.where(eq(symptomScores.symptom, filters.symptom));
+    }
+    
+    return await query.orderBy(symptomScores.createdAt);
+  }
+
+  async createSymptomScore(score: InsertSymptomScore): Promise<SymptomScore> {
+    const [result] = await db.insert(symptomScores).values(score).returning();
+    return result;
+  }
+
+  async getSymptomProtocols(filters?: { symptom?: string; severityLevel?: string }): Promise<SymptomProtocol[]> {
+    let query = db.select().from(symptomProtocols);
+    
+    if (filters?.symptom) {
+      query = query.where(eq(symptomProtocols.symptom, filters.symptom));
+    }
+    
+    if (filters?.severityLevel) {
+      query = query.where(eq(symptomProtocols.severityLevel, filters.severityLevel));
+    }
+    
+    return await query;
+  }
+
+  async createSymptomProtocol(protocol: InsertSymptomProtocol): Promise<SymptomProtocol> {
+    const [result] = await db.insert(symptomProtocols).values(protocol).returning();
+    return result;
+  }
+
+  async getPainAssessments(filters?: { sessionId?: string }): Promise<PainAssessment[]> {
+    let query = db.select().from(painAssessments);
+    
+    if (filters?.sessionId) {
+      query = query.where(eq(painAssessments.sessionId, filters.sessionId));
+    }
+    
+    return await query.orderBy(painAssessments.createdAt);
+  }
+
+  async createPainAssessment(assessment: InsertPainAssessment): Promise<PainAssessment> {
+    const [result] = await db.insert(painAssessments).values(assessment).returning();
+    return result;
+  }
+
+  async getOpioidConversions(filters?: { fromMed?: string; toMed?: string }): Promise<OpioidConversion[]> {
+    let query = db.select().from(opioidConversions);
+    
+    if (filters?.fromMed) {
+      query = query.where(eq(opioidConversions.fromMed, filters.fromMed));
+    }
+    
+    if (filters?.toMed) {
+      query = query.where(eq(opioidConversions.toMed, filters.toMed));
+    }
+    
+    return await query;
+  }
+
+  async createOpioidConversion(conversion: InsertOpioidConversion): Promise<OpioidConversion> {
+    const [result] = await db.insert(opioidConversions).values(conversion).returning();
+    return result;
+  }
+
+  async getBreakthroughPain(filters?: { sessionId?: string }): Promise<BreakthroughPain[]> {
+    let query = db.select().from(breakthroughPain);
+    
+    if (filters?.sessionId) {
+      query = query.where(eq(breakthroughPain.sessionId, filters.sessionId));
+    }
+    
+    return await query.orderBy(breakthroughPain.createdAt);
+  }
+
+  async createBreakthroughPain(episode: InsertBreakthroughPain): Promise<BreakthroughPain> {
+    const [result] = await db.insert(breakthroughPain).values(episode).returning();
+    return result;
   }
 }
 

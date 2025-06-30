@@ -531,3 +531,241 @@ export type TreatmentPlanCriteria = typeof treatmentPlanCriteria.$inferSelect;
 export type InsertTreatmentPlanCriteria = z.infer<typeof insertTreatmentPlanCriteriaSchema>;
 export type TreatmentPlanMapping = typeof treatmentPlanMappings.$inferSelect;
 export type InsertTreatmentPlanMapping = z.infer<typeof insertTreatmentPlanMappingsSchema>;
+
+// Palliative Care Module Tables
+// Session-based tracking (no patient identifiers)
+export const sessionLogs = pgTable("session_logs", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  sessionId: varchar("session_id", { length: 255 }).notNull(),
+  clinicianId: uuid("clinician_id").references(() => users.id),
+  moduleType: varchar("module_type", { length: 100 }).notNull().default("palliative_care"),
+  notes: text("notes"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+// Symptom Assessment and Tracking
+export const symptomScores = pgTable("symptom_scores", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  sessionId: varchar("session_id", { length: 255 }).notNull(),
+  symptom: varchar("symptom", { length: 100 }).notNull(),
+  score: integer("score").notNull(), // 0-10 scale
+  location: varchar("location", { length: 100 }),
+  severity: varchar("severity", { length: 50 }),
+  notes: text("notes"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const symptomProtocols = pgTable("symptom_protocols", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  symptom: varchar("symptom", { length: 100 }).notNull(),
+  severityLevel: varchar("severity_level", { length: 50 }).notNull(),
+  recommendations: jsonb("recommendations").notNull(),
+  evidenceLevel: varchar("evidence_level", { length: 10 }),
+  guidelineSource: varchar("guideline_source", { length: 100 }),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+// Pain Management
+export const painAssessments = pgTable("pain_assessments", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  sessionId: varchar("session_id", { length: 255 }).notNull(),
+  painType: varchar("pain_type", { length: 100 }),
+  location: varchar("location", { length: 100 }),
+  scale: integer("scale").notNull(), // 0-10
+  quality: varchar("quality", { length: 100 }),
+  duration: varchar("duration", { length: 100 }),
+  exacerbatingFactors: text("exacerbating_factors"),
+  relievingFactors: text("relieving_factors"),
+  functionalImpact: varchar("functional_impact", { length: 100 }),
+  notes: text("notes"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const opioidConversions = pgTable("opioid_conversions", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  fromMed: varchar("from_med", { length: 100 }).notNull(),
+  toMed: varchar("to_med", { length: 100 }).notNull(),
+  conversionFactor: decimal("conversion_factor", { precision: 10, scale: 4 }).notNull(),
+  routeFrom: varchar("route_from", { length: 50 }).notNull(),
+  routeTo: varchar("route_to", { length: 50 }).notNull(),
+  notes: text("notes"),
+  evidenceLevel: varchar("evidence_level", { length: 10 }),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const breakthroughPain = pgTable("breakthrough_pain", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  sessionId: varchar("session_id", { length: 255 }).notNull(),
+  medicationGiven: varchar("medication_given", { length: 100 }),
+  dose: varchar("dose", { length: 50 }),
+  route: varchar("route", { length: 50 }),
+  responseRating: integer("response_rating"), // 1-5 scale
+  timeToOnset: integer("time_to_onset_minutes"),
+  duration: integer("duration_minutes"),
+  sideEffects: text("side_effects"),
+  notes: text("notes"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+// Advance Directives and Goals of Care
+export const goalsOfCare = pgTable("goals_of_care", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  sessionId: varchar("session_id", { length: 255 }).notNull(),
+  codeStatus: varchar("code_status", { length: 50 }),
+  preferences: jsonb("preferences").notNull(),
+  decisionMaker: varchar("decision_maker", { length: 100 }),
+  healthcareProxy: varchar("healthcare_proxy", { length: 100 }),
+  structuredNotes: text("structured_notes"),
+  discussionDate: timestamp("discussion_date"),
+  reviewDate: timestamp("review_date"),
+  createdBy: uuid("created_by").references(() => users.id),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+// Family Support and Caregiver Assessment
+export const caregiverScores = pgTable("caregiver_scores", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  sessionId: varchar("session_id", { length: 255 }).notNull(),
+  scaleUsed: varchar("scale_used", { length: 100 }).notNull(), // Zarit, CQOLC, etc.
+  totalScore: integer("total_score"),
+  subscaleScores: jsonb("subscale_scores"),
+  needsFlagged: text("needs_flagged").array(),
+  recommendations: text("recommendations"),
+  followUpNeeded: boolean("follow_up_needed").default(false),
+  assessedBy: uuid("assessed_by").references(() => users.id),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const resourceLinks = pgTable("resource_links", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  title: varchar("title", { length: 255 }).notNull(),
+  category: varchar("category", { length: 100 }).notNull(),
+  url: text("url"),
+  description: text("description"),
+  targetAudience: varchar("target_audience", { length: 100 }),
+  language: varchar("language", { length: 50 }).default("English"),
+  lastReviewed: timestamp("last_reviewed"),
+  isActive: boolean("is_active").default(true),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+// Psychosocial Support
+export const psychosocialScreening = pgTable("psychosocial_screening", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  sessionId: varchar("session_id", { length: 255 }).notNull(),
+  phq9Score: integer("phq9_score"),
+  gad7Score: integer("gad7_score"),
+  spiritualScale: integer("spiritual_scale"),
+  copingAssessment: jsonb("coping_assessment"),
+  culturalFactors: text("cultural_factors"),
+  socialSupport: varchar("social_support", { length: 100 }),
+  financialConcerns: boolean("financial_concerns"),
+  followUpNeeded: boolean("follow_up_needed").default(false),
+  screenedBy: uuid("screened_by").references(() => users.id),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const referralTracking = pgTable("referral_tracking", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  sessionId: varchar("session_id", { length: 255 }).notNull(),
+  referralType: varchar("referral_type", { length: 100 }).notNull(), // psychology, social work, chaplain, etc.
+  urgency: varchar("urgency", { length: 50 }).notNull(),
+  reason: text("reason"),
+  provider: varchar("provider", { length: 100 }),
+  outcome: varchar("outcome", { length: 100 }),
+  followUpDate: timestamp("follow_up_date"),
+  status: varchar("status", { length: 50 }).default("pending"),
+  notes: text("notes"),
+  referredBy: uuid("referred_by").references(() => users.id),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+// Insert schemas for palliative care tables
+export const insertSessionLogsSchema = createInsertSchema(sessionLogs).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertSymptomScoresSchema = createInsertSchema(symptomScores).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertSymptomProtocolsSchema = createInsertSchema(symptomProtocols).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertPainAssessmentsSchema = createInsertSchema(painAssessments).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertOpioidConversionsSchema = createInsertSchema(opioidConversions).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertBreakthroughPainSchema = createInsertSchema(breakthroughPain).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertGoalsOfCareSchema = createInsertSchema(goalsOfCare).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertCaregiverScoresSchema = createInsertSchema(caregiverScores).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertResourceLinksSchema = createInsertSchema(resourceLinks).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertPsychosocialScreeningSchema = createInsertSchema(psychosocialScreening).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertReferralTrackingSchema = createInsertSchema(referralTracking).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+// Type exports for palliative care tables
+export type SessionLog = typeof sessionLogs.$inferSelect;
+export type InsertSessionLog = z.infer<typeof insertSessionLogsSchema>;
+export type SymptomScore = typeof symptomScores.$inferSelect;
+export type InsertSymptomScore = z.infer<typeof insertSymptomScoresSchema>;
+export type SymptomProtocol = typeof symptomProtocols.$inferSelect;
+export type InsertSymptomProtocol = z.infer<typeof insertSymptomProtocolsSchema>;
+export type PainAssessment = typeof painAssessments.$inferSelect;
+export type InsertPainAssessment = z.infer<typeof insertPainAssessmentsSchema>;
+export type OpioidConversion = typeof opioidConversions.$inferSelect;
+export type InsertOpioidConversion = z.infer<typeof insertOpioidConversionsSchema>;
+export type BreakthroughPain = typeof breakthroughPain.$inferSelect;
+export type InsertBreakthroughPain = z.infer<typeof insertBreakthroughPainSchema>;
+export type GoalsOfCare = typeof goalsOfCare.$inferSelect;
+export type InsertGoalsOfCare = z.infer<typeof insertGoalsOfCareSchema>;
+export type CaregiverScore = typeof caregiverScores.$inferSelect;
+export type InsertCaregiverScore = z.infer<typeof insertCaregiverScoresSchema>;
+export type ResourceLink = typeof resourceLinks.$inferSelect;
+export type InsertResourceLink = z.infer<typeof insertResourceLinksSchema>;
+export type PsychosocialScreening = typeof psychosocialScreening.$inferSelect;
+export type InsertPsychosocialScreening = z.infer<typeof insertPsychosocialScreeningSchema>;
+export type ReferralTracking = typeof referralTracking.$inferSelect;
+export type InsertReferralTracking = z.infer<typeof insertReferralTrackingSchema>;

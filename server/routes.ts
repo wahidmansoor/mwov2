@@ -2396,6 +2396,105 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Enhanced Palliative Care Module API endpoints
+  app.get("/api/palliative/symptom-scores", authMiddleware, async (req: any, res) => {
+    try {
+      const { sessionId, symptom } = req.query;
+      const scores = await storage.getSymptomScores({
+        sessionId: sessionId as string,
+        symptom: symptom as string
+      });
+      res.json(scores);
+    } catch (error) {
+      console.error("Failed to get symptom scores:", error);
+      res.status(500).json({ message: "Failed to get symptom scores" });
+    }
+  });
+
+  app.post("/api/palliative/symptom-scores", authMiddleware, async (req: any, res) => {
+    try {
+      const score = await storage.createSymptomScore(req.body);
+      res.json(score);
+    } catch (error) {
+      console.error("Failed to create symptom score:", error);
+      res.status(500).json({ message: "Failed to create symptom score" });
+    }
+  });
+
+  app.get("/api/palliative/symptom-protocols", authMiddleware, async (req: any, res) => {
+    try {
+      const { symptom, severityLevel } = req.query;
+      const protocols = await storage.getSymptomProtocols({
+        symptom: symptom as string,
+        severityLevel: severityLevel as string
+      });
+      res.json(protocols);
+    } catch (error) {
+      console.error("Failed to get symptom protocols:", error);
+      res.status(500).json({ message: "Failed to get symptom protocols" });
+    }
+  });
+
+  app.get("/api/palliative/pain-assessments", authMiddleware, async (req: any, res) => {
+    try {
+      const { sessionId } = req.query;
+      const assessments = await storage.getPainAssessments({
+        sessionId: sessionId as string
+      });
+      res.json(assessments);
+    } catch (error) {
+      console.error("Failed to get pain assessments:", error);
+      res.status(500).json({ message: "Failed to get pain assessments" });
+    }
+  });
+
+  app.post("/api/palliative/pain-assessments", authMiddleware, async (req: any, res) => {
+    try {
+      const assessment = await storage.createPainAssessment(req.body);
+      res.json(assessment);
+    } catch (error) {
+      console.error("Failed to create pain assessment:", error);
+      res.status(500).json({ message: "Failed to create pain assessment" });
+    }
+  });
+
+  app.get("/api/palliative/opioid-conversions", authMiddleware, async (req: any, res) => {
+    try {
+      const { fromMed, toMed } = req.query;
+      const conversions = await storage.getOpioidConversions({
+        fromMed: fromMed as string,
+        toMed: toMed as string
+      });
+      res.json(conversions);
+    } catch (error) {
+      console.error("Failed to get opioid conversions:", error);
+      res.status(500).json({ message: "Failed to get opioid conversions" });
+    }
+  });
+
+  app.get("/api/palliative/breakthrough-pain", authMiddleware, async (req: any, res) => {
+    try {
+      const { sessionId } = req.query;
+      const episodes = await storage.getBreakthroughPain({
+        sessionId: sessionId as string
+      });
+      res.json(episodes);
+    } catch (error) {
+      console.error("Failed to get breakthrough pain episodes:", error);
+      res.status(500).json({ message: "Failed to get breakthrough pain episodes" });
+    }
+  });
+
+  app.post("/api/palliative/breakthrough-pain", authMiddleware, async (req: any, res) => {
+    try {
+      const episode = await storage.createBreakthroughPain(req.body);
+      res.json(episode);
+    } catch (error) {
+      console.error("Failed to create breakthrough pain episode:", error);
+      res.status(500).json({ message: "Failed to create breakthrough pain episode" });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }

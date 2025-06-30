@@ -10,16 +10,17 @@ import {
   Brain, 
   Activity,
   Clock,
-  AlertCircle
+  AlertCircle,
+  Zap
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 // Import section components
-import PainManagement from "./sections/PainManagement";
+import EnhancedSymptomControl from "./sections/EnhancedSymptomControl";
+import EnhancedPainManagement from "./sections/EnhancedPainManagement";
 import FamilySupport from "./sections/FamilySupport";
 import AdvancedDirective from "./sections/AdvancedDirective";
 import PsychosocialCare from "./sections/PsychosocialCare";
-import QualityOfLife from "./sections/QualityOfLife";
 
 interface ModuleSection {
   id: string;
@@ -32,10 +33,18 @@ interface ModuleSection {
 
 const sections: ModuleSection[] = [
   {
+    id: "symptom",
+    title: "Symptom Control",
+    description: "Interactive symptom tracking with real-time assessment and evidence-based protocols",
+    icon: Activity,
+    color: "bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800",
+    badge: "Enhanced"
+  },
+  {
     id: "pain",
     title: "Pain Management",
-    description: "WHO analgesic ladder, opioid management, and comprehensive pain assessment",
-    icon: Activity,
+    description: "WHO analgesic ladder, opioid conversion calculator, and comprehensive pain assessment",
+    icon: Zap,
     color: "bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800",
     badge: "Essential"
   },
@@ -78,18 +87,18 @@ export default function PalliativeCareModule() {
 
   const renderSectionContent = () => {
     switch (activeSection) {
+      case "symptom":
+        return <EnhancedSymptomControl />;
       case "pain":
-        return <PainManagement />;
+        return <EnhancedPainManagement />;
       case "family":
         return <FamilySupport />;
       case "directive":
         return <AdvancedDirective />;
       case "psychosocial":
         return <PsychosocialCare />;
-      case "quality":
-        return <QualityOfLife />;
       default:
-        return <PainManagement />;
+        return <EnhancedSymptomControl />;
     }
   };
 
