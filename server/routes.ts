@@ -597,7 +597,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const { cancerType, ageRange } = req.query;
       
       // Return authentic NCCN/USPSTF screening protocols
-      const protocols = [
+      const allProtocols = [
         {
           testName: "Mammography",
           cancerType: "Breast Cancer",
@@ -612,6 +612,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
           },
           additionalConsiderations: "Consider earlier screening for high-risk patients with genetic predisposition",
           followUpProtocol: "Annual mammography with consideration for breast MRI in high-risk patients"
+        },
+        {
+          testName: "Mammography + MRI",
+          cancerType: "Breast Cancer",
+          ageRange: "50-64 years",
+          frequency: "Annual screening",
+          recommendationStrength: "Category 1",
+          evidenceLevel: "High",
+          source: "NCCN Guidelines v3.2025",
+          riskFactors: {
+            genetic: ["BRCA1/2 mutation", "Family history"],
+            lifestyle: ["Dense breast tissue", "Prior chest radiation"]
+          },
+          additionalConsiderations: "High-risk patients may benefit from supplemental MRI screening",
+          followUpProtocol: "Annual mammography with MRI for BRCA carriers"
         },
         {
           testName: "Colonoscopy",
@@ -629,6 +644,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
           followUpProtocol: "Repeat colonoscopy in 10 years if normal, sooner if polyps found"
         },
         {
+          testName: "FIT Test",
+          cancerType: "Colorectal Cancer",
+          ageRange: "65-74 years",
+          frequency: "Annual",
+          recommendationStrength: "Category 2A",
+          evidenceLevel: "Moderate",
+          source: "USPSTF Recommendations 2025",
+          riskFactors: {
+            genetic: ["Lynch syndrome", "Family history"],
+            lifestyle: ["Smoking", "Obesity"]
+          },
+          additionalConsiderations: "Alternative to colonoscopy for patients who decline invasive screening",
+          followUpProtocol: "Colonoscopy if positive FIT result"
+        },
+        {
           testName: "Low-dose CT",
           cancerType: "Lung Cancer",
           ageRange: "50-74 years", 
@@ -642,15 +672,68 @@ export async function registerRoutes(app: Express): Promise<Server> {
           },
           additionalConsiderations: "Requires smoking history ≥20 pack-years and quit ≤15 years ago",
           followUpProtocol: "Annual LDCT screening with structured reporting (Lung-RADS)"
+        },
+        {
+          testName: "PSA Test",
+          cancerType: "Prostate Cancer",
+          ageRange: "50-64 years",
+          frequency: "Every 2 years",
+          recommendationStrength: "Category 2A",
+          evidenceLevel: "Moderate",
+          source: "NCCN Guidelines v4.2025",
+          riskFactors: {
+            genetic: ["Family history", "African American"],
+            lifestyle: ["High-fat diet"]
+          },
+          additionalConsiderations: "Shared decision-making required, consider earlier screening for high-risk patients",
+          followUpProtocol: "Repeat PSA based on initial result and risk factors"
+        },
+        {
+          testName: "Pap Smear + HPV",
+          cancerType: "Cervical Cancer",
+          ageRange: "40-49 years",
+          frequency: "Every 5 years",
+          recommendationStrength: "Category 1",
+          evidenceLevel: "High",
+          source: "NCCN Guidelines v1.2025",
+          riskFactors: {
+            viral: ["HPV infection", "Multiple partners"],
+            lifestyle: ["Smoking", "Immunosuppression"]
+          },
+          additionalConsiderations: "Co-testing with Pap and HPV recommended for women ≥30",
+          followUpProtocol: "Continue screening until age 65 if adequate negative screening"
+        },
+        {
+          testName: "Skin Examination",
+          cancerType: "Melanoma",
+          ageRange: "18-39 years",
+          frequency: "Annual",
+          recommendationStrength: "Category 2B",
+          evidenceLevel: "Low",
+          source: "American Cancer Society 2025",
+          riskFactors: {
+            genetic: ["Family history", "Fair skin", "Multiple moles"],
+            environmental: ["UV exposure", "Sunburn history"]
+          },
+          additionalConsiderations: "Self-examination monthly, professional exam annually for high-risk",
+          followUpProtocol: "Biopsy suspicious lesions, dermatology referral for concerning findings"
         }
       ];
       
-      let filteredProtocols = protocols;
-      if (cancerType) {
-        filteredProtocols = protocols.filter(p => p.cancerType.toLowerCase().includes(cancerType.toLowerCase()));
+      let filteredProtocols = allProtocols;
+      
+      // Filter by cancer type if specified
+      if (cancerType && cancerType.trim() !== "") {
+        filteredProtocols = allProtocols.filter(p => 
+          p.cancerType.toLowerCase() === cancerType.toLowerCase().trim()
+        );
       }
-      if (ageRange) {
-        filteredProtocols = filteredProtocols.filter(p => p.ageRange === ageRange);
+      
+      // Filter by age range if specified
+      if (ageRange && ageRange.trim() !== "") {
+        filteredProtocols = filteredProtocols.filter(p => 
+          p.ageRange === ageRange.trim()
+        );
       }
       
       res.json(filteredProtocols);
@@ -665,7 +748,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const { cancerType, symptomSearch } = req.query;
       
       // Return authentic NCCN diagnostic workup algorithms
-      const workupSteps = [
+      const allWorkupSteps = [
         {
           symptomOrFinding: "Breast mass",
           cancerType: "Breast Cancer",
@@ -676,6 +759,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
           nextStepIfNegative: "Consider MRI if high suspicion, routine follow-up if low risk",
           sensitivity: 85,
           specificity: 95,
+          source: "NCCN Breast Cancer Guidelines v3.2025",
+          linkedStage: "Workup and Primary Treatment"
+        },
+        {
+          symptomOrFinding: "Nipple discharge",
+          cancerType: "Breast Cancer",
+          urgencyLevel: "Moderate",
+          imagingOrLab: "Bilateral mammography + breast MRI",
+          estimatedCost: "$600-800",
+          nextStepIfPositive: "Ductoscopy and targeted biopsy",
+          nextStepIfNegative: "Clinical follow-up in 6 months",
+          sensitivity: 78,
+          specificity: 92,
           source: "NCCN Breast Cancer Guidelines v3.2025",
           linkedStage: "Workup and Primary Treatment"
         },
@@ -693,6 +789,32 @@ export async function registerRoutes(app: Express): Promise<Server> {
           linkedStage: "Diagnosis and Staging"
         },
         {
+          symptomOrFinding: "Hemoptysis",
+          cancerType: "Lung Cancer",
+          urgencyLevel: "Urgent",
+          imagingOrLab: "Chest CT + bronchoscopy",
+          estimatedCost: "$800-1200",
+          nextStepIfPositive: "Tissue biopsy with molecular profiling (EGFR, ALK, ROS1)",
+          nextStepIfNegative: "ENT evaluation for alternative causes",
+          sensitivity: 96,
+          specificity: 85,
+          source: "NCCN NSCLC Guidelines v5.2025",
+          linkedStage: "Diagnosis and Staging"
+        },
+        {
+          symptomOrFinding: "Rectal bleeding",
+          cancerType: "Colorectal Cancer",
+          urgencyLevel: "Urgent",
+          imagingOrLab: "Colonoscopy with biopsy",
+          estimatedCost: "$500-800",
+          nextStepIfPositive: "CT chest/abdomen/pelvis for staging, CEA level",
+          nextStepIfNegative: "Consider inflammatory bowel disease workup",
+          sensitivity: 95,
+          specificity: 90,
+          source: "NCCN Colon Cancer Guidelines v3.2025",
+          linkedStage: "Workup and Staging"
+        },
+        {
           symptomOrFinding: "Bone pain",
           cancerType: "Bone Cancer",
           urgencyLevel: "Urgent",
@@ -704,16 +826,48 @@ export async function registerRoutes(app: Express): Promise<Server> {
           specificity: 85,
           source: "NCCN Bone Cancer Guidelines v1.2025",
           linkedStage: "Initial Workup"
+        },
+        {
+          symptomOrFinding: "Elevated PSA",
+          cancerType: "Prostate Cancer",
+          urgencyLevel: "Moderate",
+          imagingOrLab: "Prostate MRI + targeted biopsy",
+          estimatedCost: "$1000-1500",
+          nextStepIfPositive: "Bone scan and CT if high-risk features",
+          nextStepIfNegative: "Repeat PSA in 6-12 months",
+          sensitivity: 88,
+          specificity: 82,
+          source: "NCCN Prostate Cancer Guidelines v4.2025",
+          linkedStage: "Early Detection"
+        },
+        {
+          symptomOrFinding: "Jaundice",
+          cancerType: "Ampullary Cancer",
+          urgencyLevel: "Urgent",
+          imagingOrLab: "CT abdomen + ERCP with biopsy",
+          estimatedCost: "$1200-1800",
+          nextStepIfPositive: "EUS for staging, genetic testing for hereditary syndromes",
+          nextStepIfNegative: "Hepatology evaluation for alternative causes",
+          sensitivity: 92,
+          specificity: 88,
+          source: "NCCN Ampullary Adenocarcinoma Guidelines v2.2025",
+          linkedStage: "Workup and Staging"
         }
       ];
       
-      let filteredSteps = workupSteps;
-      if (cancerType) {
-        filteredSteps = workupSteps.filter(s => s.cancerType.toLowerCase().includes(cancerType.toLowerCase()));
+      let filteredSteps = allWorkupSteps;
+      
+      // Filter by cancer type if specified
+      if (cancerType && cancerType.trim() !== "") {
+        filteredSteps = allWorkupSteps.filter(s => 
+          s.cancerType.toLowerCase() === cancerType.toLowerCase().trim()
+        );
       }
-      if (symptomSearch) {
+      
+      // Filter by symptom search if specified
+      if (symptomSearch && symptomSearch.trim() !== "") {
         filteredSteps = filteredSteps.filter(s => 
-          s.symptomOrFinding.toLowerCase().includes(symptomSearch.toLowerCase())
+          s.symptomOrFinding.toLowerCase().includes(symptomSearch.toLowerCase().trim())
         );
       }
       
@@ -729,7 +883,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const { cancerType } = req.query;
       
       // Return authentic biomarker testing guidelines
-      const biomarkers = [
+      const allBiomarkers = [
         {
           biomarkerName: "ER/PR/HER2",
           cancerType: "Breast Cancer",
@@ -743,6 +897,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
           criticalValues: "HER2 3+ or FISH amplified",
           source: "NCCN Breast Cancer Guidelines v3.2025",
           referenceLab: "CAP-accredited laboratory"
+        },
+        {
+          biomarkerName: "Oncotype DX",
+          cancerType: "Breast Cancer",
+          testingRequired: false,
+          testingMethod: "21-gene recurrence score",
+          turnaroundTime: "7-10 business days",
+          positiveImplication: "High recurrence score: chemotherapy benefit likely",
+          negativeImplication: "Low recurrence score: endocrine therapy alone sufficient",
+          therapyLink: "RS ≥26: chemotherapy recommended, RS <11: endocrine therapy alone",
+          normalRange: "Recurrence Score 0-100",
+          criticalValues: "RS ≥26 (high risk)",
+          source: "NCCN Breast Cancer Guidelines v3.2025",
+          referenceLab: "Genomic Health Laboratory"
         },
         {
           biomarkerName: "EGFR mutation",
@@ -759,6 +927,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
           referenceLab: "Molecular pathology laboratory"
         },
         {
+          biomarkerName: "PD-L1 expression",
+          cancerType: "Lung Cancer",
+          testingRequired: true,
+          testingMethod: "Immunohistochemistry (22C3, 28-8, SP263)",
+          turnaroundTime: "3-5 business days",
+          positiveImplication: "High PD-L1 (≥50%): pembrolizumab monotherapy preferred",
+          negativeImplication: "Low PD-L1 (<1%): combination therapy or chemotherapy",
+          therapyLink: "PD-L1 ≥50%: pembrolizumab, 1-49%: combination therapy",
+          normalRange: "Tumor proportion score 0-100%",
+          criticalValues: "TPS ≥50% (high expression)",
+          source: "NCCN NSCLC Guidelines v5.2025",
+          referenceLab: "Certified immunohistochemistry laboratory"
+        },
+        {
           biomarkerName: "MSI/MMR status",
           cancerType: "Colorectal Cancer",
           testingRequired: true,
@@ -771,12 +953,44 @@ export async function registerRoutes(app: Express): Promise<Server> {
           criticalValues: "MSI-H or dMMR (any protein loss)",
           source: "NCCN Colon Cancer Guidelines v3.2025",
           referenceLab: "Molecular diagnostics laboratory"
+        },
+        {
+          biomarkerName: "KRAS/NRAS mutation",
+          cancerType: "Colorectal Cancer",
+          testingRequired: true,
+          testingMethod: "Next-generation sequencing",
+          turnaroundTime: "7-10 business days",
+          positiveImplication: "RAS mutation: anti-EGFR therapy contraindicated",
+          negativeImplication: "RAS wild-type: consider anti-EGFR therapy (cetuximab/panitumumab)",
+          therapyLink: "RAS wild-type: cetuximab or panitumumab eligible",
+          normalRange: "Wild-type RAS",
+          criticalValues: "Any RAS mutation (KRAS/NRAS)",
+          source: "NCCN Colon Cancer Guidelines v3.2025",
+          referenceLab: "Molecular pathology laboratory"
+        },
+        {
+          biomarkerName: "PSA",
+          cancerType: "Prostate Cancer",
+          testingRequired: true,
+          testingMethod: "Serum immunoassay",
+          turnaroundTime: "1-2 business days",
+          positiveImplication: "Elevated PSA: requires further evaluation with imaging/biopsy",
+          negativeImplication: "Normal PSA: continue routine screening per guidelines",
+          therapyLink: "PSA >4.0 ng/mL: consider biopsy, >10 ng/mL: high suspicion",
+          normalRange: "0-4.0 ng/mL (age-adjusted)",
+          criticalValues: ">10 ng/mL (high suspicion for cancer)",
+          source: "NCCN Prostate Cancer Guidelines v4.2025",
+          referenceLab: "Clinical chemistry laboratory"
         }
       ];
       
-      let filteredBiomarkers = biomarkers;
-      if (cancerType) {
-        filteredBiomarkers = biomarkers.filter(b => b.cancerType.toLowerCase().includes(cancerType.toLowerCase()));
+      let filteredBiomarkers = allBiomarkers;
+      
+      // Filter by cancer type if specified
+      if (cancerType && cancerType.trim() !== "") {
+        filteredBiomarkers = allBiomarkers.filter(b => 
+          b.cancerType.toLowerCase() === cancerType.toLowerCase().trim()
+        );
       }
       
       res.json(filteredBiomarkers);
