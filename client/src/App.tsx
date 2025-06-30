@@ -9,7 +9,7 @@ import Dashboard from "@/pages/Dashboard";
 import Layout from "@/components/layout/Layout";
 import OPDModuleEnhanced from "@/modules/opd/OPDModuleEnhanced";
 import CDUModule from "@/modules/cdu/CDUModule";
-import PalliativeModule from "@/modules/palliative/PalliativeModule";
+import PalliativeCareModuleMain from "@/modules/palliative/PalliativeCareModule";
 import InpatientModule from "@/modules/inpatient/InpatientModule";
 import ChatAssistant from "@/modules/chat/ChatAssistant";
 import ToolsBar from "@/modules/tools/ToolsBar";
@@ -63,7 +63,7 @@ function Router() {
       
       <Route path="/palliative">
         <Layout>
-          <PalliativeModule />
+          <PalliativeCareModuleMain />
         </Layout>
       </Route>
       
@@ -127,11 +127,7 @@ function Router() {
         </Layout>
       </Route>
       
-      <Route path="/palliative-care">
-        <Layout>
-          <PalliativeCareModule />
-        </Layout>
-      </Route>
+
       
       <Route component={NotFound} />
     </Switch>
