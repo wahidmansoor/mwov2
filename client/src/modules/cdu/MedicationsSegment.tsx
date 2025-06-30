@@ -51,10 +51,17 @@ export const MedicationsSegment: React.FC<MedicationsSegmentProps> = ({ classNam
     queryKey: ['/api/cdu/medications', selectedClassification, selectedType, searchTerm],
     queryFn: async () => {
       const params = new URLSearchParams();
-      if (selectedClassification) params.append('classification', selectedClassification);
+      
+      // Only add classification filter if not "all"
+      if (selectedClassification && selectedClassification !== 'all') {
+        params.append('classification', selectedClassification);
+      }
+      
+      // Only add type filters when specific types are selected
       if (selectedType === 'chemotherapy') params.append('isChemotherapy', 'true');
       if (selectedType === 'immunotherapy') params.append('isImmunotherapy', 'true');
       if (selectedType === 'targeted') params.append('isTargetedTherapy', 'true');
+      
       if (searchTerm) params.append('search', searchTerm);
       
       const response = await fetch(`/api/cdu/medications?${params.toString()}`);

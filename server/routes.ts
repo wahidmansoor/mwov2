@@ -283,13 +283,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/cdu/medications", authMiddleware, async (req: any, res) => {
     try {
       const { classification, isChemotherapy, isImmunotherapy, isTargetedTherapy, search } = req.query;
-      const medications = await storage.getOncologyMedications({
-        classification: classification === "all" ? undefined : classification as string,
-        isChemotherapy: isChemotherapy === 'true',
-        isImmunotherapy: isImmunotherapy === 'true',
-        isTargetedTherapy: isTargetedTherapy === 'true',
-        search: search as string
-      });
+      
+      // Build filters object, only include boolean filters if explicitly set to 'true'
+      const filters: any = {};
+      
+      if (classification && classification !== "all") {
+        filters.classification = classification as string;
+      }
+      
+      // Only apply boolean filters if explicitly set to 'true' 
+      if (isChemotherapy === 'true') {
+        filters.isChemotherapy = true;
+      }
+      if (isImmunotherapy === 'true') {
+        filters.isImmunotherapy = true;
+      }
+      if (isTargetedTherapy === 'true') {
+        filters.isTargetedTherapy = true;
+      }
+      
+      if (search) {
+        filters.search = search as string;
+      }
+      
+      const medications = await storage.getOncologyMedications(filters);
       res.json(medications);
     } catch (error) {
       console.error("Failed to get oncology medications:", error);

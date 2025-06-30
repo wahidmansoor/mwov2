@@ -419,16 +419,18 @@ export class DatabaseStorage implements IStorage {
       conditions.push(sql`${oncologyMedications.classification} ILIKE ${'%' + filters.classification + '%'}`);
     }
     
-    if (filters?.isChemotherapy !== undefined) {
-      conditions.push(eq(oncologyMedications.isChemotherapy, filters.isChemotherapy));
+    // Only apply boolean filters if they are explicitly set to true
+    // This ensures that when no filters are applied, all medications are returned
+    if (filters?.isChemotherapy === true) {
+      conditions.push(eq(oncologyMedications.isChemotherapy, true));
     }
     
-    if (filters?.isImmunotherapy !== undefined) {
-      conditions.push(eq(oncologyMedications.isImmunotherapy, filters.isImmunotherapy));
+    if (filters?.isImmunotherapy === true) {
+      conditions.push(eq(oncologyMedications.isImmunotherapy, true));
     }
     
-    if (filters?.isTargetedTherapy !== undefined) {
-      conditions.push(eq(oncologyMedications.isTargetedTherapy, filters.isTargetedTherapy));
+    if (filters?.isTargetedTherapy === true) {
+      conditions.push(eq(oncologyMedications.isTargetedTherapy, true));
     }
     
     if (filters?.search) {
