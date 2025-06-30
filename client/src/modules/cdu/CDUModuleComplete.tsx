@@ -1397,14 +1397,6 @@ export default function CDUModuleComplete() {
         
         <TabsContent value="toxicity" className="space-y-6">
           <ToxicityManagement />
-          <div className="mt-6">
-            <h3 className="text-lg font-semibold mb-4">Protocol-Specific Toxicity Monitoring</h3>
-            <div className="space-y-4">
-              {protocols.map((protocol: EnhancedProtocol) => (
-                <ToxicityMonitor key={protocol.id} protocol={protocol} />
-              ))}
-            </div>
-          </div>
         </TabsContent>
         
         <TabsContent value="monitoring" className="space-y-6">
