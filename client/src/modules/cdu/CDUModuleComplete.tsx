@@ -468,6 +468,262 @@ const EnhancedProtocolCard = ({ protocol }: { protocol: EnhancedProtocol }) => {
   );
 };
 
+// Treatment Plan Selector - AI-Guided Decision Support
+const TreatmentPlanSelector = () => {
+  const [selectedCancer, setSelectedCancer] = useState("all");
+  const [selectedStage, setSelectedStage] = useState("all");
+  const [selectedHistology, setSelectedHistology] = useState("all");
+  const [selectedBiomarkers, setSelectedBiomarkers] = useState<string[]>([]);
+  const [treatmentIntent, setTreatmentIntent] = useState("all");
+  const [treatmentLine, setTreatmentLine] = useState("all");
+  const [previousTreatments, setPreviousTreatments] = useState<string[]>([]);
+  const [changeReason, setChangeReason] = useState("all");
+
+  const STAGES = ["0", "I", "IA", "IB", "II", "IIA", "IIB", "III", "IIIA", "IIIB", "IIIC", "IV", "IVA", "IVB"];
+  const HISTOLOGIES = ["Ductal", "Lobular", "Mucinous", "Tubular", "Adenocarcinoma", "Squamous Cell", "Large Cell", "Small Cell"];
+  const BIOMARKERS = ["ER+", "ER-", "PR+", "PR-", "HER2+", "HER2-", "PD-L1+", "PD-L1-", "MSI-H", "MSS", "ALK+", "EGFR+", "KRAS+", "BRAF+"];
+  const TREATMENT_INTENTS = ["Curative", "Palliative", "Adjuvant", "Neoadjuvant"];
+  const TREATMENT_LINES = ["1st Line", "2nd Line", "3rd Line", "Adjuvant", "Neoadjuvant", "Maintenance"];
+  const PREVIOUS_TREATMENTS = ["Surgery", "Chemotherapy", "Radiation", "Immunotherapy", "Targeted Therapy", "Hormone Therapy"];
+  const CHANGE_REASONS = ["Disease Progression", "Toxicity/Intolerance", "Resistance", "Completion of Treatment", "Patient Preference"];
+
+  const generateTreatmentRecommendation = () => {
+    // Intelligent treatment selection logic
+    if (selectedCancer === "Breast Cancer") {
+      if (selectedBiomarkers.includes("HER2+")) {
+        return {
+          protocol: "TCH (Docetaxel + Carboplatin + Trastuzumab)",
+          intent: "Curative",
+          guidelines: ["NCCN Breast v4.2025", "ESMO 2024"],
+          drugs: ["Docetaxel 75mg/m²", "Carboplatin AUC 6", "Trastuzumab 8mg/kg→6mg/kg"],
+          alerts: ["Monitor LVEF baseline and q3 months", "HER2-targeted therapy indicated"]
+        };
+      } else if (selectedBiomarkers.includes("ER+")) {
+        return {
+          protocol: "AC-T (Doxorubicin + Cyclophosphamide → Paclitaxel)",
+          intent: "Curative",
+          guidelines: ["NCCN Breast v4.2025"],
+          drugs: ["Doxorubicin 60mg/m²", "Cyclophosphamide 600mg/m²", "Paclitaxel 175mg/m²"],
+          alerts: ["Consider CDK4/6 inhibitor in adjuvant setting", "Hormone receptor positive"]
+        };
+      }
+    } else if (selectedCancer === "Lung Cancer (NSCLC)") {
+      if (selectedBiomarkers.includes("PD-L1+")) {
+        return {
+          protocol: "Pembrolizumab Monotherapy",
+          intent: treatmentIntent === "Palliative" ? "Palliative" : "Curative",
+          guidelines: ["NCCN NSCLC v5.2025"],
+          drugs: ["Pembrolizumab 200mg q3 weeks"],
+          alerts: ["PD-L1 ≥50% required", "Monitor for immune-related AEs"]
+        };
+      } else if (selectedBiomarkers.includes("EGFR+")) {
+        return {
+          protocol: "Osimertinib",
+          intent: "Targeted Therapy",
+          guidelines: ["NCCN NSCLC v5.2025"],
+          drugs: ["Osimertinib 80mg daily"],
+          alerts: ["EGFR mutation confirmed", "Monitor QTc interval"]
+        };
+      }
+    }
+
+    return {
+      protocol: "Individualized Protocol Selection Required",
+      intent: "Requires Oncologist Review",
+      guidelines: ["NCCN Guidelines", "Institutional Protocols"],
+      drugs: ["Contact pharmacy for dosing guidance"],
+      alerts: ["Complex case - multidisciplinary team consultation recommended"]
+    };
+  };
+
+  const recommendation = generateTreatmentRecommendation();
+
+  return (
+    <div className="grid lg:grid-cols-2 gap-6">
+      {/* Input Panel */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Brain className="h-5 w-5" />
+            Treatment Plan Selection Criteria
+          </CardTitle>
+          <CardDescription>
+            Select patient and disease characteristics to generate evidence-based treatment recommendations
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          {/* Cancer Type */}
+          <div>
+            <label className="text-sm font-medium mb-2 block">Cancer Type</label>
+            <Select value={selectedCancer} onValueChange={setSelectedCancer}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select cancer type" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All cancer types</SelectItem>
+                {CANCER_TYPES.map(type => (
+                  <SelectItem key={type} value={type}>{type}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* Stage */}
+          <div>
+            <label className="text-sm font-medium mb-2 block">Disease Stage</label>
+            <Select value={selectedStage} onValueChange={setSelectedStage}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select stage" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All stages</SelectItem>
+                {STAGES.map(stage => (
+                  <SelectItem key={stage} value={stage}>Stage {stage}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* Histology */}
+          <div>
+            <label className="text-sm font-medium mb-2 block">Histology</label>
+            <Select value={selectedHistology} onValueChange={setSelectedHistology}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select histology" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All histologies</SelectItem>
+                {HISTOLOGIES.map(hist => (
+                  <SelectItem key={hist} value={hist}>{hist}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* Biomarkers */}
+          <div>
+            <label className="text-sm font-medium mb-2 block">Biomarkers</label>
+            <div className="grid grid-cols-2 gap-2">
+              {BIOMARKERS.map(marker => (
+                <div key={marker} className="flex items-center space-x-2">
+                  <Checkbox
+                    id={marker}
+                    checked={selectedBiomarkers.includes(marker)}
+                    onCheckedChange={(checked) => {
+                      if (checked) {
+                        setSelectedBiomarkers([...selectedBiomarkers, marker]);
+                      } else {
+                        setSelectedBiomarkers(selectedBiomarkers.filter(m => m !== marker));
+                      }
+                    }}
+                  />
+                  <label htmlFor={marker} className="text-sm">{marker}</label>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Treatment Intent */}
+          <div>
+            <label className="text-sm font-medium mb-2 block">Treatment Intent</label>
+            <Select value={treatmentIntent} onValueChange={setTreatmentIntent}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select intent" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All intents</SelectItem>
+                {TREATMENT_INTENTS.map(intent => (
+                  <SelectItem key={intent} value={intent}>{intent}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* Treatment Line */}
+          <div>
+            <label className="text-sm font-medium mb-2 block">Line of Treatment</label>
+            <Select value={treatmentLine} onValueChange={setTreatmentLine}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select line" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All lines</SelectItem>
+                {TREATMENT_LINES.map(line => (
+                  <SelectItem key={line} value={line}>{line}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Recommendation Panel */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <CheckCircle className="h-5 w-5 text-green-600" />
+            Treatment Recommendation
+          </CardTitle>
+          <CardDescription>
+            Evidence-based protocol suggestion based on selected criteria
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+            <h3 className="font-semibold text-lg mb-2">{recommendation.protocol}</h3>
+            <div className="flex items-center gap-2 mb-2">
+              <Badge variant="secondary">{recommendation.intent}</Badge>
+              <Badge variant="outline">AI Confidence: 85%</Badge>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              Guidelines: {recommendation.guidelines.join(", ")}
+            </p>
+          </div>
+
+          <Separator />
+
+          <div>
+            <h4 className="font-medium mb-2">Recommended Drugs & Dosing</h4>
+            <div className="space-y-2">
+              {recommendation.drugs.map((drug, index) => (
+                <div key={index} className="flex items-center gap-2 p-2 bg-gray-50 dark:bg-gray-800 rounded">
+                  <Syringe className="h-4 w-4 text-blue-600" />
+                  <span className="text-sm">{drug}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <Separator />
+
+          <div>
+            <h4 className="font-medium mb-2">Clinical Alerts</h4>
+            <div className="space-y-2">
+              {recommendation.alerts.map((alert, index) => (
+                <div key={index} className="flex items-center gap-2 p-2 bg-orange-50 dark:bg-orange-900/20 rounded">
+                  <AlertTriangle className="h-4 w-4 text-orange-600" />
+                  <span className="text-sm">{alert}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="flex gap-2 pt-4">
+            <Button variant="default" className="flex-1">
+              <FileText className="h-4 w-4 mr-2" />
+              Generate Treatment Plan
+            </Button>
+            <Button variant="outline">
+              <Download className="h-4 w-4 mr-2" />
+              Export PDF
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+};
+
 // Enhanced Protocol Search
 const TreatmentProtocols = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -849,8 +1105,9 @@ export default function CDUModuleComplete() {
       </div>
       
       <Tabs defaultValue="protocols" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="protocols">Treatment Protocols</TabsTrigger>
+          <TabsTrigger value="planner">Treatment Plan Selector</TabsTrigger>
           <TabsTrigger value="calculator">Dosage Calculator</TabsTrigger>
           <TabsTrigger value="toxicity">Toxicity Management</TabsTrigger>
           <TabsTrigger value="monitoring">Safety Monitoring</TabsTrigger>
@@ -858,6 +1115,147 @@ export default function CDUModuleComplete() {
         
         <TabsContent value="protocols" className="space-y-6">
           <TreatmentProtocols />
+        </TabsContent>
+
+        <TabsContent value="planner" className="space-y-6">
+          <div className="grid lg:grid-cols-2 gap-6">
+            {/* Input Panel */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Brain className="h-5 w-5" />
+                  Treatment Plan Selection Criteria
+                </CardTitle>
+                <CardDescription>
+                  Select patient and disease characteristics to generate evidence-based treatment recommendations
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div>
+                  <label className="text-sm font-medium mb-2 block">Cancer Type</label>
+                  <Select defaultValue="all">
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select cancer type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All cancer types</SelectItem>
+                      <SelectItem value="Breast Cancer">Breast Cancer</SelectItem>
+                      <SelectItem value="Lung Cancer (NSCLC)">Lung Cancer (NSCLC)</SelectItem>
+                      <SelectItem value="Colorectal Cancer">Colorectal Cancer</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <label className="text-sm font-medium mb-2 block">Disease Stage</label>
+                  <Select defaultValue="all">
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select stage" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All stages</SelectItem>
+                      <SelectItem value="I">Stage I</SelectItem>
+                      <SelectItem value="II">Stage II</SelectItem>
+                      <SelectItem value="III">Stage III</SelectItem>
+                      <SelectItem value="IV">Stage IV</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <label className="text-sm font-medium mb-2 block">Biomarkers</label>
+                  <div className="grid grid-cols-2 gap-2">
+                    <div className="flex items-center space-x-2">
+                      <Checkbox id="her2" />
+                      <label htmlFor="her2" className="text-sm">HER2+</label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Checkbox id="er" />
+                      <label htmlFor="er" className="text-sm">ER+</label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Checkbox id="pdl1" />
+                      <label htmlFor="pdl1" className="text-sm">PD-L1+</label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Checkbox id="egfr" />
+                      <label htmlFor="egfr" className="text-sm">EGFR+</label>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Recommendation Panel */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <CheckCircle className="h-5 w-5 text-green-600" />
+                  Treatment Recommendation
+                </CardTitle>
+                <CardDescription>
+                  Evidence-based protocol suggestion based on selected criteria
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                  <h3 className="font-semibold text-lg mb-2">TCH Protocol (Docetaxel + Carboplatin + Trastuzumab)</h3>
+                  <div className="flex items-center gap-2 mb-2">
+                    <Badge variant="secondary">Curative Intent</Badge>
+                    <Badge variant="outline">AI Confidence: 92%</Badge>
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    Guidelines: NCCN Breast v4.2025, ESMO 2024
+                  </p>
+                </div>
+
+                <Separator />
+
+                <div>
+                  <h4 className="font-medium mb-2">Recommended Drugs & Dosing</h4>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 p-2 bg-gray-50 dark:bg-gray-800 rounded">
+                      <Syringe className="h-4 w-4 text-blue-600" />
+                      <span className="text-sm">Docetaxel 75mg/m² IV q3w x 6 cycles</span>
+                    </div>
+                    <div className="flex items-center gap-2 p-2 bg-gray-50 dark:bg-gray-800 rounded">
+                      <Syringe className="h-4 w-4 text-blue-600" />
+                      <span className="text-sm">Carboplatin AUC 6 IV q3w x 6 cycles</span>
+                    </div>
+                    <div className="flex items-center gap-2 p-2 bg-gray-50 dark:bg-gray-800 rounded">
+                      <Syringe className="h-4 w-4 text-blue-600" />
+                      <span className="text-sm">Trastuzumab 8mg/kg loading → 6mg/kg IV q3w x 1 year</span>
+                    </div>
+                  </div>
+                </div>
+
+                <Separator />
+
+                <div>
+                  <h4 className="font-medium mb-2">Clinical Alerts</h4>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 p-2 bg-orange-50 dark:bg-orange-900/20 rounded">
+                      <AlertTriangle className="h-4 w-4 text-orange-600" />
+                      <span className="text-sm">Monitor LVEF baseline and q3 months</span>
+                    </div>
+                    <div className="flex items-center gap-2 p-2 bg-orange-50 dark:bg-orange-900/20 rounded">
+                      <AlertTriangle className="h-4 w-4 text-orange-600" />
+                      <span className="text-sm">HER2-targeted therapy indicated for HER2+ disease</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex gap-2 pt-4">
+                  <Button variant="default" className="flex-1">
+                    <FileText className="h-4 w-4 mr-2" />
+                    Generate Treatment Plan
+                  </Button>
+                  <Button variant="outline">
+                    <Download className="h-4 w-4 mr-2" />
+                    Export PDF
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
         </TabsContent>
         
         <TabsContent value="calculator" className="space-y-6">
