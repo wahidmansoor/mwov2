@@ -717,6 +717,217 @@ export async function registerRoutes(app: Express): Promise<Server> {
           },
           additionalConsiderations: "Self-examination monthly, professional exam annually for high-risk",
           followUpProtocol: "Biopsy suspicious lesions, dermatology referral for concerning findings"
+        },
+        // Additional Major Cancer Types
+        {
+          testName: "Upper Endoscopy",
+          cancerType: "Gastric Cancer",
+          ageRange: "High-risk 40+ years",
+          frequency: "Every 3 years",
+          recommendationStrength: "Category 2A",
+          evidenceLevel: "Moderate",
+          source: "NCCN Gastric Cancer Guidelines v2.2025",
+          riskFactors: {
+            genetic: ["CDH1 mutations", "Lynch syndrome"],
+            environmental: ["H. pylori infection", "Atrophic gastritis"]
+          },
+          additionalConsiderations: "Consider for high-risk populations including Asian ancestry",
+          followUpProtocol: "Biopsy suspicious lesions, H. pylori testing"
+        },
+        {
+          testName: "CA 19-9 + Imaging",
+          cancerType: "Pancreatic Cancer",
+          ageRange: "High-risk 50+ years",
+          frequency: "Annual",
+          recommendationStrength: "Category 2B",
+          evidenceLevel: "Low",
+          source: "NCCN Pancreatic Cancer Guidelines v1.2025",
+          riskFactors: {
+            genetic: ["BRCA1/2", "PALB2", "ATM mutations"],
+            familial: ["2+ relatives with pancreatic cancer"]
+          },
+          additionalConsiderations: "MRI/MRCP or EUS for high-risk individuals",
+          followUpProtocol: "Multidisciplinary evaluation for abnormal findings"
+        },
+        {
+          testName: "Transvaginal Ultrasound",
+          cancerType: "Ovarian Cancer",
+          ageRange: "High-risk 30+ years",
+          frequency: "Every 6 months",
+          recommendationStrength: "Category 2B",
+          evidenceLevel: "Low",
+          source: "NCCN Ovarian Cancer Guidelines v1.2025",
+          riskFactors: {
+            genetic: ["BRCA1/2 mutations", "Lynch syndrome"],
+            familial: ["Strong family history"]
+          },
+          additionalConsiderations: "CA-125 + pelvic exam in conjunction",
+          followUpProtocol: "Consider prophylactic surgery discussion"
+        },
+        {
+          testName: "Alpha-fetoprotein",
+          cancerType: "Hepatocellular Carcinoma",
+          ageRange: "Cirrhosis patients 40+ years",
+          frequency: "Every 6 months",
+          recommendationStrength: "Category 1",
+          evidenceLevel: "High",
+          source: "NCCN Hepatobiliary Cancer Guidelines v4.2025",
+          riskFactors: {
+            viral: ["Hepatitis B", "Hepatitis C"],
+            lifestyle: ["Cirrhosis", "Alcohol abuse"]
+          },
+          additionalConsiderations: "Ultrasound + AFP for optimal screening",
+          followUpProtocol: "CT/MRI for elevated AFP or suspicious ultrasound"
+        },
+        {
+          testName: "Cystoscopy",
+          cancerType: "Bladder Cancer",
+          ageRange: "High-risk 40+ years",
+          frequency: "Annual",
+          recommendationStrength: "Category 2B",
+          evidenceLevel: "Low",
+          source: "NCCN Bladder Cancer Guidelines v5.2025",
+          riskFactors: {
+            occupational: ["Chemical exposure", "Aromatic amines"],
+            lifestyle: ["Smoking", "Chronic cystitis"]
+          },
+          additionalConsiderations: "Urine cytology + cystoscopy for high-risk occupational exposure",
+          followUpProtocol: "Biopsy suspicious lesions"
+        },
+        {
+          testName: "Thyroid Ultrasound",
+          cancerType: "Thyroid Cancer",
+          ageRange: "High-risk all ages",
+          frequency: "Annual",
+          recommendationStrength: "Category 2A",
+          evidenceLevel: "Moderate",
+          source: "NCCN Thyroid Cancer Guidelines v3.2025",
+          riskFactors: {
+            radiation: ["Childhood radiation exposure"],
+            genetic: ["RET/PTC rearrangements", "Family history"]
+          },
+          additionalConsiderations: "Fine needle aspiration for suspicious nodules",
+          followUpProtocol: "Follow ATA guidelines for nodule management"
+        },
+        {
+          testName: "Head/Neck Examination",
+          cancerType: "Head and Neck Cancer",
+          ageRange: "High-risk 40+ years",
+          frequency: "Annual",
+          recommendationStrength: "Category 2B",
+          evidenceLevel: "Low",
+          source: "NCCN Head and Neck Cancer Guidelines v3.2025",
+          riskFactors: {
+            lifestyle: ["Tobacco use", "Heavy alcohol use"],
+            viral: ["HPV infection"]
+          },
+          additionalConsiderations: "Visual inspection + palpation of oral cavity and neck",
+          followUpProtocol: "Biopsy suspicious lesions, ENT referral"
+        },
+        {
+          testName: "Complete Blood Count",
+          cancerType: "Leukemia",
+          ageRange: "High-risk all ages",
+          frequency: "Annual",
+          recommendationStrength: "Category 2B",
+          evidenceLevel: "Low",
+          source: "NCCN Acute Leukemia Guidelines v2.2025",
+          riskFactors: {
+            genetic: ["Down syndrome", "Li-Fraumeni syndrome"],
+            environmental: ["Radiation exposure", "Chemotherapy history"]
+          },
+          additionalConsiderations: "Flow cytometry if abnormal CBC",
+          followUpProtocol: "Hematology referral for suspicious findings"
+        },
+        {
+          testName: "Bone Marrow Biopsy",
+          cancerType: "Multiple Myeloma",
+          ageRange: "MGUS patients 50+ years",
+          frequency: "Annual",
+          recommendationStrength: "Category 1",
+          evidenceLevel: "High",
+          source: "NCCN Multiple Myeloma Guidelines v3.2025",
+          riskFactors: {
+            hematologic: ["MGUS", "Plasmacytoma"],
+            demographic: ["Age >65", "African American"]
+          },
+          additionalConsiderations: "SPEP/UPEP + serum free light chains",
+          followUpProtocol: "Monitor for progression to active myeloma"
+        },
+        {
+          testName: "Lymph Node Examination",
+          cancerType: "Lymphoma",
+          ageRange: "All ages",
+          frequency: "Annual",
+          recommendationStrength: "Category 2B",
+          evidenceLevel: "Low",
+          source: "NCCN Hodgkin/Non-Hodgkin Lymphoma Guidelines v4.2025",
+          riskFactors: {
+            immunologic: ["HIV infection", "Immunosuppression"],
+            autoimmune: ["Rheumatoid arthritis", "Sjögren syndrome"]
+          },
+          additionalConsiderations: "Excisional biopsy for persistent lymphadenopathy",
+          followUpProtocol: "Hematology/oncology referral for suspicious findings"
+        },
+        {
+          testName: "Testicular Self-Exam",
+          cancerType: "Testicular Cancer",
+          ageRange: "15-35 years",
+          frequency: "Monthly",
+          recommendationStrength: "Category 2A",
+          evidenceLevel: "Moderate",
+          source: "NCCN Testicular Cancer Guidelines v1.2025",
+          riskFactors: {
+            developmental: ["Cryptorchidism", "Testicular atrophy"],
+            genetic: ["Family history", "Personal history"]
+          },
+          additionalConsiderations: "Annual clinical examination by healthcare provider",
+          followUpProtocol: "Ultrasound for suspicious masses"
+        },
+        {
+          testName: "Bone Scan",
+          cancerType: "Bone Cancer",
+          ageRange: "High-risk all ages",
+          frequency: "Annual",
+          recommendationStrength: "Category 2B",
+          evidenceLevel: "Low",
+          source: "NCCN Bone Cancer Guidelines v1.2025",
+          riskFactors: {
+            genetic: ["Li-Fraumeni syndrome", "Hereditary retinoblastoma"],
+            environmental: ["Radiation exposure", "Paget disease"]
+          },
+          additionalConsiderations: "MRI for suspicious bone lesions",
+          followUpProtocol: "Orthopedic oncology referral"
+        },
+        {
+          testName: "Brain MRI",
+          cancerType: "Brain Tumors",
+          ageRange: "High-risk all ages",
+          frequency: "Annual",
+          recommendationStrength: "Category 2B",
+          evidenceLevel: "Low",
+          source: "NCCN CNS Cancer Guidelines v1.2025",
+          riskFactors: {
+            genetic: ["Neurofibromatosis", "Li-Fraumeni syndrome"],
+            environmental: ["Radiation exposure"]
+          },
+          additionalConsiderations: "Neurological examination + imaging",
+          followUpProtocol: "Neurosurgery/neuro-oncology referral"
+        },
+        {
+          testName: "Chest X-ray",
+          cancerType: "Mesothelioma",
+          ageRange: "Asbestos-exposed 40+ years",
+          frequency: "Annual",
+          recommendationStrength: "Category 2B",
+          evidenceLevel: "Low",
+          source: "NCCN Mesothelioma Guidelines v3.2025",
+          riskFactors: {
+            occupational: ["Asbestos exposure", "Shipyard work"],
+            environmental: ["Living near asbestos mines"]
+          },
+          additionalConsiderations: "High-resolution CT for suspected cases",
+          followUpProtocol: "Thoracic surgery referral for pleural abnormalities"
         }
       ];
       
@@ -852,6 +1063,215 @@ export async function registerRoutes(app: Express): Promise<Server> {
           specificity: 88,
           source: "NCCN Ampullary Adenocarcinoma Guidelines v2.2025",
           linkedStage: "Workup and Staging"
+        },
+        // Additional Major Cancer Types - Comprehensive NCCN Coverage
+        {
+          symptomOrFinding: "Abdominal pain",
+          cancerType: "Pancreatic Cancer",
+          urgencyLevel: "Urgent",
+          imagingOrLab: "CT pancreas protocol + CA 19-9",
+          estimatedCost: "$800-1200",
+          nextStepIfPositive: "EUS with FNA biopsy + genetic testing",
+          nextStepIfNegative: "Consider MRCP if high suspicion",
+          sensitivity: 89,
+          specificity: 85,
+          source: "NCCN Pancreatic Cancer Guidelines v1.2025",
+          linkedStage: "Diagnosis and Staging"
+        },
+        {
+          symptomOrFinding: "Pelvic pain",
+          cancerType: "Ovarian Cancer",
+          urgencyLevel: "Urgent",
+          imagingOrLab: "Transvaginal ultrasound + CA-125",
+          estimatedCost: "$400-600",
+          nextStepIfPositive: "CT chest/abdomen/pelvis + genetic counseling",
+          nextStepIfNegative: "Consider MRI pelvis if high suspicion",
+          sensitivity: 83,
+          specificity: 87,
+          source: "NCCN Ovarian Cancer Guidelines v1.2025",
+          linkedStage: "Workup and Primary Treatment"
+        },
+        {
+          symptomOrFinding: "Abnormal bleeding",
+          cancerType: "Endometrial Cancer",
+          urgencyLevel: "Moderate",
+          imagingOrLab: "Transvaginal ultrasound + endometrial biopsy",
+          estimatedCost: "$300-500",
+          nextStepIfPositive: "MRI pelvis for staging + genetic testing if indicated",
+          nextStepIfNegative: "Hormonal evaluation and follow-up",
+          sensitivity: 91,
+          specificity: 89,
+          source: "NCCN Uterine Neoplasms Guidelines v1.2025",
+          linkedStage: "Workup and Staging"
+        },
+        {
+          symptomOrFinding: "Thyroid nodule",
+          cancerType: "Thyroid Cancer",
+          urgencyLevel: "Moderate",
+          imagingOrLab: "Thyroid ultrasound + TSH",
+          estimatedCost: "$200-400",
+          nextStepIfPositive: "Fine needle aspiration with molecular testing",
+          nextStepIfNegative: "Follow-up ultrasound in 6-12 months",
+          sensitivity: 95,
+          specificity: 85,
+          source: "NCCN Thyroid Cancer Guidelines v3.2025",
+          linkedStage: "Workup and Primary Treatment"
+        },
+        {
+          symptomOrFinding: "Bone pain",
+          cancerType: "Bone Cancer",
+          urgencyLevel: "Urgent",
+          imagingOrLab: "Plain radiographs + MRI affected area",
+          estimatedCost: "$600-800",
+          nextStepIfPositive: "Biopsy + chest CT + alkaline phosphatase",
+          nextStepIfNegative: "Consider bone scan if multiple symptoms",
+          sensitivity: 88,
+          specificity: 92,
+          source: "NCCN Bone Cancer Guidelines v1.2025",
+          linkedStage: "Workup and Staging"
+        },
+        {
+          symptomOrFinding: "Persistent headaches",
+          cancerType: "Brain Tumors",
+          urgencyLevel: "Urgent",
+          imagingOrLab: "Brain MRI with contrast",
+          estimatedCost: "$1000-1500",
+          nextStepIfPositive: "Neurosurgical biopsy + molecular profiling",
+          nextStepIfNegative: "Neurological evaluation and follow-up",
+          sensitivity: 96,
+          specificity: 89,
+          source: "NCCN CNS Cancer Guidelines v1.2025",
+          linkedStage: "Workup and Primary Treatment"
+        },
+        {
+          symptomOrFinding: "Testicular mass",
+          cancerType: "Testicular Cancer",
+          urgencyLevel: "Urgent",
+          imagingOrLab: "Scrotal ultrasound + tumor markers (AFP, β-hCG, LDH)",
+          estimatedCost: "$300-500",
+          nextStepIfPositive: "Radical orchiectomy + staging CT chest/abdomen/pelvis",
+          nextStepIfNegative: "Repeat ultrasound in 4-6 weeks",
+          sensitivity: 98,
+          specificity: 95,
+          source: "NCCN Testicular Cancer Guidelines v1.2025",
+          linkedStage: "Workup and Primary Treatment"
+        },
+        {
+          symptomOrFinding: "Upper abdominal pain",
+          cancerType: "Gastric Cancer",
+          urgencyLevel: "Moderate",
+          imagingOrLab: "Upper endoscopy with biopsy",
+          estimatedCost: "$800-1200",
+          nextStepIfPositive: "CT chest/abdomen/pelvis + HER2 testing",
+          nextStepIfNegative: "H. pylori testing and treatment",
+          sensitivity: 95,
+          specificity: 88,
+          source: "NCCN Gastric Cancer Guidelines v2.2025",
+          linkedStage: "Workup and Staging"
+        },
+        {
+          symptomOrFinding: "Swallowing difficulty",
+          cancerType: "Esophageal Cancer",
+          urgencyLevel: "Urgent",
+          imagingOrLab: "Upper endoscopy with biopsy + CT chest/abdomen",
+          estimatedCost: "$1000-1400",
+          nextStepIfPositive: "EUS for staging + PET/CT scan",
+          nextStepIfNegative: "Consider barium swallow if high suspicion",
+          sensitivity: 92,
+          specificity: 86,
+          source: "NCCN Esophageal Cancer Guidelines v4.2025",
+          linkedStage: "Workup and Staging"
+        },
+        {
+          symptomOrFinding: "Oral lesion",
+          cancerType: "Head and Neck Cancer",
+          urgencyLevel: "Moderate",
+          imagingOrLab: "Biopsy of lesion + CT neck with contrast",
+          estimatedCost: "$600-900",
+          nextStepIfPositive: "PET/CT + HPV testing + multidisciplinary evaluation",
+          nextStepIfNegative: "Close follow-up and re-biopsy if persistent",
+          sensitivity: 94,
+          specificity: 91,
+          source: "NCCN Head and Neck Cancer Guidelines v3.2025",
+          linkedStage: "Workup and Primary Treatment"
+        },
+        {
+          symptomOrFinding: "Skin lesion",
+          cancerType: "Melanoma",
+          urgencyLevel: "Urgent",
+          imagingOrLab: "Dermoscopy + excisional biopsy",
+          estimatedCost: "$400-600",
+          nextStepIfPositive: "Sentinel lymph node biopsy + molecular profiling",
+          nextStepIfNegative: "Routine follow-up with dermatology",
+          sensitivity: 89,
+          specificity: 93,
+          source: "NCCN Cutaneous Melanoma Guidelines v3.2025",
+          linkedStage: "Workup and Primary Treatment"
+        },
+        {
+          symptomOrFinding: "Lymphadenopathy",
+          cancerType: "Lymphoma",
+          urgencyLevel: "Moderate",
+          imagingOrLab: "Excisional lymph node biopsy + flow cytometry",
+          estimatedCost: "$800-1200",
+          nextStepIfPositive: "CT chest/abdomen/pelvis + bone marrow biopsy",
+          nextStepIfNegative: "Clinical observation and repeat assessment",
+          sensitivity: 96,
+          specificity: 92,
+          source: "NCCN Hodgkin/Non-Hodgkin Lymphoma Guidelines v4.2025",
+          linkedStage: "Workup and Staging"
+        },
+        {
+          symptomOrFinding: "Fatigue and bleeding",
+          cancerType: "Leukemia",
+          urgencyLevel: "Urgent",
+          imagingOrLab: "Complete blood count + peripheral smear + flow cytometry",
+          estimatedCost: "$300-500",
+          nextStepIfPositive: "Bone marrow biopsy + cytogenetics + molecular studies",
+          nextStepIfNegative: "Hematology evaluation for other causes",
+          sensitivity: 95,
+          specificity: 88,
+          source: "NCCN Acute Leukemia Guidelines v2.2025",
+          linkedStage: "Workup and Classification"
+        },
+        {
+          symptomOrFinding: "Bone pain and anemia",
+          cancerType: "Multiple Myeloma",
+          urgencyLevel: "Urgent",
+          imagingOrLab: "SPEP/UPEP + serum free light chains + bone marrow biopsy",
+          estimatedCost: "$600-1000",
+          nextStepIfPositive: "Skeletal survey + FISH cytogenetics + staging",
+          nextStepIfNegative: "Monitor for progression from MGUS",
+          sensitivity: 92,
+          specificity: 90,
+          source: "NCCN Multiple Myeloma Guidelines v3.2025",
+          linkedStage: "Workup and Staging"
+        },
+        {
+          symptomOrFinding: "Hematuria",
+          cancerType: "Bladder Cancer",
+          urgencyLevel: "Urgent",
+          imagingOrLab: "Cystoscopy + urine cytology + CT urography",
+          estimatedCost: "$800-1200",
+          nextStepIfPositive: "Transurethral resection + molecular profiling",
+          nextStepIfNegative: "Urology follow-up and repeat cystoscopy",
+          sensitivity: 94,
+          specificity: 87,
+          source: "NCCN Bladder Cancer Guidelines v5.2025",
+          linkedStage: "Workup and Primary Treatment"
+        },
+        {
+          symptomOrFinding: "Flank pain",
+          cancerType: "Kidney Cancer",
+          urgencyLevel: "Urgent",
+          imagingOrLab: "CT abdomen/pelvis with contrast",
+          estimatedCost: "$600-800",
+          nextStepIfPositive: "Chest CT + partial nephrectomy or biopsy",
+          nextStepIfNegative: "Urology evaluation for other causes",
+          sensitivity: 91,
+          specificity: 89,
+          source: "NCCN Kidney Cancer Guidelines v2.2025",
+          linkedStage: "Workup and Primary Treatment"
         }
       ];
       
@@ -981,6 +1401,245 @@ export async function registerRoutes(app: Express): Promise<Server> {
           criticalValues: ">10 ng/mL (high suspicion for cancer)",
           source: "NCCN Prostate Cancer Guidelines v4.2025",
           referenceLab: "Clinical chemistry laboratory"
+        },
+        // Comprehensive NCCN Cancer Biomarkers - All Major Types
+        {
+          biomarkerName: "CA 19-9",
+          cancerType: "Pancreatic Cancer",
+          testingRequired: true,
+          testingMethod: "Serum immunoassay",
+          turnaroundTime: "1-2 business days",
+          positiveImplication: "Elevated CA 19-9: supports pancreatic adenocarcinoma diagnosis",
+          negativeImplication: "Normal CA 19-9: does not exclude pancreatic cancer",
+          therapyLink: "Monitor treatment response and disease progression",
+          normalRange: "0-37 U/mL",
+          criticalValues: ">1000 U/mL (metastatic disease likely)",
+          source: "NCCN Pancreatic Cancer Guidelines v1.2025",
+          referenceLab: "Clinical chemistry laboratory"
+        },
+        {
+          biomarkerName: "CA-125",
+          cancerType: "Ovarian Cancer",
+          testingRequired: true,
+          testingMethod: "Serum immunoassay",
+          turnaroundTime: "1-2 business days",
+          positiveImplication: "Elevated CA-125: suggestive of ovarian cancer in post-menopausal women",
+          negativeImplication: "Normal CA-125: consider other ovarian cancer markers",
+          therapyLink: "Monitor treatment response and recurrence",
+          normalRange: "0-35 U/mL",
+          criticalValues: ">500 U/mL (high suspicion for malignancy)",
+          source: "NCCN Ovarian Cancer Guidelines v1.2025",
+          referenceLab: "Clinical chemistry laboratory"
+        },
+        {
+          biomarkerName: "BRCA1/2",
+          cancerType: "Breast Cancer",
+          testingRequired: false,
+          testingMethod: "Germline genetic sequencing",
+          turnaroundTime: "10-14 business days",
+          positiveImplication: "BRCA mutation: increased risk, consider PARP inhibitors",
+          negativeImplication: "BRCA wild-type: standard therapy approach",
+          therapyLink: "BRCA+: Olaparib, prophylactic surgery consideration",
+          normalRange: "Wild-type BRCA1/2",
+          criticalValues: "Pathogenic BRCA1/2 mutations",
+          source: "NCCN Breast Cancer Guidelines v3.2025",
+          referenceLab: "Certified genetic testing laboratory"
+        },
+        {
+          biomarkerName: "BRCA1/2",
+          cancerType: "Ovarian Cancer",
+          testingRequired: true,
+          testingMethod: "Germline and somatic genetic sequencing",
+          turnaroundTime: "10-14 business days",
+          positiveImplication: "BRCA mutation: platinum sensitivity, PARP inhibitor eligible",
+          negativeImplication: "BRCA wild-type: consider HRD testing",
+          therapyLink: "BRCA+: Olaparib maintenance therapy",
+          normalRange: "Wild-type BRCA1/2",
+          criticalValues: "Pathogenic BRCA1/2 mutations",
+          source: "NCCN Ovarian Cancer Guidelines v1.2025",
+          referenceLab: "Certified genetic testing laboratory"
+        },
+        {
+          biomarkerName: "HER2",
+          cancerType: "Gastric Cancer",
+          testingRequired: true,
+          testingMethod: "Immunohistochemistry + FISH",
+          turnaroundTime: "5-7 business days",
+          positiveImplication: "HER2 positive: trastuzumab-based therapy indicated",
+          negativeImplication: "HER2 negative: chemotherapy alone",
+          therapyLink: "HER2+: Trastuzumab + chemotherapy",
+          normalRange: "HER2 0-1+ (negative)",
+          criticalValues: "HER2 3+ or FISH amplified",
+          source: "NCCN Gastric Cancer Guidelines v2.2025",
+          referenceLab: "CAP-accredited laboratory"
+        },
+        {
+          biomarkerName: "MSI/MMR",
+          cancerType: "Colorectal Cancer",
+          testingRequired: true,
+          testingMethod: "Immunohistochemistry + PCR",
+          turnaroundTime: "5-7 business days",
+          positiveImplication: "MSI-H/dMMR: immunotherapy (pembrolizumab) indicated",
+          negativeImplication: "MSS/pMMR: standard chemotherapy approach",
+          therapyLink: "MSI-H: Pembrolizumab monotherapy",
+          normalRange: "MSS (microsatellite stable)",
+          criticalValues: "MSI-H (microsatellite instability-high)",
+          source: "NCCN Colon Cancer Guidelines v3.2025",
+          referenceLab: "Molecular pathology laboratory"
+        },
+        {
+          biomarkerName: "MSI/MMR",
+          cancerType: "Endometrial Cancer",
+          testingRequired: true,
+          testingMethod: "Immunohistochemistry + PCR",
+          turnaroundTime: "5-7 business days",
+          positiveImplication: "MSI-H/dMMR: Lynch syndrome screening, immunotherapy eligible",
+          negativeImplication: "MSS/pMMR: standard therapy approach",
+          therapyLink: "MSI-H: Pembrolizumab + lenvatinib",
+          normalRange: "MSS (microsatellite stable)",
+          criticalValues: "MSI-H (microsatellite instability-high)",
+          source: "NCCN Uterine Neoplasms Guidelines v1.2025",
+          referenceLab: "Molecular pathology laboratory"
+        },
+        {
+          biomarkerName: "AFP",
+          cancerType: "Hepatocellular Carcinoma",
+          testingRequired: true,
+          testingMethod: "Serum immunoassay",
+          turnaroundTime: "1-2 business days",
+          positiveImplication: "Elevated AFP: supports HCC diagnosis, poor prognosis",
+          negativeImplication: "Normal AFP: does not exclude HCC",
+          therapyLink: "Monitor treatment response and surveillance",
+          normalRange: "0-10 ng/mL",
+          criticalValues: ">400 ng/mL (high suspicion for HCC)",
+          source: "NCCN Hepatobiliary Cancer Guidelines v4.2025",
+          referenceLab: "Clinical chemistry laboratory"
+        },
+        {
+          biomarkerName: "AFP/β-hCG/LDH",
+          cancerType: "Testicular Cancer",
+          testingRequired: true,
+          testingMethod: "Serum immunoassay",
+          turnaroundTime: "1-2 business days",
+          positiveImplication: "Elevated markers: tumor burden assessment, prognosis",
+          negativeImplication: "Normal markers: non-seminomatous germ cell tumor possible",
+          therapyLink: "Risk stratification for chemotherapy intensity",
+          normalRange: "AFP <10 ng/mL, β-hCG <5 mIU/mL, LDH normal",
+          criticalValues: "AFP >10,000 ng/mL, β-hCG >50,000 mIU/mL",
+          source: "NCCN Testicular Cancer Guidelines v1.2025",
+          referenceLab: "Clinical chemistry laboratory"
+        },
+        {
+          biomarkerName: "HPV",
+          cancerType: "Head and Neck Cancer",
+          testingRequired: true,
+          testingMethod: "p16 immunohistochemistry + HPV ISH",
+          turnaroundTime: "3-5 business days",
+          positiveImplication: "HPV+: better prognosis, de-escalation candidate",
+          negativeImplication: "HPV-: standard intensive therapy",
+          therapyLink: "HPV+: Consider de-escalated radiation therapy",
+          normalRange: "HPV negative",
+          criticalValues: "HPV positive (p16+)",
+          source: "NCCN Head and Neck Cancer Guidelines v3.2025",
+          referenceLab: "Molecular pathology laboratory"
+        },
+        {
+          biomarkerName: "BRAF",
+          cancerType: "Melanoma",
+          testingRequired: true,
+          testingMethod: "Next-generation sequencing",
+          turnaroundTime: "7-10 business days",
+          positiveImplication: "BRAF V600E/K: targeted therapy (dabrafenib + trametinib)",
+          negativeImplication: "BRAF wild-type: immunotherapy first-line",
+          therapyLink: "BRAF+: Dabrafenib + trametinib combination",
+          normalRange: "Wild-type BRAF",
+          criticalValues: "BRAF V600E/K mutations",
+          source: "NCCN Cutaneous Melanoma Guidelines v3.2025",
+          referenceLab: "Molecular pathology laboratory"
+        },
+        {
+          biomarkerName: "Thyroglobulin",
+          cancerType: "Thyroid Cancer",
+          testingRequired: true,
+          testingMethod: "Serum immunoassay",
+          turnaroundTime: "1-2 business days",
+          positiveImplication: "Elevated thyroglobulin: residual/recurrent thyroid cancer",
+          negativeImplication: "Undetectable thyroglobulin: excellent response to therapy",
+          therapyLink: "Monitor for recurrence and treatment response",
+          normalRange: "<1 ng/mL (post-thyroidectomy)",
+          criticalValues: "Rising trend or >10 ng/mL",
+          source: "NCCN Thyroid Cancer Guidelines v3.2025",
+          referenceLab: "Clinical chemistry laboratory"
+        },
+        {
+          biomarkerName: "IDH1/2",
+          cancerType: "Brain Tumors",
+          testingRequired: true,
+          testingMethod: "Immunohistochemistry + sequencing",
+          turnaroundTime: "7-10 business days",
+          positiveImplication: "IDH mutant: better prognosis, specific targeted therapy",
+          negativeImplication: "IDH wild-type: more aggressive, standard therapy",
+          therapyLink: "IDH+: Ivosidenib for IDH1 mutations",
+          normalRange: "Wild-type IDH1/2",
+          criticalValues: "IDH1 R132H or IDH2 R140Q mutations",
+          source: "NCCN CNS Cancer Guidelines v1.2025",
+          referenceLab: "Neuropathology laboratory"
+        },
+        {
+          biomarkerName: "Flow Cytometry",
+          cancerType: "Leukemia",
+          testingRequired: true,
+          testingMethod: "Multi-parameter flow cytometry",
+          turnaroundTime: "2-3 business days",
+          positiveImplication: "Abnormal immunophenotype: confirms leukemia diagnosis",
+          negativeImplication: "Normal flow: excludes hematologic malignancy",
+          therapyLink: "Determines specific leukemia subtype and therapy",
+          normalRange: "Normal lymphoid/myeloid populations",
+          criticalValues: "Clonal B-cell or T-cell populations",
+          source: "NCCN Acute Leukemia Guidelines v2.2025",
+          referenceLab: "Hematopathology laboratory"
+        },
+        {
+          biomarkerName: "Serum Free Light Chains",
+          cancerType: "Multiple Myeloma",
+          testingRequired: true,
+          testingMethod: "Nephelometry",
+          turnaroundTime: "1-2 business days",
+          positiveImplication: "Abnormal FLC ratio: suggests clonal plasma cell disorder",
+          negativeImplication: "Normal FLC ratio: monitor for progression",
+          therapyLink: "Monitor treatment response and minimal residual disease",
+          normalRange: "κ/λ ratio 0.26-1.65",
+          criticalValues: "κ/λ ratio <0.26 or >1.65",
+          source: "NCCN Multiple Myeloma Guidelines v3.2025",
+          referenceLab: "Clinical chemistry laboratory"
+        },
+        {
+          biomarkerName: "Alkaline Phosphatase",
+          cancerType: "Bone Cancer",
+          testingRequired: true,
+          testingMethod: "Serum chemistry",
+          turnaroundTime: "1 business day",
+          positiveImplication: "Elevated ALP: bone formation activity, osteosarcoma marker",
+          negativeImplication: "Normal ALP: does not exclude bone cancer",
+          therapyLink: "Monitor treatment response and disease activity",
+          normalRange: "44-147 IU/L (adult)",
+          criticalValues: ">500 IU/L (significant bone involvement)",
+          source: "NCCN Bone Cancer Guidelines v1.2025",
+          referenceLab: "Clinical chemistry laboratory"
+        },
+        {
+          biomarkerName: "FGFR3",
+          cancerType: "Bladder Cancer",
+          testingRequired: false,
+          testingMethod: "Next-generation sequencing",
+          turnaroundTime: "7-10 business days",
+          positiveImplication: "FGFR3 mutation: erdafitinib therapy eligible",
+          negativeImplication: "FGFR3 wild-type: standard chemotherapy approach",
+          therapyLink: "FGFR3+: Erdafitinib targeted therapy",
+          normalRange: "Wild-type FGFR3",
+          criticalValues: "Activating FGFR3 mutations",
+          source: "NCCN Bladder Cancer Guidelines v5.2025",
+          referenceLab: "Molecular pathology laboratory"
         }
       ];
       
@@ -1127,6 +1786,439 @@ export async function registerRoutes(app: Express): Promise<Server> {
             "Genetic counseling if indicated"
           ],
           source: "NCCN Prostate Cancer Guidelines v4.2025"
+        },
+        // Comprehensive NCCN Cancer Type Coverage - Additional Major Types
+        {
+          cancerType: "Pancreatic Cancer",
+          urgencyLevel: "Urgent",
+          referralCriteria: [
+            "Abdominal pain with weight loss",
+            "New onset diabetes in elderly",
+            "CA 19-9 >100 U/mL",
+            "Pancreatic mass on imaging"
+          ],
+          timeframe: "Within 1-2 weeks",
+          specialtyRequired: "Pancreatic Surgery/Medical Oncology",
+          requiredDocumentation: [
+            "CT pancreas protocol",
+            "CA 19-9 level",
+            "Bilirubin and liver function tests",
+            "Weight loss documentation"
+          ],
+          additionalTests: [
+            "EUS with FNA biopsy",
+            "BRCA/ATM/PALB2 testing",
+            "Staging laparoscopy if appropriate"
+          ],
+          source: "NCCN Pancreatic Cancer Guidelines v1.2025"
+        },
+        {
+          cancerType: "Ovarian Cancer",
+          urgencyLevel: "Urgent",
+          referralCriteria: [
+            "Pelvic mass with CA-125 >200 U/mL",
+            "Ascites with unknown primary",
+            "BRCA mutation with ovarian symptoms",
+            "Complex adnexal mass on imaging"
+          ],
+          timeframe: "Within 2 weeks",
+          specialtyRequired: "Gynecologic Oncology",
+          requiredDocumentation: [
+            "Transvaginal ultrasound",
+            "CA-125 level",
+            "CT chest/abdomen/pelvis",
+            "Family history assessment"
+          ],
+          additionalTests: [
+            "BRCA1/2 germline testing",
+            "HRD testing if surgery planned",
+            "Genetic counseling referral"
+          ],
+          source: "NCCN Ovarian Cancer Guidelines v1.2025"
+        },
+        {
+          cancerType: "Thyroid Cancer",
+          urgencyLevel: "Moderate",
+          referralCriteria: [
+            "Thyroid nodule >1cm with suspicious features",
+            "FNA showing malignancy or suspicious cytology",
+            "Rapid nodule growth",
+            "Voice changes with thyroid mass"
+          ],
+          timeframe: "Within 4-6 weeks",
+          specialtyRequired: "Endocrine Surgery",
+          requiredDocumentation: [
+            "Thyroid ultrasound with measurements",
+            "FNA cytology results",
+            "TSH and thyroglobulin levels",
+            "Vocal cord assessment if indicated"
+          ],
+          additionalTests: [
+            "Molecular testing (ThyroSeq, Afirma)",
+            "Cross-sectional imaging if advanced",
+            "Calcitonin if medullary suspected"
+          ],
+          source: "NCCN Thyroid Cancer Guidelines v3.2025"
+        },
+        {
+          cancerType: "Head and Neck Cancer",
+          urgencyLevel: "Urgent",
+          referralCriteria: [
+            "Persistent oral lesion >3 weeks",
+            "Unexplained neck mass >2cm",
+            "Hoarseness >2 weeks with smoking history",
+            "Otalgia with normal otoscopy"
+          ],
+          timeframe: "Within 2 weeks",
+          specialtyRequired: "Head and Neck Surgery/ENT Oncology",
+          requiredDocumentation: [
+            "Physical examination findings",
+            "Laryngoscopy results",
+            "CT neck with contrast",
+            "Smoking and alcohol history"
+          ],
+          additionalTests: [
+            "Tissue biopsy with HPV testing",
+            "PET/CT for staging",
+            "Multidisciplinary evaluation"
+          ],
+          source: "NCCN Head and Neck Cancer Guidelines v3.2025"
+        },
+        {
+          cancerType: "Melanoma",
+          urgencyLevel: "Urgent",
+          referralCriteria: [
+            "Melanoma diagnosis on biopsy",
+            "Suspicious pigmented lesion",
+            "Breslow thickness >1mm",
+            "Ulcerated melanoma any thickness"
+          ],
+          timeframe: "Within 2 weeks",
+          specialtyRequired: "Surgical Oncology/Dermatology",
+          requiredDocumentation: [
+            "Pathology report with staging",
+            "Dermoscopy images",
+            "Full body skin examination",
+            "Family history of melanoma"
+          ],
+          additionalTests: [
+            "Wide local excision",
+            "Sentinel lymph node biopsy",
+            "Molecular profiling if metastatic"
+          ],
+          source: "NCCN Cutaneous Melanoma Guidelines v3.2025"
+        },
+        {
+          cancerType: "Gastric Cancer",
+          urgencyLevel: "Urgent",
+          referralCriteria: [
+            "Gastric adenocarcinoma on biopsy",
+            "Alarm symptoms with H. pylori resistance",
+            "Hereditary diffuse gastric cancer syndrome",
+            "Linitis plastica on imaging"
+          ],
+          timeframe: "Within 2 weeks",
+          specialtyRequired: "Surgical Oncology/GI Oncology",
+          requiredDocumentation: [
+            "Upper endoscopy with biopsy",
+            "CT chest/abdomen/pelvis",
+            "HER2 testing results",
+            "Nutritional assessment"
+          ],
+          additionalTests: [
+            "Staging laparoscopy",
+            "MSI/MMR testing",
+            "CDH1 testing if indicated"
+          ],
+          source: "NCCN Gastric Cancer Guidelines v2.2025"
+        },
+        {
+          cancerType: "Esophageal Cancer",
+          urgencyLevel: "Urgent",
+          referralCriteria: [
+            "Esophageal adenocarcinoma or SCC on biopsy",
+            "Progressive dysphagia with weight loss",
+            "Barrett's esophagus with high-grade dysplasia",
+            "Esophageal stricture with suspicion"
+          ],
+          timeframe: "Within 2 weeks",
+          specialtyRequired: "Thoracic Surgery/GI Oncology",
+          requiredDocumentation: [
+            "Upper endoscopy with biopsy",
+            "CT chest/abdomen",
+            "PET/CT scan",
+            "Pulmonary function tests"
+          ],
+          additionalTests: [
+            "EUS for staging",
+            "HER2 testing",
+            "Multidisciplinary evaluation"
+          ],
+          source: "NCCN Esophageal Cancer Guidelines v4.2025"
+        },
+        {
+          cancerType: "Bladder Cancer",
+          urgencyLevel: "Urgent",
+          referralCriteria: [
+            "Gross hematuria in adults >40",
+            "Microscopic hematuria with risk factors",
+            "Suspicious bladder mass on imaging",
+            "Positive urine cytology"
+          ],
+          timeframe: "Within 2-3 weeks",
+          specialtyRequired: "Urology",
+          requiredDocumentation: [
+            "Urinalysis and cytology",
+            "CT urography",
+            "Cystoscopy findings",
+            "Smoking history"
+          ],
+          additionalTests: [
+            "Transurethral resection",
+            "Molecular profiling",
+            "Upper tract imaging"
+          ],
+          source: "NCCN Bladder Cancer Guidelines v5.2025"
+        },
+        {
+          cancerType: "Kidney Cancer",
+          urgencyLevel: "Urgent",
+          referralCriteria: [
+            "Renal mass >4cm on imaging",
+            "Complex cystic lesion Bosniak III/IV",
+            "Solid renal mass any size",
+            "Hematuria with renal mass"
+          ],
+          timeframe: "Within 3-4 weeks",
+          specialtyRequired: "Urology",
+          requiredDocumentation: [
+            "CT abdomen/pelvis with contrast",
+            "Chest imaging",
+            "Complete metabolic panel",
+            "Performance status assessment"
+          ],
+          additionalTests: [
+            "Renal biopsy if indicated",
+            "Genetic counseling if young",
+            "Multidisciplinary evaluation"
+          ],
+          source: "NCCN Kidney Cancer Guidelines v2.2025"
+        },
+        {
+          cancerType: "Testicular Cancer",
+          urgencyLevel: "Urgent",
+          referralCriteria: [
+            "Solid testicular mass on ultrasound",
+            "Elevated AFP or β-hCG",
+            "Persistent testicular pain with mass",
+            "Retroperitoneal mass in young male"
+          ],
+          timeframe: "Within 1 week",
+          specialtyRequired: "Urology",
+          requiredDocumentation: [
+            "Scrotal ultrasound",
+            "Tumor markers (AFP, β-hCG, LDH)",
+            "Physical examination",
+            "Age and fertility concerns"
+          ],
+          additionalTests: [
+            "Radical orchiectomy",
+            "Staging CT chest/abdomen/pelvis",
+            "Sperm banking consultation"
+          ],
+          source: "NCCN Testicular Cancer Guidelines v1.2025"
+        },
+        {
+          cancerType: "Brain Tumors",
+          urgencyLevel: "Urgent",
+          referralCriteria: [
+            "New focal neurological deficits",
+            "Seizures with brain mass",
+            "Increased intracranial pressure",
+            "Contrast-enhancing brain lesion"
+          ],
+          timeframe: "Within 1-2 weeks",
+          specialtyRequired: "Neurosurgery/Neuro-oncology",
+          requiredDocumentation: [
+            "Brain MRI with contrast",
+            "Neurological examination",
+            "Performance status",
+            "Medication list (especially steroids)"
+          ],
+          additionalTests: [
+            "Tissue diagnosis with molecular profiling",
+            "Neuropsychological assessment",
+            "Multidisciplinary evaluation"
+          ],
+          source: "NCCN CNS Cancer Guidelines v1.2025"
+        },
+        {
+          cancerType: "Leukemia",
+          urgencyLevel: "Urgent",
+          referralCriteria: [
+            "Blasts >20% on peripheral smear",
+            "Pancytopenia with suspicious cells",
+            "Hyperleukocytosis >100,000/μL",
+            "DIC with acute leukemia"
+          ],
+          timeframe: "Within 24-48 hours",
+          specialtyRequired: "Hematology/Oncology",
+          requiredDocumentation: [
+            "Complete blood count with differential",
+            "Peripheral blood smear",
+            "Coagulation studies",
+            "LDH and uric acid levels"
+          ],
+          additionalTests: [
+            "Bone marrow biopsy with cytogenetics",
+            "Flow cytometry",
+            "Molecular studies"
+          ],
+          source: "NCCN Acute Leukemia Guidelines v2.2025"
+        },
+        {
+          cancerType: "Lymphoma",
+          urgencyLevel: "Moderate",
+          referralCriteria: [
+            "Lymphadenopathy >2cm persisting >4 weeks",
+            "B symptoms with lymphadenopathy",
+            "Superior vena cava syndrome",
+            "Tissue diagnosis of lymphoma"
+          ],
+          timeframe: "Within 2-3 weeks",
+          specialtyRequired: "Hematology/Oncology",
+          requiredDocumentation: [
+            "Excisional lymph node biopsy",
+            "CT chest/abdomen/pelvis",
+            "LDH and β2-microglobulin",
+            "Performance status"
+          ],
+          additionalTests: [
+            "Bone marrow biopsy",
+            "PET/CT scan",
+            "Molecular studies"
+          ],
+          source: "NCCN Hodgkin/Non-Hodgkin Lymphoma Guidelines v4.2025"
+        },
+        {
+          cancerType: "Multiple Myeloma",
+          urgencyLevel: "Urgent",
+          referralCriteria: [
+            "CRAB features (hypercalcemia, renal dysfunction, anemia, bone lesions)",
+            "Plasma cells >60% on bone marrow",
+            "FLC ratio >100",
+            "MRI with focal lesions"
+          ],
+          timeframe: "Within 1-2 weeks",
+          specialtyRequired: "Hematology/Oncology",
+          requiredDocumentation: [
+            "SPEP/UPEP with immunofixation",
+            "Serum free light chains",
+            "Complete metabolic panel",
+            "Bone marrow biopsy"
+          ],
+          additionalTests: [
+            "Skeletal survey or whole-body MRI",
+            "Cytogenetics and FISH",
+            "β2-microglobulin and albumin"
+          ],
+          source: "NCCN Multiple Myeloma Guidelines v3.2025"
+        },
+        {
+          cancerType: "Bone Cancer",
+          urgencyLevel: "Urgent",
+          referralCriteria: [
+            "Bone pain with suspicious radiographic changes",
+            "Pathological fracture",
+            "Bone mass in patient <40 years",
+            "Elevated alkaline phosphatase with bone symptoms"
+          ],
+          timeframe: "Within 2 weeks",
+          specialtyRequired: "Orthopedic Oncology",
+          requiredDocumentation: [
+            "Plain radiographs",
+            "MRI of affected area",
+            "Chest CT",
+            "Alkaline phosphatase level"
+          ],
+          additionalTests: [
+            "Biopsy with molecular studies",
+            "Bone scan or PET/CT",
+            "Multidisciplinary evaluation"
+          ],
+          source: "NCCN Bone Cancer Guidelines v1.2025"
+        },
+        {
+          cancerType: "Hepatocellular Carcinoma",
+          urgencyLevel: "Urgent",
+          referralCriteria: [
+            "Liver mass with AFP >400 ng/mL",
+            "Cirrhosis with new liver lesion",
+            "Hepatitis B/C with suspicious imaging",
+            "Portal vein thrombosis with liver mass"
+          ],
+          timeframe: "Within 2-3 weeks",
+          specialtyRequired: "Hepatology/Surgical Oncology",
+          requiredDocumentation: [
+            "Triphasic CT or MRI liver",
+            "AFP level",
+            "Child-Pugh score",
+            "Viral hepatitis status"
+          ],
+          additionalTests: [
+            "Liver biopsy if diagnosis unclear",
+            "Staging imaging",
+            "Multidisciplinary evaluation"
+          ],
+          source: "NCCN Hepatobiliary Cancer Guidelines v4.2025"
+        },
+        {
+          cancerType: "Cervical Cancer",
+          urgencyLevel: "Moderate",
+          referralCriteria: [
+            "High-grade squamous intraepithelial lesion",
+            "Invasive cervical cancer on biopsy",
+            "Abnormal bleeding with cervical lesion",
+            "HPV 16/18 positive with abnormal cytology"
+          ],
+          timeframe: "Within 3-4 weeks",
+          specialtyRequired: "Gynecologic Oncology",
+          requiredDocumentation: [
+            "Cervical biopsy results",
+            "HPV testing",
+            "Colposcopy findings",
+            "Pelvic examination"
+          ],
+          additionalTests: [
+            "Staging MRI pelvis",
+            "PET/CT if locally advanced",
+            "Fertility consultation if appropriate"
+          ],
+          source: "NCCN Cervical Cancer Guidelines v1.2025"
+        },
+        {
+          cancerType: "Endometrial Cancer",
+          urgencyLevel: "Moderate",
+          referralCriteria: [
+            "Postmenopausal bleeding",
+            "Endometrial cancer on biopsy",
+            "Abnormal endometrial thickness >4mm",
+            "Lynch syndrome with gynecologic symptoms"
+          ],
+          timeframe: "Within 4-6 weeks",
+          specialtyRequired: "Gynecologic Oncology",
+          requiredDocumentation: [
+            "Endometrial biopsy",
+            "Transvaginal ultrasound",
+            "BMI and diabetes status",
+            "Family history assessment"
+          ],
+          additionalTests: [
+            "MRI pelvis for staging",
+            "MSI/MMR testing",
+            "Genetic counseling if indicated"
+          ],
+          source: "NCCN Uterine Neoplasms Guidelines v1.2025"
         }
       ];
       
