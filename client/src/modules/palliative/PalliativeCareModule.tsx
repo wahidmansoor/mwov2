@@ -18,6 +18,7 @@ import { cn } from "@/lib/utils";
 // Import section components
 import EnhancedSymptomControl from "./sections/EnhancedSymptomControl";
 import EnhancedPainManagement from "./sections/EnhancedPainManagement";
+import TestEnhancedComponent from "./sections/TestEnhancedComponent";
 import FamilySupport from "./sections/FamilySupport";
 import AdvancedDirective from "./sections/AdvancedDirective";
 import PsychosocialCare from "./sections/PsychosocialCare";
@@ -89,7 +90,12 @@ export default function PalliativeCareModule() {
   const renderSectionContent = () => {
     switch (activeSection) {
       case "symptom":
-        return <EnhancedSymptomControl />;
+        return (
+          <div className="space-y-6">
+            <TestEnhancedComponent />
+            <EnhancedSymptomControl />
+          </div>
+        );
       case "pain":
         return <EnhancedPainManagement />;
       case "family":
@@ -101,7 +107,12 @@ export default function PalliativeCareModule() {
       case "quality":
         return <QualityOfLife />;
       default:
-        return <EnhancedSymptomControl />;
+        return (
+          <div className="space-y-6">
+            <TestEnhancedComponent />
+            <EnhancedSymptomControl />
+          </div>
+        );
     }
   };
 

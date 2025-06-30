@@ -194,7 +194,7 @@ export default function EnhancedSymptomControl() {
           <CardTitle className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Activity className="h-5 w-5 text-blue-600" />
-              Enhanced Symptom Control
+              🎯 Enhanced Symptom Control - Interactive Assessment
             </div>
             <div className="flex gap-2">
               <Button onClick={handleSaveAllScores} size="sm" disabled={saveScoreMutation.isPending}>
