@@ -1,0 +1,63 @@
+Chemotherapy Day Unit (CDU) module is meant to be a **non-EHR clinical guidance tool** for oncologists. It currently has the following **10 major problems** I want you to fix or improve immediately in the codebase:
+
+---
+
+## 🔧 Fix These 10 Issues:
+
+1. **Over-Complex Architecture**
+   - Remove deep state/session management logic
+   - Replace with stateless or local-only structures
+   - Eliminate unused Redux, useContext, or caching logic unless essential
+
+2. **Missing Safety Guardrails**
+   - Add basic contraindication and interaction warning system
+   - Example: flag common conflicts like cisplatin + nephrotoxic agents
+   - Add warnings for allergy-prone agents like paclitaxel (e.g., test dose flags)
+
+3. **AI Confidence Thresholds**
+   - If AI is used to recommend protocols, include a `confidenceScore`
+   - Display visual indicator (color bar or warning) when score < 70%
+   - Add fallback message: “Low confidence – verify against local guidelines”
+
+4. **Incomplete Biomarker Integration**
+   - Link `BiomarkerProfile` data (e.g., EGFR, HER2, KRAS) to protocol filters
+   - Filter displayed protocols based on relevant biomarker status
+   - Add default "unknown" biomarker logic fallback
+
+5. **Toxicity Monitoring Not Linked**
+   - Link adverse event logging (e.g., mucositis Grade 3) to dose reduction logic
+   - Add automatic flags like: "Consider holding 5-FU for Grade ≥2 mucositis"
+
+6. **Unclear Compliance Score Logic**
+   - If showing complianceScore, show how it’s calculated
+   - Tooltip: “100% = exact match to NCCN v2.2025 | <80% = deviation alert”
+
+7. **Unclear Evidence Base**
+   - Add source for each protocol (e.g., NCCN 2025 v2, ESMO 2024)
+   - Add last-reviewed timestamp and guideline link if available
+
+8. **Limited Cancer Types**
+   - Expand from current 7–8 types to minimum 20 common cancers
+   - Use dummy data for rare ones if real data not available
+   - Add toggle to show "available vs. upcoming" cancer types
+
+9. **Missing Workflow Integration**
+   - Add “Export to PDF” and “Tumor Board Summary” buttons
+   - Generate a clean report of selected protocol with drug list and rationale
+
+10. **Improve Protocol Display Logic**
+    - Allow collapsible drug rows in protocol cards
+    - Add print-friendly layout with clear section headers (pre-meds, chemo, hydration)
+    - Include dose capping logic and cumulative lifetime dose check (anthracyclines)
+
+---
+
+## 🧠 Tech Context
+
+- React + TypeScript + TailwindCSS
+- No EHR or login system — guidance only
+- App already has dropdowns for protocol selection and editable drug cards
+
+---
+
+✅ Please go through the entire CDU module codebase and apply the above changes. Refactor any poor patterns and improve UX, clinical safety, and clarity. Don’t stop until **all 10 points** are resolved or properly scaffolded. Show exactly what changes were made at the end.
