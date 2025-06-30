@@ -471,8 +471,8 @@ const EnhancedProtocolCard = ({ protocol }: { protocol: EnhancedProtocol }) => {
 // Enhanced Protocol Search
 const TreatmentProtocols = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCancerType, setSelectedCancerType] = useState("");
-  const [selectedIntent, setSelectedIntent] = useState("");
+  const [selectedCancerType, setSelectedCancerType] = useState("all");
+  const [selectedIntent, setSelectedIntent] = useState("all");
   const [selectedBiomarkers, setSelectedBiomarkers] = useState<string[]>([]);
 
   // ISSUE #4: Filter protocols based on biomarkers
@@ -482,8 +482,8 @@ const TreatmentProtocols = () => {
                            protocol.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            protocol.cancerType.toLowerCase().includes(searchTerm.toLowerCase());
       
-      const matchesCancerType = !selectedCancerType || protocol.cancerType === selectedCancerType;
-      const matchesIntent = !selectedIntent || protocol.treatmentIntent === selectedIntent;
+      const matchesCancerType = selectedCancerType === "all" || protocol.cancerType === selectedCancerType;
+      const matchesIntent = selectedIntent === "all" || protocol.treatmentIntent === selectedIntent;
       
       const matchesBiomarkers = selectedBiomarkers.length === 0 || 
         selectedBiomarkers.some(biomarker => 
@@ -508,7 +508,7 @@ const TreatmentProtocols = () => {
         <Select value={selectedCancerType} onValueChange={setSelectedCancerType}>
           <SelectTrigger><SelectValue placeholder="All cancer types" /></SelectTrigger>
           <SelectContent>
-            <SelectItem value="">All cancer types</SelectItem>
+            <SelectItem value="all">All cancer types</SelectItem>
             {CANCER_TYPES.map(type => (
               <SelectItem key={type} value={type}>{type}</SelectItem>
             ))}
@@ -518,7 +518,7 @@ const TreatmentProtocols = () => {
         <Select value={selectedIntent} onValueChange={setSelectedIntent}>
           <SelectTrigger><SelectValue placeholder="All intents" /></SelectTrigger>
           <SelectContent>
-            <SelectItem value="">All intents</SelectItem>
+            <SelectItem value="all">All intents</SelectItem>
             <SelectItem value="Adjuvant">Adjuvant</SelectItem>
             <SelectItem value="Neoadjuvant">Neoadjuvant</SelectItem>
             <SelectItem value="Palliative">Palliative</SelectItem>
