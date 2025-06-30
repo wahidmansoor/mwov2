@@ -43,8 +43,8 @@ interface MedicationsSegmentProps {
 
 export const MedicationsSegment: React.FC<MedicationsSegmentProps> = ({ className = "" }) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedClassification, setSelectedClassification] = useState("");
-  const [selectedType, setSelectedType] = useState("");
+  const [selectedClassification, setSelectedClassification] = useState("all");
+  const [selectedType, setSelectedType] = useState("all");
   const [selectedMedication, setSelectedMedication] = useState<OncologyMedication | null>(null);
 
   const { data: medications = [], isLoading, error } = useQuery({
@@ -93,11 +93,25 @@ export const MedicationsSegment: React.FC<MedicationsSegmentProps> = ({ classNam
     "Anticonvulsant - Neuropathy Treatment"
   ];
 
-  const filteredMedications = medications.filter((med: OncologyMedication) =>
-    med.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    med.classification.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    med.summary.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredMedications = medications.filter((med: OncologyMedication) => {
+    // Search term filtering
+    const matchesSearch = !searchTerm || 
+      med.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      med.classification.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      med.summary.toLowerCase().includes(searchTerm.toLowerCase());
+    
+    // Classification filtering
+    const matchesClassification = selectedClassification === "all" || 
+      med.classification === selectedClassification;
+    
+    // Type filtering
+    const matchesType = selectedType === "all" || 
+      (selectedType === "chemotherapy" && med.isChemotherapy) ||
+      (selectedType === "immunotherapy" && med.isImmunotherapy) ||
+      (selectedType === "targeted" && med.isTargetedTherapy);
+    
+    return matchesSearch && matchesClassification && matchesType;
+  });
 
   if (isLoading) {
     return (
@@ -170,7 +184,7 @@ export const MedicationsSegment: React.FC<MedicationsSegmentProps> = ({ classNam
                   <SelectValue placeholder="Filter by classification" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All Classifications</SelectItem>
+                  <SelectItem value="all">All Classifications</SelectItem>
                   {classifications.map((classification) => (
                     <SelectItem key={classification} value={classification}>
                       {classification}
@@ -184,7 +198,7 @@ export const MedicationsSegment: React.FC<MedicationsSegmentProps> = ({ classNam
                   <SelectValue placeholder="Filter by type" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All Types</SelectItem>
+                  <SelectItem value="all">All Types</SelectItem>
                   <SelectItem value="chemotherapy">Chemotherapy</SelectItem>
                   <SelectItem value="immunotherapy">Immunotherapy</SelectItem>
                   <SelectItem value="targeted">Targeted Therapy</SelectItem>
@@ -193,14 +207,14 @@ export const MedicationsSegment: React.FC<MedicationsSegmentProps> = ({ classNam
             </div>
 
             {/* Clear Filters */}
-            {(searchTerm || selectedClassification || selectedType) && (
+            {(searchTerm || selectedClassification !== "all" || selectedType !== "all") && (
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => {
                   setSearchTerm("");
-                  setSelectedClassification("");
-                  setSelectedType("");
+                  setSelectedClassification("all");
+                  setSelectedType("all");
                 }}
               >
                 <Filter className="h-4 w-4 mr-2" />

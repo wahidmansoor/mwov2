@@ -284,7 +284,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { classification, isChemotherapy, isImmunotherapy, isTargetedTherapy, search } = req.query;
       const medications = await storage.getOncologyMedications({
-        classification: classification as string,
+        classification: classification === "all" ? undefined : classification as string,
         isChemotherapy: isChemotherapy === 'true',
         isImmunotherapy: isImmunotherapy === 'true',
         isTargetedTherapy: isTargetedTherapy === 'true',
