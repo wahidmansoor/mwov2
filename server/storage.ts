@@ -24,9 +24,12 @@ import {
   learningProgress,
   educationalAiInteractions,
   examPreparation,
+  approvalLogs,
   type User, 
   type InsertUser,
   type UpsertUser,
+  type InsertApprovalLog,
+  type ApprovalLog,
   type DecisionSupportInput,
   type InsertDecisionSupportInput,
   type ClinicalProtocol,
@@ -198,6 +201,12 @@ export interface IStorage {
   createOpioidConversion(conversion: InsertOpioidConversion): Promise<OpioidConversion>;
   getBreakthroughPain(filters?: { sessionId?: string }): Promise<BreakthroughPain[]>;
   createBreakthroughPain(episode: InsertBreakthroughPain): Promise<BreakthroughPain>;
+
+  // User approval operations for authentication workflow
+  approveUser(userId: string, adminEmail: string, notes?: string): Promise<User | undefined>;
+  getPendingUsers(): Promise<User[]>;
+  createApprovalLog(log: InsertApprovalLog): Promise<ApprovalLog>;
+  getApprovalLogs(userId?: string): Promise<ApprovalLog[]>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -1285,6 +1294,62 @@ export class DatabaseStorage implements IStorage {
         .flatMap(p => p.recommendedReview)
         .slice(0, 5)
     };
+  }
+
+  // User approval operations for authentication workflow
+  async approveUser(userId: string, adminEmail: string, notes?: string): Promise<User | undefined> {
+    try {
+      // Update user to approved status
+      const [user] = await db
+        .update(users)
+        .set({
+          isApproved: true,
+          approvedAt: new Date(),
+          approvedBy: adminEmail,
+          updatedAt: new Date()
+        })
+        .where(eq(users.id, userId))
+        .returning();
+
+      // Create approval log
+      await this.createApprovalLog({
+        userId,
+        action: 'approve',
+        adminEmail,
+        notes: notes || 'User approved for platform access'
+      });
+
+      return user || undefined;
+    } catch (error) {
+      console.error('Error approving user:', error);
+      return undefined;
+    }
+  }
+
+  async getPendingUsers(): Promise<User[]> {
+    return await db
+      .select()
+      .from(users)
+      .where(eq(users.isApproved, false))
+      .orderBy(users.createdAt);
+  }
+
+  async createApprovalLog(log: InsertApprovalLog): Promise<ApprovalLog> {
+    const [approvalLog] = await db
+      .insert(approvalLogs)
+      .values(log)
+      .returning();
+    return approvalLog;
+  }
+
+  async getApprovalLogs(userId?: string): Promise<ApprovalLog[]> {
+    let query = db.select().from(approvalLogs);
+    
+    if (userId) {
+      query = query.where(eq(approvalLogs.userId, userId));
+    }
+    
+    return await query.orderBy(approvalLogs.createdAt);
   }
 }
 

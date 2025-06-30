@@ -38,6 +38,10 @@ export const users = pgTable("users", {
   department: text("department"),
   licenseNumber: text("license_number"),
   isActive: boolean("is_active").default(true),
+  isApproved: boolean("is_approved").default(false),
+  approvedAt: timestamp("approved_at"),
+  approvedBy: varchar("approved_by"),
+  registrationEmailSent: boolean("registration_email_sent").default(false),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });
@@ -363,8 +367,20 @@ export const insertBiomarkerGuidelinesSchema = createInsertSchema(biomarkerGuide
 
 
 
+// Admin approval logs table
+export const approvalLogs = pgTable("approval_logs", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  userId: varchar("user_id").references(() => users.id),
+  action: varchar("action").notNull(), // 'approve', 'reject', 'pending'
+  adminEmail: varchar("admin_email"),
+  notes: text("notes"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
 // UpsertUser type for Replit Auth
 export type UpsertUser = typeof users.$inferInsert;
+export type InsertApprovalLog = typeof approvalLogs.$inferInsert;
+export type ApprovalLog = typeof approvalLogs.$inferSelect;
 
 // Type exports
 export type User = typeof users.$inferSelect;

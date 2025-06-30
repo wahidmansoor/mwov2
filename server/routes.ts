@@ -2584,6 +2584,224 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Admin approval routes for authentication workflow
+  app.get('/api/admin/pending-users', authMiddleware, async (req: any, res) => {
+    try {
+      // Check if user is admin (you can add admin role check here)
+      const pendingUsers = await storage.getPendingUsers();
+      res.json(pendingUsers);
+    } catch (error) {
+      console.error('Error fetching pending users:', error);
+      res.status(500).json({ message: 'Failed to fetch pending users' });
+    }
+  });
+
+  app.post('/api/admin/approve-user/:userId', authMiddleware, async (req: any, res) => {
+    try {
+      const { userId } = req.params;
+      const { notes } = req.body;
+      const adminEmail = req.user.claims.email;
+
+      const approvedUser = await storage.approveUser(userId, adminEmail, notes);
+      
+      if (approvedUser) {
+        // Send approval notification email to the user
+        try {
+          const { sendApprovalNotificationEmail } = await import('./emailService');
+          await sendApprovalNotificationEmail(approvedUser);
+        } catch (emailError) {
+          console.error('Failed to send approval email:', emailError);
+          // Continue with approval even if email fails
+        }
+
+        res.json({ 
+          message: 'User approved successfully', 
+          user: approvedUser 
+        });
+      } else {
+        res.status(404).json({ message: 'User not found' });
+      }
+    } catch (error) {
+      console.error('Error approving user:', error);
+      res.status(500).json({ message: 'Failed to approve user' });
+    }
+  });
+
+  app.get('/api/admin/approval-logs/:userId?', authMiddleware, async (req: any, res) => {
+    try {
+      const { userId } = req.params;
+      const logs = await storage.getApprovalLogs(userId);
+      res.json(logs);
+    } catch (error) {
+      console.error('Error fetching approval logs:', error);
+      res.status(500).json({ message: 'Failed to fetch approval logs' });
+    }
+  });
+
+  // User registration workflow (for when Replit auth creates new users)
+  app.post('/api/auth/register', authMiddleware, async (req: any, res) => {
+    try {
+      const userClaims = req.user.claims;
+      
+      // Check if user already exists
+      let user = await storage.getUser(userClaims.sub);
+      
+      if (!user) {
+        // Create new user with approval required
+        const newUser = await storage.upsertUser({
+          id: userClaims.sub,
+          email: userClaims.email,
+          firstName: userClaims.first_name,
+          lastName: userClaims.last_name,
+          profileImageUrl: userClaims.profile_image_url,
+          isApproved: false,
+          registrationEmailSent: false
+        });
+
+        // Send registration notification email to admin
+        try {
+          const { sendUserRegistrationEmail } = await import('./emailService');
+          const approvalToken = Buffer.from(`${newUser.id}:${Date.now()}`).toString('base64');
+          await sendUserRegistrationEmail(newUser, approvalToken);
+          
+          // Update registration email sent flag
+          await storage.updateUser(newUser.id, { registrationEmailSent: true });
+        } catch (emailError) {
+          console.error('Failed to send registration email:', emailError);
+        }
+
+        res.json({ 
+          message: 'Registration complete - pending admin approval',
+          user: newUser,
+          requiresApproval: true
+        });
+      } else {
+        res.json({ 
+          message: 'User already exists',
+          user,
+          requiresApproval: !user.isApproved
+        });
+      }
+    } catch (error) {
+      console.error('Error in registration workflow:', error);
+      res.status(500).json({ message: 'Failed to process registration' });
+    }
+  });
+
+  // Admin approval page route (for handling email links)
+  app.get('/admin/approve/:token', async (req, res) => {
+    try {
+      const { token } = req.params;
+      const decoded = Buffer.from(token, 'base64').toString();
+      const [userId] = decoded.split(':');
+      
+      const user = await storage.getUser(userId);
+      
+      if (!user) {
+        return res.status(404).send(`
+          <!DOCTYPE html>
+          <html>
+          <head><title>User Not Found</title></head>
+          <body style="font-family: Arial, sans-serif; padding: 40px; text-align: center;">
+            <h1 style="color: #dc2626;">User Not Found</h1>
+            <p>The user associated with this approval link could not be found.</p>
+          </body>
+          </html>
+        `);
+      }
+
+      if (user.isApproved) {
+        return res.send(`
+          <!DOCTYPE html>
+          <html>
+          <head><title>Already Approved</title></head>
+          <body style="font-family: Arial, sans-serif; padding: 40px; text-align: center;">
+            <h1 style="color: #16a34a;">User Already Approved</h1>
+            <p>${user.firstName} ${user.lastName} (${user.email}) has already been approved.</p>
+          </body>
+          </html>
+        `);
+      }
+
+      // Render approval form
+      res.send(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>Approve User - OncoVista AI</title>
+          <style>
+            body { font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 40px; }
+            .user-card { background: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0; }
+            .approve-btn { background: #16a34a; color: white; padding: 12px 24px; border: none; border-radius: 6px; cursor: pointer; font-size: 16px; }
+            .approve-btn:hover { background: #15803d; }
+            textarea { width: 100%; padding: 8px; border: 1px solid #d1d5db; border-radius: 4px; resize: vertical; }
+          </style>
+        </head>
+        <body>
+          <h1>User Approval - OncoVista AI</h1>
+          
+          <div class="user-card">
+            <h2>User Details</h2>
+            <p><strong>Name:</strong> ${user.firstName || 'Not provided'} ${user.lastName || ''}</p>
+            <p><strong>Email:</strong> ${user.email}</p>
+            <p><strong>Role:</strong> ${user.role || 'Oncologist'}</p>
+            <p><strong>Department:</strong> ${user.department || 'Not specified'}</p>
+            <p><strong>Registration Time:</strong> ${new Date(user.createdAt!).toLocaleString()}</p>
+          </div>
+
+          <form method="POST" action="/admin/approve/${token}/confirm">
+            <label for="notes">Approval Notes (optional):</label><br>
+            <textarea id="notes" name="notes" rows="4" placeholder="Add any notes about this approval..."></textarea><br><br>
+            
+            <button type="submit" class="approve-btn">Approve User</button>
+          </form>
+        </body>
+        </html>
+      `);
+    } catch (error) {
+      console.error('Error in approval page:', error);
+      res.status(500).send('Internal server error');
+    }
+  });
+
+  app.post('/admin/approve/:token/confirm', async (req, res) => {
+    try {
+      const { token } = req.params;
+      const { notes } = req.body;
+      const decoded = Buffer.from(token, 'base64').toString();
+      const [userId] = decoded.split(':');
+      
+      const approvedUser = await storage.approveUser(userId, 'admin@oncovistaai.com', notes);
+      
+      if (approvedUser) {
+        // Send approval notification email
+        try {
+          const { sendApprovalNotificationEmail } = await import('./emailService');
+          await sendApprovalNotificationEmail(approvedUser);
+        } catch (emailError) {
+          console.error('Failed to send approval email:', emailError);
+        }
+
+        res.send(`
+          <!DOCTYPE html>
+          <html>
+          <head><title>User Approved</title></head>
+          <body style="font-family: Arial, sans-serif; padding: 40px; text-align: center;">
+            <h1 style="color: #16a34a;">User Approved Successfully!</h1>
+            <p>${approvedUser.firstName} ${approvedUser.lastName} (${approvedUser.email}) has been approved for OncoVista AI access.</p>
+            <p>The user has been notified via email.</p>
+          </body>
+          </html>
+        `);
+      } else {
+        res.status(404).send('User not found');
+      }
+    } catch (error) {
+      console.error('Error confirming approval:', error);
+      res.status(500).send('Internal server error');
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
