@@ -76,10 +76,10 @@ const CancerScreeningSection = () => {
     enabled: true
   });
 
-  const cancerTypes = [
-    "Breast Cancer", "Colorectal Cancer", "Lung Cancer", 
-    "Prostate Cancer", "Cervical Cancer", "Melanoma"
-  ];
+  // Extract unique cancer types from the data
+  const cancerTypes = screeningProtocols ? 
+    Array.from(new Set(screeningProtocols.map((protocol: any) => protocol.cancerType))).sort() : 
+    [];
 
   const ageRanges = [
     "18-39 years", "40-49 years", "50-64 years", 
@@ -226,10 +226,10 @@ const DiagnosticWorkupSection = () => {
     enabled: selectedCancer !== "" || symptomSearch !== ""
   });
 
-  const cancerTypes = [
-    "Breast Cancer", "Lung Cancer", "Colorectal Cancer", 
-    "Prostate Cancer", "Bone Cancer", "Ampullary Cancer"
-  ];
+  // Extract unique cancer types from the data
+  const cancerTypes = workupSteps ? 
+    Array.from(new Set(workupSteps.map((step: any) => step.cancerType))).sort() : 
+    [];
 
   return (
     <div className="space-y-6">
@@ -369,9 +369,10 @@ const BiomarkerTestingSection = () => {
     enabled: selectedCancer !== ""
   });
 
-  const cancerTypes = [
-    "Breast Cancer", "Lung Cancer", "Colorectal Cancer", "Prostate Cancer"
-  ];
+  // Extract unique cancer types from the data
+  const cancerTypes = biomarkers ? 
+    Array.from(new Set(biomarkers.map((biomarker: any) => biomarker.cancerType))).sort() : 
+    [];
 
   return (
     <div className="space-y-6">
@@ -497,9 +498,10 @@ const ReferralGuidelinesSection = () => {
     enabled: selectedCancer !== "" || selectedUrgency !== ""
   });
 
-  const cancerTypes = [
-    "Breast Cancer", "Lung Cancer", "Colorectal Cancer", "Prostate Cancer"
-  ];
+  // Extract unique cancer types from the data
+  const cancerTypes = referralGuidelines ? 
+    Array.from(new Set(referralGuidelines.map((guideline: any) => guideline.cancerType))).sort() : 
+    [];
 
   const urgencyLevels = ["Urgent", "Routine"];
 
