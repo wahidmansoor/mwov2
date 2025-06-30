@@ -17,6 +17,13 @@ import {
   painAssessments,
   opioidConversions,
   breakthroughPain,
+  educationalTopics,
+  clinicalScenarios,
+  questionBank,
+  learningSessions,
+  learningProgress,
+  educationalAiInteractions,
+  examPreparation,
   type User, 
   type InsertUser,
   type UpsertUser,
@@ -51,7 +58,21 @@ import {
   type OpioidConversion,
   type InsertOpioidConversion,
   type BreakthroughPain,
-  type InsertBreakthroughPain
+  type InsertBreakthroughPain,
+  type EducationalTopic,
+  type InsertEducationalTopic,
+  type ClinicalScenario,
+  type InsertClinicalScenario,
+  type Question,
+  type InsertQuestion,
+  type LearningSession,
+  type InsertLearningSession,
+  type LearningProgress,
+  type InsertLearningProgress,
+  type EducationalAiInteraction,
+  type InsertEducationalAiInteraction,
+  type ExamPreparation,
+  type InsertExamPreparation
 } from "@shared/schema";
 import { db } from "./db";
 import { eq, sql } from "drizzle-orm";
@@ -993,6 +1014,239 @@ export class DatabaseStorage implements IStorage {
   async createBreakthroughPain(episode: InsertBreakthroughPain): Promise<BreakthroughPain> {
     const [result] = await db.insert(breakthroughPain).values(episode).returning();
     return result;
+  }
+
+  // Educational Content Management - Real NCCN/ASCO/ESMO Integration
+  async getEducationalTopics(filters?: { 
+    category?: string; 
+    subspecialty?: string; 
+    organSite?: string; 
+    difficulty?: string;
+    guidelineReference?: string;
+  }): Promise<EducationalTopic[]> {
+    let query = db.select().from(educationalTopics).where(eq(educationalTopics.isActive, true));
+    
+    if (filters?.category) {
+      query = query.where(eq(educationalTopics.category, filters.category));
+    }
+    if (filters?.subspecialty) {
+      query = query.where(eq(educationalTopics.subspecialty, filters.subspecialty));
+    }
+    if (filters?.organSite) {
+      query = query.where(eq(educationalTopics.organSite, filters.organSite));
+    }
+    if (filters?.difficulty) {
+      query = query.where(eq(educationalTopics.difficulty, filters.difficulty));
+    }
+    if (filters?.guidelineReference) {
+      const searchTerm = `%${filters.guidelineReference}%`;
+      query = query.where(sql`${educationalTopics.guidelineReference} LIKE ${searchTerm}`);
+    }
+    
+    return await query.orderBy(educationalTopics.createdAt);
+  }
+
+  async createEducationalTopic(insertTopic: InsertEducationalTopic): Promise<EducationalTopic> {
+    const [topic] = await db
+      .insert(educationalTopics)
+      .values(insertTopic)
+      .returning();
+    return topic;
+  }
+
+  async getClinicalScenarios(filters?: { 
+    topicId?: string; 
+    difficulty?: string; 
+    guidelineReference?: string;
+  }): Promise<ClinicalScenario[]> {
+    let query = db.select().from(clinicalScenarios).where(eq(clinicalScenarios.isActive, true));
+    
+    if (filters?.topicId) {
+      query = query.where(eq(clinicalScenarios.topicId, filters.topicId));
+    }
+    if (filters?.difficulty) {
+      query = query.where(eq(clinicalScenarios.difficulty, filters.difficulty));
+    }
+    if (filters?.guidelineReference) {
+      const searchTerm = `%${filters.guidelineReference}%`;
+      query = query.where(sql`${clinicalScenarios.guidelineReference} LIKE ${searchTerm}`);
+    }
+    
+    return await query.orderBy(clinicalScenarios.createdAt);
+  }
+
+  async createClinicalScenario(insertScenario: InsertClinicalScenario): Promise<ClinicalScenario> {
+    const [scenario] = await db
+      .insert(clinicalScenarios)
+      .values(insertScenario)
+      .returning();
+    return scenario;
+  }
+
+  async getQuestionBank(filters?: { 
+    topicId?: string; 
+    scenarioId?: string;
+    questionType?: string;
+    difficulty?: string;
+    examRelevance?: string[];
+  }): Promise<Question[]> {
+    let query = db.select().from(questionBank).where(eq(questionBank.isActive, true));
+    
+    if (filters?.topicId) {
+      query = query.where(eq(questionBank.topicId, filters.topicId));
+    }
+    if (filters?.scenarioId) {
+      query = query.where(eq(questionBank.scenarioId, filters.scenarioId));
+    }
+    if (filters?.questionType) {
+      query = query.where(eq(questionBank.questionType, filters.questionType));
+    }
+    if (filters?.difficulty) {
+      query = query.where(eq(questionBank.difficulty, filters.difficulty));
+    }
+    
+    return await query.orderBy(questionBank.createdAt);
+  }
+
+  async createQuestion(insertQuestion: InsertQuestion): Promise<Question> {
+    const [question] = await db
+      .insert(questionBank)
+      .values(insertQuestion)
+      .returning();
+    return question;
+  }
+
+  async createLearningSession(insertSession: InsertLearningSession): Promise<LearningSession> {
+    const [session] = await db
+      .insert(learningSessions)
+      .values(insertSession)
+      .returning();
+    return session;
+  }
+
+  async updateLearningSession(sessionId: string, updates: Partial<InsertLearningSession>): Promise<LearningSession> {
+    const [session] = await db
+      .update(learningSessions)
+      .set({ ...updates, endTime: new Date() })
+      .where(eq(learningSessions.sessionId, sessionId))
+      .returning();
+    return session;
+  }
+
+  async getLearningProgress(sessionId: string, topicId?: string): Promise<LearningProgress[]> {
+    let query = db.select().from(learningProgress).where(eq(learningProgress.sessionId, sessionId));
+    
+    if (topicId) {
+      query = query.where(eq(learningProgress.topicId, topicId));
+    }
+    
+    return await query.orderBy(learningProgress.lastStudied);
+  }
+
+  async updateLearningProgress(sessionId: string, topicId: string, progressData: Partial<InsertLearningProgress>): Promise<LearningProgress> {
+    const existing = await db
+      .select()
+      .from(learningProgress)
+      .where(and(
+        eq(learningProgress.sessionId, sessionId),
+        eq(learningProgress.topicId, topicId)
+      ))
+      .limit(1);
+
+    if (existing.length > 0) {
+      const [updated] = await db
+        .update(learningProgress)
+        .set({ ...progressData, updatedAt: new Date() })
+        .where(and(
+          eq(learningProgress.sessionId, sessionId),
+          eq(learningProgress.topicId, topicId)
+        ))
+        .returning();
+      return updated;
+    } else {
+      const [created] = await db
+        .insert(learningProgress)
+        .values({
+          sessionId,
+          topicId,
+          masteryLevel: "0",
+          ...progressData
+        })
+        .returning();
+      return created;
+    }
+  }
+
+  async createAiInteraction(insertInteraction: InsertAiInteraction): Promise<AiInteraction> {
+    const [interaction] = await db
+      .insert(aiInteractions)
+      .values(insertInteraction)
+      .returning();
+    return interaction;
+  }
+
+  async getExamPreparation(sessionId: string, examType?: string): Promise<ExamPreparation[]> {
+    let query = db.select().from(examPreparation).where(eq(examPreparation.sessionId, sessionId));
+    
+    if (examType) {
+      query = query.where(eq(examPreparation.examType, examType));
+    }
+    
+    return await query.orderBy(examPreparation.updatedAt);
+  }
+
+  async updateExamPreparation(sessionId: string, examType: string, prepData: Partial<InsertExamPreparation>): Promise<ExamPreparation> {
+    const existing = await db
+      .select()
+      .from(examPreparation)
+      .where(and(
+        eq(examPreparation.sessionId, sessionId),
+        eq(examPreparation.examType, examType)
+      ))
+      .limit(1);
+
+    if (existing.length > 0) {
+      const [updated] = await db
+        .update(examPreparation)
+        .set({ ...prepData, updatedAt: new Date() })
+        .where(and(
+          eq(examPreparation.sessionId, sessionId),
+          eq(examPreparation.examType, examType)
+        ))
+        .returning();
+      return updated;
+    } else {
+      const [created] = await db
+        .insert(examPreparation)
+        .values({
+          sessionId,
+          examType,
+          studyPlan: {},
+          ...prepData
+        })
+        .returning();
+      return created;
+    }
+  }
+
+  async getTopicMasteryAnalytics(sessionId: string): Promise<any> {
+    const progress = await this.getLearningProgress(sessionId);
+    
+    return {
+      totalTopics: progress.length,
+      masteredTopics: progress.filter(p => Number(p.masteryLevel) >= 0.8).length,
+      weakAreas: progress
+        .filter(p => Number(p.masteryLevel) < 0.6)
+        .map(p => ({ topicId: p.topicId, masteryLevel: p.masteryLevel }))
+        .sort((a, b) => Number(a.masteryLevel) - Number(b.masteryLevel)),
+      averageMastery: progress.length > 0 
+        ? progress.reduce((sum, p) => sum + Number(p.masteryLevel), 0) / progress.length 
+        : 0,
+      studyRecommendations: progress
+        .filter(p => Number(p.masteryLevel) < 0.7)
+        .flatMap(p => p.recommendedReview)
+        .slice(0, 5)
+    };
   }
 }
 

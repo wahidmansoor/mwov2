@@ -769,3 +769,148 @@ export type PsychosocialScreening = typeof psychosocialScreening.$inferSelect;
 export type InsertPsychosocialScreening = z.infer<typeof insertPsychosocialScreeningSchema>;
 export type ReferralTracking = typeof referralTracking.$inferSelect;
 export type InsertReferralTracking = z.infer<typeof insertReferralTrackingSchema>;
+
+// Educational Content System - Real NCCN/ASCO/ESMO Data Integration
+export const educationalTopics = pgTable("educational_topics", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  title: varchar("title", { length: 255 }).notNull(),
+  category: varchar("category", { length: 100 }).notNull(), // Staging, Treatment, Biomarkers
+  subspecialty: varchar("subspecialty", { length: 100 }).notNull(), // Medical, Radiation, Surgical
+  organSite: varchar("organ_site", { length: 100 }), // Breast, Lung, Colon, etc.
+  difficulty: varchar("difficulty", { length: 50 }).notNull(), // Resident, Fellow, Attending
+  guidelineReference: varchar("guideline_reference", { length: 255 }).notNull(), // NCCN V3.2025
+  learningObjectives: text("learning_objectives").array().notNull(),
+  keyPoints: text("key_points").array().notNull(),
+  evidenceLevel: varchar("evidence_level", { length: 50 }), // Category 1, 2A, 2B
+  lastUpdated: timestamp("last_updated").defaultNow(),
+  isActive: boolean("is_active").default(true),
+  createdAt: timestamp("created_at").defaultNow()
+});
+
+export const clinicalScenarios = pgTable("clinical_scenarios", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  topicId: uuid("topic_id").references(() => educationalTopics.id),
+  title: varchar("title", { length: 255 }).notNull(),
+  description: text("description").notNull(),
+  patientPresentation: jsonb("patient_presentation").notNull(), // Age, symptoms, staging
+  decisionPoints: jsonb("decision_points").notNull(), // Branching logic steps
+  correctPathway: text("correct_pathway").array().notNull(),
+  learningOutcomes: text("learning_outcomes").array().notNull(),
+  guidelineReference: varchar("guideline_reference", { length: 255 }).notNull(),
+  difficulty: varchar("difficulty", { length: 50 }).notNull(),
+  estimatedTime: integer("estimated_time"), // minutes
+  tags: text("tags").array().default([]),
+  createdAt: timestamp("created_at").defaultNow(),
+  isActive: boolean("is_active").default(true)
+});
+
+export const questionBank = pgTable("question_bank", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  topicId: uuid("topic_id").references(() => educationalTopics.id),
+  scenarioId: uuid("scenario_id").references(() => clinicalScenarios.id),
+  questionType: varchar("question_type", { length: 50 }).notNull(), // MCQ, EMQ, Visual, Case
+  questionText: text("question_text").notNull(),
+  options: jsonb("options").notNull(), // Array of answer choices
+  correctAnswer: varchar("correct_answer", { length: 10 }).notNull(),
+  rationale: text("rationale").notNull(),
+  explanationDetail: text("explanation_detail"),
+  guidelineReferences: text("guideline_references").array().notNull(),
+  citations: text("citations").array().notNull(),
+  difficulty: varchar("difficulty", { length: 50 }).notNull(),
+  examRelevance: text("exam_relevance").array().default([]), // MRCP, ESMO, FRCR
+  imageUrl: varchar("image_url", { length: 500 }),
+  tags: text("tags").array().default([]),
+  createdAt: timestamp("created_at").defaultNow(),
+  isActive: boolean("is_active").default(true)
+});
+
+export const learningSessions = pgTable("learning_sessions", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  sessionId: varchar("session_id", { length: 100 }).notNull(),
+  topicId: uuid("topic_id").references(() => educationalTopics.id),
+  scenarioId: uuid("scenario_id").references(() => clinicalScenarios.id),
+  sessionType: varchar("session_type", { length: 50 }).notNull(), // Flashcard, Scenario, QBank
+  startTime: timestamp("start_time").defaultNow(),
+  endTime: timestamp("end_time"),
+  questionsAttempted: integer("questions_attempted").default(0),
+  questionsCorrect: integer("questions_correct").default(0),
+  averageConfidence: decimal("average_confidence", { precision: 3, scale: 2 }),
+  timeSpent: integer("time_spent"), // seconds
+  learningMode: varchar("learning_mode", { length: 50 }), // Study, Exam, Review
+  performance: jsonb("performance"), // Detailed scoring data
+  createdAt: timestamp("created_at").defaultNow()
+});
+
+export const learningProgress = pgTable("learning_progress", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  sessionId: varchar("session_id", { length: 100 }).notNull(),
+  topicId: uuid("topic_id").references(() => educationalTopics.id),
+  masteryLevel: decimal("mastery_level", { precision: 3, scale: 2 }).notNull(), // 0.0 - 1.0
+  attemptCount: integer("attempt_count").default(1),
+  lastAttemptScore: decimal("last_attempt_score", { precision: 3, scale: 2 }),
+  bestScore: decimal("best_score", { precision: 3, scale: 2 }),
+  averageScore: decimal("average_score", { precision: 3, scale: 2 }),
+  timeToMastery: integer("time_to_mastery"), // minutes
+  weaknessAreas: text("weakness_areas").array().default([]),
+  strengthAreas: text("strength_areas").array().default([]),
+  recommendedReview: text("recommended_review").array().default([]),
+  lastStudied: timestamp("last_studied").defaultNow(),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow()
+});
+
+export const educationalAiInteractions = pgTable("educational_ai_interactions", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  sessionId: varchar("session_id", { length: 100 }).notNull(),
+  query: text("query").notNull(),
+  response: text("response").notNull(),
+  queryType: varchar("query_type", { length: 50 }).notNull(), // Guideline, Clinical, Exam
+  topicsDiscussed: text("topics_discussed").array().default([]),
+  guidelinesReferenced: text("guidelines_referenced").array().default([]),
+  confidenceScore: decimal("confidence_score", { precision: 3, scale: 2 }),
+  responseTime: integer("response_time"), // milliseconds
+  userRating: integer("user_rating"), // 1-5 stars
+  followupQuestions: text("followup_questions").array().default([]),
+  createdAt: timestamp("created_at").defaultNow()
+});
+
+export const examPreparation = pgTable("exam_preparation", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  sessionId: varchar("session_id", { length: 100 }).notNull(),
+  examType: varchar("exam_type", { length: 100 }).notNull(), // MRCP, ESMO, FRCR, Board
+  targetDate: timestamp("target_date"),
+  currentReadiness: decimal("current_readiness", { precision: 3, scale: 2 }), // 0.0 - 1.0
+  studyPlan: jsonb("study_plan").notNull(),
+  weakAreas: text("weak_areas").array().default([]),
+  practiceScores: jsonb("practice_scores").default({}),
+  recommendedFocus: text("recommended_focus").array().default([]),
+  dailyGoals: jsonb("daily_goals").default({}),
+  progressMilestones: jsonb("progress_milestones").default({}),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow()
+});
+
+// Insert schemas for educational content
+export const insertEducationalTopicsSchema = createInsertSchema(educationalTopics);
+export const insertClinicalScenariosSchema = createInsertSchema(clinicalScenarios);
+export const insertQuestionBankSchema = createInsertSchema(questionBank);
+export const insertLearningSessionsSchema = createInsertSchema(learningSessions);
+export const insertLearningProgressSchema = createInsertSchema(learningProgress);
+export const insertEducationalAiInteractionsSchema = createInsertSchema(educationalAiInteractions);
+export const insertExamPreparationSchema = createInsertSchema(examPreparation);
+
+// Types for educational content
+export type EducationalTopic = typeof educationalTopics.$inferSelect;
+export type InsertEducationalTopic = z.infer<typeof insertEducationalTopicsSchema>;
+export type ClinicalScenario = typeof clinicalScenarios.$inferSelect;
+export type InsertClinicalScenario = z.infer<typeof insertClinicalScenariosSchema>;
+export type Question = typeof questionBank.$inferSelect;
+export type InsertQuestion = z.infer<typeof insertQuestionBankSchema>;
+export type LearningSession = typeof learningSessions.$inferSelect;
+export type InsertLearningSession = z.infer<typeof insertLearningSessionsSchema>;
+export type LearningProgress = typeof learningProgress.$inferSelect;
+export type InsertLearningProgress = z.infer<typeof insertLearningProgressSchema>;
+export type EducationalAiInteraction = typeof educationalAiInteractions.$inferSelect;
+export type InsertEducationalAiInteraction = z.infer<typeof insertEducationalAiInteractionsSchema>;
+export type ExamPreparation = typeof examPreparation.$inferSelect;
+export type InsertExamPreparation = z.infer<typeof insertExamPreparationSchema>;

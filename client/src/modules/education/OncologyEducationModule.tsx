@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Progress } from "@/components/ui/progress";
 import { 
   Brain, 
   BarChart3, 
@@ -18,427 +20,576 @@ import {
   Stethoscope,
   Activity,
   ChevronRight,
-  Star
+  Star,
+  Filter,
+  Play,
+  CheckCircle,
+  AlertCircle,
+  Book,
+  FileText,
+  Search
 } from 'lucide-react';
-import AIChatAssistant from '../../components/education/AIChatAssistant';
-import LearningDashboard from '../../components/education/LearningDashboard';
-import { LearningAnalytics } from '../../services/learningAnalytics';
-import { ONCOLOGY_TOPICS } from '../../types/learning';
+import { useQuery } from '@tanstack/react-query';
+import type { EducationalTopic, ClinicalScenario, Question } from '@/../../shared/schema';
 
 const OncologyEducationModule: React.FC = () => {
   const [activeTab, setActiveTab] = useState('overview');
-  const analytics = new LearningAnalytics();
-  const metrics = analytics.calculateMetrics();
-  const gaps = analytics.identifyGaps();
+  const [selectedDifficulty, setSelectedDifficulty] = useState('');
+  const [selectedSpecialty, setSelectedSpecialty] = useState('');
+  const [selectedOrganSite, setSelectedOrganSite] = useState('');
+  const [sessionId] = useState(`session-${Date.now()}`);
 
-  const moduleFeatures = [
-    {
-      icon: Brain,
-      title: "AI Teaching Assistant",
-      description: "Interactive Socratic questioning tailored to your experience level",
-      features: ["Adaptive difficulty", "Progressive hints", "Evidence-based learning"],
-      status: "active"
-    },
-    {
-      icon: BarChart3,
-      title: "Learning Analytics",
-      description: "Comprehensive progress tracking and knowledge gap identification",
-      features: ["Performance metrics", "Topic mastery", "Learning trends"],
-      status: "active"
-    },
-    {
-      icon: Target,
-      title: "Clinical Scenarios",
-      description: "Real-world case-based learning across all oncology specialties",
-      features: ["Emergency management", "Treatment protocols", "Decision support"],
-      status: "active"
-    },
-    {
-      icon: BookOpen,
-      title: "Protocol Education",
-      description: "Interactive exploration of evidence-based treatment guidelines",
-      features: ["NCCN guidelines", "Decision trees", "Alternative pathways"],
-      status: "coming-soon"
+  // Fetch educational topics with real NCCN/ASCO/ESMO data
+  const { data: topics = [], isLoading: topicsLoading } = useQuery({
+    queryKey: ['/api/educational/topics', selectedDifficulty, selectedSpecialty, selectedOrganSite],
+    queryFn: async () => {
+      const params = new URLSearchParams();
+      if (selectedDifficulty) params.append('difficulty', selectedDifficulty);
+      if (selectedSpecialty) params.append('subspecialty', selectedSpecialty);
+      if (selectedOrganSite) params.append('organSite', selectedOrganSite);
+      
+      const response = await fetch(`/api/educational/topics?${params}`);
+      if (!response.ok) throw new Error('Failed to fetch topics');
+      return response.json();
     }
-  ];
+  });
 
-  const learningPaths = [
-    {
-      title: "Resident Pathway",
-      description: "Foundational oncology knowledge and clinical reasoning",
-      duration: "3-6 months",
-      topics: ["Basic oncology principles", "Common cancers", "Side effect management", "Emergency protocols"],
-      level: "beginner",
-      color: "bg-green-500"
-    },
-    {
-      title: "Fellow Pathway", 
-      description: "Advanced subspecialty training and complex case management",
-      duration: "6-12 months",
-      topics: ["Advanced protocols", "Rare diseases", "Research integration", "Multidisciplinary care"],
-      level: "intermediate",
-      color: "bg-blue-500"
-    },
-    {
-      title: "Attending Pathway",
-      description: "Expert-level decision making and leadership development",
-      duration: "Ongoing",
-      topics: ["Cutting-edge therapies", "Practice management", "Teaching skills", "Quality improvement"],
-      level: "advanced", 
-      color: "bg-purple-500"
+  // Fetch clinical scenarios
+  const { data: scenarios = [], isLoading: scenariosLoading } = useQuery({
+    queryKey: ['/api/educational/scenarios', selectedDifficulty],
+    queryFn: async () => {
+      const params = new URLSearchParams();
+      if (selectedDifficulty) params.append('difficulty', selectedDifficulty);
+      
+      const response = await fetch(`/api/educational/scenarios?${params}`);
+      if (!response.ok) throw new Error('Failed to fetch scenarios');
+      return response.json();
     }
-  ];
+  });
 
-  const quickStats = [
-    {
-      label: "Study Time",
-      value: `${Math.floor(metrics.totalStudyTime / 60)}h ${metrics.totalStudyTime % 60}m`,
-      icon: Clock,
-      color: "text-blue-600"
-    },
-    {
-      label: "Topics Completed",
-      value: `${metrics.topicsCompleted}/${ONCOLOGY_TOPICS.length}`,
-      icon: Target,
-      color: "text-green-600"
-    },
-    {
-      label: "Learning Streak",
-      value: `${metrics.streakDays} days`,
-      icon: Award,
-      color: "text-orange-600"
-    },
-    {
-      label: "Avg Confidence",
-      value: `${metrics.averageConfidence.toFixed(1)}/5`,
-      icon: TrendingUp,
-      color: "text-purple-600"
+  // Fetch learning analytics
+  const { data: analytics, isLoading: analyticsLoading } = useQuery({
+    queryKey: ['/api/educational/analytics', sessionId],
+    queryFn: async () => {
+      const response = await fetch(`/api/educational/analytics/${sessionId}`);
+      if (!response.ok) throw new Error('Failed to fetch analytics');
+      return response.json();
     }
-  ];
+  });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-      <div className="container mx-auto p-6">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <div className="flex items-center justify-center mb-4">
-            <div className="p-3 bg-blue-600 rounded-full text-white mr-4">
-              <GraduationCap className="w-8 h-8" />
-            </div>
-            <div>
-              <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100">
-                Oncology Education Module
-              </h1>
-              <p className="text-lg text-gray-600 dark:text-gray-300 mt-2">
-                Intelligent, adaptive learning ecosystem for oncology excellence
-              </p>
-            </div>
-          </div>
-          
-          <div className="flex items-center justify-center space-x-2">
-            <Badge className="bg-blue-100 text-blue-800 border-blue-300">
-              <Brain className="w-3 h-3 mr-1" />
-              AI-Powered
-            </Badge>
-            <Badge className="bg-green-100 text-green-800 border-green-300">
-              <Stethoscope className="w-3 h-3 mr-1" />
-              Evidence-Based
-            </Badge>
-            <Badge className="bg-purple-100 text-purple-800 border-purple-300">
-              <Users className="w-3 h-3 mr-1" />
-              Personalized
-            </Badge>
-          </div>
+    <div className="space-y-6">
+      <div className="border-b border-gray-200 dark:border-gray-700 pb-4">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white flex items-center gap-3">
+          <GraduationCap className="w-8 h-8 text-blue-600" />
+          Oncology Education Module
+          <Badge variant="outline" className="ml-2">
+            Real NCCN/ASCO/ESMO Data
+          </Badge>
+        </h1>
+        <p className="mt-2 text-gray-600 dark:text-gray-300">
+          Evidence-based learning platform with authentic clinical guidelines and interactive scenarios
+        </p>
+      </div>
+
+      {/* Filter Controls */}
+      <div className="flex flex-wrap gap-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+        <div className="flex items-center gap-2">
+          <Filter className="w-4 h-4 text-gray-500" />
+          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Filters:</span>
         </div>
+        
+        <Select value={selectedDifficulty} onValueChange={setSelectedDifficulty}>
+          <SelectTrigger className="w-40">
+            <SelectValue placeholder="Difficulty Level" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="">All Levels</SelectItem>
+            <SelectItem value="Resident">Resident</SelectItem>
+            <SelectItem value="Fellow">Fellow</SelectItem>
+            <SelectItem value="Attending">Attending</SelectItem>
+          </SelectContent>
+        </Select>
 
-        {/* Quick Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-          {quickStats.map((stat, index) => {
-            const IconComponent = stat.icon;
-            return (
-              <Card key={index} className="bg-white/80 backdrop-blur-sm border-white/20">
-                <CardContent className="p-4">
-                  <div className="flex items-center space-x-3">
-                    <div className={`p-2 rounded-lg bg-gray-100 dark:bg-gray-800`}>
-                      <IconComponent className={`w-5 h-5 ${stat.color}`} />
-                    </div>
-                    <div>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">{stat.label}</p>
-                      <p className="font-semibold text-gray-900 dark:text-gray-100">{stat.value}</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            );
-          })}
-        </div>
+        <Select value={selectedSpecialty} onValueChange={setSelectedSpecialty}>
+          <SelectTrigger className="w-48">
+            <SelectValue placeholder="Subspecialty" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="">All Specialties</SelectItem>
+            <SelectItem value="Medical Oncology">Medical Oncology</SelectItem>
+            <SelectItem value="Radiation Oncology">Radiation Oncology</SelectItem>
+            <SelectItem value="Surgical Oncology">Surgical Oncology</SelectItem>
+            <SelectItem value="Orthopedic Oncology">Orthopedic Oncology</SelectItem>
+          </SelectContent>
+        </Select>
 
-        {/* Main Tabs */}
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-5 mb-6">
-            <TabsTrigger value="overview" className="flex items-center">
-              <Activity className="w-4 h-4 mr-2" />
-              Overview
-            </TabsTrigger>
-            <TabsTrigger value="ai-assistant" className="flex items-center">
-              <Brain className="w-4 h-4 mr-2" />
-              AI Assistant
-            </TabsTrigger>
-            <TabsTrigger value="analytics" className="flex items-center">
-              <BarChart3 className="w-4 h-4 mr-2" />
-              Analytics
-            </TabsTrigger>
-            <TabsTrigger value="pathways" className="flex items-center">
-              <Target className="w-4 h-4 mr-2" />
-              Learning Paths
-            </TabsTrigger>
-            <TabsTrigger value="scenarios" className="flex items-center">
-              <Stethoscope className="w-4 h-4 mr-2" />
-              Scenarios
-            </TabsTrigger>
-          </TabsList>
+        <Select value={selectedOrganSite} onValueChange={setSelectedOrganSite}>
+          <SelectTrigger className="w-40">
+            <SelectValue placeholder="Organ Site" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="">All Sites</SelectItem>
+            <SelectItem value="Breast">Breast</SelectItem>
+            <SelectItem value="Lung">Lung</SelectItem>
+            <SelectItem value="Colon">Colon</SelectItem>
+            <SelectItem value="Bone">Bone</SelectItem>
+            <SelectItem value="Various">Various</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
 
-          <TabsContent value="overview" className="space-y-6">
-            {/* Feature Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-              {moduleFeatures.map((feature, index) => {
-                const IconComponent = feature.icon;
-                return (
-                  <Card key={index} className="bg-white/90 backdrop-blur-sm hover:shadow-lg transition-shadow">
-                    <CardHeader>
-                      <div className="flex items-center justify-between">
-                        <CardTitle className="flex items-center text-gray-900 dark:text-gray-100">
-                          <div className="p-2 bg-blue-100 dark:bg-blue-900 rounded-lg mr-3">
-                            <IconComponent className="w-6 h-6 text-blue-600 dark:text-blue-300" />
-                          </div>
-                          {feature.title}
-                        </CardTitle>
-                        <Badge 
-                          variant={feature.status === 'active' ? 'default' : 'secondary'}
-                          className={feature.status === 'active' ? 'bg-green-100 text-green-800' : ''}
-                        >
-                          {feature.status === 'active' ? 'Active' : 'Coming Soon'}
-                        </Badge>
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-gray-600 dark:text-gray-300 mb-4">{feature.description}</p>
-                      <div className="space-y-2">
-                        {feature.features.map((feat, idx) => (
-                          <div key={idx} className="flex items-center text-sm text-gray-600 dark:text-gray-400">
-                            <ChevronRight className="w-3 h-3 mr-2 text-blue-500" />
-                            {feat}
-                          </div>
-                        ))}
-                      </div>
-                      <Button 
-                        className="w-full mt-4" 
-                        disabled={feature.status !== 'active'}
-                        onClick={() => {
-                          if (feature.title === "AI Teaching Assistant") setActiveTab('ai-assistant');
-                          if (feature.title === "Learning Analytics") setActiveTab('analytics');
-                        }}
-                      >
-                        {feature.status === 'active' ? 'Launch' : 'Coming Soon'}
-                      </Button>
-                    </CardContent>
-                  </Card>
-                );
-              })}
-            </div>
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+        <TabsList className="grid w-full grid-cols-5">
+          <TabsTrigger value="overview">Overview</TabsTrigger>
+          <TabsTrigger value="topics">Learning Topics</TabsTrigger>
+          <TabsTrigger value="scenarios">Clinical Scenarios</TabsTrigger>
+          <TabsTrigger value="analytics">Analytics</TabsTrigger>
+          <TabsTrigger value="exam-prep">Exam Prep</TabsTrigger>
+        </TabsList>
 
-            {/* Knowledge Gaps Alert */}
-            {gaps.length > 0 && (
-              <Card className="border-l-4 border-l-orange-500 bg-orange-50 dark:bg-orange-900/20">
-                <CardHeader>
-                  <CardTitle className="flex items-center text-orange-800 dark:text-orange-300">
-                    <Lightbulb className="w-5 h-5 mr-2" />
-                    Recommended Focus Areas
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-orange-700 dark:text-orange-400 mb-4">
-                    We've identified {gaps.length} areas where additional study could strengthen your knowledge:
-                  </p>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                    {gaps.slice(0, 6).map((gap, index) => (
-                      <div key={index} className="flex items-center justify-between bg-white dark:bg-gray-800 p-3 rounded-lg">
-                        <span className="text-sm font-medium">{gap.topic}</span>
-                        <Badge 
-                          variant="outline"
-                          className={`text-xs ${
-                            gap.priority === 'high' ? 'border-red-300 text-red-700' :
-                            gap.priority === 'medium' ? 'border-yellow-300 text-yellow-700' :
-                            'border-green-300 text-green-700'
-                          }`}
-                        >
-                          {gap.priority}
-                        </Badge>
-                      </div>
-                    ))}
-                  </div>
-                  <Button 
-                    className="mt-4"
-                    onClick={() => setActiveTab('analytics')}
-                  >
-                    View Detailed Analysis
-                  </Button>
-                </CardContent>
-              </Card>
-            )}
-
-            {/* Recent Activity */}
+        <TabsContent value="overview" className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Learning Progress Overview */}
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center">
-                  <Clock className="w-5 h-5 mr-2" />
-                  Recent Learning Activity
+                <CardTitle className="flex items-center gap-2">
+                  <TrendingUp className="w-5 h-5 text-green-600" />
+                  Learning Progress
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                {analyticsLoading ? (
+                  <div className="animate-pulse space-y-3">
+                    <div className="h-4 bg-gray-200 rounded"></div>
+                    <div className="h-4 bg-gray-200 rounded w-2/3"></div>
+                  </div>
+                ) : analytics ? (
+                  <div className="space-y-4">
+                    <div>
+                      <div className="flex justify-between text-sm mb-1">
+                        <span>Overall Mastery</span>
+                        <span>{Math.round((analytics.averageMastery || 0) * 100)}%</span>
+                      </div>
+                      <Progress value={(analytics.averageMastery || 0) * 100} className="h-2" />
+                    </div>
+                    <div className="grid grid-cols-2 gap-4 text-sm">
+                      <div>
+                        <div className="text-gray-500">Topics Studied</div>
+                        <div className="font-semibold">{analytics.totalTopics || 0}</div>
+                      </div>
+                      <div>
+                        <div className="text-gray-500">Mastered</div>
+                        <div className="font-semibold text-green-600">{analytics.masteredTopics || 0}</div>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="text-center text-gray-500">
+                    Start learning to see progress
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+
+            {/* Available Topics */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <BookOpen className="w-5 h-5 text-blue-600" />
+                  Available Topics
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
-                  {analytics.getRecentSessions(3).map((session, index) => (
-                    <div key={session.id} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
-                          <MessageCircle className="w-4 h-4 text-blue-600 dark:text-blue-300" />
-                        </div>
-                        <div>
-                          <p className="font-medium text-sm">{session.topicsStudied.join(', ')}</p>
-                          <p className="text-xs text-gray-600 dark:text-gray-400">
-                            {new Date(session.timestamp).toLocaleDateString()} • {session.duration}min
-                          </p>
-                        </div>
-                      </div>
-                      <Badge variant="outline" className="text-xs">
-                        {Math.round((session.correctAnswers / Math.max(session.questionsAnswered, 1)) * 100)}% accuracy
-                      </Badge>
-                    </div>
-                  ))}
-                  {analytics.getRecentSessions().length === 0 && (
-                    <div className="text-center py-8 text-gray-500 dark:text-gray-400">
-                      <Brain className="w-12 h-12 mx-auto mb-3 opacity-50" />
-                      <p>No recent learning sessions. Start your first AI teaching session!</p>
-                      <Button 
-                        className="mt-3"
-                        onClick={() => setActiveTab('ai-assistant')}
-                      >
-                        Begin Learning
-                      </Button>
-                    </div>
-                  )}
+                  <div className="text-2xl font-bold text-blue-600">
+                    {topicsLoading ? '...' : topics.length}
+                  </div>
+                  <div className="text-sm text-gray-600">
+                    Evidence-based learning modules from NCCN, ASCO, and ESMO guidelines
+                  </div>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    onClick={() => setActiveTab('topics')}
+                    className="w-full"
+                  >
+                    <ChevronRight className="w-4 h-4 mr-1" />
+                    Browse Topics
+                  </Button>
                 </div>
               </CardContent>
             </Card>
-          </TabsContent>
 
-          <TabsContent value="ai-assistant">
-            <AIChatAssistant />
-          </TabsContent>
-
-          <TabsContent value="analytics">
-            <LearningDashboard />
-          </TabsContent>
-
-          <TabsContent value="pathways" className="space-y-6">
+            {/* Clinical Scenarios */}
             <Card>
               <CardHeader>
-                <CardTitle>Personalized Learning Pathways</CardTitle>
-                <p className="text-gray-600 dark:text-gray-300">
-                  Structured curricula designed for different experience levels and career goals
-                </p>
+                <CardTitle className="flex items-center gap-2">
+                  <Stethoscope className="w-5 h-5 text-purple-600" />
+                  Clinical Scenarios
+                </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                  {learningPaths.map((path, index) => (
-                    <Card key={index} className="relative overflow-hidden">
-                      <div className={`absolute top-0 left-0 w-full h-1 ${path.color}`} />
-                      <CardHeader>
-                        <div className="flex items-center justify-between">
-                          <CardTitle className="text-lg">{path.title}</CardTitle>
-                          <Badge variant="outline" className="capitalize">
-                            {path.level}
-                          </Badge>
+                <div className="space-y-3">
+                  <div className="text-2xl font-bold text-purple-600">
+                    {scenariosLoading ? '...' : scenarios.length}
+                  </div>
+                  <div className="text-sm text-gray-600">
+                    Real patient cases based on current clinical guidelines
+                  </div>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    onClick={() => setActiveTab('scenarios')}
+                    className="w-full"
+                  >
+                    <Play className="w-4 h-4 mr-1" />
+                    Start Scenario
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Recent Activity */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Activity className="w-5 h-5 text-gray-600" />
+                Module Features
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="flex items-center gap-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                  <Brain className="w-6 h-6 text-blue-600" />
+                  <div>
+                    <div className="font-medium">AI Teaching Assistant</div>
+                    <div className="text-sm text-gray-600">Socratic questioning</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 p-3 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                  <BarChart3 className="w-6 h-6 text-green-600" />
+                  <div>
+                    <div className="font-medium">Learning Analytics</div>
+                    <div className="text-sm text-gray-600">Progress tracking</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
+                  <Target className="w-6 h-6 text-purple-600" />
+                  <div>
+                    <div className="font-medium">Adaptive Learning</div>
+                    <div className="text-sm text-gray-600">Personalized paths</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 p-3 bg-orange-50 dark:bg-orange-900/20 rounded-lg">
+                  <Award className="w-6 h-6 text-orange-600" />
+                  <div>
+                    <div className="font-medium">Exam Preparation</div>
+                    <div className="text-sm text-gray-600">MRCP, ESMO, FRCR</div>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="topics" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <BookOpen className="w-5 h-5 text-blue-600" />
+                Learning Topics
+                <Badge variant="secondary">{topics.length} Available</Badge>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              {topicsLoading ? (
+                <div className="space-y-4">
+                  {[1, 2, 3].map((i) => (
+                    <div key={i} className="animate-pulse">
+                      <div className="h-6 bg-gray-200 rounded mb-2"></div>
+                      <div className="h-4 bg-gray-200 rounded w-2/3"></div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {topics.map((topic: EducationalTopic) => (
+                    <Card key={topic.id} className="border border-gray-200 hover:border-blue-300 transition-colors">
+                      <CardContent className="p-4">
+                        <div className="flex justify-between items-start mb-3">
+                          <h3 className="font-semibold text-lg text-gray-900 dark:text-white">
+                            {topic.title}
+                          </h3>
+                          <div className="flex gap-2">
+                            <Badge variant="outline">{topic.difficulty}</Badge>
+                            <Badge variant="secondary">{topic.evidenceLevel}</Badge>
+                          </div>
                         </div>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">{path.description}</p>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="space-y-4">
-                          <div className="flex items-center justify-between text-sm">
-                            <span className="text-gray-600 dark:text-gray-400">Duration:</span>
-                            <span className="font-medium">{path.duration}</span>
-                          </div>
-                          
+                        
+                        <div className="grid grid-cols-2 gap-4 mb-3 text-sm">
                           <div>
-                            <h4 className="font-medium mb-2">Key Topics:</h4>
-                            <div className="space-y-1">
-                              {path.topics.map((topic, idx) => (
-                                <div key={idx} className="flex items-center text-sm text-gray-600 dark:text-gray-400">
-                                  <Star className="w-3 h-3 mr-2 text-yellow-500" />
-                                  {topic}
-                                </div>
-                              ))}
-                            </div>
+                            <span className="text-gray-500">Subspecialty:</span>
+                            <span className="ml-2 font-medium">{topic.subspecialty}</span>
                           </div>
-                          
-                          <Button className="w-full">
-                            Start Pathway
+                          <div>
+                            <span className="text-gray-500">Organ Site:</span>
+                            <span className="ml-2 font-medium">{topic.organSite || 'Various'}</span>
+                          </div>
+                        </div>
+
+                        <div className="mb-3">
+                          <div className="text-sm text-gray-500 mb-1">Learning Objectives:</div>
+                          <ul className="list-disc list-inside text-sm space-y-1">
+                            {topic.learningObjectives.slice(0, 2).map((objective, idx) => (
+                              <li key={idx} className="text-gray-700 dark:text-gray-300">{objective}</li>
+                            ))}
+                          </ul>
+                        </div>
+
+                        <div className="flex justify-between items-center">
+                          <div className="text-xs text-gray-500">
+                            {topic.guidelineReference}
+                          </div>
+                          <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
+                            <Play className="w-4 h-4 mr-1" />
+                            Start Learning
                           </Button>
                         </div>
                       </CardContent>
                     </Card>
                   ))}
                 </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
 
-          <TabsContent value="scenarios" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center">
-                  <Stethoscope className="w-5 h-5 mr-2" />
-                  Clinical Scenarios
-                </CardTitle>
-                <p className="text-gray-600 dark:text-gray-300">
-                  Interactive case-based learning with real-world clinical scenarios
-                </p>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center py-12">
-                  <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Stethoscope className="w-8 h-8 text-blue-600 dark:text-blue-300" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
-                    Clinical Scenarios Coming Soon
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-300 mb-6 max-w-md mx-auto">
-                    We're developing immersive clinical scenarios that will provide hands-on learning 
-                    experience across all oncology specialties.
-                  </p>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
-                    {[
-                      "Emergency Management",
-                      "Treatment Protocols", 
-                      "Multidisciplinary Cases",
-                      "Side Effect Management",
-                      "Patient Communication",
-                      "Ethical Dilemmas"
-                    ].map((scenario, index) => (
-                      <div key={index} className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
-                        <h4 className="font-medium text-gray-900 dark:text-gray-100">{scenario}</h4>
-                        <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                          Interactive scenarios coming soon
+        <TabsContent value="scenarios" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Stethoscope className="w-5 h-5 text-purple-600" />
+                Clinical Scenarios
+                <Badge variant="secondary">{scenarios.length} Available</Badge>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              {scenariosLoading ? (
+                <div className="space-y-4">
+                  {[1, 2].map((i) => (
+                    <div key={i} className="animate-pulse">
+                      <div className="h-6 bg-gray-200 rounded mb-2"></div>
+                      <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+                      <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="space-y-6">
+                  {scenarios.map((scenario: ClinicalScenario) => (
+                    <Card key={scenario.id} className="border border-gray-200 hover:border-purple-300 transition-colors">
+                      <CardContent className="p-6">
+                        <div className="flex justify-between items-start mb-4">
+                          <h3 className="font-semibold text-lg text-gray-900 dark:text-white">
+                            {scenario.title}
+                          </h3>
+                          <div className="flex gap-2">
+                            <Badge variant="outline">{scenario.difficulty}</Badge>
+                            <Badge variant="secondary">
+                              <Clock className="w-3 h-3 mr-1" />
+                              {scenario.estimatedTime}min
+                            </Badge>
+                          </div>
+                        </div>
+                        
+                        <p className="text-gray-600 dark:text-gray-300 mb-4">
+                          {scenario.description}
                         </p>
+
+                        <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+                          <div className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            Patient Presentation:
+                          </div>
+                          <div className="text-sm text-gray-600 dark:text-gray-400">
+                            {typeof scenario.patientPresentation === 'object' ? 
+                              JSON.stringify(scenario.patientPresentation).replace(/[{}"]/g, '').replace(/,/g, ', ') :
+                              scenario.patientPresentation
+                            }
+                          </div>
+                        </div>
+
+                        <div className="mb-4">
+                          <div className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            Learning Outcomes:
+                          </div>
+                          <ul className="list-disc list-inside text-sm space-y-1">
+                            {scenario.learningOutcomes.map((outcome, idx) => (
+                              <li key={idx} className="text-gray-600 dark:text-gray-400">{outcome}</li>
+                            ))}
+                          </ul>
+                        </div>
+
+                        <div className="flex justify-between items-center">
+                          <div className="text-xs text-gray-500">
+                            {scenario.guidelineReference}
+                          </div>
+                          <Button className="bg-purple-600 hover:bg-purple-700">
+                            <Play className="w-4 h-4 mr-2" />
+                            Start Scenario
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="analytics" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <BarChart3 className="w-5 h-5 text-green-600" />
+                Learning Analytics
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              {analyticsLoading ? (
+                <div className="animate-pulse space-y-4">
+                  <div className="h-8 bg-gray-200 rounded"></div>
+                  <div className="h-32 bg-gray-200 rounded"></div>
+                </div>
+              ) : analytics ? (
+                <div className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <Card className="border border-blue-200">
+                      <CardContent className="p-4 text-center">
+                        <div className="text-2xl font-bold text-blue-600">{analytics.totalTopics || 0}</div>
+                        <div className="text-sm text-gray-600">Topics Studied</div>
+                      </CardContent>
+                    </Card>
+                    <Card className="border border-green-200">
+                      <CardContent className="p-4 text-center">
+                        <div className="text-2xl font-bold text-green-600">{analytics.masteredTopics || 0}</div>
+                        <div className="text-sm text-gray-600">Topics Mastered</div>
+                      </CardContent>
+                    </Card>
+                    <Card className="border border-orange-200">
+                      <CardContent className="p-4 text-center">
+                        <div className="text-2xl font-bold text-orange-600">
+                          {Math.round((analytics.averageMastery || 0) * 100)}%
+                        </div>
+                        <div className="text-sm text-gray-600">Average Mastery</div>
+                      </CardContent>
+                    </Card>
+                  </div>
+
+                  {analytics.weakAreas && analytics.weakAreas.length > 0 && (
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="text-lg flex items-center gap-2">
+                          <AlertCircle className="w-5 h-5 text-orange-500" />
+                          Areas for Improvement
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="space-y-3">
+                          {analytics.weakAreas.slice(0, 5).map((area: any, idx: number) => (
+                            <div key={idx} className="flex justify-between items-center p-3 bg-orange-50 dark:bg-orange-900/20 rounded-lg">
+                              <span className="font-medium">Topic ID: {area.topicId}</span>
+                              <div className="flex items-center gap-2">
+                                <Progress value={Number(area.masteryLevel) * 100} className="w-20 h-2" />
+                                <span className="text-sm text-gray-600">
+                                  {Math.round(Number(area.masteryLevel) * 100)}%
+                                </span>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  )}
+
+                  {analytics.studyRecommendations && analytics.studyRecommendations.length > 0 && (
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="text-lg flex items-center gap-2">
+                          <Lightbulb className="w-5 h-5 text-yellow-500" />
+                          Study Recommendations
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <ul className="space-y-2">
+                          {analytics.studyRecommendations.map((rec: string, idx: number) => (
+                            <li key={idx} className="flex items-start gap-2">
+                              <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                              <span className="text-sm">{rec}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </CardContent>
+                    </Card>
+                  )}
+                </div>
+              ) : (
+                <div className="text-center py-8">
+                  <BarChart3 className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                  <div className="text-gray-500">No analytics data available yet</div>
+                  <div className="text-sm text-gray-400">Start learning to see your progress</div>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="exam-prep" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Award className="w-5 h-5 text-orange-600" />
+                Exam Preparation
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {['MRCP', 'ESMO', 'FRCR'].map((exam) => (
+                  <Card key={exam} className="border border-gray-200 hover:border-orange-300 transition-colors">
+                    <CardContent className="p-6 text-center">
+                      <div className="text-xl font-bold text-orange-600 mb-2">{exam}</div>
+                      <div className="text-sm text-gray-600 mb-4">
+                        Targeted preparation with evidence-based content
                       </div>
-                    ))}
+                      <Button variant="outline" className="w-full">
+                        <FileText className="w-4 h-4 mr-2" />
+                        Start Prep
+                      </Button>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+              
+              <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                <div className="flex items-start gap-3">
+                  <Book className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
+                  <div>
+                    <div className="font-medium text-blue-800 dark:text-blue-200 mb-1">
+                      Evidence-Based Content
+                    </div>
+                    <div className="text-sm text-blue-700 dark:text-blue-300">
+                      All exam preparation materials are based on current NCCN, ASCO, and ESMO guidelines. 
+                      Questions and scenarios reflect real clinical practice and exam standards.
+                    </div>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-        </Tabs>
-      </div>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 };
