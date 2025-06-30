@@ -17,7 +17,7 @@ import { cn } from "@/lib/utils";
 
 // Import section components
 import SymptomControl from "./sections/SymptomControl";
-import EnhancedPainManagement from "./sections/EnhancedPainManagement";
+import PainManagement from "./sections/PainManagement";
 import FamilySupport from "./sections/FamilySupport";
 import AdvancedDirective from "./sections/AdvancedDirective";
 import PsychosocialCare from "./sections/PsychosocialCare";
@@ -91,7 +91,7 @@ export default function PalliativeCareModule() {
       case "symptom":
         return <SymptomControl />;
       case "pain":
-        return <EnhancedPainManagement />;
+        return <PainManagement />;
       case "family":
         return <FamilySupport />;
       case "directive":
