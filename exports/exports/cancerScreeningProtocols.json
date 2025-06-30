@@ -1,0 +1,251 @@
+[
+  {
+    "id": "af36a2ee-3db8-4d62-aaa3-d03d565cc23c",
+    "cancerType": "Breast Cancer",
+    "ageRange": "40-49 years",
+    "riskFactors": {
+      "high_risk": [
+        "BRCA1/2 mutation",
+        "family_history",
+        "chest_radiation"
+      ],
+      "average_risk": [
+        "female_sex"
+      ]
+    },
+    "testName": "Digital Mammography",
+    "frequency": "Annual",
+    "recommendationStrength": "Category 2A",
+    "source": "NCCN Guidelines v3.2025",
+    "evidenceLevel": "Category 2A",
+    "additionalConsiderations": "Consider breast MRI for high-risk patients (>20% lifetime risk)",
+    "contraindications": [
+      "pregnancy",
+      "lactation"
+    ],
+    "followUpProtocol": "Abnormal: recall for additional imaging within 1-2 weeks",
+    "costEffectiveness": "Cost-effective for women ≥50, debated for 40-49",
+    "createdAt": "2025-06-30T11:48:29.232Z",
+    "updatedAt": "2025-06-30T11:48:29.232Z"
+  },
+  {
+    "id": "749e6fcc-765e-4ea8-b3ea-3137ef0f5c8d",
+    "cancerType": "Breast Cancer",
+    "ageRange": "50-74 years",
+    "riskFactors": {
+      "high_risk": [
+        "genetic_predisposition",
+        "prior_atypical_hyperplasia"
+      ],
+      "average_risk": [
+        "female_sex"
+      ]
+    },
+    "testName": "Digital Mammography",
+    "frequency": "Annual",
+    "recommendationStrength": "Category 1",
+    "source": "NCCN Guidelines v3.2025",
+    "evidenceLevel": "Category 1",
+    "additionalConsiderations": "Strongest evidence for mortality reduction in this age group",
+    "contraindications": [
+      "pregnancy",
+      "severe_illness"
+    ],
+    "followUpProtocol": "BI-RADS 4/5: tissue sampling within 1 week",
+    "costEffectiveness": "Most cost-effective screening interval",
+    "createdAt": "2025-06-30T11:48:29.232Z",
+    "updatedAt": "2025-06-30T11:48:29.232Z"
+  },
+  {
+    "id": "22ceae5b-0a0d-48ed-8966-5e77b3de9b18",
+    "cancerType": "Colorectal Cancer",
+    "ageRange": "45-75 years",
+    "riskFactors": {
+      "high_risk": [
+        "family_history",
+        "IBD",
+        "polyps"
+      ],
+      "average_risk": [
+        "age"
+      ]
+    },
+    "testName": "Colonoscopy",
+    "frequency": "Every 10 years",
+    "recommendationStrength": "Category 1",
+    "source": "NCCN Guidelines v2.2025",
+    "evidenceLevel": "Category 1",
+    "additionalConsiderations": "Gold standard with therapeutic capability",
+    "contraindications": [
+      "severe_comorbidities",
+      "anticoagulation"
+    ],
+    "followUpProtocol": "Positive findings: polypectomy and surveillance per guidelines",
+    "costEffectiveness": "Cost-effective compared to no screening",
+    "createdAt": "2025-06-30T11:48:29.232Z",
+    "updatedAt": "2025-06-30T11:48:29.232Z"
+  },
+  {
+    "id": "70f7d7e5-6248-4e4d-b7e9-8afae542a8e6",
+    "cancerType": "Colorectal Cancer",
+    "ageRange": "45-75 years",
+    "riskFactors": {
+      "average_risk": [
+        "age"
+      ],
+      "prefer_noninvasive": [
+        "patient_preference"
+      ]
+    },
+    "testName": "FIT (Fecal Immunochemical Test)",
+    "frequency": "Annual",
+    "recommendationStrength": "Category 1",
+    "source": "NCCN Guidelines v2.2025",
+    "evidenceLevel": "Category 1",
+    "additionalConsiderations": "Alternative to colonoscopy for average-risk patients",
+    "contraindications": [
+      "upper_GI_bleeding",
+      "menstruation"
+    ],
+    "followUpProtocol": "Positive FIT: colonoscopy within 3 months",
+    "costEffectiveness": "Lower cost but requires annual compliance",
+    "createdAt": "2025-06-30T11:48:29.232Z",
+    "updatedAt": "2025-06-30T11:48:29.232Z"
+  },
+  {
+    "id": "8c6c3142-eb0e-407b-a77b-bdc20f8336c5",
+    "cancerType": "Lung Cancer",
+    "ageRange": "50-80 years",
+    "riskFactors": {
+      "high_risk": [
+        "smoking_history_20_pack_years",
+        "current_smoker",
+        "quit_within_15_years"
+      ]
+    },
+    "testName": "Low-dose CT chest",
+    "frequency": "Annual",
+    "recommendationStrength": "Category 1",
+    "source": "NCCN Guidelines v2.2025",
+    "evidenceLevel": "Category 1",
+    "additionalConsiderations": "Must include smoking cessation counseling",
+    "contraindications": [
+      "life_expectancy_less_than_10_years",
+      "severe_comorbidities"
+    ],
+    "followUpProtocol": "Lung-RADS 3/4: pulmonary nodule workup per guidelines",
+    "costEffectiveness": "Prevents 20% of lung cancer deaths in high-risk population",
+    "createdAt": "2025-06-30T11:48:29.232Z",
+    "updatedAt": "2025-06-30T11:48:29.232Z"
+  },
+  {
+    "id": "d1e5ecf0-a6b6-4c18-831e-6271712faa61",
+    "cancerType": "Prostate Cancer",
+    "ageRange": "45-70 years",
+    "riskFactors": {
+      "high_risk": [
+        "African_American",
+        "family_history"
+      ],
+      "average_risk": [
+        "male_sex"
+      ]
+    },
+    "testName": "PSA (Prostate-Specific Antigen)",
+    "frequency": "Every 1-2 years",
+    "recommendationStrength": "Category 2A",
+    "source": "NCCN Guidelines v2.2025",
+    "evidenceLevel": "Category 2A",
+    "additionalConsiderations": "Shared decision-making essential due to overdiagnosis risk",
+    "contraindications": [
+      "life_expectancy_less_than_10_years"
+    ],
+    "followUpProtocol": "PSA >4.0: urologic evaluation and possible biopsy",
+    "costEffectiveness": "Benefits vs harms debate ongoing",
+    "createdAt": "2025-06-30T11:48:29.232Z",
+    "updatedAt": "2025-06-30T11:48:29.232Z"
+  },
+  {
+    "id": "951a8f36-4f8a-4560-8777-875e43267032",
+    "cancerType": "Cervical Cancer",
+    "ageRange": "21-29 years",
+    "riskFactors": {
+      "high_risk": [
+        "HPV_infection",
+        "immunocompromised"
+      ],
+      "average_risk": [
+        "sexually_active"
+      ]
+    },
+    "testName": "Cytology (Pap test)",
+    "frequency": "Every 3 years",
+    "recommendationStrength": "Category 1",
+    "source": "NCCN Guidelines v1.2025",
+    "evidenceLevel": "Category 1",
+    "additionalConsiderations": "HPV testing not recommended in this age group",
+    "contraindications": [
+      "pregnancy",
+      "active_bleeding"
+    ],
+    "followUpProtocol": "Abnormal cytology: colposcopy per ASC guidelines",
+    "costEffectiveness": "Highly cost-effective prevention strategy",
+    "createdAt": "2025-06-30T11:48:29.232Z",
+    "updatedAt": "2025-06-30T11:48:29.232Z"
+  },
+  {
+    "id": "791d7c58-7b76-48ba-84ae-771c861add9a",
+    "cancerType": "Cervical Cancer",
+    "ageRange": "30-65 years",
+    "riskFactors": {
+      "average_risk": [
+        "sexually_active"
+      ],
+      "prefer_cotesting": [
+        "patient_preference"
+      ]
+    },
+    "testName": "Cytology + HPV co-testing",
+    "frequency": "Every 5 years",
+    "recommendationStrength": "Category 1",
+    "source": "NCCN Guidelines v1.2025",
+    "evidenceLevel": "Category 1",
+    "additionalConsiderations": "Preferred method for this age group",
+    "contraindications": [
+      "hysterectomy_with_cervix_removal"
+    ],
+    "followUpProtocol": "HPV+ with normal cytology: repeat in 1 year",
+    "costEffectiveness": "Allows for extended screening intervals",
+    "createdAt": "2025-06-30T11:48:29.232Z",
+    "updatedAt": "2025-06-30T11:48:29.232Z"
+  },
+  {
+    "id": "0b7e8460-5e95-4543-9dc2-6fab02a0db88",
+    "cancerType": "Melanoma",
+    "ageRange": "18+ years",
+    "riskFactors": {
+      "high_risk": [
+        "fair_skin",
+        "multiple_moles",
+        "family_history",
+        "immunosuppression"
+      ],
+      "average_risk": [
+        "UV_exposure"
+      ]
+    },
+    "testName": "Total body skin examination",
+    "frequency": "Annual (high-risk), Every 3 years (average-risk)",
+    "recommendationStrength": "Category 2A",
+    "source": "NCCN Guidelines v2.2025",
+    "evidenceLevel": "Category 2A",
+    "additionalConsiderations": "Include dermoscopy for suspicious lesions",
+    "contraindications": [
+      "patient_refusal"
+    ],
+    "followUpProtocol": "Suspicious lesions: biopsy within 1-2 weeks",
+    "costEffectiveness": "Cost-effectiveness varies by risk level",
+    "createdAt": "2025-06-30T11:48:29.232Z",
+    "updatedAt": "2025-06-30T11:48:29.232Z"
+  }
+]

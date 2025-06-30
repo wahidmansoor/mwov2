@@ -1,0 +1,1877 @@
+[
+  {
+    "id": "ac50f973-7aac-4fd3-837d-8a7dce6d9b0d",
+    "title": "Breast Cancer Staging and Biomarker Testing",
+    "category": "Biomarkers",
+    "subspecialty": "Medical Oncology",
+    "organSite": "Breast",
+    "difficulty": "Fellow",
+    "guidelineReference": "NCCN Breast Cancer Guidelines V4.2025",
+    "learningObjectives": [
+      "Apply AJCC 8th edition TNM staging criteria for breast cancer",
+      "Interpret ER, PR, and HER2 testing results according to ASCO/CAP guidelines",
+      "Evaluate Ki-67 expression and its clinical significance",
+      "Assess multigene assays (Oncotype DX, MammaPrint) for treatment decisions"
+    ],
+    "keyPoints": [
+      "ER/PR positivity defined as ≥1% nuclear staining (ASCO/CAP 2020)",
+      "HER2 amplification: IHC 3+ or ISH ratio ≥2.0 with HER2 copy number ≥4.0",
+      "Ki-67 >20% suggests higher proliferation and potential chemotherapy benefit",
+      "Stage I-III hormone receptor-positive disease requires multigene testing consideration"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:51:47.623Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:51:47.623Z"
+  },
+  {
+    "id": "ce6293a5-37a7-45a7-866d-639301642d49",
+    "title": "Small Cell Lung Cancer Treatment Algorithms",
+    "category": "Treatment",
+    "subspecialty": "Medical Oncology",
+    "organSite": "Lung",
+    "difficulty": "Resident",
+    "guidelineReference": "NCCN Small Cell Lung Cancer Guidelines V4.2025",
+    "learningObjectives": [
+      "Distinguish limited-stage from extensive-stage SCLC using NCCN criteria",
+      "Select appropriate first-line chemotherapy regimens for SCLC",
+      "Integrate immunotherapy (atezolizumab, durvalumab) into treatment plans",
+      "Apply prophylactic cranial irradiation (PCI) recommendations"
+    ],
+    "keyPoints": [
+      "Limited-stage: disease confined to one hemithorax within a single radiation port",
+      "Extensive-stage: disease beyond limited-stage definition",
+      "First-line: Carboplatin/Etoposide + Atezolizumab (ES-SCLC, Category 1)",
+      "Durvalumab maintenance after concurrent chemoradiation (LS-SCLC, Category 1)"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:51:47.707Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:51:47.707Z"
+  },
+  {
+    "id": "86b64362-ddf4-425e-9d53-8a4a2d2dc47f",
+    "title": "Colon Cancer Molecular Profiling and Targeted Therapy",
+    "category": "Biomarkers",
+    "subspecialty": "Medical Oncology",
+    "organSite": "Colon",
+    "difficulty": "Attending",
+    "guidelineReference": "NCCN Colon Cancer Guidelines V3.2025",
+    "learningObjectives": [
+      "Interpret RAS (KRAS/NRAS) and BRAF mutation testing results",
+      "Evaluate microsatellite instability (MSI) and mismatch repair (MMR) status",
+      "Apply HER2 amplification testing in metastatic colorectal cancer",
+      "Select appropriate targeted therapies based on molecular profile"
+    ],
+    "keyPoints": [
+      "All metastatic CRC requires RAS, BRAF, MSI/MMR, and HER2 testing",
+      "RAS wild-type tumors eligible for anti-EGFR therapy (cetuximab, panitumumab)",
+      "BRAF V600E mutations: poor prognosis, specific combination therapies",
+      "MSI-H/dMMR tumors: pembrolizumab first-line (Category 1)"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:51:47.783Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:51:47.783Z"
+  },
+  {
+    "id": "ed58ea65-930a-4778-8b1d-a3dc4ad8d7a6",
+    "title": "Bone Cancer Diagnostic Workup and Staging",
+    "category": "Staging",
+    "subspecialty": "Orthopedic Oncology",
+    "organSite": "Bone",
+    "difficulty": "Fellow",
+    "guidelineReference": "NCCN Bone Cancer Guidelines V1.2025",
+    "learningObjectives": [
+      "Apply age-based diagnostic algorithms for bone lesions",
+      "Interpret imaging findings for primary bone tumors",
+      "Evaluate cytogenetic testing requirements for sarcomas",
+      "Coordinate multidisciplinary team evaluation"
+    ],
+    "keyPoints": [
+      "Age <40 years: immediate orthopedic oncology referral for bone lesions",
+      "Age ≥40 years: metastatic workup priority before primary tumor consideration",
+      "Osteosarcoma: alkaline phosphatase and LDH prognostic markers",
+      "Ewing sarcoma: EWSR1 rearrangement confirmation required"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:51:47.858Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:51:47.858Z"
+  },
+  {
+    "id": "c300f4ef-1792-4536-84e3-e37015481833",
+    "title": "Radiation Therapy Planning and Dose Constraints",
+    "category": "Treatment",
+    "subspecialty": "Radiation Oncology",
+    "organSite": "Various",
+    "difficulty": "Resident",
+    "guidelineReference": "RTOG/QUANTEC Dose Constraints 2025",
+    "learningObjectives": [
+      "Apply organ-at-risk (OAR) dose constraints in treatment planning",
+      "Calculate biologically effective dose (BED) for hypofractionation",
+      "Evaluate IMRT vs VMAT technique selection",
+      "Implement image-guided radiation therapy (IGRT) protocols"
+    ],
+    "keyPoints": [
+      "Spinal cord: maximum dose 45-50 Gy in conventional fractionation",
+      "Heart: mean dose <26 Gy to reduce cardiac mortality risk",
+      "Lung: V20 <20% and mean lung dose <13 Gy for pneumonitis prevention",
+      "BED calculation: Total dose × (1 + dose per fraction / α/β ratio)"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:51:47.933Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:51:47.933Z"
+  },
+  {
+    "id": "7c03e516-336a-456b-b379-d5033cc5cf35",
+    "title": "Breast Cancer Staging and Biomarker Testing",
+    "category": "Biomarkers",
+    "subspecialty": "Medical Oncology",
+    "organSite": "Breast",
+    "difficulty": "Fellow",
+    "guidelineReference": "NCCN Breast Cancer Guidelines V4.2025",
+    "learningObjectives": [
+      "Apply AJCC 8th edition TNM staging criteria for breast cancer",
+      "Interpret ER, PR, and HER2 testing results according to ASCO/CAP guidelines",
+      "Evaluate Ki-67 expression and its clinical significance",
+      "Assess multigene assays (Oncotype DX, MammaPrint) for treatment decisions"
+    ],
+    "keyPoints": [
+      "ER/PR positivity defined as ≥1% nuclear staining (ASCO/CAP 2020)",
+      "HER2 amplification: IHC 3+ or ISH ratio ≥2.0 with HER2 copy number ≥4.0",
+      "Ki-67 >20% suggests higher proliferation and potential chemotherapy benefit",
+      "Stage I-III hormone receptor-positive disease requires multigene testing consideration"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:51:59.564Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:51:59.564Z"
+  },
+  {
+    "id": "41bf0f09-381c-4721-8369-712bf77f10b9",
+    "title": "Small Cell Lung Cancer Treatment Algorithms",
+    "category": "Treatment",
+    "subspecialty": "Medical Oncology",
+    "organSite": "Lung",
+    "difficulty": "Resident",
+    "guidelineReference": "NCCN Small Cell Lung Cancer Guidelines V4.2025",
+    "learningObjectives": [
+      "Distinguish limited-stage from extensive-stage SCLC using NCCN criteria",
+      "Select appropriate first-line chemotherapy regimens for SCLC",
+      "Integrate immunotherapy (atezolizumab, durvalumab) into treatment plans",
+      "Apply prophylactic cranial irradiation (PCI) recommendations"
+    ],
+    "keyPoints": [
+      "Limited-stage: disease confined to one hemithorax within a single radiation port",
+      "Extensive-stage: disease beyond limited-stage definition",
+      "First-line: Carboplatin/Etoposide + Atezolizumab (ES-SCLC, Category 1)",
+      "Durvalumab maintenance after concurrent chemoradiation (LS-SCLC, Category 1)"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:51:59.648Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:51:59.648Z"
+  },
+  {
+    "id": "e4c1cb10-04fe-4132-8c00-b87f86c688a1",
+    "title": "Colon Cancer Molecular Profiling and Targeted Therapy",
+    "category": "Biomarkers",
+    "subspecialty": "Medical Oncology",
+    "organSite": "Colon",
+    "difficulty": "Attending",
+    "guidelineReference": "NCCN Colon Cancer Guidelines V3.2025",
+    "learningObjectives": [
+      "Interpret RAS (KRAS/NRAS) and BRAF mutation testing results",
+      "Evaluate microsatellite instability (MSI) and mismatch repair (MMR) status",
+      "Apply HER2 amplification testing in metastatic colorectal cancer",
+      "Select appropriate targeted therapies based on molecular profile"
+    ],
+    "keyPoints": [
+      "All metastatic CRC requires RAS, BRAF, MSI/MMR, and HER2 testing",
+      "RAS wild-type tumors eligible for anti-EGFR therapy (cetuximab, panitumumab)",
+      "BRAF V600E mutations: poor prognosis, specific combination therapies",
+      "MSI-H/dMMR tumors: pembrolizumab first-line (Category 1)"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:51:59.723Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:51:59.723Z"
+  },
+  {
+    "id": "9924b82a-e4a1-4e56-86e9-cc2869972580",
+    "title": "Bone Cancer Diagnostic Workup and Staging",
+    "category": "Staging",
+    "subspecialty": "Orthopedic Oncology",
+    "organSite": "Bone",
+    "difficulty": "Fellow",
+    "guidelineReference": "NCCN Bone Cancer Guidelines V1.2025",
+    "learningObjectives": [
+      "Apply age-based diagnostic algorithms for bone lesions",
+      "Interpret imaging findings for primary bone tumors",
+      "Evaluate cytogenetic testing requirements for sarcomas",
+      "Coordinate multidisciplinary team evaluation"
+    ],
+    "keyPoints": [
+      "Age <40 years: immediate orthopedic oncology referral for bone lesions",
+      "Age ≥40 years: metastatic workup priority before primary tumor consideration",
+      "Osteosarcoma: alkaline phosphatase and LDH prognostic markers",
+      "Ewing sarcoma: EWSR1 rearrangement confirmation required"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:51:59.801Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:51:59.801Z"
+  },
+  {
+    "id": "897b3d72-1ee9-48e3-a044-7e5221e5ddc3",
+    "title": "Radiation Therapy Planning and Dose Constraints",
+    "category": "Treatment",
+    "subspecialty": "Radiation Oncology",
+    "organSite": "Various",
+    "difficulty": "Resident",
+    "guidelineReference": "RTOG/QUANTEC Dose Constraints 2025",
+    "learningObjectives": [
+      "Apply organ-at-risk (OAR) dose constraints in treatment planning",
+      "Calculate biologically effective dose (BED) for hypofractionation",
+      "Evaluate IMRT vs VMAT technique selection",
+      "Implement image-guided radiation therapy (IGRT) protocols"
+    ],
+    "keyPoints": [
+      "Spinal cord: maximum dose 45-50 Gy in conventional fractionation",
+      "Heart: mean dose <26 Gy to reduce cardiac mortality risk",
+      "Lung: V20 <20% and mean lung dose <13 Gy for pneumonitis prevention",
+      "BED calculation: Total dose × (1 + dose per fraction / α/β ratio)"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:51:59.875Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:51:59.875Z"
+  },
+  {
+    "id": "abae309f-e9b6-4620-8a2b-0007d8033e4e",
+    "title": "Breast Cancer Staging and Biomarker Testing",
+    "category": "Biomarkers",
+    "subspecialty": "Medical Oncology",
+    "organSite": "Breast",
+    "difficulty": "Fellow",
+    "guidelineReference": "NCCN Breast Cancer Guidelines V4.2025",
+    "learningObjectives": [
+      "Apply AJCC 8th edition TNM staging criteria for breast cancer",
+      "Interpret ER, PR, and HER2 testing results according to ASCO/CAP guidelines",
+      "Evaluate Ki-67 expression and its clinical significance",
+      "Assess multigene assays (Oncotype DX, MammaPrint) for treatment decisions"
+    ],
+    "keyPoints": [
+      "ER/PR positivity defined as ≥1% nuclear staining (ASCO/CAP 2020)",
+      "HER2 amplification: IHC 3+ or ISH ratio ≥2.0 with HER2 copy number ≥4.0",
+      "Ki-67 >20% suggests higher proliferation and potential chemotherapy benefit",
+      "Stage I-III hormone receptor-positive disease requires multigene testing consideration"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:52:11.812Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:52:11.812Z"
+  },
+  {
+    "id": "286fec08-f38e-4427-874e-fd18851f69b1",
+    "title": "Small Cell Lung Cancer Treatment Algorithms",
+    "category": "Treatment",
+    "subspecialty": "Medical Oncology",
+    "organSite": "Lung",
+    "difficulty": "Resident",
+    "guidelineReference": "NCCN Small Cell Lung Cancer Guidelines V4.2025",
+    "learningObjectives": [
+      "Distinguish limited-stage from extensive-stage SCLC using NCCN criteria",
+      "Select appropriate first-line chemotherapy regimens for SCLC",
+      "Integrate immunotherapy (atezolizumab, durvalumab) into treatment plans",
+      "Apply prophylactic cranial irradiation (PCI) recommendations"
+    ],
+    "keyPoints": [
+      "Limited-stage: disease confined to one hemithorax within a single radiation port",
+      "Extensive-stage: disease beyond limited-stage definition",
+      "First-line: Carboplatin/Etoposide + Atezolizumab (ES-SCLC, Category 1)",
+      "Durvalumab maintenance after concurrent chemoradiation (LS-SCLC, Category 1)"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:52:11.887Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:52:11.887Z"
+  },
+  {
+    "id": "0e09b2ff-d581-4c2f-b747-73c3e5827b14",
+    "title": "Colon Cancer Molecular Profiling and Targeted Therapy",
+    "category": "Biomarkers",
+    "subspecialty": "Medical Oncology",
+    "organSite": "Colon",
+    "difficulty": "Attending",
+    "guidelineReference": "NCCN Colon Cancer Guidelines V3.2025",
+    "learningObjectives": [
+      "Interpret RAS (KRAS/NRAS) and BRAF mutation testing results",
+      "Evaluate microsatellite instability (MSI) and mismatch repair (MMR) status",
+      "Apply HER2 amplification testing in metastatic colorectal cancer",
+      "Select appropriate targeted therapies based on molecular profile"
+    ],
+    "keyPoints": [
+      "All metastatic CRC requires RAS, BRAF, MSI/MMR, and HER2 testing",
+      "RAS wild-type tumors eligible for anti-EGFR therapy (cetuximab, panitumumab)",
+      "BRAF V600E mutations: poor prognosis, specific combination therapies",
+      "MSI-H/dMMR tumors: pembrolizumab first-line (Category 1)"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:52:11.963Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:52:11.963Z"
+  },
+  {
+    "id": "e0dc4ff1-eeee-4bea-9cfc-abe3303eef70",
+    "title": "Bone Cancer Diagnostic Workup and Staging",
+    "category": "Staging",
+    "subspecialty": "Orthopedic Oncology",
+    "organSite": "Bone",
+    "difficulty": "Fellow",
+    "guidelineReference": "NCCN Bone Cancer Guidelines V1.2025",
+    "learningObjectives": [
+      "Apply age-based diagnostic algorithms for bone lesions",
+      "Interpret imaging findings for primary bone tumors",
+      "Evaluate cytogenetic testing requirements for sarcomas",
+      "Coordinate multidisciplinary team evaluation"
+    ],
+    "keyPoints": [
+      "Age <40 years: immediate orthopedic oncology referral for bone lesions",
+      "Age ≥40 years: metastatic workup priority before primary tumor consideration",
+      "Osteosarcoma: alkaline phosphatase and LDH prognostic markers",
+      "Ewing sarcoma: EWSR1 rearrangement confirmation required"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:52:12.037Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:52:12.037Z"
+  },
+  {
+    "id": "691452b8-e7ba-4ef5-9db2-a6e19768ccfe",
+    "title": "Radiation Therapy Planning and Dose Constraints",
+    "category": "Treatment",
+    "subspecialty": "Radiation Oncology",
+    "organSite": "Various",
+    "difficulty": "Resident",
+    "guidelineReference": "RTOG/QUANTEC Dose Constraints 2025",
+    "learningObjectives": [
+      "Apply organ-at-risk (OAR) dose constraints in treatment planning",
+      "Calculate biologically effective dose (BED) for hypofractionation",
+      "Evaluate IMRT vs VMAT technique selection",
+      "Implement image-guided radiation therapy (IGRT) protocols"
+    ],
+    "keyPoints": [
+      "Spinal cord: maximum dose 45-50 Gy in conventional fractionation",
+      "Heart: mean dose <26 Gy to reduce cardiac mortality risk",
+      "Lung: V20 <20% and mean lung dose <13 Gy for pneumonitis prevention",
+      "BED calculation: Total dose × (1 + dose per fraction / α/β ratio)"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:52:12.111Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:52:12.111Z"
+  },
+  {
+    "id": "c1f495e2-feb6-4b16-8cbc-94306f508df8",
+    "title": "Breast Cancer Staging and Biomarker Testing",
+    "category": "Biomarkers",
+    "subspecialty": "Medical Oncology",
+    "organSite": "Breast",
+    "difficulty": "Fellow",
+    "guidelineReference": "NCCN Breast Cancer Guidelines V4.2025",
+    "learningObjectives": [
+      "Apply AJCC 8th edition TNM staging criteria for breast cancer",
+      "Interpret ER, PR, and HER2 testing results according to ASCO/CAP guidelines",
+      "Evaluate Ki-67 expression and its clinical significance",
+      "Assess multigene assays (Oncotype DX, MammaPrint) for treatment decisions"
+    ],
+    "keyPoints": [
+      "ER/PR positivity defined as ≥1% nuclear staining (ASCO/CAP 2020)",
+      "HER2 amplification: IHC 3+ or ISH ratio ≥2.0 with HER2 copy number ≥4.0",
+      "Ki-67 >20% suggests higher proliferation and potential chemotherapy benefit",
+      "Stage I-III hormone receptor-positive disease requires multigene testing consideration"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:52:23.102Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:52:23.102Z"
+  },
+  {
+    "id": "2e9ed725-eb94-4f76-860b-9b07f0fbd595",
+    "title": "Small Cell Lung Cancer Treatment Algorithms",
+    "category": "Treatment",
+    "subspecialty": "Medical Oncology",
+    "organSite": "Lung",
+    "difficulty": "Resident",
+    "guidelineReference": "NCCN Small Cell Lung Cancer Guidelines V4.2025",
+    "learningObjectives": [
+      "Distinguish limited-stage from extensive-stage SCLC using NCCN criteria",
+      "Select appropriate first-line chemotherapy regimens for SCLC",
+      "Integrate immunotherapy (atezolizumab, durvalumab) into treatment plans",
+      "Apply prophylactic cranial irradiation (PCI) recommendations"
+    ],
+    "keyPoints": [
+      "Limited-stage: disease confined to one hemithorax within a single radiation port",
+      "Extensive-stage: disease beyond limited-stage definition",
+      "First-line: Carboplatin/Etoposide + Atezolizumab (ES-SCLC, Category 1)",
+      "Durvalumab maintenance after concurrent chemoradiation (LS-SCLC, Category 1)"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:52:23.180Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:52:23.180Z"
+  },
+  {
+    "id": "309123ec-410a-49fa-a0d6-15a455a3ee1c",
+    "title": "Colon Cancer Molecular Profiling and Targeted Therapy",
+    "category": "Biomarkers",
+    "subspecialty": "Medical Oncology",
+    "organSite": "Colon",
+    "difficulty": "Attending",
+    "guidelineReference": "NCCN Colon Cancer Guidelines V3.2025",
+    "learningObjectives": [
+      "Interpret RAS (KRAS/NRAS) and BRAF mutation testing results",
+      "Evaluate microsatellite instability (MSI) and mismatch repair (MMR) status",
+      "Apply HER2 amplification testing in metastatic colorectal cancer",
+      "Select appropriate targeted therapies based on molecular profile"
+    ],
+    "keyPoints": [
+      "All metastatic CRC requires RAS, BRAF, MSI/MMR, and HER2 testing",
+      "RAS wild-type tumors eligible for anti-EGFR therapy (cetuximab, panitumumab)",
+      "BRAF V600E mutations: poor prognosis, specific combination therapies",
+      "MSI-H/dMMR tumors: pembrolizumab first-line (Category 1)"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:52:23.256Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:52:23.256Z"
+  },
+  {
+    "id": "aaa3d558-3f8b-44db-8eeb-bccfeeda515d",
+    "title": "Bone Cancer Diagnostic Workup and Staging",
+    "category": "Staging",
+    "subspecialty": "Orthopedic Oncology",
+    "organSite": "Bone",
+    "difficulty": "Fellow",
+    "guidelineReference": "NCCN Bone Cancer Guidelines V1.2025",
+    "learningObjectives": [
+      "Apply age-based diagnostic algorithms for bone lesions",
+      "Interpret imaging findings for primary bone tumors",
+      "Evaluate cytogenetic testing requirements for sarcomas",
+      "Coordinate multidisciplinary team evaluation"
+    ],
+    "keyPoints": [
+      "Age <40 years: immediate orthopedic oncology referral for bone lesions",
+      "Age ≥40 years: metastatic workup priority before primary tumor consideration",
+      "Osteosarcoma: alkaline phosphatase and LDH prognostic markers",
+      "Ewing sarcoma: EWSR1 rearrangement confirmation required"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:52:23.329Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:52:23.329Z"
+  },
+  {
+    "id": "3cae9807-1981-4121-a4b2-6800ba2a0cb7",
+    "title": "Radiation Therapy Planning and Dose Constraints",
+    "category": "Treatment",
+    "subspecialty": "Radiation Oncology",
+    "organSite": "Various",
+    "difficulty": "Resident",
+    "guidelineReference": "RTOG/QUANTEC Dose Constraints 2025",
+    "learningObjectives": [
+      "Apply organ-at-risk (OAR) dose constraints in treatment planning",
+      "Calculate biologically effective dose (BED) for hypofractionation",
+      "Evaluate IMRT vs VMAT technique selection",
+      "Implement image-guided radiation therapy (IGRT) protocols"
+    ],
+    "keyPoints": [
+      "Spinal cord: maximum dose 45-50 Gy in conventional fractionation",
+      "Heart: mean dose <26 Gy to reduce cardiac mortality risk",
+      "Lung: V20 <20% and mean lung dose <13 Gy for pneumonitis prevention",
+      "BED calculation: Total dose × (1 + dose per fraction / α/β ratio)"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:52:23.405Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:52:23.405Z"
+  },
+  {
+    "id": "b2c78019-f714-4180-a022-067db99323ca",
+    "title": "Breast Cancer Staging and Biomarker Testing",
+    "category": "Biomarkers",
+    "subspecialty": "Medical Oncology",
+    "organSite": "Breast",
+    "difficulty": "Fellow",
+    "guidelineReference": "NCCN Breast Cancer Guidelines V4.2025",
+    "learningObjectives": [
+      "Apply AJCC 8th edition TNM staging criteria for breast cancer",
+      "Interpret ER, PR, and HER2 testing results according to ASCO/CAP guidelines",
+      "Evaluate Ki-67 expression and its clinical significance",
+      "Assess multigene assays (Oncotype DX, MammaPrint) for treatment decisions"
+    ],
+    "keyPoints": [
+      "ER/PR positivity defined as ≥1% nuclear staining (ASCO/CAP 2020)",
+      "HER2 amplification: IHC 3+ or ISH ratio ≥2.0 with HER2 copy number ≥4.0",
+      "Ki-67 >20% suggests higher proliferation and potential chemotherapy benefit",
+      "Stage I-III hormone receptor-positive disease requires multigene testing consideration"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:52:37.611Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:52:37.611Z"
+  },
+  {
+    "id": "fd4090f4-644e-4c80-923b-09909f456274",
+    "title": "Small Cell Lung Cancer Treatment Algorithms",
+    "category": "Treatment",
+    "subspecialty": "Medical Oncology",
+    "organSite": "Lung",
+    "difficulty": "Resident",
+    "guidelineReference": "NCCN Small Cell Lung Cancer Guidelines V4.2025",
+    "learningObjectives": [
+      "Distinguish limited-stage from extensive-stage SCLC using NCCN criteria",
+      "Select appropriate first-line chemotherapy regimens for SCLC",
+      "Integrate immunotherapy (atezolizumab, durvalumab) into treatment plans",
+      "Apply prophylactic cranial irradiation (PCI) recommendations"
+    ],
+    "keyPoints": [
+      "Limited-stage: disease confined to one hemithorax within a single radiation port",
+      "Extensive-stage: disease beyond limited-stage definition",
+      "First-line: Carboplatin/Etoposide + Atezolizumab (ES-SCLC, Category 1)",
+      "Durvalumab maintenance after concurrent chemoradiation (LS-SCLC, Category 1)"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:52:37.689Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:52:37.689Z"
+  },
+  {
+    "id": "867da159-eaf1-4aee-9693-09d5166496ba",
+    "title": "Colon Cancer Molecular Profiling and Targeted Therapy",
+    "category": "Biomarkers",
+    "subspecialty": "Medical Oncology",
+    "organSite": "Colon",
+    "difficulty": "Attending",
+    "guidelineReference": "NCCN Colon Cancer Guidelines V3.2025",
+    "learningObjectives": [
+      "Interpret RAS (KRAS/NRAS) and BRAF mutation testing results",
+      "Evaluate microsatellite instability (MSI) and mismatch repair (MMR) status",
+      "Apply HER2 amplification testing in metastatic colorectal cancer",
+      "Select appropriate targeted therapies based on molecular profile"
+    ],
+    "keyPoints": [
+      "All metastatic CRC requires RAS, BRAF, MSI/MMR, and HER2 testing",
+      "RAS wild-type tumors eligible for anti-EGFR therapy (cetuximab, panitumumab)",
+      "BRAF V600E mutations: poor prognosis, specific combination therapies",
+      "MSI-H/dMMR tumors: pembrolizumab first-line (Category 1)"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:52:37.809Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:52:37.809Z"
+  },
+  {
+    "id": "a2d260b8-c683-4045-88ee-c0c33fb6b4d1",
+    "title": "Bone Cancer Diagnostic Workup and Staging",
+    "category": "Staging",
+    "subspecialty": "Orthopedic Oncology",
+    "organSite": "Bone",
+    "difficulty": "Fellow",
+    "guidelineReference": "NCCN Bone Cancer Guidelines V1.2025",
+    "learningObjectives": [
+      "Apply age-based diagnostic algorithms for bone lesions",
+      "Interpret imaging findings for primary bone tumors",
+      "Evaluate cytogenetic testing requirements for sarcomas",
+      "Coordinate multidisciplinary team evaluation"
+    ],
+    "keyPoints": [
+      "Age <40 years: immediate orthopedic oncology referral for bone lesions",
+      "Age ≥40 years: metastatic workup priority before primary tumor consideration",
+      "Osteosarcoma: alkaline phosphatase and LDH prognostic markers",
+      "Ewing sarcoma: EWSR1 rearrangement confirmation required"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:52:37.884Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:52:37.884Z"
+  },
+  {
+    "id": "55c91f69-d457-4e73-8135-27031b0840ef",
+    "title": "Radiation Therapy Planning and Dose Constraints",
+    "category": "Treatment",
+    "subspecialty": "Radiation Oncology",
+    "organSite": "Various",
+    "difficulty": "Resident",
+    "guidelineReference": "RTOG/QUANTEC Dose Constraints 2025",
+    "learningObjectives": [
+      "Apply organ-at-risk (OAR) dose constraints in treatment planning",
+      "Calculate biologically effective dose (BED) for hypofractionation",
+      "Evaluate IMRT vs VMAT technique selection",
+      "Implement image-guided radiation therapy (IGRT) protocols"
+    ],
+    "keyPoints": [
+      "Spinal cord: maximum dose 45-50 Gy in conventional fractionation",
+      "Heart: mean dose <26 Gy to reduce cardiac mortality risk",
+      "Lung: V20 <20% and mean lung dose <13 Gy for pneumonitis prevention",
+      "BED calculation: Total dose × (1 + dose per fraction / α/β ratio)"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:52:37.958Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:52:37.958Z"
+  },
+  {
+    "id": "928fa4e2-0b5f-4db9-9c06-bf3f64ffb5fa",
+    "title": "Breast Cancer Staging and Biomarker Testing",
+    "category": "Biomarkers",
+    "subspecialty": "Medical Oncology",
+    "organSite": "Breast",
+    "difficulty": "Fellow",
+    "guidelineReference": "NCCN Breast Cancer Guidelines V4.2025",
+    "learningObjectives": [
+      "Apply AJCC 8th edition TNM staging criteria for breast cancer",
+      "Interpret ER, PR, and HER2 testing results according to ASCO/CAP guidelines",
+      "Evaluate Ki-67 expression and its clinical significance",
+      "Assess multigene assays (Oncotype DX, MammaPrint) for treatment decisions"
+    ],
+    "keyPoints": [
+      "ER/PR positivity defined as ≥1% nuclear staining (ASCO/CAP 2020)",
+      "HER2 amplification: IHC 3+ or ISH ratio ≥2.0 with HER2 copy number ≥4.0",
+      "Ki-67 >20% suggests higher proliferation and potential chemotherapy benefit",
+      "Stage I-III hormone receptor-positive disease requires multigene testing consideration"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:52:49.828Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:52:49.828Z"
+  },
+  {
+    "id": "c8108f72-32bb-4ce0-a579-eba3ae1422b0",
+    "title": "Small Cell Lung Cancer Treatment Algorithms",
+    "category": "Treatment",
+    "subspecialty": "Medical Oncology",
+    "organSite": "Lung",
+    "difficulty": "Resident",
+    "guidelineReference": "NCCN Small Cell Lung Cancer Guidelines V4.2025",
+    "learningObjectives": [
+      "Distinguish limited-stage from extensive-stage SCLC using NCCN criteria",
+      "Select appropriate first-line chemotherapy regimens for SCLC",
+      "Integrate immunotherapy (atezolizumab, durvalumab) into treatment plans",
+      "Apply prophylactic cranial irradiation (PCI) recommendations"
+    ],
+    "keyPoints": [
+      "Limited-stage: disease confined to one hemithorax within a single radiation port",
+      "Extensive-stage: disease beyond limited-stage definition",
+      "First-line: Carboplatin/Etoposide + Atezolizumab (ES-SCLC, Category 1)",
+      "Durvalumab maintenance after concurrent chemoradiation (LS-SCLC, Category 1)"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:52:49.905Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:52:49.905Z"
+  },
+  {
+    "id": "aadc2607-4675-48e4-bc50-989a6365f5db",
+    "title": "Colon Cancer Molecular Profiling and Targeted Therapy",
+    "category": "Biomarkers",
+    "subspecialty": "Medical Oncology",
+    "organSite": "Colon",
+    "difficulty": "Attending",
+    "guidelineReference": "NCCN Colon Cancer Guidelines V3.2025",
+    "learningObjectives": [
+      "Interpret RAS (KRAS/NRAS) and BRAF mutation testing results",
+      "Evaluate microsatellite instability (MSI) and mismatch repair (MMR) status",
+      "Apply HER2 amplification testing in metastatic colorectal cancer",
+      "Select appropriate targeted therapies based on molecular profile"
+    ],
+    "keyPoints": [
+      "All metastatic CRC requires RAS, BRAF, MSI/MMR, and HER2 testing",
+      "RAS wild-type tumors eligible for anti-EGFR therapy (cetuximab, panitumumab)",
+      "BRAF V600E mutations: poor prognosis, specific combination therapies",
+      "MSI-H/dMMR tumors: pembrolizumab first-line (Category 1)"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:52:49.979Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:52:49.979Z"
+  },
+  {
+    "id": "f935c535-c2eb-414c-8ac6-fe37d5ff9262",
+    "title": "Bone Cancer Diagnostic Workup and Staging",
+    "category": "Staging",
+    "subspecialty": "Orthopedic Oncology",
+    "organSite": "Bone",
+    "difficulty": "Fellow",
+    "guidelineReference": "NCCN Bone Cancer Guidelines V1.2025",
+    "learningObjectives": [
+      "Apply age-based diagnostic algorithms for bone lesions",
+      "Interpret imaging findings for primary bone tumors",
+      "Evaluate cytogenetic testing requirements for sarcomas",
+      "Coordinate multidisciplinary team evaluation"
+    ],
+    "keyPoints": [
+      "Age <40 years: immediate orthopedic oncology referral for bone lesions",
+      "Age ≥40 years: metastatic workup priority before primary tumor consideration",
+      "Osteosarcoma: alkaline phosphatase and LDH prognostic markers",
+      "Ewing sarcoma: EWSR1 rearrangement confirmation required"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:52:50.054Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:52:50.054Z"
+  },
+  {
+    "id": "3d24be3f-726a-47ac-9304-2138e106209b",
+    "title": "Radiation Therapy Planning and Dose Constraints",
+    "category": "Treatment",
+    "subspecialty": "Radiation Oncology",
+    "organSite": "Various",
+    "difficulty": "Resident",
+    "guidelineReference": "RTOG/QUANTEC Dose Constraints 2025",
+    "learningObjectives": [
+      "Apply organ-at-risk (OAR) dose constraints in treatment planning",
+      "Calculate biologically effective dose (BED) for hypofractionation",
+      "Evaluate IMRT vs VMAT technique selection",
+      "Implement image-guided radiation therapy (IGRT) protocols"
+    ],
+    "keyPoints": [
+      "Spinal cord: maximum dose 45-50 Gy in conventional fractionation",
+      "Heart: mean dose <26 Gy to reduce cardiac mortality risk",
+      "Lung: V20 <20% and mean lung dose <13 Gy for pneumonitis prevention",
+      "BED calculation: Total dose × (1 + dose per fraction / α/β ratio)"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:52:50.130Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:52:50.130Z"
+  },
+  {
+    "id": "96e4deb4-3e80-4a4e-8157-f9908d7d5b89",
+    "title": "Breast Cancer Staging and Biomarker Testing",
+    "category": "Biomarkers",
+    "subspecialty": "Medical Oncology",
+    "organSite": "Breast",
+    "difficulty": "Fellow",
+    "guidelineReference": "NCCN Breast Cancer Guidelines V4.2025",
+    "learningObjectives": [
+      "Apply AJCC 8th edition TNM staging criteria for breast cancer",
+      "Interpret ER, PR, and HER2 testing results according to ASCO/CAP guidelines",
+      "Evaluate Ki-67 expression and its clinical significance",
+      "Assess multigene assays (Oncotype DX, MammaPrint) for treatment decisions"
+    ],
+    "keyPoints": [
+      "ER/PR positivity defined as ≥1% nuclear staining (ASCO/CAP 2020)",
+      "HER2 amplification: IHC 3+ or ISH ratio ≥2.0 with HER2 copy number ≥4.0",
+      "Ki-67 >20% suggests higher proliferation and potential chemotherapy benefit",
+      "Stage I-III hormone receptor-positive disease requires multigene testing consideration"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:53:02.142Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:53:02.142Z"
+  },
+  {
+    "id": "6ee15c66-00a5-4724-84a0-a532b17528be",
+    "title": "Small Cell Lung Cancer Treatment Algorithms",
+    "category": "Treatment",
+    "subspecialty": "Medical Oncology",
+    "organSite": "Lung",
+    "difficulty": "Resident",
+    "guidelineReference": "NCCN Small Cell Lung Cancer Guidelines V4.2025",
+    "learningObjectives": [
+      "Distinguish limited-stage from extensive-stage SCLC using NCCN criteria",
+      "Select appropriate first-line chemotherapy regimens for SCLC",
+      "Integrate immunotherapy (atezolizumab, durvalumab) into treatment plans",
+      "Apply prophylactic cranial irradiation (PCI) recommendations"
+    ],
+    "keyPoints": [
+      "Limited-stage: disease confined to one hemithorax within a single radiation port",
+      "Extensive-stage: disease beyond limited-stage definition",
+      "First-line: Carboplatin/Etoposide + Atezolizumab (ES-SCLC, Category 1)",
+      "Durvalumab maintenance after concurrent chemoradiation (LS-SCLC, Category 1)"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:53:02.221Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:53:02.221Z"
+  },
+  {
+    "id": "2339d95c-0435-416c-978e-496f1b771acd",
+    "title": "Colon Cancer Molecular Profiling and Targeted Therapy",
+    "category": "Biomarkers",
+    "subspecialty": "Medical Oncology",
+    "organSite": "Colon",
+    "difficulty": "Attending",
+    "guidelineReference": "NCCN Colon Cancer Guidelines V3.2025",
+    "learningObjectives": [
+      "Interpret RAS (KRAS/NRAS) and BRAF mutation testing results",
+      "Evaluate microsatellite instability (MSI) and mismatch repair (MMR) status",
+      "Apply HER2 amplification testing in metastatic colorectal cancer",
+      "Select appropriate targeted therapies based on molecular profile"
+    ],
+    "keyPoints": [
+      "All metastatic CRC requires RAS, BRAF, MSI/MMR, and HER2 testing",
+      "RAS wild-type tumors eligible for anti-EGFR therapy (cetuximab, panitumumab)",
+      "BRAF V600E mutations: poor prognosis, specific combination therapies",
+      "MSI-H/dMMR tumors: pembrolizumab first-line (Category 1)"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:53:02.299Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:53:02.299Z"
+  },
+  {
+    "id": "5a02a220-208a-4a95-ad5a-5f032f5c8fcf",
+    "title": "Bone Cancer Diagnostic Workup and Staging",
+    "category": "Staging",
+    "subspecialty": "Orthopedic Oncology",
+    "organSite": "Bone",
+    "difficulty": "Fellow",
+    "guidelineReference": "NCCN Bone Cancer Guidelines V1.2025",
+    "learningObjectives": [
+      "Apply age-based diagnostic algorithms for bone lesions",
+      "Interpret imaging findings for primary bone tumors",
+      "Evaluate cytogenetic testing requirements for sarcomas",
+      "Coordinate multidisciplinary team evaluation"
+    ],
+    "keyPoints": [
+      "Age <40 years: immediate orthopedic oncology referral for bone lesions",
+      "Age ≥40 years: metastatic workup priority before primary tumor consideration",
+      "Osteosarcoma: alkaline phosphatase and LDH prognostic markers",
+      "Ewing sarcoma: EWSR1 rearrangement confirmation required"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:53:02.382Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:53:02.382Z"
+  },
+  {
+    "id": "d8a85200-067a-4b13-9eb8-466beba86ed2",
+    "title": "Radiation Therapy Planning and Dose Constraints",
+    "category": "Treatment",
+    "subspecialty": "Radiation Oncology",
+    "organSite": "Various",
+    "difficulty": "Resident",
+    "guidelineReference": "RTOG/QUANTEC Dose Constraints 2025",
+    "learningObjectives": [
+      "Apply organ-at-risk (OAR) dose constraints in treatment planning",
+      "Calculate biologically effective dose (BED) for hypofractionation",
+      "Evaluate IMRT vs VMAT technique selection",
+      "Implement image-guided radiation therapy (IGRT) protocols"
+    ],
+    "keyPoints": [
+      "Spinal cord: maximum dose 45-50 Gy in conventional fractionation",
+      "Heart: mean dose <26 Gy to reduce cardiac mortality risk",
+      "Lung: V20 <20% and mean lung dose <13 Gy for pneumonitis prevention",
+      "BED calculation: Total dose × (1 + dose per fraction / α/β ratio)"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:53:02.463Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:53:02.463Z"
+  },
+  {
+    "id": "baa8fd60-948c-48cf-a774-4aa476ef17ec",
+    "title": "Breast Cancer Staging and Biomarker Testing",
+    "category": "Biomarkers",
+    "subspecialty": "Medical Oncology",
+    "organSite": "Breast",
+    "difficulty": "Fellow",
+    "guidelineReference": "NCCN Breast Cancer Guidelines V4.2025",
+    "learningObjectives": [
+      "Apply AJCC 8th edition TNM staging criteria for breast cancer",
+      "Interpret ER, PR, and HER2 testing results according to ASCO/CAP guidelines",
+      "Evaluate Ki-67 expression and its clinical significance",
+      "Assess multigene assays (Oncotype DX, MammaPrint) for treatment decisions"
+    ],
+    "keyPoints": [
+      "ER/PR positivity defined as ≥1% nuclear staining (ASCO/CAP 2020)",
+      "HER2 amplification: IHC 3+ or ISH ratio ≥2.0 with HER2 copy number ≥4.0",
+      "Ki-67 >20% suggests higher proliferation and potential chemotherapy benefit",
+      "Stage I-III hormone receptor-positive disease requires multigene testing consideration"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:53:32.351Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:53:32.351Z"
+  },
+  {
+    "id": "93d201e3-736d-40ab-8202-de12661f9f17",
+    "title": "Small Cell Lung Cancer Treatment Algorithms",
+    "category": "Treatment",
+    "subspecialty": "Medical Oncology",
+    "organSite": "Lung",
+    "difficulty": "Resident",
+    "guidelineReference": "NCCN Small Cell Lung Cancer Guidelines V4.2025",
+    "learningObjectives": [
+      "Distinguish limited-stage from extensive-stage SCLC using NCCN criteria",
+      "Select appropriate first-line chemotherapy regimens for SCLC",
+      "Integrate immunotherapy (atezolizumab, durvalumab) into treatment plans",
+      "Apply prophylactic cranial irradiation (PCI) recommendations"
+    ],
+    "keyPoints": [
+      "Limited-stage: disease confined to one hemithorax within a single radiation port",
+      "Extensive-stage: disease beyond limited-stage definition",
+      "First-line: Carboplatin/Etoposide + Atezolizumab (ES-SCLC, Category 1)",
+      "Durvalumab maintenance after concurrent chemoradiation (LS-SCLC, Category 1)"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:53:32.429Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:53:32.429Z"
+  },
+  {
+    "id": "44722179-2dc6-4f29-9974-b2af50bfb164",
+    "title": "Colon Cancer Molecular Profiling and Targeted Therapy",
+    "category": "Biomarkers",
+    "subspecialty": "Medical Oncology",
+    "organSite": "Colon",
+    "difficulty": "Attending",
+    "guidelineReference": "NCCN Colon Cancer Guidelines V3.2025",
+    "learningObjectives": [
+      "Interpret RAS (KRAS/NRAS) and BRAF mutation testing results",
+      "Evaluate microsatellite instability (MSI) and mismatch repair (MMR) status",
+      "Apply HER2 amplification testing in metastatic colorectal cancer",
+      "Select appropriate targeted therapies based on molecular profile"
+    ],
+    "keyPoints": [
+      "All metastatic CRC requires RAS, BRAF, MSI/MMR, and HER2 testing",
+      "RAS wild-type tumors eligible for anti-EGFR therapy (cetuximab, panitumumab)",
+      "BRAF V600E mutations: poor prognosis, specific combination therapies",
+      "MSI-H/dMMR tumors: pembrolizumab first-line (Category 1)"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:53:32.503Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:53:32.503Z"
+  },
+  {
+    "id": "569c0731-aefe-45ec-abb0-46bef0142265",
+    "title": "Bone Cancer Diagnostic Workup and Staging",
+    "category": "Staging",
+    "subspecialty": "Orthopedic Oncology",
+    "organSite": "Bone",
+    "difficulty": "Fellow",
+    "guidelineReference": "NCCN Bone Cancer Guidelines V1.2025",
+    "learningObjectives": [
+      "Apply age-based diagnostic algorithms for bone lesions",
+      "Interpret imaging findings for primary bone tumors",
+      "Evaluate cytogenetic testing requirements for sarcomas",
+      "Coordinate multidisciplinary team evaluation"
+    ],
+    "keyPoints": [
+      "Age <40 years: immediate orthopedic oncology referral for bone lesions",
+      "Age ≥40 years: metastatic workup priority before primary tumor consideration",
+      "Osteosarcoma: alkaline phosphatase and LDH prognostic markers",
+      "Ewing sarcoma: EWSR1 rearrangement confirmation required"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:53:32.578Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:53:32.578Z"
+  },
+  {
+    "id": "27505e10-195d-4fa6-a3f7-ba90b122389d",
+    "title": "Radiation Therapy Planning and Dose Constraints",
+    "category": "Treatment",
+    "subspecialty": "Radiation Oncology",
+    "organSite": "Various",
+    "difficulty": "Resident",
+    "guidelineReference": "RTOG/QUANTEC Dose Constraints 2025",
+    "learningObjectives": [
+      "Apply organ-at-risk (OAR) dose constraints in treatment planning",
+      "Calculate biologically effective dose (BED) for hypofractionation",
+      "Evaluate IMRT vs VMAT technique selection",
+      "Implement image-guided radiation therapy (IGRT) protocols"
+    ],
+    "keyPoints": [
+      "Spinal cord: maximum dose 45-50 Gy in conventional fractionation",
+      "Heart: mean dose <26 Gy to reduce cardiac mortality risk",
+      "Lung: V20 <20% and mean lung dose <13 Gy for pneumonitis prevention",
+      "BED calculation: Total dose × (1 + dose per fraction / α/β ratio)"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:53:32.652Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:53:32.652Z"
+  },
+  {
+    "id": "8b262804-c599-4e94-ba0e-799cca48dd91",
+    "title": "Breast Cancer Staging and Biomarker Testing",
+    "category": "Biomarkers",
+    "subspecialty": "Medical Oncology",
+    "organSite": "Breast",
+    "difficulty": "Fellow",
+    "guidelineReference": "NCCN Breast Cancer Guidelines V4.2025",
+    "learningObjectives": [
+      "Apply AJCC 8th edition TNM staging criteria for breast cancer",
+      "Interpret ER, PR, and HER2 testing results according to ASCO/CAP guidelines",
+      "Evaluate Ki-67 expression and its clinical significance",
+      "Assess multigene assays (Oncotype DX, MammaPrint) for treatment decisions"
+    ],
+    "keyPoints": [
+      "ER/PR positivity defined as ≥1% nuclear staining (ASCO/CAP 2020)",
+      "HER2 amplification: IHC 3+ or ISH ratio ≥2.0 with HER2 copy number ≥4.0",
+      "Ki-67 >20% suggests higher proliferation and potential chemotherapy benefit",
+      "Stage I-III hormone receptor-positive disease requires multigene testing consideration"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:54:04.257Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:54:04.257Z"
+  },
+  {
+    "id": "174ec689-14e6-480a-a15f-68b286f709bf",
+    "title": "Small Cell Lung Cancer Treatment Algorithms",
+    "category": "Treatment",
+    "subspecialty": "Medical Oncology",
+    "organSite": "Lung",
+    "difficulty": "Resident",
+    "guidelineReference": "NCCN Small Cell Lung Cancer Guidelines V4.2025",
+    "learningObjectives": [
+      "Distinguish limited-stage from extensive-stage SCLC using NCCN criteria",
+      "Select appropriate first-line chemotherapy regimens for SCLC",
+      "Integrate immunotherapy (atezolizumab, durvalumab) into treatment plans",
+      "Apply prophylactic cranial irradiation (PCI) recommendations"
+    ],
+    "keyPoints": [
+      "Limited-stage: disease confined to one hemithorax within a single radiation port",
+      "Extensive-stage: disease beyond limited-stage definition",
+      "First-line: Carboplatin/Etoposide + Atezolizumab (ES-SCLC, Category 1)",
+      "Durvalumab maintenance after concurrent chemoradiation (LS-SCLC, Category 1)"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:54:04.334Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:54:04.334Z"
+  },
+  {
+    "id": "b6a00b78-ea16-40bc-a0f4-b2e84e23ef06",
+    "title": "Colon Cancer Molecular Profiling and Targeted Therapy",
+    "category": "Biomarkers",
+    "subspecialty": "Medical Oncology",
+    "organSite": "Colon",
+    "difficulty": "Attending",
+    "guidelineReference": "NCCN Colon Cancer Guidelines V3.2025",
+    "learningObjectives": [
+      "Interpret RAS (KRAS/NRAS) and BRAF mutation testing results",
+      "Evaluate microsatellite instability (MSI) and mismatch repair (MMR) status",
+      "Apply HER2 amplification testing in metastatic colorectal cancer",
+      "Select appropriate targeted therapies based on molecular profile"
+    ],
+    "keyPoints": [
+      "All metastatic CRC requires RAS, BRAF, MSI/MMR, and HER2 testing",
+      "RAS wild-type tumors eligible for anti-EGFR therapy (cetuximab, panitumumab)",
+      "BRAF V600E mutations: poor prognosis, specific combination therapies",
+      "MSI-H/dMMR tumors: pembrolizumab first-line (Category 1)"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:54:04.408Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:54:04.408Z"
+  },
+  {
+    "id": "638de202-ee2b-4ca3-8bd5-103ad7158169",
+    "title": "Bone Cancer Diagnostic Workup and Staging",
+    "category": "Staging",
+    "subspecialty": "Orthopedic Oncology",
+    "organSite": "Bone",
+    "difficulty": "Fellow",
+    "guidelineReference": "NCCN Bone Cancer Guidelines V1.2025",
+    "learningObjectives": [
+      "Apply age-based diagnostic algorithms for bone lesions",
+      "Interpret imaging findings for primary bone tumors",
+      "Evaluate cytogenetic testing requirements for sarcomas",
+      "Coordinate multidisciplinary team evaluation"
+    ],
+    "keyPoints": [
+      "Age <40 years: immediate orthopedic oncology referral for bone lesions",
+      "Age ≥40 years: metastatic workup priority before primary tumor consideration",
+      "Osteosarcoma: alkaline phosphatase and LDH prognostic markers",
+      "Ewing sarcoma: EWSR1 rearrangement confirmation required"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:54:04.483Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:54:04.483Z"
+  },
+  {
+    "id": "c1191582-d5fa-45ec-a804-9b7ee2999d06",
+    "title": "Radiation Therapy Planning and Dose Constraints",
+    "category": "Treatment",
+    "subspecialty": "Radiation Oncology",
+    "organSite": "Various",
+    "difficulty": "Resident",
+    "guidelineReference": "RTOG/QUANTEC Dose Constraints 2025",
+    "learningObjectives": [
+      "Apply organ-at-risk (OAR) dose constraints in treatment planning",
+      "Calculate biologically effective dose (BED) for hypofractionation",
+      "Evaluate IMRT vs VMAT technique selection",
+      "Implement image-guided radiation therapy (IGRT) protocols"
+    ],
+    "keyPoints": [
+      "Spinal cord: maximum dose 45-50 Gy in conventional fractionation",
+      "Heart: mean dose <26 Gy to reduce cardiac mortality risk",
+      "Lung: V20 <20% and mean lung dose <13 Gy for pneumonitis prevention",
+      "BED calculation: Total dose × (1 + dose per fraction / α/β ratio)"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:54:04.558Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:54:04.558Z"
+  },
+  {
+    "id": "e4074d8e-fe81-4199-bcaf-4056613e73ae",
+    "title": "Breast Cancer Staging and Biomarker Testing",
+    "category": "Biomarkers",
+    "subspecialty": "Medical Oncology",
+    "organSite": "Breast",
+    "difficulty": "Fellow",
+    "guidelineReference": "NCCN Breast Cancer Guidelines V4.2025",
+    "learningObjectives": [
+      "Apply AJCC 8th edition TNM staging criteria for breast cancer",
+      "Interpret ER, PR, and HER2 testing results according to ASCO/CAP guidelines",
+      "Evaluate Ki-67 expression and its clinical significance",
+      "Assess multigene assays (Oncotype DX, MammaPrint) for treatment decisions"
+    ],
+    "keyPoints": [
+      "ER/PR positivity defined as ≥1% nuclear staining (ASCO/CAP 2020)",
+      "HER2 amplification: IHC 3+ or ISH ratio ≥2.0 with HER2 copy number ≥4.0",
+      "Ki-67 >20% suggests higher proliferation and potential chemotherapy benefit",
+      "Stage I-III hormone receptor-positive disease requires multigene testing consideration"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:54:42.058Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:54:42.058Z"
+  },
+  {
+    "id": "cf132f59-b4dd-41f0-afc6-443fc909d072",
+    "title": "Small Cell Lung Cancer Treatment Algorithms",
+    "category": "Treatment",
+    "subspecialty": "Medical Oncology",
+    "organSite": "Lung",
+    "difficulty": "Resident",
+    "guidelineReference": "NCCN Small Cell Lung Cancer Guidelines V4.2025",
+    "learningObjectives": [
+      "Distinguish limited-stage from extensive-stage SCLC using NCCN criteria",
+      "Select appropriate first-line chemotherapy regimens for SCLC",
+      "Integrate immunotherapy (atezolizumab, durvalumab) into treatment plans",
+      "Apply prophylactic cranial irradiation (PCI) recommendations"
+    ],
+    "keyPoints": [
+      "Limited-stage: disease confined to one hemithorax within a single radiation port",
+      "Extensive-stage: disease beyond limited-stage definition",
+      "First-line: Carboplatin/Etoposide + Atezolizumab (ES-SCLC, Category 1)",
+      "Durvalumab maintenance after concurrent chemoradiation (LS-SCLC, Category 1)"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:54:42.134Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:54:42.134Z"
+  },
+  {
+    "id": "96949d82-4fce-4a4c-8ba6-397089d68594",
+    "title": "Colon Cancer Molecular Profiling and Targeted Therapy",
+    "category": "Biomarkers",
+    "subspecialty": "Medical Oncology",
+    "organSite": "Colon",
+    "difficulty": "Attending",
+    "guidelineReference": "NCCN Colon Cancer Guidelines V3.2025",
+    "learningObjectives": [
+      "Interpret RAS (KRAS/NRAS) and BRAF mutation testing results",
+      "Evaluate microsatellite instability (MSI) and mismatch repair (MMR) status",
+      "Apply HER2 amplification testing in metastatic colorectal cancer",
+      "Select appropriate targeted therapies based on molecular profile"
+    ],
+    "keyPoints": [
+      "All metastatic CRC requires RAS, BRAF, MSI/MMR, and HER2 testing",
+      "RAS wild-type tumors eligible for anti-EGFR therapy (cetuximab, panitumumab)",
+      "BRAF V600E mutations: poor prognosis, specific combination therapies",
+      "MSI-H/dMMR tumors: pembrolizumab first-line (Category 1)"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:54:42.209Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:54:42.209Z"
+  },
+  {
+    "id": "87c4026b-d17f-43ca-8366-85fc2188dda3",
+    "title": "Bone Cancer Diagnostic Workup and Staging",
+    "category": "Staging",
+    "subspecialty": "Orthopedic Oncology",
+    "organSite": "Bone",
+    "difficulty": "Fellow",
+    "guidelineReference": "NCCN Bone Cancer Guidelines V1.2025",
+    "learningObjectives": [
+      "Apply age-based diagnostic algorithms for bone lesions",
+      "Interpret imaging findings for primary bone tumors",
+      "Evaluate cytogenetic testing requirements for sarcomas",
+      "Coordinate multidisciplinary team evaluation"
+    ],
+    "keyPoints": [
+      "Age <40 years: immediate orthopedic oncology referral for bone lesions",
+      "Age ≥40 years: metastatic workup priority before primary tumor consideration",
+      "Osteosarcoma: alkaline phosphatase and LDH prognostic markers",
+      "Ewing sarcoma: EWSR1 rearrangement confirmation required"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:54:42.283Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:54:42.283Z"
+  },
+  {
+    "id": "a9bdcce0-2344-40de-b27f-514f4e9781ba",
+    "title": "Radiation Therapy Planning and Dose Constraints",
+    "category": "Treatment",
+    "subspecialty": "Radiation Oncology",
+    "organSite": "Various",
+    "difficulty": "Resident",
+    "guidelineReference": "RTOG/QUANTEC Dose Constraints 2025",
+    "learningObjectives": [
+      "Apply organ-at-risk (OAR) dose constraints in treatment planning",
+      "Calculate biologically effective dose (BED) for hypofractionation",
+      "Evaluate IMRT vs VMAT technique selection",
+      "Implement image-guided radiation therapy (IGRT) protocols"
+    ],
+    "keyPoints": [
+      "Spinal cord: maximum dose 45-50 Gy in conventional fractionation",
+      "Heart: mean dose <26 Gy to reduce cardiac mortality risk",
+      "Lung: V20 <20% and mean lung dose <13 Gy for pneumonitis prevention",
+      "BED calculation: Total dose × (1 + dose per fraction / α/β ratio)"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:54:42.358Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:54:42.358Z"
+  },
+  {
+    "id": "9a5d730b-292a-44dd-b89d-2ae87867f328",
+    "title": "Breast Cancer Staging and Biomarker Testing",
+    "category": "Biomarkers",
+    "subspecialty": "Medical Oncology",
+    "organSite": "Breast",
+    "difficulty": "Fellow",
+    "guidelineReference": "NCCN Breast Cancer Guidelines V4.2025",
+    "learningObjectives": [
+      "Apply AJCC 8th edition TNM staging criteria for breast cancer",
+      "Interpret ER, PR, and HER2 testing results according to ASCO/CAP guidelines",
+      "Evaluate Ki-67 expression and its clinical significance",
+      "Assess multigene assays (Oncotype DX, MammaPrint) for treatment decisions"
+    ],
+    "keyPoints": [
+      "ER/PR positivity defined as ≥1% nuclear staining (ASCO/CAP 2020)",
+      "HER2 amplification: IHC 3+ or ISH ratio ≥2.0 with HER2 copy number ≥4.0",
+      "Ki-67 >20% suggests higher proliferation and potential chemotherapy benefit",
+      "Stage I-III hormone receptor-positive disease requires multigene testing consideration"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:54:55.545Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:54:55.545Z"
+  },
+  {
+    "id": "7248e737-ff6c-452d-9577-5f200d756288",
+    "title": "Small Cell Lung Cancer Treatment Algorithms",
+    "category": "Treatment",
+    "subspecialty": "Medical Oncology",
+    "organSite": "Lung",
+    "difficulty": "Resident",
+    "guidelineReference": "NCCN Small Cell Lung Cancer Guidelines V4.2025",
+    "learningObjectives": [
+      "Distinguish limited-stage from extensive-stage SCLC using NCCN criteria",
+      "Select appropriate first-line chemotherapy regimens for SCLC",
+      "Integrate immunotherapy (atezolizumab, durvalumab) into treatment plans",
+      "Apply prophylactic cranial irradiation (PCI) recommendations"
+    ],
+    "keyPoints": [
+      "Limited-stage: disease confined to one hemithorax within a single radiation port",
+      "Extensive-stage: disease beyond limited-stage definition",
+      "First-line: Carboplatin/Etoposide + Atezolizumab (ES-SCLC, Category 1)",
+      "Durvalumab maintenance after concurrent chemoradiation (LS-SCLC, Category 1)"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:54:55.622Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:54:55.622Z"
+  },
+  {
+    "id": "afc9310b-8589-4c81-ae4d-3cf220fb197d",
+    "title": "Colon Cancer Molecular Profiling and Targeted Therapy",
+    "category": "Biomarkers",
+    "subspecialty": "Medical Oncology",
+    "organSite": "Colon",
+    "difficulty": "Attending",
+    "guidelineReference": "NCCN Colon Cancer Guidelines V3.2025",
+    "learningObjectives": [
+      "Interpret RAS (KRAS/NRAS) and BRAF mutation testing results",
+      "Evaluate microsatellite instability (MSI) and mismatch repair (MMR) status",
+      "Apply HER2 amplification testing in metastatic colorectal cancer",
+      "Select appropriate targeted therapies based on molecular profile"
+    ],
+    "keyPoints": [
+      "All metastatic CRC requires RAS, BRAF, MSI/MMR, and HER2 testing",
+      "RAS wild-type tumors eligible for anti-EGFR therapy (cetuximab, panitumumab)",
+      "BRAF V600E mutations: poor prognosis, specific combination therapies",
+      "MSI-H/dMMR tumors: pembrolizumab first-line (Category 1)"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:54:55.695Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:54:55.695Z"
+  },
+  {
+    "id": "ebd152ea-a7ad-454e-aa34-9345e9e2f2a7",
+    "title": "Bone Cancer Diagnostic Workup and Staging",
+    "category": "Staging",
+    "subspecialty": "Orthopedic Oncology",
+    "organSite": "Bone",
+    "difficulty": "Fellow",
+    "guidelineReference": "NCCN Bone Cancer Guidelines V1.2025",
+    "learningObjectives": [
+      "Apply age-based diagnostic algorithms for bone lesions",
+      "Interpret imaging findings for primary bone tumors",
+      "Evaluate cytogenetic testing requirements for sarcomas",
+      "Coordinate multidisciplinary team evaluation"
+    ],
+    "keyPoints": [
+      "Age <40 years: immediate orthopedic oncology referral for bone lesions",
+      "Age ≥40 years: metastatic workup priority before primary tumor consideration",
+      "Osteosarcoma: alkaline phosphatase and LDH prognostic markers",
+      "Ewing sarcoma: EWSR1 rearrangement confirmation required"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:54:55.770Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:54:55.770Z"
+  },
+  {
+    "id": "3e06266d-c41f-4bda-8e53-43ee472a1ebb",
+    "title": "Radiation Therapy Planning and Dose Constraints",
+    "category": "Treatment",
+    "subspecialty": "Radiation Oncology",
+    "organSite": "Various",
+    "difficulty": "Resident",
+    "guidelineReference": "RTOG/QUANTEC Dose Constraints 2025",
+    "learningObjectives": [
+      "Apply organ-at-risk (OAR) dose constraints in treatment planning",
+      "Calculate biologically effective dose (BED) for hypofractionation",
+      "Evaluate IMRT vs VMAT technique selection",
+      "Implement image-guided radiation therapy (IGRT) protocols"
+    ],
+    "keyPoints": [
+      "Spinal cord: maximum dose 45-50 Gy in conventional fractionation",
+      "Heart: mean dose <26 Gy to reduce cardiac mortality risk",
+      "Lung: V20 <20% and mean lung dose <13 Gy for pneumonitis prevention",
+      "BED calculation: Total dose × (1 + dose per fraction / α/β ratio)"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:54:55.845Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:54:55.845Z"
+  },
+  {
+    "id": "70fe9840-c158-4bf5-8846-2d57fff66e10",
+    "title": "Breast Cancer Staging and Biomarker Testing",
+    "category": "Biomarkers",
+    "subspecialty": "Medical Oncology",
+    "organSite": "Breast",
+    "difficulty": "Fellow",
+    "guidelineReference": "NCCN Breast Cancer Guidelines V4.2025",
+    "learningObjectives": [
+      "Apply AJCC 8th edition TNM staging criteria for breast cancer",
+      "Interpret ER, PR, and HER2 testing results according to ASCO/CAP guidelines",
+      "Evaluate Ki-67 expression and its clinical significance",
+      "Assess multigene assays (Oncotype DX, MammaPrint) for treatment decisions"
+    ],
+    "keyPoints": [
+      "ER/PR positivity defined as ≥1% nuclear staining (ASCO/CAP 2020)",
+      "HER2 amplification: IHC 3+ or ISH ratio ≥2.0 with HER2 copy number ≥4.0",
+      "Ki-67 >20% suggests higher proliferation and potential chemotherapy benefit",
+      "Stage I-III hormone receptor-positive disease requires multigene testing consideration"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:55:06.639Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:55:06.639Z"
+  },
+  {
+    "id": "8a816dec-5197-4504-b355-4e5208c449a1",
+    "title": "Small Cell Lung Cancer Treatment Algorithms",
+    "category": "Treatment",
+    "subspecialty": "Medical Oncology",
+    "organSite": "Lung",
+    "difficulty": "Resident",
+    "guidelineReference": "NCCN Small Cell Lung Cancer Guidelines V4.2025",
+    "learningObjectives": [
+      "Distinguish limited-stage from extensive-stage SCLC using NCCN criteria",
+      "Select appropriate first-line chemotherapy regimens for SCLC",
+      "Integrate immunotherapy (atezolizumab, durvalumab) into treatment plans",
+      "Apply prophylactic cranial irradiation (PCI) recommendations"
+    ],
+    "keyPoints": [
+      "Limited-stage: disease confined to one hemithorax within a single radiation port",
+      "Extensive-stage: disease beyond limited-stage definition",
+      "First-line: Carboplatin/Etoposide + Atezolizumab (ES-SCLC, Category 1)",
+      "Durvalumab maintenance after concurrent chemoradiation (LS-SCLC, Category 1)"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:55:06.717Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:55:06.717Z"
+  },
+  {
+    "id": "f71255d6-bade-4bb9-8811-83ee1260f725",
+    "title": "Colon Cancer Molecular Profiling and Targeted Therapy",
+    "category": "Biomarkers",
+    "subspecialty": "Medical Oncology",
+    "organSite": "Colon",
+    "difficulty": "Attending",
+    "guidelineReference": "NCCN Colon Cancer Guidelines V3.2025",
+    "learningObjectives": [
+      "Interpret RAS (KRAS/NRAS) and BRAF mutation testing results",
+      "Evaluate microsatellite instability (MSI) and mismatch repair (MMR) status",
+      "Apply HER2 amplification testing in metastatic colorectal cancer",
+      "Select appropriate targeted therapies based on molecular profile"
+    ],
+    "keyPoints": [
+      "All metastatic CRC requires RAS, BRAF, MSI/MMR, and HER2 testing",
+      "RAS wild-type tumors eligible for anti-EGFR therapy (cetuximab, panitumumab)",
+      "BRAF V600E mutations: poor prognosis, specific combination therapies",
+      "MSI-H/dMMR tumors: pembrolizumab first-line (Category 1)"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:55:06.794Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:55:06.794Z"
+  },
+  {
+    "id": "7ec1e1f0-3c44-4727-b984-05a0ea06ca13",
+    "title": "Bone Cancer Diagnostic Workup and Staging",
+    "category": "Staging",
+    "subspecialty": "Orthopedic Oncology",
+    "organSite": "Bone",
+    "difficulty": "Fellow",
+    "guidelineReference": "NCCN Bone Cancer Guidelines V1.2025",
+    "learningObjectives": [
+      "Apply age-based diagnostic algorithms for bone lesions",
+      "Interpret imaging findings for primary bone tumors",
+      "Evaluate cytogenetic testing requirements for sarcomas",
+      "Coordinate multidisciplinary team evaluation"
+    ],
+    "keyPoints": [
+      "Age <40 years: immediate orthopedic oncology referral for bone lesions",
+      "Age ≥40 years: metastatic workup priority before primary tumor consideration",
+      "Osteosarcoma: alkaline phosphatase and LDH prognostic markers",
+      "Ewing sarcoma: EWSR1 rearrangement confirmation required"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:55:06.872Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:55:06.872Z"
+  },
+  {
+    "id": "3dd9e748-0fe2-4e74-8e3c-2dad40482fe7",
+    "title": "Radiation Therapy Planning and Dose Constraints",
+    "category": "Treatment",
+    "subspecialty": "Radiation Oncology",
+    "organSite": "Various",
+    "difficulty": "Resident",
+    "guidelineReference": "RTOG/QUANTEC Dose Constraints 2025",
+    "learningObjectives": [
+      "Apply organ-at-risk (OAR) dose constraints in treatment planning",
+      "Calculate biologically effective dose (BED) for hypofractionation",
+      "Evaluate IMRT vs VMAT technique selection",
+      "Implement image-guided radiation therapy (IGRT) protocols"
+    ],
+    "keyPoints": [
+      "Spinal cord: maximum dose 45-50 Gy in conventional fractionation",
+      "Heart: mean dose <26 Gy to reduce cardiac mortality risk",
+      "Lung: V20 <20% and mean lung dose <13 Gy for pneumonitis prevention",
+      "BED calculation: Total dose × (1 + dose per fraction / α/β ratio)"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:55:06.951Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:55:06.951Z"
+  },
+  {
+    "id": "1340bce3-84ba-4e80-9048-6e92f12c56e6",
+    "title": "Breast Cancer Staging and Biomarker Testing",
+    "category": "Biomarkers",
+    "subspecialty": "Medical Oncology",
+    "organSite": "Breast",
+    "difficulty": "Fellow",
+    "guidelineReference": "NCCN Breast Cancer Guidelines V4.2025",
+    "learningObjectives": [
+      "Apply AJCC 8th edition TNM staging criteria for breast cancer",
+      "Interpret ER, PR, and HER2 testing results according to ASCO/CAP guidelines",
+      "Evaluate Ki-67 expression and its clinical significance",
+      "Assess multigene assays (Oncotype DX, MammaPrint) for treatment decisions"
+    ],
+    "keyPoints": [
+      "ER/PR positivity defined as ≥1% nuclear staining (ASCO/CAP 2020)",
+      "HER2 amplification: IHC 3+ or ISH ratio ≥2.0 with HER2 copy number ≥4.0",
+      "Ki-67 >20% suggests higher proliferation and potential chemotherapy benefit",
+      "Stage I-III hormone receptor-positive disease requires multigene testing consideration"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:55:30.607Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:55:30.607Z"
+  },
+  {
+    "id": "185f896e-2290-4250-9109-10c1b6717caa",
+    "title": "Small Cell Lung Cancer Treatment Algorithms",
+    "category": "Treatment",
+    "subspecialty": "Medical Oncology",
+    "organSite": "Lung",
+    "difficulty": "Resident",
+    "guidelineReference": "NCCN Small Cell Lung Cancer Guidelines V4.2025",
+    "learningObjectives": [
+      "Distinguish limited-stage from extensive-stage SCLC using NCCN criteria",
+      "Select appropriate first-line chemotherapy regimens for SCLC",
+      "Integrate immunotherapy (atezolizumab, durvalumab) into treatment plans",
+      "Apply prophylactic cranial irradiation (PCI) recommendations"
+    ],
+    "keyPoints": [
+      "Limited-stage: disease confined to one hemithorax within a single radiation port",
+      "Extensive-stage: disease beyond limited-stage definition",
+      "First-line: Carboplatin/Etoposide + Atezolizumab (ES-SCLC, Category 1)",
+      "Durvalumab maintenance after concurrent chemoradiation (LS-SCLC, Category 1)"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:55:30.685Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:55:30.685Z"
+  },
+  {
+    "id": "1faca0f1-1929-4efa-bb83-6784254af6d8",
+    "title": "Colon Cancer Molecular Profiling and Targeted Therapy",
+    "category": "Biomarkers",
+    "subspecialty": "Medical Oncology",
+    "organSite": "Colon",
+    "difficulty": "Attending",
+    "guidelineReference": "NCCN Colon Cancer Guidelines V3.2025",
+    "learningObjectives": [
+      "Interpret RAS (KRAS/NRAS) and BRAF mutation testing results",
+      "Evaluate microsatellite instability (MSI) and mismatch repair (MMR) status",
+      "Apply HER2 amplification testing in metastatic colorectal cancer",
+      "Select appropriate targeted therapies based on molecular profile"
+    ],
+    "keyPoints": [
+      "All metastatic CRC requires RAS, BRAF, MSI/MMR, and HER2 testing",
+      "RAS wild-type tumors eligible for anti-EGFR therapy (cetuximab, panitumumab)",
+      "BRAF V600E mutations: poor prognosis, specific combination therapies",
+      "MSI-H/dMMR tumors: pembrolizumab first-line (Category 1)"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:55:30.760Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:55:30.760Z"
+  },
+  {
+    "id": "2726a3ec-468b-4cd7-9728-3fee7baaee75",
+    "title": "Bone Cancer Diagnostic Workup and Staging",
+    "category": "Staging",
+    "subspecialty": "Orthopedic Oncology",
+    "organSite": "Bone",
+    "difficulty": "Fellow",
+    "guidelineReference": "NCCN Bone Cancer Guidelines V1.2025",
+    "learningObjectives": [
+      "Apply age-based diagnostic algorithms for bone lesions",
+      "Interpret imaging findings for primary bone tumors",
+      "Evaluate cytogenetic testing requirements for sarcomas",
+      "Coordinate multidisciplinary team evaluation"
+    ],
+    "keyPoints": [
+      "Age <40 years: immediate orthopedic oncology referral for bone lesions",
+      "Age ≥40 years: metastatic workup priority before primary tumor consideration",
+      "Osteosarcoma: alkaline phosphatase and LDH prognostic markers",
+      "Ewing sarcoma: EWSR1 rearrangement confirmation required"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:55:30.836Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:55:30.836Z"
+  },
+  {
+    "id": "94a29ab1-78fa-4738-a8e2-6e9ee07a7cb9",
+    "title": "Radiation Therapy Planning and Dose Constraints",
+    "category": "Treatment",
+    "subspecialty": "Radiation Oncology",
+    "organSite": "Various",
+    "difficulty": "Resident",
+    "guidelineReference": "RTOG/QUANTEC Dose Constraints 2025",
+    "learningObjectives": [
+      "Apply organ-at-risk (OAR) dose constraints in treatment planning",
+      "Calculate biologically effective dose (BED) for hypofractionation",
+      "Evaluate IMRT vs VMAT technique selection",
+      "Implement image-guided radiation therapy (IGRT) protocols"
+    ],
+    "keyPoints": [
+      "Spinal cord: maximum dose 45-50 Gy in conventional fractionation",
+      "Heart: mean dose <26 Gy to reduce cardiac mortality risk",
+      "Lung: V20 <20% and mean lung dose <13 Gy for pneumonitis prevention",
+      "BED calculation: Total dose × (1 + dose per fraction / α/β ratio)"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:55:30.911Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:55:30.911Z"
+  },
+  {
+    "id": "f86a526c-b31a-4573-af62-322230aea5b5",
+    "title": "Breast Cancer Staging and Biomarker Testing",
+    "category": "Biomarkers",
+    "subspecialty": "Medical Oncology",
+    "organSite": "Breast",
+    "difficulty": "Fellow",
+    "guidelineReference": "NCCN Breast Cancer Guidelines V4.2025",
+    "learningObjectives": [
+      "Apply AJCC 8th edition TNM staging criteria for breast cancer",
+      "Interpret ER, PR, and HER2 testing results according to ASCO/CAP guidelines",
+      "Evaluate Ki-67 expression and its clinical significance",
+      "Assess multigene assays (Oncotype DX, MammaPrint) for treatment decisions"
+    ],
+    "keyPoints": [
+      "ER/PR positivity defined as ≥1% nuclear staining (ASCO/CAP 2020)",
+      "HER2 amplification: IHC 3+ or ISH ratio ≥2.0 with HER2 copy number ≥4.0",
+      "Ki-67 >20% suggests higher proliferation and potential chemotherapy benefit",
+      "Stage I-III hormone receptor-positive disease requires multigene testing consideration"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:55:42.115Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:55:42.115Z"
+  },
+  {
+    "id": "d8bf1eec-5870-4952-ba69-75ce714c0892",
+    "title": "Small Cell Lung Cancer Treatment Algorithms",
+    "category": "Treatment",
+    "subspecialty": "Medical Oncology",
+    "organSite": "Lung",
+    "difficulty": "Resident",
+    "guidelineReference": "NCCN Small Cell Lung Cancer Guidelines V4.2025",
+    "learningObjectives": [
+      "Distinguish limited-stage from extensive-stage SCLC using NCCN criteria",
+      "Select appropriate first-line chemotherapy regimens for SCLC",
+      "Integrate immunotherapy (atezolizumab, durvalumab) into treatment plans",
+      "Apply prophylactic cranial irradiation (PCI) recommendations"
+    ],
+    "keyPoints": [
+      "Limited-stage: disease confined to one hemithorax within a single radiation port",
+      "Extensive-stage: disease beyond limited-stage definition",
+      "First-line: Carboplatin/Etoposide + Atezolizumab (ES-SCLC, Category 1)",
+      "Durvalumab maintenance after concurrent chemoradiation (LS-SCLC, Category 1)"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:55:42.192Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:55:42.192Z"
+  },
+  {
+    "id": "ae790741-1340-4bf3-9686-3dd63b826935",
+    "title": "Colon Cancer Molecular Profiling and Targeted Therapy",
+    "category": "Biomarkers",
+    "subspecialty": "Medical Oncology",
+    "organSite": "Colon",
+    "difficulty": "Attending",
+    "guidelineReference": "NCCN Colon Cancer Guidelines V3.2025",
+    "learningObjectives": [
+      "Interpret RAS (KRAS/NRAS) and BRAF mutation testing results",
+      "Evaluate microsatellite instability (MSI) and mismatch repair (MMR) status",
+      "Apply HER2 amplification testing in metastatic colorectal cancer",
+      "Select appropriate targeted therapies based on molecular profile"
+    ],
+    "keyPoints": [
+      "All metastatic CRC requires RAS, BRAF, MSI/MMR, and HER2 testing",
+      "RAS wild-type tumors eligible for anti-EGFR therapy (cetuximab, panitumumab)",
+      "BRAF V600E mutations: poor prognosis, specific combination therapies",
+      "MSI-H/dMMR tumors: pembrolizumab first-line (Category 1)"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:55:42.267Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:55:42.267Z"
+  },
+  {
+    "id": "9cbeef58-61ec-418f-9142-8b36906602cb",
+    "title": "Bone Cancer Diagnostic Workup and Staging",
+    "category": "Staging",
+    "subspecialty": "Orthopedic Oncology",
+    "organSite": "Bone",
+    "difficulty": "Fellow",
+    "guidelineReference": "NCCN Bone Cancer Guidelines V1.2025",
+    "learningObjectives": [
+      "Apply age-based diagnostic algorithms for bone lesions",
+      "Interpret imaging findings for primary bone tumors",
+      "Evaluate cytogenetic testing requirements for sarcomas",
+      "Coordinate multidisciplinary team evaluation"
+    ],
+    "keyPoints": [
+      "Age <40 years: immediate orthopedic oncology referral for bone lesions",
+      "Age ≥40 years: metastatic workup priority before primary tumor consideration",
+      "Osteosarcoma: alkaline phosphatase and LDH prognostic markers",
+      "Ewing sarcoma: EWSR1 rearrangement confirmation required"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:55:42.342Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:55:42.342Z"
+  },
+  {
+    "id": "b135a666-5e47-4ad9-8f26-b137506790a0",
+    "title": "Radiation Therapy Planning and Dose Constraints",
+    "category": "Treatment",
+    "subspecialty": "Radiation Oncology",
+    "organSite": "Various",
+    "difficulty": "Resident",
+    "guidelineReference": "RTOG/QUANTEC Dose Constraints 2025",
+    "learningObjectives": [
+      "Apply organ-at-risk (OAR) dose constraints in treatment planning",
+      "Calculate biologically effective dose (BED) for hypofractionation",
+      "Evaluate IMRT vs VMAT technique selection",
+      "Implement image-guided radiation therapy (IGRT) protocols"
+    ],
+    "keyPoints": [
+      "Spinal cord: maximum dose 45-50 Gy in conventional fractionation",
+      "Heart: mean dose <26 Gy to reduce cardiac mortality risk",
+      "Lung: V20 <20% and mean lung dose <13 Gy for pneumonitis prevention",
+      "BED calculation: Total dose × (1 + dose per fraction / α/β ratio)"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:55:42.415Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:55:42.415Z"
+  },
+  {
+    "id": "3a398426-cd41-438a-be8e-b862ecc07b2f",
+    "title": "Breast Cancer Staging and Biomarker Testing",
+    "category": "Biomarkers",
+    "subspecialty": "Medical Oncology",
+    "organSite": "Breast",
+    "difficulty": "Fellow",
+    "guidelineReference": "NCCN Breast Cancer Guidelines V4.2025",
+    "learningObjectives": [
+      "Apply AJCC 8th edition TNM staging criteria for breast cancer",
+      "Interpret ER, PR, and HER2 testing results according to ASCO/CAP guidelines",
+      "Evaluate Ki-67 expression and its clinical significance",
+      "Assess multigene assays (Oncotype DX, MammaPrint) for treatment decisions"
+    ],
+    "keyPoints": [
+      "ER/PR positivity defined as ≥1% nuclear staining (ASCO/CAP 2020)",
+      "HER2 amplification: IHC 3+ or ISH ratio ≥2.0 with HER2 copy number ≥4.0",
+      "Ki-67 >20% suggests higher proliferation and potential chemotherapy benefit",
+      "Stage I-III hormone receptor-positive disease requires multigene testing consideration"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:55:54.686Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:55:54.686Z"
+  },
+  {
+    "id": "e79a39b0-62d8-4dfe-9d02-899c64de9276",
+    "title": "Small Cell Lung Cancer Treatment Algorithms",
+    "category": "Treatment",
+    "subspecialty": "Medical Oncology",
+    "organSite": "Lung",
+    "difficulty": "Resident",
+    "guidelineReference": "NCCN Small Cell Lung Cancer Guidelines V4.2025",
+    "learningObjectives": [
+      "Distinguish limited-stage from extensive-stage SCLC using NCCN criteria",
+      "Select appropriate first-line chemotherapy regimens for SCLC",
+      "Integrate immunotherapy (atezolizumab, durvalumab) into treatment plans",
+      "Apply prophylactic cranial irradiation (PCI) recommendations"
+    ],
+    "keyPoints": [
+      "Limited-stage: disease confined to one hemithorax within a single radiation port",
+      "Extensive-stage: disease beyond limited-stage definition",
+      "First-line: Carboplatin/Etoposide + Atezolizumab (ES-SCLC, Category 1)",
+      "Durvalumab maintenance after concurrent chemoradiation (LS-SCLC, Category 1)"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:55:54.763Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:55:54.763Z"
+  },
+  {
+    "id": "75470b02-44e2-47ad-8546-64e93dbf39d8",
+    "title": "Colon Cancer Molecular Profiling and Targeted Therapy",
+    "category": "Biomarkers",
+    "subspecialty": "Medical Oncology",
+    "organSite": "Colon",
+    "difficulty": "Attending",
+    "guidelineReference": "NCCN Colon Cancer Guidelines V3.2025",
+    "learningObjectives": [
+      "Interpret RAS (KRAS/NRAS) and BRAF mutation testing results",
+      "Evaluate microsatellite instability (MSI) and mismatch repair (MMR) status",
+      "Apply HER2 amplification testing in metastatic colorectal cancer",
+      "Select appropriate targeted therapies based on molecular profile"
+    ],
+    "keyPoints": [
+      "All metastatic CRC requires RAS, BRAF, MSI/MMR, and HER2 testing",
+      "RAS wild-type tumors eligible for anti-EGFR therapy (cetuximab, panitumumab)",
+      "BRAF V600E mutations: poor prognosis, specific combination therapies",
+      "MSI-H/dMMR tumors: pembrolizumab first-line (Category 1)"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:55:54.838Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:55:54.838Z"
+  },
+  {
+    "id": "14676a43-73db-470c-b01d-ce9125b205e4",
+    "title": "Bone Cancer Diagnostic Workup and Staging",
+    "category": "Staging",
+    "subspecialty": "Orthopedic Oncology",
+    "organSite": "Bone",
+    "difficulty": "Fellow",
+    "guidelineReference": "NCCN Bone Cancer Guidelines V1.2025",
+    "learningObjectives": [
+      "Apply age-based diagnostic algorithms for bone lesions",
+      "Interpret imaging findings for primary bone tumors",
+      "Evaluate cytogenetic testing requirements for sarcomas",
+      "Coordinate multidisciplinary team evaluation"
+    ],
+    "keyPoints": [
+      "Age <40 years: immediate orthopedic oncology referral for bone lesions",
+      "Age ≥40 years: metastatic workup priority before primary tumor consideration",
+      "Osteosarcoma: alkaline phosphatase and LDH prognostic markers",
+      "Ewing sarcoma: EWSR1 rearrangement confirmation required"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:55:54.914Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:55:54.914Z"
+  },
+  {
+    "id": "747b9f95-abcd-47d8-9cd1-0d23ce7fb9b2",
+    "title": "Radiation Therapy Planning and Dose Constraints",
+    "category": "Treatment",
+    "subspecialty": "Radiation Oncology",
+    "organSite": "Various",
+    "difficulty": "Resident",
+    "guidelineReference": "RTOG/QUANTEC Dose Constraints 2025",
+    "learningObjectives": [
+      "Apply organ-at-risk (OAR) dose constraints in treatment planning",
+      "Calculate biologically effective dose (BED) for hypofractionation",
+      "Evaluate IMRT vs VMAT technique selection",
+      "Implement image-guided radiation therapy (IGRT) protocols"
+    ],
+    "keyPoints": [
+      "Spinal cord: maximum dose 45-50 Gy in conventional fractionation",
+      "Heart: mean dose <26 Gy to reduce cardiac mortality risk",
+      "Lung: V20 <20% and mean lung dose <13 Gy for pneumonitis prevention",
+      "BED calculation: Total dose × (1 + dose per fraction / α/β ratio)"
+    ],
+    "evidenceLevel": "Category 1",
+    "lastUpdated": "2025-06-30T13:55:54.988Z",
+    "isActive": true,
+    "createdAt": "2025-06-30T13:55:54.988Z"
+  }
+]

@@ -1,0 +1,24 @@
+[
+  {
+    "id": "81330439-5d56-44d5-b0f2-1406d7d1f2f0",
+    "name": "Lung Cancer Screening Protocol",
+    "version": "2024.1",
+    "protocolType": "screening",
+    "cancerType": "lung",
+    "stage": "early",
+    "content": {
+      "criteria": "Age 50-80, smoking history",
+      "followUp": "Based on findings",
+      "recommendations": "Annual low-dose CT"
+    },
+    "evidenceLevel": "1A",
+    "guidelineSource": "NCCN",
+    "createdBy": "958d41db-959c-48e6-839c-b2d089837394",
+    "createdAt": "2025-06-20T19:53:36.660Z",
+    "updatedAt": "2025-06-20T19:53:36.660Z",
+    "status": "active",
+    "approvalStatus": "approved",
+    "approvedBy": "958d41db-959c-48e6-839c-b2d089837394",
+    "approvedAt": "2025-06-20T19:53:36.660Z"
+  }
+]

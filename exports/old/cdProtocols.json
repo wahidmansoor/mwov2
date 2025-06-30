@@ -15154,1598 +15154,1117 @@
     "lastReviewed": "2024-01-15T10:30:00.000Z"
   },
   {
-    "id": "6fae75fc-7be8-4e9a-b571-4de18dc3ec9b",
-    "code": "Pembrolizumab-Chemoradiation",
-    "tumourGroup": "Cervical",
-    "tumourSupergroup": "Gynecologic",
-    "treatmentIntent": "Curative",
-    "summary": "Pembrolizumab with chemoradiation for stage III-IVA cervical cancer per NCCN v2.2025 KEYNOTE-A18",
-    "eligibility": {
-      "criteria": {
-        "ECOG": "0-1",
-        "stage": "FIGO III-IVA",
-        "histology": "Squamous or adenocarcinoma",
-        "adequate_organ_function": "required"
-      },
-      "indications": [
-        "Locally advanced cervical cancer",
-        "Stage III-IVA disease",
-        "Candidates for chemoradiation"
-      ]
-    },
-    "precautions": [
-      "Immune-related adverse events",
-      "Radiation recall reactions",
-      "Pneumonitis risk",
-      "Enhanced radiosensitization effects"
-    ],
-    "treatment": {
-      "drugs": [
-        {
-          "dose": "200 mg",
-          "name": "Pembrolizumab",
-          "route": "IV",
-          "schedule": "Q3 weeks during RT then maintenance"
-        },
-        {
-          "dose": "40 mg/m²",
-          "name": "Cisplatin",
-          "route": "IV",
-          "schedule": "Weekly during RT"
-        },
-        {
-          "dose": "45-50.4 Gy",
-          "name": "External beam RT",
-          "schedule": "25-28 fractions"
-        },
-        {
-          "dose": "Per institutional protocol",
-          "name": "Brachytherapy",
-          "schedule": "After EBRT completion"
-        }
-      ],
-      "duration": "Pembrolizumab up to 35 cycles total"
-    },
-    "tests": [
-      "CBC with differential",
-      "Comprehensive metabolic panel",
-      "Thyroid function",
-      "Cervical MRI/PET",
-      "Pulmonary function"
-    ],
-    "doseModifications": {
-      "irAEs": "Corticosteroids per NCCN toxicity guidelines",
-      "pneumonitis": "Hold pembrolizumab, high-dose steroids",
-      "renal_toxicity": "Hold cisplatin if creatinine >1.5x baseline",
-      "radiation_toxicity": "Standard supportive care"
-    },
-    "referenceList": [
-      "NCCN Cervical Cancer Guidelines v2.2025",
-      "KEYNOTE-A18 trial",
-      "NCCN Management of Immunotherapy-Related Toxicities"
-    ],
-    "cycleInfo": {
-      "total_duration": "Up to 2 years",
-      "concurrent_phase": "6-7 weeks with RT",
-      "maintenance_phase": "Q3 weeks up to 35 total cycles"
-    },
-    "preMedications": {
-      "cisplatin": [
-        "Hydration 1L NS pre/post",
-        "Antiemetics per protocol"
-      ],
-      "radiation": [
-        "Skin care education"
-      ],
-      "pembrolizumab": [
-        "Acetaminophen 650mg",
-        "Diphenhydramine 25mg"
-      ]
-    },
-    "postMedications": {
-      "irAEs": "Patient education on symptoms",
-      "nausea": "Ondansetron PRN",
-      "fatigue": "Activity as tolerated",
-      "radiation_dermatitis": "Topical care"
-    },
-    "supportiveCare": {
-      "imaging": "MRI/PET every 3 months",
-      "irAE_monitoring": "Baseline and ongoing assessments",
-      "radiation_monitoring": "Weekly during treatment"
-    },
-    "rescueAgents": {
-      "severe_irAEs": "High-dose corticosteroids, immunosuppressants",
-      "severe_dermatitis": "Treatment break",
-      "radiation_pneumonitis": "Corticosteroids"
-    },
-    "monitoring": {
-      "weekly": [
-        "CBC",
-        "CMP",
-        "toxicity assessment"
-      ],
-      "baseline": [
-        "CBC",
-        "CMP",
-        "TFTs",
-        "MRI pelvis",
-        "PET-CT"
-      ],
-      "follow_up": [
-        "MRI every 3 months"
-      ]
-    },
-    "toxicityMonitoring": {
-      "irAEs": "CTCAE v5.0 grading",
-      "immune_monitoring": "Thyroid, liver, lung function",
-      "radiation_toxicity": "RTOG criteria"
-    },
-    "interactions": {
-      "live_vaccines": "Avoid during treatment",
-      "corticosteroids": "Use only for irAEs",
-      "immunosuppressants": "Reduce pembrolizumab efficacy"
-    },
-    "contraindications": [
-      "Active autoimmune disease",
-      "Prior severe irAEs",
-      "Contraindications to cisplatin",
-      "Unable to receive radiation"
-    ],
-    "version": "1.0",
-    "status": "active",
-    "createdBy": null,
-    "updatedBy": null,
-    "createdAt": "2025-06-30T02:59:56.185Z",
-    "updatedAt": "2025-06-30T02:59:56.185Z",
-    "lastReviewed": "2025-06-30T02:59:56.185Z"
-  },
-  {
-    "id": "ad208ba5-6f7c-4207-a4c7-124b5fa50cde",
-    "code": "FLOT-Perioperative",
-    "tumourGroup": "Esophageal",
-    "tumourSupergroup": "Gastrointestinal",
-    "treatmentIntent": "Curative",
-    "summary": "Perioperative FLOT for resectable esophagogastric adenocarcinoma per NCCN v1.2025 ESOPEC trial",
-    "eligibility": {
-      "criteria": {
-        "stage": "cT2N0 or any cT3-4a or cN+",
-        "location": "Esophagus or EGJ",
-        "histology": "Adenocarcinoma",
-        "resectable": "yes"
-      },
-      "indications": [
-        "Locally advanced esophageal adenocarcinoma",
-        "Medically fit for surgery",
-        "Resectable disease"
-      ]
-    },
-    "precautions": [
-      "Perioperative morbidity",
-      "Delayed wound healing",
-      "Increased surgical risk",
-      "Neutropenia and infection"
-    ],
-    "treatment": {
-      "cycles": "4 preop + 4 postop q14 days",
-      "preoperative": [
-        {
-          "dose": "2600 mg/m²",
-          "name": "5-Fluorouracil",
-          "route": "CI",
-          "schedule": "24h Day 1"
-        },
-        {
-          "dose": "200 mg/m²",
-          "name": "Leucovorin",
-          "route": "IV",
-          "schedule": "Day 1"
-        },
-        {
-          "dose": "85 mg/m²",
-          "name": "Oxaliplatin",
-          "route": "IV",
-          "schedule": "Day 1"
-        },
-        {
-          "dose": "50 mg/m²",
-          "name": "Docetaxel",
-          "route": "IV",
-          "schedule": "Day 1"
-        }
-      ]
-    },
-    "tests": [
-      "CBC with differential",
-      "Comprehensive metabolic panel",
-      "Performance status",
-      "Cardiac function",
-      "Staging imaging"
-    ],
-    "doseModifications": {
-      "neuropathy": "Reduce oxaliplatin 25% grade 2+",
-      "neutropenia": "G-CSF support, dose reduce",
-      "surgical_delay": "Hold chemo 2 weeks before surgery",
-      "postop_complications": "Delay postop chemo until healing"
-    },
-    "referenceList": [
-      "NCCN Esophageal Guidelines v1.2025",
-      "ESOPEC trial",
-      "Perioperative management guidelines"
-    ],
-    "cycleInfo": {
-      "surgery_timing": "6-8 weeks after completion",
-      "preoperative_cycles": "4 cycles q14 days",
-      "postoperative_cycles": "4 cycles starting 6-12 weeks post-surgery"
-    },
-    "preMedications": {
-      "standard": [
-        "Ondansetron 8mg IV",
-        "Dexamethasone 8mg IV",
-        "Aprepitant 125mg PO"
-      ],
-      "docetaxel": [
-        "Dexamethasone 8mg PO BID x3 days starting day before"
-      ],
-      "oxaliplatin": [
-        "Avoid cold exposure"
-      ]
-    },
-    "postMedications": {
-      "nausea": "Ondansetron PRN",
-      "diarrhea": "Loperamide",
-      "mucositis": "Mouth care protocol",
-      "neuropathy": "Cold avoidance"
-    },
-    "supportiveCare": {
-      "wound_care": "Standard surgical care",
-      "perioperative": "Enhanced recovery protocols",
-      "surgical_optimization": "Nutrition support"
-    },
-    "rescueAgents": {
-      "infection": "Broad-spectrum antibiotics",
-      "severe_toxicity": "Dose reduction algorithms",
-      "surgical_complications": "Multidisciplinary management"
-    },
-    "monitoring": {
-      "preoperative": [
-        "CBC",
-        "CMP",
-        "staging q2 cycles"
-      ],
-      "perioperative": [
-        "Surgical assessment",
-        "pathology review"
-      ],
-      "postoperative": [
-        "CBC",
-        "CMP",
-        "wound healing"
-      ]
-    },
-    "toxicityMonitoring": {
-      "surgical": "Clavien-Dindo classification",
-      "chemotherapy": "CTCAE v5.0",
-      "pathologic_response": "Mandard TRG scoring"
-    },
-    "interactions": {
-      "warfarin": "Enhanced anticoagulation",
-      "live_vaccines": "Avoid during treatment",
-      "CYP3A4_inducers": "Reduced docetaxel levels"
-    },
-    "contraindications": [
-      "Unresectable disease",
-      "Medical contraindications to surgery",
-      "Severe organ dysfunction",
-      "Active infection"
-    ],
-    "version": "1.0",
-    "status": "active",
-    "createdBy": null,
-    "updatedBy": null,
-    "createdAt": "2025-06-30T02:59:56.185Z",
-    "updatedAt": "2025-06-30T02:59:56.185Z",
-    "lastReviewed": "2025-06-30T02:59:56.185Z"
-  },
-  {
-    "id": "6950d027-a2a4-4e97-8aec-82432e831ed4",
-    "code": "Liso-cel-CLL",
-    "tumourGroup": "CLL",
-    "tumourSupergroup": "Hematologic Malignancy",
-    "treatmentIntent": "Salvage",
-    "summary": "Lisocabtagene maraleucel CAR-T therapy for relapsed/refractory CLL per NCCN v3.2025",
-    "eligibility": {
-      "criteria": {
-        "ECOG": "0-2",
-        "histology": "CLL/SLL",
-        "prior_therapy": "≥2 lines including BTK inhibitor",
-        "adequate_organ_function": "required"
-      },
-      "indications": [
-        "Relapsed/refractory CLL",
-        "Failed BTK inhibitor",
-        "Failed anti-CD20 therapy"
-      ]
-    },
-    "precautions": [
-      "Cytokine release syndrome",
-      "Immune effector cell neurotoxicity",
-      "Prolonged cytopenias",
-      "Infection risk"
-    ],
-    "treatment": {
-      "infusion": [
-        {
-          "dose": "50-110 × 10⁶ CAR+ T cells",
-          "name": "Liso-cel",
-          "route": "IV",
-          "schedule": "Day 0"
-        }
-      ],
-      "manufacturing": "Leukapheresis for CAR-T production",
-      "lymphodepletion": [
-        {
-          "dose": "30 mg/m²",
-          "name": "Fludarabine",
-          "route": "IV",
-          "schedule": "Days -5 to -3"
-        },
-        {
-          "dose": "300 mg/m²",
-          "name": "Cyclophosphamide",
-          "route": "IV",
-          "schedule": "Days -5 to -3"
-        }
-      ]
-    },
-    "tests": [
-      "CBC with differential",
-      "Comprehensive metabolic panel",
-      "Hepatitis B/C screening",
-      "HIV testing",
-      "Cardiac function"
-    ],
-    "doseModifications": {
-      "CRS": "Tocilizumab and corticosteroids per ASTCT guidelines",
-      "ICANS": "Corticosteroids and supportive care",
-      "cytopenias": "Growth factor support",
-      "infections": "Antimicrobial prophylaxis"
-    },
-    "referenceList": [
-      "NCCN CLL Guidelines v3.2025",
-      "FDA prescribing information",
-      "ASTCT CAR-T toxicity guidelines"
-    ],
-    "cycleInfo": {
-      "infusion": "Single dose",
-      "lymphodepletion": "3 days",
-      "monitoring_period": "Minimum 7 days inpatient",
-      "manufacturing_time": "14-21 days"
-    },
-    "preMedications": {
-      "infusion": [
-        "Acetaminophen",
-        "Diphenhydramine",
-        "Emergency medications available"
-      ],
-      "leukapheresis": [
-        "Central line placement"
-      ],
-      "lymphodepletion": [
-        "Standard antiemetics"
-      ]
-    },
-    "postMedications": {
-      "CRS_management": "Tocilizumab ready",
-      "ICANS_management": "Neurologic monitoring",
-      "infection_prevention": "Antimicrobial prophylaxis"
-    },
-    "supportiveCare": {
-      "CRS_monitoring": "Vital signs q4h minimum",
-      "ICANS_monitoring": "Neurologic assessments",
-      "infectious_monitoring": "Daily surveillance cultures"
-    },
-    "rescueAgents": {
-      "CRS_grade_2+": "Tocilizumab 8mg/kg IV",
-      "ICANS_grade_2+": "Dexamethasone 10mg q6h",
-      "refractory_CRS": "Anakinra consideration"
-    },
-    "monitoring": {
-      "daily": [
-        "CBC",
-        "CMP",
-        "CRS/ICANS assessment"
-      ],
-      "baseline": [
-        "CBC",
-        "CMP",
-        "HBV/HCV/HIV",
-        "Echo"
-      ],
-      "long_term": [
-        "Immunoglobulin levels",
-        "B-cell monitoring"
-      ]
-    },
-    "toxicityMonitoring": {
-      "CRS": "ASTCT consensus grading",
-      "ICANS": "ASTCT consensus grading",
-      "CAR-T_expansion": "Flow cytometry"
-    },
-    "interactions": {
-      "live_vaccines": "Avoid for life",
-      "immunoglobulin": "Monitor and replace",
-      "strong_CYP3A_inhibitors": "Avoid during lymphodepletion"
-    },
-    "contraindications": [
-      "Active CNS involvement",
-      "Active autoimmune disease",
-      "Prior allogeneic stem cell transplant <100 days",
-      "Uncontrolled infection"
-    ],
-    "version": "1.0",
-    "status": "active",
-    "createdBy": null,
-    "updatedBy": null,
-    "createdAt": "2025-06-30T02:59:56.185Z",
-    "updatedAt": "2025-06-30T02:59:56.185Z",
-    "lastReviewed": "2025-06-30T02:59:56.185Z"
-  },
-  {
-    "id": "b11edd41-2472-4274-9c43-1560499f613b",
-    "code": "FOLFOX-HAIC",
-    "tumourGroup": "Hepatocellular",
-    "tumourSupergroup": "Gastrointestinal",
+    "id": "d2eeee2f-6192-4c0b-804d-a9023e977100",
+    "code": "Abiraterone-Pred",
+    "tumourGroup": "Prostate",
+    "tumourSupergroup": "Prostate",
     "treatmentIntent": "Palliative",
-    "summary": "Hepatic arterial infusion chemotherapy with FOLFOX for unresectable HCC per NCCN v1.2025",
+    "summary": "CYP17 inhibitor with prednisolone for metastatic castration-resistant prostate cancer.",
     "eligibility": {
+      "summary": [
+        "Metastatic CRPC",
+        "Pre or post-chemotherapy"
+      ],
       "criteria": {
         "ECOG": "0-2",
-        "stage": "Unresectable locally advanced",
-        "histology": "Hepatocellular carcinoma",
-        "Child_Pugh": "A-B7"
-      },
-      "indications": [
-        "Unresectable HCC",
-        "Major portal vein thrombosis",
-        "BCLC stage B-C",
-        "Failed TACE"
-      ]
+        "Metastatic_CRPC": "Required",
+        "Castrate_testosterone": "< 1.7 nmol/L"
+      }
     },
     "precautions": [
-      "Hepatic arterial complications",
-      "Bleeding risk",
-      "Portal hypertension",
-      "Liver function deterioration"
-    ],
-    "treatment": {
-      "drugs": [
-        {
-          "dose": "130 mg/m²",
-          "name": "Oxaliplatin",
-          "route": "Hepatic arterial",
-          "schedule": "Day 1 q21 days"
-        },
-        {
-          "dose": "400 mg/m²",
-          "name": "Leucovorin",
-          "route": "Hepatic arterial",
-          "schedule": "Day 1"
-        },
-        {
-          "dose": "400 mg/m²",
-          "name": "5-FU bolus",
-          "route": "Hepatic arterial",
-          "schedule": "Day 1"
-        },
-        {
-          "dose": "2400 mg/m²",
-          "name": "5-FU infusion",
-          "route": "Hepatic arterial",
-          "schedule": "24h continuous Day 1"
-        }
-      ],
-      "duration": "Until progression or unacceptable toxicity"
-    },
-    "tests": [
-      "CBC with differential",
-      "Comprehensive metabolic panel",
-      "Liver function tests",
-      "AFP",
-      "Imaging q6-8 weeks"
-    ],
-    "doseModifications": {
-      "neuropathy": "Reduce oxaliplatin 25% grade 2+",
-      "neutropenia": "Dose reduce 25% grade 3+",
-      "hepatotoxicity": "Hold if Child-Pugh >B7",
-      "catheter_complications": "Immediate intervention"
-    },
-    "referenceList": [
-      "NCCN Hepatocellular Carcinoma Guidelines v1.2025",
-      "Phase III HAIC vs TACE trial",
-      "Hepatic arterial catheter guidelines"
-    ],
-    "cycleInfo": {
-      "cycle_length": "21 days",
-      "catheter_placement": "Interventional radiology",
-      "treatment_duration": "Until progression"
-    },
-    "preMedications": {
-      "catheter": [
-        "Heparin flush",
-        "Sterile technique"
-      ],
-      "standard": [
-        "Ondansetron 8mg IV",
-        "Dexamethasone 8mg IV"
-      ],
-      "hepatoprotection": [
-        "Ursodeoxycholic acid"
-      ]
-    },
-    "postMedications": {
-      "nausea": "Ondansetron PRN",
-      "nutrition": "High-protein diet",
-      "catheter_care": "Daily flushing",
-      "hepatotoxicity": "Lactulose PRN"
-    },
-    "supportiveCare": {
-      "catheter_monitoring": "Daily assessment",
-      "bleeding_precautions": "Monitor PT/INR",
-      "hepatic_encephalopathy": "Mental status checks"
-    },
-    "rescueAgents": {
-      "bleeding": "Hold anticoagulation",
-      "catheter_occlusion": "Thrombolytics",
-      "hepatic_encephalopathy": "Lactulose/rifaximin"
-    },
-    "monitoring": {
-      "weekly": [
-        "CBC",
-        "LFTs",
-        "catheter function"
-      ],
-      "imaging": [
-        "CT/MRI q6-8 weeks"
-      ],
-      "baseline": [
-        "CBC",
-        "CMP",
-        "LFTs",
-        "AFP",
-        "Child-Pugh assessment"
-      ]
-    },
-    "toxicityMonitoring": {
-      "systemic": "CTCAE v5.0",
-      "liver_function": "Child-Pugh scoring",
-      "catheter_related": "Infection/thrombosis monitoring"
-    },
-    "interactions": {
-      "live_vaccines": "Avoid during treatment",
-      "anticoagulants": "Bleeding risk",
-      "CYP2D6_inhibitors": "Enhanced toxicity"
-    },
-    "contraindications": [
-      "Child-Pugh C cirrhosis",
-      "Active bleeding",
-      "Severe portal hypertension",
-      "Contraindication to catheter placement"
-    ],
-    "version": "1.0",
-    "status": "active",
-    "createdBy": null,
-    "updatedBy": null,
-    "createdAt": "2025-06-30T03:04:45.780Z",
-    "updatedAt": "2025-06-30T03:04:45.780Z",
-    "lastReviewed": "2025-06-30T03:04:45.780Z"
-  },
-  {
-    "id": "294acc6b-9f9d-4a78-9601-00af017217fe",
-    "code": "Gemcitabine-Oxaliplatin-HCC",
-    "tumourGroup": "Hepatocellular",
-    "tumourSupergroup": "Gastrointestinal",
-    "treatmentIntent": "Palliative",
-    "summary": "Gemcitabine plus oxaliplatin for advanced hepatocellular carcinoma per NCCN v1.2025",
-    "eligibility": {
-      "criteria": {
-        "ECOG": "0-2",
-        "stage": "Advanced/metastatic",
-        "histology": "Hepatocellular carcinoma",
-        "Child_Pugh": "A-B7"
-      },
-      "indications": [
-        "Advanced HCC",
-        "Metastatic disease",
-        "Second-line therapy",
-        "Sorafenib intolerant"
-      ]
-    },
-    "precautions": [
-      "Myelosuppression",
-      "Peripheral neuropathy",
+      "Mineralocorticoid excess",
       "Hepatotoxicity",
-      "Thrombocytopenia"
+      "Cardiac toxicity"
     ],
     "treatment": {
       "drugs": [
         {
-          "dose": "1000 mg/m²",
-          "name": "Gemcitabine",
-          "route": "IV",
-          "schedule": "Days 1, 8 q21 days"
-        },
-        {
-          "dose": "100 mg/m²",
-          "name": "Oxaliplatin",
-          "route": "IV",
-          "schedule": "Day 1 q21 days"
-        }
-      ],
-      "duration": "6 cycles or until progression"
-    },
-    "tests": [
-      "CBC with differential",
-      "Comprehensive metabolic panel",
-      "Liver function tests",
-      "AFP",
-      "Imaging q2 cycles"
-    ],
-    "doseModifications": {
-      "neuropathy": "Reduce oxaliplatin 25% grade 2+",
-      "neutropenia": "Dose reduce 25% grade 3+",
-      "hepatotoxicity": "Hold if bilirubin >3x ULN",
-      "thrombocytopenia": "Hold if platelets <75k"
-    },
-    "referenceList": [
-      "NCCN Hepatocellular Carcinoma Guidelines v1.2025",
-      "Gemcitabine-oxaliplatin HCC studies",
-      "Systemic therapy guidelines"
-    ],
-    "cycleInfo": {
-      "cycle_length": "21 days",
-      "total_cycles": "6 cycles",
-      "response_assessment": "Every 2 cycles"
-    },
-    "preMedications": {
-      "gemcitabine": [
-        "Ondansetron 8mg IV"
-      ],
-      "oxaliplatin": [
-        "Dexamethasone 8mg IV",
-        "Avoid cold exposure"
-      ],
-      "hepatoprotection": [
-        "Ursodeoxycholic acid PRN"
-      ]
-    },
-    "postMedications": {
-      "nausea": "Ondansetron PRN",
-      "fatigue": "Activity as tolerated",
-      "neuropathy": "Cold avoidance",
-      "liver_support": "Lactulose PRN"
-    },
-    "supportiveCare": {
-      "neuropathy": "Cold avoidance protocols",
-      "myelosuppression": "G-CSF support PRN",
-      "hepatic_monitoring": "LFT surveillance"
-    },
-    "rescueAgents": {
-      "hepatic_failure": "Supportive care",
-      "grade_3_neuropathy": "Oxaliplatin discontinuation",
-      "severe_neutropenia": "G-CSF support"
-    },
-    "monitoring": {
-      "weekly": [
-        "CBC",
-        "basic metabolic panel"
-      ],
-      "baseline": [
-        "CBC",
-        "CMP",
-        "LFTs",
-        "AFP",
-        "Child-Pugh"
-      ],
-      "q2_cycles": [
-        "Full restaging"
-      ]
-    },
-    "toxicityMonitoring": {
-      "hepatic": "Child-Pugh assessment",
-      "neuropathy": "NCI-CTC grading",
-      "hematologic": "CTCAE v5.0"
-    },
-    "interactions": {
-      "warfarin": "Enhanced anticoagulation",
-      "live_vaccines": "Avoid during treatment",
-      "nephrotoxic_drugs": "Additive toxicity"
-    },
-    "contraindications": [
-      "Child-Pugh C cirrhosis",
-      "Severe renal impairment",
-      "Active infection",
-      "Severe neuropathy"
-    ],
-    "version": "1.0",
-    "status": "active",
-    "createdBy": null,
-    "updatedBy": null,
-    "createdAt": "2025-06-30T03:04:45.780Z",
-    "updatedAt": "2025-06-30T03:04:45.780Z",
-    "lastReviewed": "2025-06-30T03:04:45.780Z"
-  },
-  {
-    "id": "d39d5e98-4457-43fc-a3ac-e756711cb843",
-    "code": "Lenvatinib-HCC",
-    "tumourGroup": "Hepatocellular",
-    "tumourSupergroup": "Gastrointestinal",
-    "treatmentIntent": "Palliative",
-    "summary": "Lenvatinib monotherapy for unresectable hepatocellular carcinoma per NCCN v1.2025",
-    "eligibility": {
-      "criteria": {
-        "ECOG": "0-1",
-        "stage": "Unresectable/advanced",
-        "histology": "Hepatocellular carcinoma",
-        "Child_Pugh": "A only"
-      },
-      "indications": [
-        "First-line advanced HCC",
-        "Sorafenib alternative",
-        "Child-Pugh A cirrhosis"
-      ]
-    },
-    "precautions": [
-      "Hypertension",
-      "Proteinuria",
-      "Hepatic encephalopathy",
-      "Bleeding risk"
-    ],
-    "treatment": {
-      "drugs": [
-        {
-          "dose": "12 mg (≥60kg) or 8 mg (<60kg)",
-          "name": "Lenvatinib",
+          "dose": "1000mg daily",
+          "name": "Abiraterone acetate",
           "route": "PO",
-          "schedule": "Daily continuously"
+          "schedule": "Continuous"
+        },
+        {
+          "dose": "5mg BD",
+          "name": "Prednisolone",
+          "route": "PO",
+          "schedule": "Continuous"
         }
       ],
-      "duration": "Until progression or unacceptable toxicity"
+      "cycles": "Continuous until progression"
     },
     "tests": [
-      "CBC with differential",
-      "Comprehensive metabolic panel",
-      "Urinalysis",
+      "PSA",
+      "Liver function tests",
+      "Potassium",
       "Blood pressure",
-      "Thyroid function"
+      "LVEF"
     ],
     "doseModifications": {
-      "proteinuria": "Dose reduce if >2g/24h",
+      "hypokalemia": "Potassium supplementation",
       "hypertension": "Antihypertensive therapy",
-      "hand_foot_syndrome": "Dose interruption",
-      "hepatic_deterioration": "Discontinue if Child-Pugh B+"
+      "hepatotoxicity": "Dose reduction or interruption"
     },
     "referenceList": [
-      "NCCN Hepatocellular Carcinoma Guidelines v1.2025",
-      "REFLECT trial data",
-      "Lenvatinib prescribing information"
+      "NCCN Prostate Guidelines",
+      "COU-AA Studies",
+      "EAU Guidelines"
     ],
     "cycleInfo": {
-      "dosing": "Continuous daily",
-      "duration": "Until progression",
-      "monitoring_frequency": "Weekly first month then q2 weeks"
+      "cycle_length": "Continuous",
+      "total_cycles": "Until progression",
+      "administration_time": "Abiraterone on empty stomach"
     },
     "preMedications": {
-      "daily": [
-        "Blood pressure monitoring"
-      ],
-      "baseline": [
-        "Blood pressure optimization"
-      ],
-      "supportive": [
-        "Proton pump inhibitor"
-      ]
+      "cardiac_monitoring": "Baseline BP and LVEF",
+      "hepatic_monitoring": "Weekly LFTs first 3 months",
+      "electrolyte_monitoring": "Baseline K+"
     },
     "postMedications": {
-      "fatigue": "Activity modification",
-      "diarrhea": "Loperamide",
-      "hypertension": "ACE inhibitors/ARBs",
-      "hand_foot_syndrome": "Topical care"
+      "hypokalemia": "K+ supplementation",
+      "hypertension": "Monitor BP regularly",
+      "hepatotoxicity": "Avoid hepatotoxins"
     },
     "supportiveCare": {
-      "renal": "Proteinuria assessment",
-      "hepatic": "Child-Pugh monitoring",
-      "cardiovascular": "BP monitoring"
+      "liver_protection": "Regular LFT monitoring",
+      "cardiac_monitoring": "BP and LVEF",
+      "electrolyte_monitoring": "Regular K+ monitoring"
     },
     "rescueAgents": {
-      "severe_proteinuria": "Nephrology consult",
-      "hypertensive_crisis": "Emergency management",
-      "hepatic_encephalopathy": "Lactulose/rifaximin"
+      "severe_hypokalemia": "IV potassium",
+      "severe_hypertension": "Antihypertensive therapy",
+      "severe_hepatotoxicity": "Permanent discontinuation"
     },
     "monitoring": {
-      "weekly": [
-        "CBC",
-        "CMP",
-        "BP"
-      ],
-      "monthly": [
-        "Urinalysis",
-        "imaging"
-      ],
+      "monthly": "PSA, K+, BP",
       "baseline": [
-        "CBC",
-        "CMP",
-        "urinalysis",
-        "TFTs",
-        "Echo"
-      ]
+        "PSA",
+        "LFTs",
+        "K+",
+        "BP",
+        "LVEF"
+      ],
+      "weekly_first_3_months": "LFTs"
     },
     "toxicityMonitoring": {
-      "renal": "Proteinuria grading",
-      "hepatic": "Child-Pugh assessment",
-      "cardiovascular": "CTCAE v5.0"
+      "cardiac": "BP monitoring",
+      "electrolytes": "K+ monitoring",
+      "hepatotoxicity": "Weekly LFTs first 3 months"
     },
     "interactions": {
-      "warfarin": "Enhanced anticoagulation",
-      "CYP3A_inducers": "Potential reduced efficacy",
-      "antihypertensives": "Additive effects"
+      "strong_CYP3A4_inducers": "May reduce abiraterone efficacy",
+      "potassium_sparing_diuretics": "Monitor K+ closely"
     },
     "contraindications": [
-      "Child-Pugh B or C cirrhosis",
+      "Severe hepatic impairment",
       "Uncontrolled hypertension",
-      "Recent arterial thrombosis",
-      "GI bleeding history"
+      "Severe heart failure"
     ],
-    "version": "1.0",
+    "version": "1.6",
     "status": "active",
     "createdBy": null,
     "updatedBy": null,
-    "createdAt": "2025-06-30T03:04:45.780Z",
-    "updatedAt": "2025-06-30T03:04:45.780Z",
-    "lastReviewed": "2025-06-30T03:04:45.780Z"
+    "createdAt": "2024-01-15T10:30:00.000Z",
+    "updatedAt": "2024-01-15T10:30:00.000Z",
+    "lastReviewed": "2024-01-15T10:30:00.000Z"
   },
   {
-    "id": "26e3f3be-d80d-47f9-ba00-c2e945542ffd",
-    "code": "FOLFIRINOX-Neoadjuvant",
-    "tumourGroup": "Pancreatic",
-    "tumourSupergroup": "Gastrointestinal",
-    "treatmentIntent": "Curative",
-    "summary": "Neoadjuvant FOLFIRINOX for borderline resectable pancreatic adenocarcinoma per NCCN v2.2025",
-    "eligibility": {
-      "criteria": {
-        "ECOG": "0-1",
-        "stage": "Borderline resectable",
-        "histology": "Pancreatic adenocarcinoma",
-        "adequate_organ_function": "required"
-      },
-      "indications": [
-        "Borderline resectable PDAC",
-        "Locally advanced PDAC",
-        "Neoadjuvant therapy",
-        "Good performance status patients"
-      ]
-    },
-    "precautions": [
-      "Severe neutropenia",
-      "Peripheral neuropathy",
-      "Diarrhea",
-      "Mucositis"
-    ],
-    "treatment": {
-      "drugs": [
-        {
-          "dose": "85 mg/m²",
-          "name": "Oxaliplatin",
-          "route": "IV",
-          "schedule": "Day 1 q14 days"
-        },
-        {
-          "dose": "180 mg/m²",
-          "name": "Irinotecan",
-          "route": "IV",
-          "schedule": "Day 1 q14 days"
-        },
-        {
-          "dose": "400 mg/m²",
-          "name": "Leucovorin",
-          "route": "IV",
-          "schedule": "Day 1 q14 days"
-        },
-        {
-          "dose": "400 mg/m²",
-          "name": "5-FU bolus",
-          "route": "IV",
-          "schedule": "Day 1"
-        },
-        {
-          "dose": "2400 mg/m²",
-          "name": "5-FU infusion",
-          "route": "IV",
-          "schedule": "46h continuous"
-        }
-      ],
-      "duration": "4-6 cycles pre-operatively"
-    },
-    "tests": [
-      "CBC with differential",
-      "Comprehensive metabolic panel",
-      "CA 19-9",
-      "UGT1A1 genotyping",
-      "Staging CT/MRI"
-    ],
-    "doseModifications": {
-      "diarrhea": "Reduce irinotecan 25% grade 3+",
-      "mucositis": "Reduce 5-FU 25% grade 3+",
-      "neuropathy": "Reduce oxaliplatin 25% grade 2+",
-      "neutropenia": "G-CSF support, dose reduce 25%"
-    },
-    "referenceList": [
-      "NCCN Pancreatic Adenocarcinoma Guidelines v2.2025",
-      "FOLFIRINOX neoadjuvant studies",
-      "Borderline resectable PDAC guidelines"
-    ],
-    "cycleInfo": {
-      "restaging": "Every 2 cycles",
-      "cycle_length": "14 days",
-      "surgery_timing": "4-8 weeks after completion",
-      "neoadjuvant_cycles": "4-6 cycles"
-    },
-    "preMedications": {
-      "standard": [
-        "Ondansetron 8mg IV",
-        "Dexamethasone 8mg IV",
-        "Aprepitant 125mg PO"
-      ],
-      "irinotecan": [
-        "Atropine 0.25mg SC PRN"
-      ],
-      "oxaliplatin": [
-        "Cold avoidance"
-      ]
-    },
-    "postMedications": {
-      "nausea": "Ondansetron PRN",
-      "diarrhea": "Loperamide",
-      "mucositis": "Mouth care protocol",
-      "neuropathy": "Cold avoidance"
-    },
-    "supportiveCare": {
-      "nutrition": "Nutritionist consultation",
-      "neutropenia": "G-CSF support PRN",
-      "surgical_planning": "MDT evaluation"
-    },
-    "rescueAgents": {
-      "grade_3_diarrhea": "Octreotide",
-      "severe_neuropathy": "Oxaliplatin hold",
-      "severe_neutropenia": "G-CSF support"
-    },
-    "monitoring": {
-      "weekly": [
-        "CBC",
-        "CMP"
-      ],
-      "baseline": [
-        "CBC",
-        "CMP",
-        "CA 19-9",
-        "UGT1A1",
-        "staging"
-      ],
-      "q2_cycles": [
-        "Restaging imaging"
-      ]
-    },
-    "toxicityMonitoring": {
-      "GI": "Diarrhea grading",
-      "neurologic": "Neuropathy assessment",
-      "hematologic": "CTCAE v5.0"
-    },
-    "interactions": {
-      "warfarin": "Enhanced anticoagulation",
-      "live_vaccines": "Avoid during treatment",
-      "CYP3A4_inducers": "Reduced irinotecan levels"
-    },
-    "contraindications": [
-      "UGT1A1*28 homozygous",
-      "Severe organ dysfunction",
-      "Active infection",
-      "Poor performance status"
-    ],
-    "version": "1.0",
-    "status": "active",
-    "createdBy": null,
-    "updatedBy": null,
-    "createdAt": "2025-06-30T03:09:11.586Z",
-    "updatedAt": "2025-06-30T03:09:11.586Z",
-    "lastReviewed": "2025-06-30T03:09:11.586Z"
-  },
-  {
-    "id": "7a6f5520-fcda-4ed1-ac9e-2d929d42ee12",
-    "code": "mFOLFIRINOX",
-    "tumourGroup": "Pancreatic",
-    "tumourSupergroup": "Gastrointestinal",
+    "id": "e3ffff2f-6192-4c0b-804d-a9023e977101",
+    "code": "Radium-223-Bone",
+    "tumourGroup": "Prostate",
+    "tumourSupergroup": "Prostate",
     "treatmentIntent": "Palliative",
-    "summary": "Modified FOLFIRINOX for metastatic pancreatic adenocarcinoma per NCCN v2.2025",
+    "summary": "Alpha-particle emitting radiopharmaceutical for bone metastases in castration-resistant prostate cancer.",
     "eligibility": {
+      "summary": [
+        "CRPC with bone metastases",
+        "No visceral metastases"
+      ],
       "criteria": {
-        "ECOG": "0-1",
-        "stage": "Metastatic",
-        "bilirubin": "<1.5x ULN",
-        "histology": "Pancreatic adenocarcinoma"
-      },
-      "indications": [
-        "Metastatic PDAC",
-        "First-line therapy",
-        "Good performance status",
-        "Adequate organ function"
-      ]
+        "Symptomatic": "Bone pain",
+        "Bone_metastases_only": "Required",
+        "No_visceral_metastases": "Required"
+      }
     },
     "precautions": [
       "Myelosuppression",
-      "Peripheral neuropathy",
       "Diarrhea",
+      "Bone marrow toxicity"
+    ],
+    "treatment": {
+      "drugs": [
+        {
+          "dose": "55 kBq/kg (1.49 microcurie/kg)",
+          "name": "Radium-223 dichloride",
+          "route": "IV",
+          "schedule": "Every 4 weeks"
+        }
+      ],
+      "cycles": "6 injections"
+    },
+    "tests": [
+      "Full blood count",
+      "Bone scan",
+      "CT scan",
+      "Performance status"
+    ],
+    "doseModifications": {
+      "diarrhea": "Supportive care",
+      "myelosuppression": "Hold if severe cytopenias",
+      "bone_marrow_failure": "Discontinue treatment"
+    },
+    "referenceList": [
+      "NCCN Prostate Guidelines",
+      "ALSYMPCA Study",
+      "EAU Guidelines"
+    ],
+    "cycleInfo": {
+      "cycle_length": "28 days",
+      "total_cycles": "6",
+      "administration_time": "Slow IV injection"
+    },
+    "preMedications": {
+      "hydration": "Adequate fluid intake",
+      "radiation_safety": "Nuclear medicine protocols",
+      "myelosuppression_monitoring": "Weekly FBC"
+    },
+    "postMedications": {
+      "diarrhea": "Loperamide, hydration",
+      "myelosuppression": "Infection precautions",
+      "radiation_safety": "Follow nuclear medicine protocols"
+    },
+    "supportiveCare": {
+      "radiation_safety": "Nuclear medicine follow-up",
+      "symptom_monitoring": "Pain assessment",
+      "myelosuppression_monitoring": "Weekly FBC"
+    },
+    "rescueAgents": {
+      "severe_diarrhea": "IV hydration",
+      "radiation_exposure": "Nuclear medicine consultation",
+      "severe_myelosuppression": "Treatment delay or discontinuation"
+    },
+    "monitoring": {
+      "weekly": "FBC",
+      "baseline": [
+        "FBC",
+        "Bone scan",
+        "CT chest/abdomen/pelvis"
+      ],
+      "before_each_injection": "FBC"
+    },
+    "toxicityMonitoring": {
+      "pain_response": "Regular assessment",
+      "myelosuppression": "Weekly FBC monitoring",
+      "radiation_safety": "Nuclear medicine protocols"
+    },
+    "interactions": {
+      "chemotherapy": "Contraindicated concurrently",
+      "other_radiopharmaceuticals": "Avoid concurrent use"
+    },
+    "contraindications": [
+      "Visceral metastases",
+      "Severe myelosuppression",
+      "Imminent spinal cord compression"
+    ],
+    "version": "1.0",
+    "status": "active",
+    "createdBy": null,
+    "updatedBy": null,
+    "createdAt": "2024-01-15T10:30:00.000Z",
+    "updatedAt": "2024-01-15T10:30:00.000Z",
+    "lastReviewed": "2024-01-15T10:30:00.000Z"
+  },
+  {
+    "id": "f4aaaa2f-6192-4c0b-804d-a9023e977102",
+    "code": "Sipuleucel-T-Immunotherapy",
+    "tumourGroup": "Prostate",
+    "tumourSupergroup": "Prostate",
+    "treatmentIntent": "Palliative",
+    "summary": "Autologous cellular immunotherapy for asymptomatic or minimally symptomatic metastatic CRPC.",
+    "eligibility": {
+      "summary": [
+        "Asymptomatic metastatic CRPC",
+        "Immunotherapy"
+      ],
+      "criteria": {
+        "Metastatic_CRPC": "Required",
+        "Good_performance_status": "ECOG 0-1",
+        "Asymptomatic_or_minimally_symptomatic": "Required"
+      }
+    },
+    "precautions": [
+      "Infusion reactions",
+      "Chills",
       "Fatigue"
     ],
     "treatment": {
       "drugs": [
         {
-          "dose": "85 mg/m²",
-          "name": "Oxaliplatin",
+          "dose": "Minimum 50 million autologous CD54+ cells",
+          "name": "Sipuleucel-T",
           "route": "IV",
-          "schedule": "Day 1 q14 days"
-        },
-        {
-          "dose": "165 mg/m²",
-          "name": "Irinotecan",
-          "route": "IV",
-          "schedule": "Day 1 q14 days"
-        },
-        {
-          "dose": "400 mg/m²",
-          "name": "Leucovorin",
-          "route": "IV",
-          "schedule": "Day 1 q14 days"
-        },
-        {
-          "dose": "2400 mg/m²",
-          "name": "5-FU",
-          "route": "IV",
-          "schedule": "46h continuous"
+          "schedule": "Weeks 0, 2, 4"
         }
       ],
-      "duration": "Until progression or unacceptable toxicity"
+      "cycles": "3 infusions total"
     },
     "tests": [
-      "CBC with differential",
-      "Comprehensive metabolic panel",
-      "CA 19-9",
-      "UGT1A1 genotyping",
-      "Performance status"
+      "Full blood count",
+      "Performance status",
+      "Leukapheresis feasibility",
+      "Cardiac assessment"
     ],
     "doseModifications": {
-      "fatigue": "Dose delay",
-      "diarrhea": "Reduce irinotecan 20% grade 2+",
-      "neuropathy": "Reduce oxaliplatin 20% grade 2+",
-      "neutropenia": "G-CSF support, dose reduce 20%"
+      "chills": "Supportive care",
+      "fatigue": "Symptomatic management",
+      "infusion_reactions": "Premedication, slow infusion"
     },
     "referenceList": [
-      "NCCN Pancreatic Adenocarcinoma Guidelines v2.2025",
-      "PRODIGE 4/ACCORD 11 trial",
-      "Modified FOLFIRINOX studies"
+      "NCCN Prostate Guidelines",
+      "IMPACT Study",
+      "FDA Approval"
     ],
     "cycleInfo": {
-      "duration": "Until progression",
-      "cycle_length": "14 days",
-      "response_assessment": "Every 4 cycles"
+      "cycle_length": "2 weeks",
+      "total_cycles": "3",
+      "administration_time": "Leukapheresis + 3 infusions"
     },
     "preMedications": {
-      "pump": [
-        "5-FU pump education"
-      ],
-      "standard": [
-        "Ondansetron 8mg IV",
-        "Dexamethasone 8mg IV"
-      ],
-      "irinotecan": [
-        "Atropine 0.25mg SC PRN"
-      ]
+      "leukapheresis": "Central venous access",
+      "premedication": "Acetaminophen and antihistamine",
+      "infusion_monitoring": "Vital signs monitoring"
     },
     "postMedications": {
-      "nausea": "Ondansetron PRN",
-      "diarrhea": "Loperamide",
-      "pump_care": "Daily assessment",
-      "neuropathy": "Cold avoidance"
+      "chills": "Supportive care",
+      "fatigue": "Rest periods",
+      "infusion_reactions": "Monitor during infusion"
     },
     "supportiveCare": {
-      "nutrition": "Dietitian consultation",
-      "myelosuppression": "G-CSF support",
-      "symptom_management": "Palliative care"
+      "immune_monitoring": "Immune response assessment",
+      "infusion_monitoring": "Vital signs during infusion",
+      "leukapheresis_monitoring": "Blood counts"
     },
     "rescueAgents": {
-      "severe_diarrhea": "IV hydration",
-      "pump_malfunction": "Immediate repair",
-      "febrile_neutropenia": "Broad-spectrum antibiotics"
+      "severe_fatigue": "Supportive care",
+      "inadequate_cell_yield": "Repeat leukapheresis",
+      "severe_infusion_reaction": "Slow or stop infusion"
     },
     "monitoring": {
-      "weekly": [
-        "CBC",
-        "basic metabolic panel"
-      ],
       "baseline": [
-        "CBC",
-        "CMP",
-        "CA 19-9",
-        "UGT1A1"
+        "FBC",
+        "ECOG",
+        "Cardiac assessment"
       ],
-      "q4_cycles": [
-        "Restaging"
-      ]
+      "post_infusion": "Monitoring for reactions",
+      "before_each_infusion": "Vital signs"
     },
     "toxicityMonitoring": {
-      "GI": "Diarrhea/nausea grading",
-      "neurologic": "Oxaliplatin neuropathy scale",
-      "hematologic": "CTCAE v5.0"
+      "immune_response": "Laboratory assessment",
+      "clinical_response": "PSA and imaging",
+      "infusion_reactions": "During and post-infusion monitoring"
     },
     "interactions": {
-      "warfarin": "Enhanced anticoagulation",
-      "phenytoin": "Avoid concurrent use",
-      "strong_CYP3A4_inhibitors": "Increased irinotecan toxicity"
+      "live_vaccines": "Contraindicated",
+      "immunosuppressive_drugs": "May reduce efficacy"
     },
     "contraindications": [
-      "UGT1A1*28 homozygous without dose reduction",
-      "Bilirubin >1.5x ULN",
-      "Severe comorbidities",
-      "ECOG >1"
+      "Symptomatic disease",
+      "Visceral metastases",
+      "Immunocompromised state"
     ],
     "version": "1.0",
     "status": "active",
     "createdBy": null,
     "updatedBy": null,
-    "createdAt": "2025-06-30T03:09:11.586Z",
-    "updatedAt": "2025-06-30T03:09:11.586Z",
-    "lastReviewed": "2025-06-30T03:09:11.586Z"
+    "createdAt": "2024-01-15T10:30:00.000Z",
+    "updatedAt": "2024-01-15T10:30:00.000Z",
+    "lastReviewed": "2024-01-15T10:30:00.000Z"
   },
   {
-    "id": "2da2bf7b-2cd6-4eb6-baff-748de6d47b4c",
-    "code": "Gemcitabine-Capecitabine",
-    "tumourGroup": "Pancreatic",
-    "tumourSupergroup": "Gastrointestinal",
+    "id": "a5bbbb2f-6192-4c0b-804d-a9023e977103",
+    "code": "Lu-177-PSMA-617",
+    "tumourGroup": "Prostate",
+    "tumourSupergroup": "Prostate",
     "treatmentIntent": "Palliative",
-    "summary": "Gemcitabine plus capecitabine for pancreatic adenocarcinoma per NCCN v2.2025",
+    "summary": "Radioligand therapy targeting PSMA for heavily pretreated metastatic castration-resistant prostate cancer.",
     "eligibility": {
+      "summary": [
+        "Heavily pretreated mCRPC",
+        "PSMA-positive disease"
+      ],
       "criteria": {
         "ECOG": "0-2",
-        "stage": "Advanced/metastatic",
-        "histology": "Pancreatic adenocarcinoma",
-        "adequate_organ_function": "required"
-      },
-      "indications": [
-        "Metastatic PDAC",
-        "FOLFIRINOX intolerant",
-        "Second-line therapy",
-        "Elderly patients"
-      ]
+        "PSMA_positive": "Required on imaging",
+        "Previous_chemotherapy_and_ARAT": "Required"
+      }
     },
     "precautions": [
-      "Hand-foot syndrome",
       "Myelosuppression",
-      "Diarrhea",
-      "Mucositis"
+      "Xerostomia",
+      "Renal toxicity"
     ],
     "treatment": {
       "drugs": [
         {
-          "dose": "1000 mg/m²",
-          "name": "Gemcitabine",
+          "dose": "7.4 GBq (200 mCi)",
+          "name": "Lutetium-177-PSMA-617",
           "route": "IV",
-          "schedule": "Days 1, 8 q21 days"
-        },
-        {
-          "dose": "830 mg/m²",
-          "name": "Capecitabine",
-          "route": "PO",
-          "schedule": "BID Days 1-14 q21 days"
+          "schedule": "Every 6 weeks"
         }
       ],
-      "duration": "Until progression or unacceptable toxicity"
+      "cycles": "Up to 6 cycles"
     },
     "tests": [
-      "CBC with differential",
-      "Comprehensive metabolic panel",
-      "CA 19-9",
+      "Full blood count",
+      "PSMA PET scan",
       "Renal function",
-      "DPD deficiency screen"
+      "Salivary gland function"
     ],
     "doseModifications": {
-      "diarrhea": "Hold capecitabine grade 3+",
-      "mucositis": "Dose reduce both agents",
-      "neutropenia": "Dose reduce 25% grade 3+",
-      "hand_foot_syndrome": "Capecitabine dose reduce"
+      "xerostomia": "Supportive care",
+      "renal_toxicity": "Dose reduction",
+      "myelosuppression": "Hold if severe cytopenias"
     },
     "referenceList": [
-      "NCCN Pancreatic Adenocarcinoma Guidelines v2.2025",
-      "Gemcitabine-capecitabine combination studies",
-      "DPD deficiency guidelines"
+      "NCCN Prostate Guidelines",
+      "VISION Study",
+      "EMA Approval"
     ],
     "cycleInfo": {
-      "duration": "Until progression",
-      "cycle_length": "21 days",
-      "response_assessment": "Every 2 cycles"
+      "cycle_length": "42 days",
+      "total_cycles": "Up to 6",
+      "administration_time": "Slow IV infusion"
     },
     "preMedications": {
-      "supportive": [
-        "Hand/foot care education"
-      ],
-      "gemcitabine": [
-        "Ondansetron 8mg IV"
-      ],
-      "capecitabine": [
-        "Folic acid supplementation"
-      ]
+      "radiation_safety": "Nuclear medicine protocols",
+      "renal_protection": "Adequate hydration",
+      "myelosuppression_monitoring": "Baseline FBC"
     },
     "postMedications": {
-      "nausea": "Ondansetron PRN",
-      "diarrhea": "Loperamide",
-      "mucositis": "Mouth care",
-      "hand_foot_syndrome": "Topical urea cream"
+      "xerostomia": "Artificial saliva, frequent hydration",
+      "myelosuppression": "Infection precautions",
+      "radiation_safety": "Nuclear medicine guidelines"
     },
     "supportiveCare": {
-      "GI": "Supportive care",
-      "dermatologic": "Hand/foot care protocols",
-      "myelosuppression": "Growth factor support"
+      "radiation_safety": "Nuclear medicine follow-up",
+      "renal_protection": "Hydration protocols",
+      "myelosuppression_monitoring": "Regular FBC"
     },
     "rescueAgents": {
-      "severe_HFS": "Capecitabine hold",
-      "severe_diarrhea": "IV hydration",
-      "grade_4_neutropenia": "G-CSF support"
+      "renal_toxicity": "Nephrology referral",
+      "severe_xerostomia": "Salivary stimulants",
+      "severe_myelosuppression": "Treatment delay"
     },
     "monitoring": {
-      "weekly": [
-        "CBC",
-        "toxicity assessment"
-      ],
       "baseline": [
-        "CBC",
-        "CMP",
-        "CA 19-9",
-        "DPD status"
+        "FBC",
+        "PSMA PET",
+        "U&E",
+        "Salivary function"
       ],
-      "q2_cycles": [
-        "Imaging"
-      ]
+      "post_treatment": "Extended monitoring",
+      "before_each_cycle": "FBC, U&E"
     },
     "toxicityMonitoring": {
-      "GI": "Diarrhea/mucositis assessment",
-      "hematologic": "CTCAE v5.0",
-      "dermatologic": "Hand-foot syndrome grading"
+      "renal_function": "Creatinine monitoring",
+      "myelosuppression": "Regular FBC monitoring",
+      "radiation_safety": "Nuclear medicine protocols"
     },
     "interactions": {
-      "warfarin": "Enhanced anticoagulation",
-      "phenytoin": "Avoid with capecitabine",
-      "allopurinol": "Contraindicated with capecitabine"
-    },
-    "contraindications": [
-      "DPD deficiency",
-      "Severe renal impairment",
-      "Known 5-FU hypersensitivity",
-      "Dihydropyrimidine dehydrogenase deficiency"
-    ],
-    "version": "1.0",
-    "status": "active",
-    "createdBy": null,
-    "updatedBy": null,
-    "createdAt": "2025-06-30T03:09:11.586Z",
-    "updatedAt": "2025-06-30T03:09:11.586Z",
-    "lastReviewed": "2025-06-30T03:09:11.586Z"
-  },
-  {
-    "id": "04f96111-c811-46d6-95fd-2de36dcc6759",
-    "code": "Cisplatin-5FU-Anal",
-    "tumourGroup": "Anal",
-    "tumourSupergroup": "Gastrointestinal",
-    "treatmentIntent": "Curative",
-    "summary": "Cisplatin plus 5-fluorouracil with concurrent radiation for anal cancer per NCCN v4.2025",
-    "eligibility": {
-      "criteria": {
-        "ECOG": "0-2",
-        "stage": "T2-4, N0-3",
-        "location": "Anal canal or perianal",
-        "histology": "Squamous cell carcinoma"
-      },
-      "indications": [
-        "Stages II-III anal cancer",
-        "Mitomycin intolerant",
-        "Alternative to standard regimen",
-        "Locally advanced disease"
-      ]
-    },
-    "precautions": [
-      "Radiation dermatitis",
-      "Myelosuppression",
-      "Peripheral neuropathy",
-      "Acute radiation syndrome"
-    ],
-    "treatment": {
-      "drugs": [
-        {
-          "dose": "60 mg/m²",
-          "name": "Cisplatin",
-          "route": "IV",
-          "schedule": "Days 1, 29"
-        },
-        {
-          "dose": "1000 mg/m²/day",
-          "name": "5-Fluorouracil",
-          "route": "CI",
-          "schedule": "Days 1-4, 29-32"
-        },
-        {
-          "dose": "50.4 Gy",
-          "name": "Radiation",
-          "schedule": "28 fractions over 5.5 weeks"
-        }
-      ],
-      "duration": "Concurrent chemoradiation over 5.5 weeks"
-    },
-    "tests": [
-      "CBC with differential",
-      "Comprehensive metabolic panel",
-      "Audiometry",
-      "Renal function",
-      "Baseline HIV status"
-    ],
-    "doseModifications": {
-      "neuropathy": "Reduce cisplatin dose 25%",
-      "neutropenia": "G-CSF support, chemotherapy delay",
-      "nephrotoxicity": "Hold cisplatin if creatinine >1.5x baseline",
-      "severe_dermatitis": "Radiation treatment break"
-    },
-    "referenceList": [
-      "NCCN Anal Carcinoma Guidelines v4.2025",
-      "ACT II trial",
-      "Cisplatin-5FU anal cancer studies"
-    ],
-    "cycleInfo": {
-      "concurrent_timing": "Week 1 and 5",
-      "treatment_duration": "5.5 weeks",
-      "chemotherapy_cycles": "2 cycles",
-      "radiation_fractions": "28 fractions"
-    },
-    "preMedications": {
-      "5FU": [
-        "Standard antiemetics"
-      ],
-      "cisplatin": [
-        "Hydration 1L NS pre/post",
-        "Antiemetics per protocol"
-      ],
-      "radiation": [
-        "Skin care education"
-      ]
-    },
-    "postMedications": {
-      "nausea": "Ondansetron PRN",
-      "diarrhea": "Loperamide",
-      "neuropathy": "Gabapentin PRN",
-      "radiation_dermatitis": "Topical care"
-    },
-    "supportiveCare": {
-      "GI": "Diarrhea management",
-      "neurologic": "Neuropathy monitoring",
-      "dermatologic": "Radiation skin care protocols"
-    },
-    "rescueAgents": {
-      "severe_dermatitis": "Radiation break",
-      "grade_4_neutropenia": "G-CSF support",
-      "acute_nephrotoxicity": "IV hydration"
-    },
-    "monitoring": {
-      "weekly": [
-        "CBC",
-        "CMP",
-        "toxicity assessment"
-      ],
-      "post_RT": [
-        "Response assessment 8-12 weeks"
-      ],
-      "baseline": [
-        "CBC",
-        "CMP",
-        "audiometry",
-        "HIV test"
-      ]
-    },
-    "toxicityMonitoring": {
-      "renal": "Creatinine monitoring",
-      "radiation": "RTOG grading",
-      "neurologic": "Neuropathy scale",
-      "hematologic": "CTCAE v5.0"
-    },
-    "interactions": {
-      "loop_diuretics": "Enhanced ototoxicity",
-      "aminoglycosides": "Additive nephrotoxicity",
+      "radiotherapy": "Coordinate timing",
       "nephrotoxic_drugs": "Avoid concurrent use"
     },
     "contraindications": [
-      "Severe renal impairment",
-      "Significant hearing loss",
-      "Previous pelvic radiation",
-      "Severe peripheral neuropathy"
+      "PSMA negative",
+      "Severe myelosuppression",
+      "Severe renal impairment"
     ],
     "version": "1.0",
     "status": "active",
     "createdBy": null,
     "updatedBy": null,
-    "createdAt": "2025-06-30T03:10:36.271Z",
-    "updatedAt": "2025-06-30T03:10:36.271Z",
-    "lastReviewed": "2025-06-30T03:10:36.271Z"
+    "createdAt": "2024-01-15T10:30:00.000Z",
+    "updatedAt": "2024-01-15T10:30:00.000Z",
+    "lastReviewed": "2024-01-15T10:30:00.000Z"
   },
   {
-    "id": "18f09469-a29e-4169-b459-996fac06a68e",
-    "code": "Capecitabine-Mitomycin-RT",
-    "tumourGroup": "Anal",
-    "tumourSupergroup": "Gastrointestinal",
-    "treatmentIntent": "Curative",
-    "summary": "Capecitabine plus mitomycin with concurrent radiation for anal cancer per NCCN v4.2025",
+    "id": "b6cccc2f-6192-4c0b-804d-a9023e977104",
+    "code": "Olaparib-BRCA",
+    "tumourGroup": "Ovarian",
+    "tumourSupergroup": "Ovarian",
+    "treatmentIntent": "Palliative",
+    "summary": "PARP inhibitor for BRCA-mutated ovarian cancer with excellent response rates in platinum-sensitive disease.",
     "eligibility": {
+      "summary": [
+        "BRCA-mutated ovarian cancer",
+        "Platinum-sensitive recurrence"
+      ],
       "criteria": {
         "ECOG": "0-2",
-        "stage": "T1-4, N0-3",
-        "location": "Anal canal or perianal",
-        "histology": "Squamous cell carcinoma"
-      },
-      "indications": [
-        "Stages I-III anal cancer",
-        "5-FU alternative",
-        "Oral therapy preference",
-        "Standard chemoradiation"
-      ]
+        "Platinum_sensitivity": "Required",
+        "BRCA1_or_BRCA2_mutation": "Required"
+      }
     },
     "precautions": [
-      "Hand-foot syndrome",
-      "Radiation dermatitis",
       "Myelosuppression",
-      "Diarrhea"
+      "Fatigue",
+      "Secondary malignancies"
     ],
     "treatment": {
       "drugs": [
         {
-          "dose": "12 mg/m²",
-          "name": "Mitomycin C",
-          "route": "IV",
-          "schedule": "Day 1 only"
-        },
-        {
-          "dose": "825 mg/m²",
-          "name": "Capecitabine",
+          "dose": "300mg BD",
+          "name": "Olaparib",
           "route": "PO",
-          "schedule": "BID on radiation days only"
-        },
-        {
-          "dose": "50.4 Gy",
-          "name": "Radiation",
-          "schedule": "28 fractions over 5.5 weeks"
+          "schedule": "Continuous"
         }
       ],
-      "duration": "Concurrent chemoradiation over 5.5 weeks"
+      "cycles": "Until progression"
     },
     "tests": [
-      "CBC with differential",
-      "Comprehensive metabolic panel",
-      "DPD deficiency screen",
-      "Baseline HIV status",
-      "Pulmonary function"
+      "Full blood count",
+      "BRCA mutation status",
+      "CA-125",
+      "Performance status"
     ],
     "doseModifications": {
-      "diarrhea": "Capecitabine hold",
-      "myelosuppression": "Chemotherapy delay",
-      "severe_dermatitis": "Radiation break",
-      "hand_foot_syndrome": "Capecitabine dose reduction"
+      "fatigue": "Dose modification",
+      "myelosuppression": "Dose reduction for grade 3+",
+      "secondary_malignancy": "Long-term monitoring"
     },
     "referenceList": [
-      "NCCN Anal Carcinoma Guidelines v4.2025",
-      "Capecitabine-mitomycin studies",
-      "Alternative chemoradiation regimens"
+      "NCCN Ovarian Guidelines",
+      "SOLO Studies",
+      "EMA Approval"
     ],
     "cycleInfo": {
-      "mitomycin": "Single dose day 1",
-      "capecitabine": "Radiation days only",
-      "treatment_duration": "5.5 weeks",
-      "radiation_fractions": "28 fractions"
+      "cycle_length": "Continuous",
+      "total_cycles": "Until progression",
+      "administration_time": "Twice daily oral"
     },
     "preMedications": {
-      "mitomycin": [
-        "Ondansetron 8mg IV",
-        "Dexamethasone 8mg IV"
-      ],
-      "radiation": [
-        "Skin care education"
-      ],
-      "capecitabine": [
-        "Take with food"
-      ]
+      "BRCA_testing": "Confirmed mutation",
+      "fatigue_assessment": "Baseline ECOG",
+      "myelosuppression_monitoring": "Weekly FBC first month"
     },
     "postMedications": {
-      "nausea": "Ondansetron PRN",
-      "diarrhea": "Loperamide",
-      "hand_foot_syndrome": "Topical urea cream",
-      "radiation_dermatitis": "Aloe vera gel"
+      "nausea": "Antiemetics PRN",
+      "fatigue": "Energy conservation",
+      "myelosuppression": "Infection precautions"
     },
     "supportiveCare": {
-      "GI": "Diarrhea management",
-      "hematologic": "Myelosuppression monitoring",
-      "dermatologic": "Hand/foot care protocols and radiation skin care"
+      "tumor_monitoring": "CA-125 every 3 months",
+      "fatigue_management": "Dose modifications",
+      "neutropenia_monitoring": "Regular FBC"
     },
     "rescueAgents": {
-      "severe_HFS": "Capecitabine hold",
-      "severe_dermatitis": "Radiation break",
-      "grade_4_neutropenia": "G-CSF support"
+      "severe_fatigue": "Dose reduction",
+      "severe_neutropenia": "G-CSF support",
+      "secondary_malignancy": "Oncology referral"
     },
     "monitoring": {
-      "weekly": [
-        "CBC",
-        "CMP",
-        "toxicity assessment"
-      ],
-      "post_RT": [
-        "Response assessment 8-12 weeks"
-      ],
       "baseline": [
-        "CBC",
-        "CMP",
-        "DPD status",
-        "HIV test"
-      ]
+        "FBC",
+        "BRCA status",
+        "CA-125",
+        "ECOG"
+      ],
+      "every_3_months": "CA-125",
+      "weekly_first_month": "FBC"
     },
     "toxicityMonitoring": {
-      "GI": "Diarrhea assessment",
-      "hematologic": "CTCAE v5.0",
-      "dermatologic": "Hand-foot syndrome grading and radiation dermatitis"
+      "fatigue": "ECOG assessment",
+      "myelosuppression": "Regular FBC monitoring",
+      "secondary_malignancy": "Clinical surveillance"
     },
     "interactions": {
-      "warfarin": "Enhanced anticoagulation",
-      "phenytoin": "Avoid with capecitabine",
-      "allopurinol": "Contraindicated"
+      "live_vaccines": "Contraindicated",
+      "strong_CYP3A4_inhibitors": "Reduce olaparib dose"
     },
     "contraindications": [
-      "DPD deficiency",
-      "Known 5-FU hypersensitivity",
-      "Severe renal impairment",
-      "Previous pelvic radiation"
+      "BRCA wild-type",
+      "Severe myelosuppression",
+      "Pregnancy"
     ],
-    "version": "1.0",
+    "version": "1.5",
     "status": "active",
     "createdBy": null,
     "updatedBy": null,
-    "createdAt": "2025-06-30T03:10:36.271Z",
-    "updatedAt": "2025-06-30T03:10:36.271Z",
-    "lastReviewed": "2025-06-30T03:10:36.271Z"
+    "createdAt": "2024-01-15T10:30:00.000Z",
+    "updatedAt": "2024-01-15T10:30:00.000Z",
+    "lastReviewed": "2024-01-15T10:30:00.000Z"
   },
   {
-    "id": "e10c88df-cff8-4034-bb1e-0aec4be7e843",
-    "code": "Carboplatin-Paclitaxel-Anal",
-    "tumourGroup": "Anal",
-    "tumourSupergroup": "Gastrointestinal",
-    "treatmentIntent": "Palliative",
-    "summary": "Carboplatin plus paclitaxel for recurrent/metastatic anal cancer per NCCN v4.2025",
+    "id": "c7dddd2f-6192-4c0b-804d-a9023e977105",
+    "code": "Niraparib-Maintenance",
+    "tumourGroup": "Ovarian",
+    "tumourSupergroup": "Ovarian",
+    "treatmentIntent": "Curative",
+    "summary": "PARP inhibitor maintenance therapy for newly diagnosed advanced ovarian cancer regardless of BRCA status.",
     "eligibility": {
+      "summary": [
+        "Newly diagnosed advanced ovarian cancer",
+        "Post-platinum response"
+      ],
       "criteria": {
         "ECOG": "0-2",
-        "stage": "Recurrent or metastatic",
-        "histology": "Squamous cell carcinoma",
-        "adequate_organ_function": "required"
-      },
-      "indications": [
-        "Metastatic anal cancer",
-        "Recurrent disease",
-        "New standard for advanced disease",
-        "Cisplatin-5FU alternative"
-      ]
+        "Response_to_platinum": "Complete or partial",
+        "Advanced_ovarian_cancer": "Stage III-IV"
+      }
     },
     "precautions": [
-      "Hypersensitivity reactions",
-      "Peripheral neuropathy",
       "Myelosuppression",
-      "Alopecia"
+      "Hypertension",
+      "Fatigue"
+    ],
+    "treatment": {
+      "drugs": [
+        {
+          "dose": "200-300mg daily",
+          "name": "Niraparib",
+          "route": "PO",
+          "schedule": "Continuous"
+        }
+      ],
+      "cycles": "Until progression"
+    },
+    "tests": [
+      "Full blood count",
+      "Blood pressure",
+      "CA-125",
+      "Homologous recombination status"
+    ],
+    "doseModifications": {
+      "fatigue": "Dose modification",
+      "hypertension": "Antihypertensive therapy",
+      "myelosuppression": "Dose reduction or interruption"
+    },
+    "referenceList": [
+      "NCCN Ovarian Guidelines",
+      "PRIMA Study",
+      "FDA Approval"
+    ],
+    "cycleInfo": {
+      "cycle_length": "Continuous",
+      "total_cycles": "Until progression",
+      "administration_time": "Once daily oral"
+    },
+    "preMedications": {
+      "BP_monitoring": "Baseline and regular",
+      "weight_monitoring": "Baseline weight",
+      "myelosuppression_monitoring": "Weekly FBC first 2 months"
+    },
+    "postMedications": {
+      "fatigue": "Energy conservation",
+      "hypertension": "BP monitoring",
+      "myelosuppression": "Infection precautions"
+    },
+    "supportiveCare": {
+      "BP_monitoring": "Regular assessment",
+      "tumor_monitoring": "CA-125 every 3 months",
+      "neutropenia_monitoring": "Weekly FBC first 2 months"
+    },
+    "rescueAgents": {
+      "severe_fatigue": "Dose interruption",
+      "severe_neutropenia": "Dose reduction or G-CSF",
+      "severe_hypertension": "Antihypertensive therapy"
+    },
+    "monitoring": {
+      "monthly": "BP",
+      "baseline": [
+        "FBC",
+        "BP",
+        "CA-125",
+        "HRD status",
+        "Weight"
+      ],
+      "weekly_first_2_months": "FBC"
+    },
+    "toxicityMonitoring": {
+      "fatigue": "Regular assessment",
+      "hypertension": "BP monitoring",
+      "myelosuppression": "Weekly FBC first 2 months"
+    },
+    "interactions": {
+      "antihypertensives": "Monitor BP closely",
+      "strong_CYP3A4_inducers": "May reduce efficacy"
+    },
+    "contraindications": [
+      "Severe myelosuppression",
+      "Uncontrolled hypertension",
+      "Pregnancy"
+    ],
+    "version": "1.3",
+    "status": "active",
+    "createdBy": null,
+    "updatedBy": null,
+    "createdAt": "2024-01-15T10:30:00.000Z",
+    "updatedAt": "2024-01-15T10:30:00.000Z",
+    "lastReviewed": "2024-01-15T10:30:00.000Z"
+  },
+  {
+    "id": "d8eeee2f-6192-4c0b-804d-a9023e977106",
+    "code": "Rucaparib-Recurrent",
+    "tumourGroup": "Ovarian",
+    "tumourSupergroup": "Ovarian",
+    "treatmentIntent": "Palliative",
+    "summary": "PARP inhibitor for recurrent ovarian cancer with BRCA mutation or homologous recombination deficiency.",
+    "eligibility": {
+      "summary": [
+        "Recurrent ovarian cancer",
+        "BRCA mutation or HRD"
+      ],
+      "criteria": {
+        "ECOG": "0-2",
+        "BRCA_mutation_or_HRD": "Required",
+        "Previous_platinum_therapy": "≥2 lines"
+      }
+    },
+    "precautions": [
+      "Myelosuppression",
+      "Elevated creatinine",
+      "Liver enzyme elevation"
+    ],
+    "treatment": {
+      "drugs": [
+        {
+          "dose": "600mg BD",
+          "name": "Rucaparib",
+          "route": "PO",
+          "schedule": "Continuous"
+        }
+      ],
+      "cycles": "Until progression"
+    },
+    "tests": [
+      "Full blood count",
+      "Renal function",
+      "Liver function tests",
+      "BRCA/HRD status"
+    ],
+    "doseModifications": {
+      "elevated_ALT": "Dose modification",
+      "myelosuppression": "Dose reduction for grade 3+",
+      "elevated_creatinine": "Monitor renal function"
+    },
+    "referenceList": [
+      "NCCN Ovarian Guidelines",
+      "ARIEL Studies",
+      "EMA Approval"
+    ],
+    "cycleInfo": {
+      "cycle_length": "Continuous",
+      "total_cycles": "Until progression",
+      "administration_time": "Twice daily oral"
+    },
+    "preMedications": {
+      "renal_monitoring": "Baseline creatinine",
+      "hepatic_monitoring": "Baseline LFTs",
+      "myelosuppression_monitoring": "Weekly FBC first 2 months"
+    },
+    "postMedications": {
+      "myelosuppression": "Infection precautions",
+      "renal_monitoring": "Regular creatinine",
+      "hepatic_monitoring": "Avoid hepatotoxins"
+    },
+    "supportiveCare": {
+      "renal_protection": "Adequate hydration",
+      "hepatic_monitoring": "Regular LFTs",
+      "neutropenia_monitoring": "Weekly FBC first 2 months"
+    },
+    "rescueAgents": {
+      "hepatotoxicity": "Dose interruption",
+      "renal_impairment": "Dose modification",
+      "severe_neutropenia": "Dose reduction or G-CSF"
+    },
+    "monitoring": {
+      "monthly": "U&E, LFTs",
+      "baseline": [
+        "FBC",
+        "U&E",
+        "LFTs",
+        "BRCA/HRD status"
+      ],
+      "weekly_first_2_months": "FBC"
+    },
+    "toxicityMonitoring": {
+      "hepatic": "LFT monitoring",
+      "renal_function": "Creatinine monitoring",
+      "myelosuppression": "Weekly FBC first 2 months"
+    },
+    "interactions": {
+      "nephrotoxic_drugs": "Monitor creatinine",
+      "strong_CYP3A4_inducers": "May reduce efficacy"
+    },
+    "contraindications": [
+      "BRCA/HRD negative",
+      "Severe renal impairment",
+      "Pregnancy"
+    ],
+    "version": "1.2",
+    "status": "active",
+    "createdBy": null,
+    "updatedBy": null,
+    "createdAt": "2024-01-15T10:30:00.000Z",
+    "updatedAt": "2024-01-15T10:30:00.000Z",
+    "lastReviewed": "2024-01-15T10:30:00.000Z"
+  },
+  {
+    "id": "e9ffff2f-6192-4c0b-804d-a9023e977107",
+    "code": "Bevacizumab-Maintenance-Ovarian",
+    "tumourGroup": "Ovarian",
+    "tumourSupergroup": "Ovarian",
+    "treatmentIntent": "Curative",
+    "summary": "Anti-VEGF monoclonal antibody maintenance therapy for newly diagnosed advanced ovarian cancer.",
+    "eligibility": {
+      "summary": [
+        "Newly diagnosed advanced ovarian cancer",
+        "High-risk features"
+      ],
+      "criteria": {
+        "ECOG": "0-2",
+        "Response_to_chemotherapy": "Complete or partial",
+        "Stage_III_with_residual_disease_or_Stage_IV": "Required"
+      }
+    },
+    "precautions": [
+      "Hypertension",
+      "Proteinuria",
+      "Bleeding risk"
+    ],
+    "treatment": {
+      "drugs": [
+        {
+          "dose": "15 mg/kg",
+          "name": "Bevacizumab",
+          "route": "IV",
+          "schedule": "Every 3 weeks"
+        }
+      ],
+      "cycles": "Up to 22 cycles total"
+    },
+    "tests": [
+      "Blood pressure",
+      "Urinalysis",
+      "Full blood count",
+      "LVEF assessment"
+    ],
+    "doseModifications": {
+      "bleeding": "Discontinue bevacizumab",
+      "proteinuria": "Hold if ≥2g/24h",
+      "hypertension": "Antihypertensive therapy"
+    },
+    "referenceList": [
+      "NCCN Ovarian Guidelines",
+      "ICON7 and GOG-218 Studies",
+      "EMA Approval"
+    ],
+    "cycleInfo": {
+      "cycle_length": "21 days",
+      "total_cycles": "Up to 22",
+      "administration_time": "30-90 minutes"
+    },
+    "preMedications": {
+      "BP_monitoring": "Baseline and regular",
+      "bleeding_assessment": "Clinical evaluation",
+      "proteinuria_monitoring": "Baseline urinalysis"
+    },
+    "postMedications": {
+      "bleeding": "Report any unusual bleeding",
+      "proteinuria": "Report foamy urine",
+      "hypertension": "Monitor BP regularly"
+    },
+    "supportiveCare": {
+      "BP_monitoring": "Regular assessment",
+      "bleeding_monitoring": "Clinical assessment",
+      "proteinuria_monitoring": "Urinalysis each cycle"
+    },
+    "rescueAgents": {
+      "major_bleeding": "Permanent discontinuation",
+      "severe_hypertension": "Antihypertensive therapy, hold bevacizumab",
+      "significant_proteinuria": "Hold bevacizumab"
+    },
+    "monitoring": {
+      "baseline": [
+        "BP",
+        "Urinalysis",
+        "FBC",
+        "LVEF"
+      ],
+      "each_cycle": "BP, urinalysis",
+      "every_3_cycles": "FBC"
+    },
+    "toxicityMonitoring": {
+      "bleeding": "Clinical assessment",
+      "proteinuria": "Urinalysis each cycle",
+      "hypertension": "BP monitoring each cycle"
+    },
+    "interactions": {
+      "anticoagulants": "Increased bleeding risk",
+      "antihypertensives": "Monitor BP closely"
+    },
+    "contraindications": [
+      "Uncontrolled hypertension",
+      "Significant proteinuria",
+      "Recent major surgery"
+    ],
+    "version": "1.4",
+    "status": "active",
+    "createdBy": null,
+    "updatedBy": null,
+    "createdAt": "2024-01-15T10:30:00.000Z",
+    "updatedAt": "2024-01-15T10:30:00.000Z",
+    "lastReviewed": "2024-01-15T10:30:00.000Z"
+  },
+  {
+    "id": "f0aaaa2f-6192-4c0b-804d-a9023e977108",
+    "code": "Dostarlimab-Endometrial",
+    "tumourGroup": "Endometrial",
+    "tumourSupergroup": "Endometrial",
+    "treatmentIntent": "Palliative",
+    "summary": "Anti-PD-1 immunotherapy for mismatch repair deficient or microsatellite instability-high endometrial cancer.",
+    "eligibility": {
+      "summary": [
+        "dMMR/MSI-H endometrial cancer",
+        "Advanced or recurrent"
+      ],
+      "criteria": {
+        "ECOG": "0-2",
+        "dMMR_or_MSI_H": "Required",
+        "Advanced_or_recurrent": "Required"
+      }
+    },
+    "precautions": [
+      "Immune-related adverse events",
+      "Pneumonitis",
+      "Thyroid dysfunction"
+    ],
+    "treatment": {
+      "drugs": [
+        {
+          "dose": "500mg",
+          "name": "Dostarlimab",
+          "route": "IV",
+          "schedule": "Every 3 weeks for 4 cycles, then 1000mg every 6 weeks"
+        }
+      ],
+      "cycles": "Until progression"
+    },
+    "tests": [
+      "Full blood count",
+      "Liver function tests",
+      "Thyroid function",
+      "MMR/MSI status"
+    ],
+    "doseModifications": {
+      "irAEs": "Hold dostarlimab grade 2+",
+      "pneumonitis": "Permanent discontinuation grade 3+",
+      "thyroid_dysfunction": "Hormone replacement"
+    },
+    "referenceList": [
+      "NCCN Endometrial Guidelines",
+      "GARNET Study",
+      "FDA Approval"
+    ],
+    "cycleInfo": {
+      "cycle_length": "21 days initial, then 42 days",
+      "total_cycles": "Until progression",
+      "administration_time": "30 minutes"
+    },
+    "preMedications": {
+      "irAE_education": "Comprehensive patient counseling",
+      "thyroid_monitoring": "Baseline TFTs",
+      "pneumonitis_monitoring": "Baseline chest imaging"
+    },
+    "postMedications": {
+      "pneumonitis": "Report dyspnea immediately",
+      "irAE_management": "Early steroid intervention",
+      "thyroid_effects": "Monitor symptoms"
+    },
+    "supportiveCare": {
+      "irAE_monitoring": "Weekly contact first 8 weeks",
+      "thyroid_support": "Hormone replacement",
+      "pneumonitis_prevention": "Serial chest imaging"
+    },
+    "rescueAgents": {
+      "pneumonitis": "High-dose steroids, permanent discontinuation",
+      "grade_4_irAEs": "Permanent discontinuation, high-dose steroids",
+      "severe_thyroiditis": "Hormone replacement"
+    },
+    "monitoring": {
+      "baseline": [
+        "FBC",
+        "LFTs",
+        "TFTs",
+        "MMR/MSI",
+        "CXR"
+      ],
+      "each_cycle": "FBC, LFTs, TFTs",
+      "weekly_first_8_weeks": "irAE assessment"
+    },
+    "toxicityMonitoring": {
+      "thyroid": "Hormone levels",
+      "pneumonitis": "Dyspnea assessment",
+      "irAE_monitoring": "Weekly assessment first 8 weeks"
+    },
+    "interactions": {
+      "live_vaccines": "Contraindicated",
+      "immunosuppressants": "May reduce efficacy but needed for irAEs"
+    },
+    "contraindications": [
+      "dMMR/MSI negative",
+      "Active autoimmune disease",
+      "Pregnancy"
+    ],
+    "version": "1.1",
+    "status": "active",
+    "createdBy": null,
+    "updatedBy": null,
+    "createdAt": "2024-01-15T10:30:00.000Z",
+    "updatedAt": "2024-01-15T10:30:00.000Z",
+    "lastReviewed": "2024-01-15T10:30:00.000Z"
+  },
+  {
+    "id": "a1bbbb2f-6192-4c0b-804d-a9023e977109",
+    "code": "Lenvatinib-Pembrolizumab-Endometrial",
+    "tumourGroup": "Endometrial",
+    "tumourSupergroup": "Endometrial",
+    "treatmentIntent": "Palliative",
+    "summary": "Multi-kinase inhibitor with anti-PD-1 therapy for advanced endometrial cancer regardless of MMR status.",
+    "eligibility": {
+      "summary": [
+        "Advanced endometrial cancer",
+        "Not MSI-H/dMMR"
+      ],
+      "criteria": {
+        "ECOG": "0-1",
+        "Advanced_or_recurrent": "Required",
+        "Previous_platinum_therapy": "Required"
+      }
+    },
+    "precautions": [
+      "Hypertension",
+      "Proteinuria",
+      "Hand-foot syndrome",
+      "Immune-related adverse events"
+    ],
+    "treatment": {
+      "drugs": [
+        {
+          "dose": "20mg daily",
+          "name": "Lenvatinib",
+          "route": "PO",
+          "schedule": "Continuous"
+        },
+        {
+          "dose": "200mg",
+          "name": "Pembrolizumab",
+          "route": "IV",
+          "schedule": "Every 3 weeks"
+        }
+      ],
+      "cycles": "Until progression"
+    },
+    "tests": [
+      "Blood pressure",
+      "Urinalysis",
+      "Thyroid function",
+      "Full blood count"
+    ],
+    "doseModifications": {
+      "irAEs": "Steroid therapy",
+      "proteinuria": "Hold if ≥2g/24h",
+      "hypertension": "Antihypertensive therapy",
+      "hand_foot_syndrome": "Dose reduction"
+    },
+    "referenceList": [
+      "NCCN Endometrial Guidelines",
+      "Study 309/KEYNOTE-775",
+      "FDA Approval"
+    ],
+    "cycleInfo": {
+      "cycle_length": "21 days",
+      "total_cycles": "Until progression",
+      "administration_time": "Daily lenvatinib + pembrolizumab every 3 weeks"
+    },
+    "preMedications": {
+      "BP_monitoring": "Baseline and weekly first month",
+      "thyroid_monitoring": "Baseline TFTs",
+      "proteinuria_monitoring": "Baseline urinalysis"
+    },
+    "postMedications": {
+      "irAEs": "Report symptoms immediately",
+      "proteinuria": "Report foamy urine",
+      "hypertension": "Monitor BP regularly",
+      "hand_foot_syndrome": "Moisturizers"
+    },
+    "supportiveCare": {
+      "BP_monitoring": "Weekly first month, then regular",
+      "irAE_monitoring": "Weekly first 8 weeks",
+      "thyroid_monitoring": "Regular TFTs",
+      "proteinuria_monitoring": "Each cycle"
+    },
+    "rescueAgents": {
+      "severe_irAEs": "Steroids, hold pembrolizumab",
+      "severe_hypertension": "Hold lenvatinib, antihypertensive therapy",
+      "significant_proteinuria": "Hold lenvatinib",
+      "severe_hand_foot_syndrome": "Dose reduction"
+    },
+    "monitoring": {
+      "baseline": [
+        "BP",
+        "Urinalysis",
+        "TFTs",
+        "FBC"
+      ],
+      "each_cycle": "BP, urinalysis, TFTs",
+      "weekly_first_month": "BP"
+    },
+    "toxicityMonitoring": {
+      "irAEs": "Regular assessment",
+      "thyroid": "TFT monitoring",
+      "proteinuria": "Urinalysis each cycle",
+      "hypertension": "Weekly BP first month"
+    },
+    "interactions": {
+      "antihypertensives": "Monitor BP closely",
+      "immunosuppressants": "May reduce pembrolizumab efficacy"
+    },
+    "contraindications": [
+      "Uncontrolled hypertension",
+      "Significant proteinuria",
+      "Active autoimmune disease"
+    ],
+    "version": "1.2",
+    "status": "active",
+    "createdBy": null,
+    "updatedBy": null,
+    "createdAt": "2024-01-15T10:30:00.000Z",
+    "updatedAt": "2024-01-15T10:30:00.000Z",
+    "lastReviewed": "2024-01-15T10:30:00.000Z"
+  },
+  {
+    "id": "b2cccc2f-6192-4c0b-804d-a9023e977110",
+    "code": "Carboplatin-Paclitaxel-Endometrial",
+    "tumourGroup": "Endometrial",
+    "tumourSupergroup": "Endometrial",
+    "treatmentIntent": "Curative",
+    "summary": "Standard platinum-taxane combination for advanced or recurrent endometrial cancer with excellent response rates.",
+    "eligibility": {
+      "summary": [
+        "Advanced endometrial cancer",
+        "First-line therapy"
+      ],
+      "criteria": {
+        "ECOG": "0-2",
+        "Advanced_or_recurrent": "Required",
+        "Adequate_organ_function": "Required"
+      }
+    },
+    "precautions": [
+      "Carboplatin hypersensitivity",
+      "Paclitaxel neuropathy",
+      "Myelosuppression"
     ],
     "treatment": {
       "drugs": [
@@ -16753,493 +16272,2734 @@
           "dose": "AUC 5",
           "name": "Carboplatin",
           "route": "IV",
-          "schedule": "Day 1 q21 days"
+          "schedule": "Day 1"
         },
         {
           "dose": "175 mg/m²",
           "name": "Paclitaxel",
           "route": "IV",
-          "schedule": "Day 1 q21 days"
+          "schedule": "Day 1"
         }
       ],
-      "duration": "Until progression or unacceptable toxicity"
+      "cycles": "6 cycles every 21 days"
     },
     "tests": [
-      "CBC with differential",
-      "Comprehensive metabolic panel",
-      "Performance status",
-      "Audiometry",
-      "Baseline neuropathy assessment"
+      "Full blood count",
+      "Renal function",
+      "CA-125",
+      "Neuropathy assessment"
     ],
     "doseModifications": {
-      "neuropathy": "Reduce paclitaxel 25% grade 2+",
-      "neutropenia": "G-CSF support, dose reduce 25%",
-      "hypersensitivity": "Premedication protocol",
-      "thrombocytopenia": "Reduce carboplatin AUC"
+      "neuropathy": "Dose reduction 25%",
+      "neutropenia": "G-CSF support",
+      "hypersensitivity": "Premedication protocol"
     },
     "referenceList": [
-      "NCCN Anal Carcinoma Guidelines v4.2025",
-      "Carboplatin-paclitaxel anal cancer studies",
-      "New standard of care evidence"
+      "NCCN Endometrial Guidelines",
+      "GOG-209 Study",
+      "ESMO Guidelines"
     ],
     "cycleInfo": {
-      "duration": "Until progression",
       "cycle_length": "21 days",
-      "response_assessment": "Every 2 cycles"
+      "total_cycles": "6",
+      "administration_time": "Day 1 infusions"
     },
     "preMedications": {
-      "paclitaxel": [
-        "Dexamethasone 20mg PO 12h and 6h pre",
-        "Diphenhydramine 50mg IV",
-        "Ranitidine 50mg IV"
-      ],
-      "carboplatin": [
-        "Standard antiemetics"
-      ]
+      "antiemetic": "Ondansetron 8mg IV",
+      "neuropathy_monitoring": "Baseline assessment",
+      "hypersensitivity_prevention": "Dexamethasone, antihistamines"
     },
     "postMedications": {
-      "nausea": "Ondansetron PRN",
-      "alopecia": "Scalp cooling if available",
-      "neuropathy": "Cold avoidance",
-      "hypersensitivity": "Emergency medications ready"
+      "fatigue": "Energy conservation",
+      "neuropathy": "Gabapentin if symptomatic",
+      "hypersensitivity": "Monitor during infusion"
     },
     "supportiveCare": {
-      "neuropathy": "Cold avoidance protocols",
-      "hypersensitivity": "Emergency preparedness",
-      "myelosuppression": "Growth factor support"
+      "tumor_monitoring": "CA-125 every 2 cycles",
+      "neuropathy_prevention": "Weekly assessment",
+      "hypersensitivity_management": "Premedication protocol"
     },
     "rescueAgents": {
-      "anaphylaxis": "Emergency management",
-      "severe_neuropathy": "Paclitaxel discontinuation",
-      "febrile_neutropenia": "Broad-spectrum antibiotics"
+      "severe_neuropathy": "Dose reduction or discontinuation",
+      "febrile_neutropenia": "G-CSF, antibiotics",
+      "severe_hypersensitivity": "Switch to cisplatin"
     },
     "monitoring": {
-      "weekly": [
-        "CBC",
-        "toxicity assessment"
-      ],
       "baseline": [
-        "CBC",
-        "CMP",
-        "audiometry",
-        "neuropathy assessment"
+        "FBC",
+        "U&E",
+        "CA-125",
+        "Neuropathy score"
       ],
-      "q2_cycles": [
-        "Imaging"
-      ]
+      "each_cycle": "FBC",
+      "every_2_cycles": "CA-125"
     },
     "toxicityMonitoring": {
-      "neurologic": "Neuropathy grading",
-      "hematologic": "CTCAE v5.0",
-      "hypersensitivity": "Reaction severity assessment"
+      "neuropathy": "Weekly clinical grading",
+      "tumor_response": "CA-125 every 2 cycles",
+      "hypersensitivity": "During carboplatin infusion"
     },
     "interactions": {
-      "warfarin": "Enhanced anticoagulation",
-      "CYP3A4_inhibitors": "Enhanced paclitaxel toxicity",
-      "nephrotoxic_drugs": "Avoid with carboplatin"
+      "warfarin": "Enhanced effect",
+      "CYP2C8_inhibitors": "Monitor for increased paclitaxel toxicity"
     },
     "contraindications": [
+      "Previous severe hypersensitivity",
       "Severe neuropathy",
-      "History of severe hypersensitivity to taxanes",
-      "Severe organ dysfunction",
-      "Active infection"
+      "Pregnancy"
     ],
-    "version": "1.0",
+    "version": "1.8",
     "status": "active",
     "createdBy": null,
     "updatedBy": null,
-    "createdAt": "2025-06-30T03:10:36.271Z",
-    "updatedAt": "2025-06-30T03:10:36.271Z",
-    "lastReviewed": "2025-06-30T03:10:36.271Z"
+    "createdAt": "2024-01-15T10:30:00.000Z",
+    "updatedAt": "2024-01-15T10:30:00.000Z",
+    "lastReviewed": "2024-01-15T10:30:00.000Z"
   },
   {
-    "id": "0302b104-b366-405c-aaa2-35afe4f02e77",
-    "code": "Sorafenib-Thyroid",
-    "tumourGroup": "Thyroid",
-    "tumourSupergroup": "Endocrine",
-    "treatmentIntent": "Palliative",
-    "summary": "Sorafenib for radioactive iodine-refractory differentiated thyroid cancer per NCCN v1.2025",
+    "id": "c3dddd2f-6192-4c0b-804d-a9023e977111",
+    "code": "Doxorubicin-Cisplatin-Endometrial",
+    "tumourGroup": "Endometrial",
+    "tumourSupergroup": "Endometrial",
+    "treatmentIntent": "Curative",
+    "summary": "Anthracycline-platinum combination for high-risk endometrial cancer with superior efficacy in serous histology.",
     "eligibility": {
+      "summary": [
+        "High-risk endometrial cancer",
+        "Serous or clear cell histology"
+      ],
       "criteria": {
         "ECOG": "0-2",
-        "stage": "RAI-refractory progressive",
-        "histology": "Differentiated thyroid carcinoma",
-        "adequate_organ_function": "required"
-      },
-      "indications": [
-        "RAI-refractory DTC",
-        "Progressive disease",
-        "First-line targeted therapy",
-        "Alternative to lenvatinib"
-      ]
+        "LVEF": "> 50%",
+        "High_risk_histology": "Serous, clear cell, or grade 3"
+      }
     },
     "precautions": [
-      "Hand-foot skin reaction",
-      "Hypertension",
-      "Diarrhea",
-      "Cardiac ischemia"
+      "Doxorubicin cardiotoxicity",
+      "Cisplatin nephrotoxicity",
+      "Myelosuppression"
     ],
     "treatment": {
       "drugs": [
         {
-          "dose": "400 mg",
-          "name": "Sorafenib",
-          "route": "PO",
-          "schedule": "BID continuously"
+          "dose": "60 mg/m²",
+          "name": "Doxorubicin",
+          "route": "IV",
+          "schedule": "Day 1"
+        },
+        {
+          "dose": "50 mg/m²",
+          "name": "Cisplatin",
+          "route": "IV",
+          "schedule": "Day 1"
         }
       ],
-      "duration": "Until progression or unacceptable toxicity"
+      "cycles": "6 cycles every 21 days"
     },
     "tests": [
-      "CBC with differential",
-      "Comprehensive metabolic panel",
-      "Blood pressure",
-      "Thyroid function tests",
-      "Cardiac function"
+      "Full blood count",
+      "LVEF assessment",
+      "Renal function",
+      "Hearing assessment"
     ],
     "doseModifications": {
-      "HFSR": "Dose reduce to 400mg daily",
-      "diarrhea": "Dose interruption",
-      "hypertension": "Antihypertensive therapy",
-      "cardiac_events": "Discontinue permanently"
+      "ototoxicity": "Audiometry",
+      "cardiotoxicity": "LVEF monitoring, dexrazoxane",
+      "nephrotoxicity": "Adequate hydration"
     },
     "referenceList": [
-      "NCCN Thyroid Carcinoma Guidelines v1.2025",
-      "DECISION trial",
-      "Sorafenib prescribing information"
+      "NCCN Endometrial Guidelines",
+      "GOG-177 Study",
+      "ESMO Guidelines"
     ],
     "cycleInfo": {
-      "dosing": "Continuous BID",
-      "duration": "Until progression",
-      "monitoring_frequency": "Weekly first month then q2 weeks"
+      "cycle_length": "21 days",
+      "total_cycles": "6",
+      "administration_time": "Day 1 infusions"
     },
     "preMedications": {
-      "daily": [
-        "Blood pressure monitoring"
-      ],
-      "baseline": [
-        "Blood pressure optimization"
-      ],
-      "supportive": [
-        "Proton pump inhibitor"
-      ]
+      "hydration": "Normal saline 1-2L with Mg/K",
+      "antiemetic": "Ondansetron 8mg IV",
+      "cardiac_monitoring": "Baseline LVEF"
     },
     "postMedications": {
-      "HFSR": "Topical urea cream",
-      "fatigue": "Activity modification",
-      "diarrhea": "Loperamide",
-      "hypertension": "ACE inhibitors/ARBs"
+      "ototoxicity": "Report hearing changes",
+      "cardiotoxicity": "Monitor for dyspnea",
+      "nephrotoxicity": "Adequate hydration"
     },
     "supportiveCare": {
-      "GI": "Diarrhea management",
-      "dermatologic": "Hand/foot care",
-      "cardiovascular": "BP monitoring"
+      "renal_protection": "Pre/post hydration",
+      "cardiac_protection": "LVEF every 2 cycles",
+      "ototoxicity_monitoring": "Audiometry every 2 cycles"
     },
     "rescueAgents": {
-      "severe_HFSR": "Dose reduction",
-      "cardiac_ischemia": "Cardiology consult",
-      "hypertensive_crisis": "Emergency management"
+      "cardiotoxicity": "Discontinue doxorubicin, cardio-oncology referral",
+      "nephrotoxicity": "Discontinue cisplatin",
+      "severe_ototoxicity": "Switch to carboplatin"
     },
     "monitoring": {
-      "weekly": [
-        "CBC",
-        "CMP",
-        "BP"
-      ],
-      "monthly": [
-        "TFTs",
-        "imaging"
-      ],
       "baseline": [
-        "CBC",
-        "CMP",
-        "TFTs",
-        "Echo",
-        "BP"
-      ]
+        "FBC",
+        "LVEF",
+        "U&E",
+        "Audiometry"
+      ],
+      "each_cycle": "FBC, U&E",
+      "every_2_cycles": "LVEF, audiometry"
     },
     "toxicityMonitoring": {
-      "cardiac": "Troponin monitoring",
-      "dermatologic": "HFSR grading",
-      "cardiovascular": "CTCAE v5.0"
+      "ototoxicity": "Audiometry every 2 cycles",
+      "cardiotoxicity": "LVEF monitoring every 2 cycles",
+      "nephrotoxicity": "Creatinine monitoring"
     },
     "interactions": {
-      "warfarin": "Enhanced anticoagulation",
-      "CYP3A4_inducers": "Reduced efficacy",
-      "strong_CYP3A4_inhibitors": "Enhanced toxicity"
+      "trastuzumab": "Increased cardiotoxicity risk",
+      "aminoglycosides": "Increased nephrotoxicity"
     },
     "contraindications": [
-      "Uncontrolled hypertension",
-      "Recent cardiac events",
-      "Severe hepatic impairment",
-      "Concomitant squamous cell carcinoma"
+      "Severe cardiac dysfunction",
+      "Severe renal impairment",
+      "Pregnancy"
     ],
-    "version": "1.0",
+    "version": "2.1",
     "status": "active",
     "createdBy": null,
     "updatedBy": null,
-    "createdAt": "2025-06-30T03:12:10.866Z",
-    "updatedAt": "2025-06-30T03:12:10.866Z",
-    "lastReviewed": "2025-06-30T03:12:10.866Z"
+    "createdAt": "2024-01-15T10:30:00.000Z",
+    "updatedAt": "2024-01-15T10:30:00.000Z",
+    "lastReviewed": "2024-01-15T10:30:00.000Z"
   },
   {
-    "id": "6cb9c25d-d4c7-47c4-89f5-aab10fad5765",
-    "code": "Cabozantinib-Thyroid",
-    "tumourGroup": "Thyroid",
-    "tumourSupergroup": "Endocrine",
-    "treatmentIntent": "Palliative",
-    "summary": "Cabozantinib for radioactive iodine-refractory differentiated thyroid cancer per NCCN v1.2025",
+    "id": "d4eeee2f-6192-4c0b-804d-a9023e977112",
+    "code": "Paclitaxel-Carboplatin-Cervical",
+    "tumourGroup": "Cervical",
+    "tumourSupergroup": "Cervical",
+    "treatmentIntent": "Curative",
+    "summary": "Standard platinum-taxane combination with radiotherapy for locally advanced cervical cancer.",
     "eligibility": {
+      "summary": [
+        "Locally advanced cervical cancer",
+        "Concurrent chemoradiotherapy"
+      ],
       "criteria": {
         "ECOG": "0-2",
-        "stage": "RAI-refractory progressive",
-        "histology": "Differentiated thyroid carcinoma",
-        "prior_therapy": "Previous lenvatinib or sorafenib"
-      },
-      "indications": [
-        "Second-line RAI-refractory DTC",
-        "Progression on lenvatinib/sorafenib",
-        "RET fusion-positive tumors",
-        "Advanced thyroid cancer"
-      ]
+        "Stage_IB2_to_IVA": "Required",
+        "Adequate_organ_function": "Required"
+      }
     },
     "precautions": [
-      "Hemorrhage",
-      "GI perforation",
-      "Osteonecrosis of jaw",
+      "Radiosensitization",
+      "Peripheral neuropathy",
+      "Myelosuppression"
+    ],
+    "treatment": {
+      "drugs": [
+        {
+          "dose": "40-50 mg/m²",
+          "name": "Paclitaxel",
+          "route": "IV",
+          "schedule": "Weekly"
+        },
+        {
+          "dose": "AUC 2",
+          "name": "Carboplatin",
+          "route": "IV",
+          "schedule": "Weekly"
+        }
+      ],
+      "cycles": "5-6 weeks concurrent with RT"
+    },
+    "tests": [
+      "Full blood count",
+      "Renal function",
+      "Neuropathy assessment",
+      "Performance status"
+    ],
+    "doseModifications": {
+      "neuropathy": "Dose reduction 25%",
+      "neutropenia": "Hold if ANC <1.0",
+      "radiation_enhancement": "Enhanced monitoring"
+    },
+    "referenceList": [
+      "NCCN Cervical Guidelines",
+      "NRG Oncology Studies",
+      "ESMO Guidelines"
+    ],
+    "cycleInfo": {
+      "cycle_length": "Weekly",
+      "total_cycles": "5-6 weeks",
+      "administration_time": "Concurrent with radiotherapy"
+    },
+    "preMedications": {
+      "antiemetic": "Ondansetron 8mg IV",
+      "radiation_planning": "Coordinate with radiation oncology",
+      "neuropathy_monitoring": "Baseline assessment"
+    },
+    "postMedications": {
+      "fatigue": "Energy conservation",
+      "neuropathy": "Gabapentin if symptomatic",
+      "radiation_dermatitis": "Enhanced skin care"
+    },
+    "supportiveCare": {
+      "tumor_monitoring": "Weekly assessment",
+      "neuropathy_prevention": "Weekly assessment",
+      "radiation_enhancement": "Enhanced skin monitoring"
+    },
+    "rescueAgents": {
+      "severe_neuropathy": "Dose reduction or discontinuation",
+      "radiation_toxicity": "Treatment break",
+      "severe_neutropenia": "Treatment break"
+    },
+    "monitoring": {
+      "weekly": "FBC, neuropathy assessment",
+      "baseline": [
+        "FBC",
+        "U&E",
+        "Neuropathy score",
+        "ECOG"
+      ],
+      "during_RT": "Enhanced monitoring"
+    },
+    "toxicityMonitoring": {
+      "neuropathy": "Weekly clinical grading during treatment",
+      "myelosuppression": "Weekly FBC",
+      "radiation_toxicity": "Enhanced monitoring"
+    },
+    "interactions": {
+      "live_vaccines": "Contraindicated",
+      "radiation_therapy": "Enhanced toxicity expected"
+    },
+    "contraindications": [
+      "Severe neuropathy",
+      "Active infection",
+      "Pregnancy"
+    ],
+    "version": "1.9",
+    "status": "active",
+    "createdBy": null,
+    "updatedBy": null,
+    "createdAt": "2024-01-15T10:30:00.000Z",
+    "updatedAt": "2024-01-15T10:30:00.000Z",
+    "lastReviewed": "2024-01-15T10:30:00.000Z"
+  },
+  {
+    "id": "e5ffff2f-6192-4c0b-804d-a9023e977113",
+    "code": "Cisplatin-Concurrent-RT-Cervical",
+    "tumourGroup": "Cervical",
+    "tumourSupergroup": "Cervical",
+    "treatmentIntent": "Curative",
+    "summary": "Cisplatin with concurrent radiotherapy for locally advanced cervical cancer - gold standard treatment.",
+    "eligibility": {
+      "summary": [
+        "Locally advanced cervical cancer",
+        "Concurrent chemoradiotherapy"
+      ],
+      "criteria": {
+        "CrCl": "> 60 mL/min",
+        "ECOG": "0-2",
+        "Stage_IB2_to_IVA": "Required"
+      }
+    },
+    "precautions": [
+      "Cisplatin nephrotoxicity",
+      "Enhanced radiation toxicity",
+      "Ototoxicity"
+    ],
+    "treatment": {
+      "drugs": [
+        {
+          "dose": "40 mg/m²",
+          "name": "Cisplatin",
+          "route": "IV",
+          "schedule": "Weekly"
+        }
+      ],
+      "cycles": "5-6 weeks concurrent with RT"
+    },
+    "tests": [
+      "Full blood count",
+      "Renal function",
+      "Hearing assessment",
+      "Performance status"
+    ],
+    "doseModifications": {
+      "ototoxicity": "Audiometry monitoring",
+      "nephrotoxicity": "Hold if creatinine >1.5x baseline",
+      "radiation_enhancement": "Enhanced monitoring"
+    },
+    "referenceList": [
+      "NCCN Cervical Guidelines",
+      "NCI Alert",
+      "ESMO Guidelines"
+    ],
+    "cycleInfo": {
+      "cycle_length": "Weekly",
+      "total_cycles": "5-6 weeks",
+      "administration_time": "Concurrent with radiotherapy"
+    },
+    "preMedications": {
+      "hydration": "Normal saline 1-2L with Mg/K supplementation",
+      "audiometry": "Baseline hearing assessment",
+      "radiation_planning": "Coordinate timing"
+    },
+    "postMedications": {
+      "ototoxicity": "Report hearing changes",
+      "nephrotoxicity": "Adequate hydration",
+      "radiation_dermatitis": "Enhanced skin care"
+    },
+    "supportiveCare": {
+      "renal_protection": "Pre/post hydration weekly",
+      "radiation_enhancement": "Enhanced monitoring",
+      "ototoxicity_monitoring": "Weekly audiometry"
+    },
+    "rescueAgents": {
+      "ototoxicity": "Switch to carboplatin",
+      "nephrotoxicity": "Discontinue cisplatin",
+      "severe_radiation_toxicity": "Treatment break"
+    },
+    "monitoring": {
+      "weekly": "FBC, U&E, audiometry",
+      "baseline": [
+        "FBC",
+        "U&E",
+        "Audiometry",
+        "CrCl"
+      ],
+      "during_RT": "Enhanced monitoring"
+    },
+    "toxicityMonitoring": {
+      "ototoxicity": "Weekly audiometry",
+      "nephrotoxicity": "Weekly creatinine monitoring",
+      "radiation_toxicity": "Enhanced assessment"
+    },
+    "interactions": {
+      "loop_diuretics": "Increased ototoxicity",
+      "aminoglycosides": "Increased nephrotoxicity"
+    },
+    "contraindications": [
+      "Severe renal impairment",
+      "Significant hearing loss",
+      "Pregnancy"
+    ],
+    "version": "2.0",
+    "status": "active",
+    "createdBy": null,
+    "updatedBy": null,
+    "createdAt": "2024-01-15T10:30:00.000Z",
+    "updatedAt": "2024-01-15T10:30:00.000Z",
+    "lastReviewed": "2024-01-15T10:30:00.000Z"
+  },
+  {
+    "id": "f6aaaa2f-6192-4c0b-804d-a9023e977114",
+    "code": "Bevacizumab-Paclitaxel-Cervical",
+    "tumourGroup": "Cervical",
+    "tumourSupergroup": "Cervical",
+    "treatmentIntent": "Palliative",
+    "summary": "Anti-VEGF therapy with paclitaxel for recurrent or metastatic cervical cancer with survival benefit.",
+    "eligibility": {
+      "summary": [
+        "Recurrent or metastatic cervical cancer",
+        "Previously treated"
+      ],
+      "criteria": {
+        "ECOG": "0-2",
+        "Recurrent_or_metastatic": "Required",
+        "Previous_platinum_therapy": "Required"
+      }
+    },
+    "precautions": [
+      "Bevacizumab bleeding risk",
+      "Fistula formation",
       "Hypertension"
     ],
     "treatment": {
       "drugs": [
         {
-          "dose": "60 mg",
-          "name": "Cabozantinib",
-          "route": "PO",
-          "schedule": "Daily continuously"
+          "dose": "15 mg/kg",
+          "name": "Bevacizumab",
+          "route": "IV",
+          "schedule": "Day 1"
+        },
+        {
+          "dose": "80 mg/m²",
+          "name": "Paclitaxel",
+          "route": "IV",
+          "schedule": "Days 1, 8, 15"
         }
       ],
-      "duration": "Until progression or unacceptable toxicity"
+      "cycles": "Every 28 days"
     },
     "tests": [
-      "CBC with differential",
-      "Comprehensive metabolic panel",
-      "Urinalysis",
+      "Full blood count",
       "Blood pressure",
-      "Dental examination"
+      "Urinalysis",
+      "Fistula assessment"
     ],
     "doseModifications": {
-      "hemorrhage": "Discontinue permanently",
-      "grade_2_AEs": "Reduce to 40mg daily",
-      "grade_3_AEs": "Hold until grade 1 then reduce",
-      "GI_perforation": "Discontinue permanently"
+      "fistula": "Permanent discontinuation",
+      "bleeding": "Discontinue bevacizumab",
+      "hypertension": "Antihypertensive therapy"
     },
     "referenceList": [
-      "NCCN Thyroid Carcinoma Guidelines v1.2025",
-      "COSMIC-311 trial",
-      "Cabozantinib prescribing information"
+      "NCCN Cervical Guidelines",
+      "GOG-240 Study",
+      "ESMO Guidelines"
     ],
     "cycleInfo": {
-      "dosing": "Daily continuous",
-      "duration": "Until progression",
-      "monitoring_frequency": "Weekly first 4 weeks then q2 weeks"
+      "cycle_length": "28 days",
+      "total_cycles": "Until progression",
+      "administration_time": "3 days per cycle"
     },
     "preMedications": {
-      "daily": [
-        "Blood pressure monitoring"
-      ],
-      "baseline": [
-        "Dental clearance",
-        "Blood pressure optimization"
-      ],
-      "supportive": [
-        "Proton pump inhibitor"
-      ]
+      "BP_monitoring": "Baseline and regular",
+      "fistula_monitoring": "Pelvic examination",
+      "bleeding_assessment": "Clinical evaluation"
     },
     "postMedications": {
-      "HFSR": "Topical care",
-      "fatigue": "Activity modification",
-      "diarrhea": "Loperamide",
-      "hypertension": "Antihypertensives"
+      "fistula": "Report pelvic pain or discharge",
+      "bleeding": "Report any unusual bleeding",
+      "hypertension": "Monitor BP regularly"
     },
     "supportiveCare": {
-      "GI": "Perforation surveillance",
-      "dental": "Oral hygiene protocols",
-      "cardiovascular": "BP monitoring"
+      "BP_monitoring": "Each cycle",
+      "fistula_monitoring": "Regular pelvic exams",
+      "bleeding_monitoring": "Clinical assessment each cycle"
     },
     "rescueAgents": {
-      "hemorrhage": "Emergency management",
-      "GI_perforation": "Surgical consult",
-      "severe_hypertension": "Emergency BP control"
+      "major_bleeding": "Permanent bevacizumab discontinuation",
+      "fistula_formation": "Immediate discontinuation",
+      "severe_hypertension": "Antihypertensive therapy"
     },
     "monitoring": {
-      "weekly": [
-        "CBC",
-        "CMP",
-        "BP"
-      ],
-      "monthly": [
-        "Imaging"
-      ],
+      "weekly": "Neuropathy assessment",
       "baseline": [
-        "CBC",
-        "CMP",
-        "urinalysis",
-        "dental exam",
-        "BP"
-      ]
+        "FBC",
+        "BP",
+        "Urinalysis",
+        "Pelvic exam"
+      ],
+      "each_cycle": "FBC, BP, pelvic exam"
     },
     "toxicityMonitoring": {
-      "GI": "Perforation monitoring",
-      "dental": "Osteonecrosis assessment",
-      "cardiovascular": "CTCAE v5.0"
+      "fistula": "Pelvic examination",
+      "bleeding": "Clinical assessment each cycle",
+      "hypertension": "BP monitoring"
     },
     "interactions": {
-      "warfarin": "Enhanced anticoagulation",
-      "bisphosphonates": "ONJ risk",
-      "strong_CYP3A4_inhibitors": "Avoid concurrent use"
+      "anticoagulants": "Increased bleeding risk",
+      "antihypertensives": "Monitor BP closely"
     },
     "contraindications": [
-      "Recent GI perforation",
-      "Uncontrolled hypertension",
-      "Recent major surgery",
-      "Active bleeding"
+      "Recent major bleeding",
+      "Fistula formation risk",
+      "Uncontrolled hypertension"
     ],
-    "version": "1.0",
+    "version": "1.7",
     "status": "active",
     "createdBy": null,
     "updatedBy": null,
-    "createdAt": "2025-06-30T03:12:10.866Z",
-    "updatedAt": "2025-06-30T03:12:10.866Z",
-    "lastReviewed": "2025-06-30T03:12:10.866Z"
+    "createdAt": "2024-01-15T10:30:00.000Z",
+    "updatedAt": "2024-01-15T10:30:00.000Z",
+    "lastReviewed": "2024-01-15T10:30:00.000Z"
   },
   {
-    "id": "682cb5ae-61c7-4c89-a96d-f3102664a46d",
-    "code": "Selpercatinib-RET",
-    "tumourGroup": "Thyroid",
-    "tumourSupergroup": "Endocrine",
-    "treatmentIntent": "Targeted",
-    "summary": "Selpercatinib for RET fusion-positive thyroid cancer per NCCN v1.2025",
+    "id": "a7bbbb2f-6192-4c0b-804d-a9023e977115",
+    "code": "Pembrolizumab-Cervical",
+    "tumourGroup": "Cervical",
+    "tumourSupergroup": "Cervical",
+    "treatmentIntent": "Palliative",
+    "summary": "Anti-PD-1 immunotherapy for recurrent or metastatic cervical cancer with PD-L1 expression.",
     "eligibility": {
+      "summary": [
+        "Recurrent or metastatic cervical cancer",
+        "PD-L1 positive"
+      ],
       "criteria": {
-        "age": "≥2 years",
-        "stage": "Advanced/metastatic",
-        "biomarker": "RET fusion-positive",
-        "histology": "Differentiated thyroid carcinoma"
-      },
-      "indications": [
-        "RET fusion-positive thyroid cancer",
-        "Pediatric patients ≥2 years",
-        "Targeted therapy",
-        "Precision medicine approach"
-      ]
+        "ECOG": "0-2",
+        "PD_L1_CPS": "≥1",
+        "Previous_platinum_therapy": "Required"
+      }
     },
     "precautions": [
-      "Hepatotoxicity",
-      "Hypertension",
-      "QT prolongation",
-      "Bleeding"
+      "Immune-related adverse events",
+      "Pneumonitis",
+      "Thyroid dysfunction"
     ],
     "treatment": {
       "drugs": [
         {
-          "dose": "160 mg (<50kg) or 120 mg (≥50kg)",
-          "name": "Selpercatinib",
-          "route": "PO",
-          "schedule": "BID continuously"
+          "dose": "200mg",
+          "name": "Pembrolizumab",
+          "route": "IV",
+          "schedule": "Every 3 weeks"
         }
       ],
-      "duration": "Until progression or unacceptable toxicity"
+      "cycles": "Until progression or toxicity"
     },
     "tests": [
-      "CBC with differential",
-      "Comprehensive metabolic panel",
+      "Full blood count",
       "Liver function tests",
-      "ECG",
-      "RET fusion testing"
+      "Thyroid function",
+      "PD-L1 status"
     ],
     "doseModifications": {
-      "grade_3_AEs": "Hold until grade 1 then reduce dose",
-      "hypertension": "Antihypertensive therapy",
-      "hepatotoxicity": "Hold if ALT/AST >5x ULN",
-      "QT_prolongation": "Hold if QTc >500ms"
+      "irAEs": "Hold pembrolizumab grade 2+",
+      "pneumonitis": "Permanent discontinuation grade 3+",
+      "thyroid_dysfunction": "Hormone replacement"
     },
     "referenceList": [
-      "NCCN Thyroid Carcinoma Guidelines v1.2025",
-      "LIBRETTO-001 trial",
-      "Selpercatinib prescribing information"
+      "NCCN Cervical Guidelines",
+      "KEYNOTE Studies",
+      "FDA Approval"
     ],
     "cycleInfo": {
-      "dosing": "BID continuous",
-      "duration": "Until progression",
-      "monitoring_frequency": "Weekly first month then q2 weeks"
+      "cycle_length": "21 days",
+      "total_cycles": "Until progression",
+      "administration_time": "30 minutes"
     },
     "preMedications": {
-      "daily": [
-        "Monitor for bleeding"
-      ],
+      "irAE_education": "Comprehensive patient counseling",
+      "thyroid_monitoring": "Baseline TFTs",
+      "pneumonitis_monitoring": "Baseline chest imaging"
+    },
+    "postMedications": {
+      "pneumonitis": "Report dyspnea immediately",
+      "irAE_management": "Early steroid intervention",
+      "thyroid_effects": "Monitor symptoms"
+    },
+    "supportiveCare": {
+      "irAE_monitoring": "Weekly contact first 8 weeks",
+      "thyroid_support": "Hormone replacement",
+      "pneumonitis_prevention": "Serial chest imaging"
+    },
+    "rescueAgents": {
+      "pneumonitis": "High-dose steroids, permanent discontinuation",
+      "grade_4_irAEs": "Permanent discontinuation, high-dose steroids",
+      "severe_thyroiditis": "Hormone replacement"
+    },
+    "monitoring": {
       "baseline": [
-        "ECG",
-        "Liver function optimization"
+        "FBC",
+        "LFTs",
+        "TFTs",
+        "PD-L1",
+        "CXR"
       ],
-      "supportive": [
-        "Proton pump inhibitor"
+      "each_cycle": "FBC, LFTs, TFTs",
+      "weekly_first_8_weeks": "irAE assessment"
+    },
+    "toxicityMonitoring": {
+      "thyroid": "Hormone levels",
+      "pneumonitis": "Dyspnea assessment",
+      "irAE_monitoring": "Weekly assessment first 8 weeks"
+    },
+    "interactions": {
+      "live_vaccines": "Contraindicated",
+      "immunosuppressants": "May reduce efficacy but needed for irAEs"
+    },
+    "contraindications": [
+      "PD-L1 negative",
+      "Active autoimmune disease",
+      "Pregnancy"
+    ],
+    "version": "1.4",
+    "status": "active",
+    "createdBy": null,
+    "updatedBy": null,
+    "createdAt": "2024-01-15T10:30:00.000Z",
+    "updatedAt": "2024-01-15T10:30:00.000Z",
+    "lastReviewed": "2024-01-15T10:30:00.000Z"
+  },
+  {
+    "id": "00eaf82f-6192-4c0b-804d-a9023e977d56",
+    "code": "AC-T",
+    "tumourGroup": "Breast",
+    "tumourSupergroup": "Breast",
+    "treatmentIntent": "Curative",
+    "summary": "AC-T is a standard curative regimen for early-stage breast cancer, administered sequentially as AC followed by Paclitaxel. This is a Category 1 NCCN recommendation for HER2-negative breast cancer in the adjuvant setting.",
+    "eligibility": {
+      "summary": [
+        "Early-stage or locally advanced breast cancer",
+        "HER2-negative disease",
+        "ER-positive or triple-negative subtypes"
+      ],
+      "criteria": {
+        "Age": "18–70 years",
+        "ECOG": "0–2",
+        "Other": "No active infections or uncontrolled comorbidities",
+        "Cardiac": "LVEF ≥50% or within institutional normal limits",
+        "Biomarkers": "HER2-negative (IHC 0-1+ or FISH negative)"
+      },
+      "nccn_category": "1",
+      "line_of_therapy": "Adjuvant",
+      "treatment_setting": "Early-stage",
+      "biomarker_requirements": {
+        "HER2": "Negative (IHC 0-1+ or FISH negative)",
+        "ER_PR": "Any status (works for both ER+ and TNBC)"
+      }
+    },
+    "precautions": [
+      "Anthracyclines carry cumulative cardiotoxicity risk — LVEF must be monitored",
+      "Paclitaxel requires steroid and antihistamine premedication to prevent hypersensitivity",
+      "Myelosuppression is common during AC — counsel on neutropenic precautions",
+      "Monitor for peripheral neuropathy during paclitaxel phase",
+      "Assess cardiac function before each cycle if borderline LVEF",
+      "Consider growth factor support for high-risk patients"
+    ],
+    "treatment": {
+      "drugs": [
+        {
+          "dose": "60 mg/m²",
+          "name": "Doxorubicin (Adriamycin)",
+          "route": "IV",
+          "schedule": "Day 1"
+        },
+        {
+          "dose": "600 mg/m²",
+          "name": "Cyclophosphamide",
+          "route": "IV",
+          "schedule": "Day 1"
+        }
+      ],
+      "cycles": "4 cycles of AC every 21 days, followed by",
+      "subsequent_treatment": {
+        "drugs": [
+          {
+            "dose": "175 mg/m²",
+            "name": "Paclitaxel",
+            "route": "IV",
+            "schedule": "Day 1"
+          }
+        ],
+        "cycles": "4 cycles every 21 days or 12 weekly doses"
+      }
+    },
+    "tests": [
+      "Full blood count",
+      "Liver function tests",
+      "Renal function tests",
+      "LVEF assessment (ECHO or MUGA)"
+    ],
+    "doseModifications": {
+      "neuropathy": "Discontinue paclitaxel if grade 3+ neuropathy persists",
+      "neutropenia": "Hold treatment if ANC <1.0, resume with growth factor support",
+      "cardiotoxicity": "Discontinue if LVEF drops >10% from baseline or <50%",
+      "dose_reductions": {
+        "level_1": "25% dose reduction for grade 3 toxicity",
+        "level_2": "50% dose reduction for recurrent grade 3 or grade 4 toxicity"
+      },
+      "thrombocytopenia": "Hold treatment if platelets <100,000",
+      "alternate_options": {
+        "neuropathy_concerns": "Consider dose-dense AC q2weeks x 4 without taxane",
+        "paclitaxel_intolerance": "Switch to docetaxel 75 mg/m² q3weeks x 4",
+        "anthracycline_contraindication": "Consider TC (docetaxel + cyclophosphamide) x 4"
+      }
+    },
+    "referenceList": [
+      "NCCN Breast Cancer Guidelines",
+      "ASCO Clinical Practice Guidelines"
+    ],
+    "cycleInfo": {
+      "cycle_length": "21 days",
+      "total_cycles": "8 (4 AC + 4 Paclitaxel)",
+      "administration_time": "AC: 2-3 hours, Paclitaxel: 3-4 hours"
+    },
+    "preMedications": {
+      "ac_phase": [
+        "Dexamethasone 8mg PO",
+        "Ondansetron 8mg IV",
+        "Lorazepam 1mg PO"
+      ],
+      "paclitaxel_phase": [
+        "Dexamethasone 20mg IV",
+        "Diphenhydramine 50mg IV",
+        "Ranitidine 50mg IV"
       ]
     },
     "postMedications": {
-      "bleeding": "Platelet support",
-      "hypertension": "ACE inhibitors",
-      "hepatotoxicity": "Liver support",
-      "QT_prolongation": "Electrolyte repletion"
+      "nausea": "Ondansetron 8mg TDS PRN",
+      "mucositis": "Magic mouthwash PRN",
+      "constipation": "Docusate 100mg BD"
     },
     "supportiveCare": {
-      "cardiac": "ECG monitoring",
-      "hepatic": "LFT surveillance",
-      "bleeding": "Coagulation monitoring"
+      "growth_factors": "Pegfilgrastim 6mg SC day +2 if indicated",
+      "cardiac_monitoring": "LVEF assessment every 3 months",
+      "neuropathy_assessment": "Before each paclitaxel cycle"
     },
     "rescueAgents": {
-      "major_bleeding": "Hematology consult",
-      "cardiac_arrhythmia": "Cardiology consult",
-      "severe_hepatotoxicity": "Hepatology consult"
+      "anaphylaxis": "Epinephrine 1:1000, 0.3-0.5mL IM",
+      "severe_neuropathy": "Gabapentin 300mg TDS",
+      "febrile_neutropenia": "Immediate broad-spectrum antibiotics"
     },
     "monitoring": {
       "weekly": [
-        "CBC",
-        "LFTs"
-      ],
-      "monthly": [
-        "ECG",
-        "imaging"
+        "FBC during AC phase"
       ],
       "baseline": [
-        "CBC",
-        "CMP",
+        "FBC",
+        "U&E",
         "LFTs",
-        "ECG",
-        "RET testing"
+        "LVEF"
+      ],
+      "before_each_cycle": [
+        "FBC",
+        "U&E",
+        "LFTs",
+        "Performance status"
       ]
     },
     "toxicityMonitoring": {
-      "cardiac": "QTc assessment",
-      "hepatic": "LFT monitoring",
-      "bleeding": "Coagulation studies"
+      "monitoring_tools": [
+        "CBC with differential",
+        "ECHO or MUGA scan",
+        "Neurological assessment",
+        "Symptom assessment",
+        "Vital signs during infusion"
+      ],
+      "primary_toxicities": [
+        "Myelosuppression",
+        "Cardiotoxicity",
+        "Peripheral neuropathy",
+        "Alopecia",
+        "Nausea/vomiting",
+        "Hypersensitivity reactions"
+      ],
+      "monitoring_schedule": {
+        "baseline": [
+          "CBC",
+          "Comprehensive metabolic panel",
+          "LVEF assessment",
+          "Neurologic exam"
+        ],
+        "post_treatment": [
+          "LVEF assessment 3-6 months post completion"
+        ],
+        "during_treatment": [
+          "Cardiac monitoring every 3 months",
+          "Neuropathy assessment before each paclitaxel"
+        ],
+        "before_each_cycle": [
+          "CBC",
+          "Basic metabolic panel",
+          "Performance status",
+          "Toxicity assessment"
+        ]
+      }
+    },
+    "interactions": {
+      "warfarin": "Monitor INR closely",
+      "paclitaxel": "CYP3A4 inhibitors may increase toxicity",
+      "anthracyclines": "Avoid live vaccines"
+    },
+    "contraindications": [
+      "Severe heart failure (LVEF <40%)",
+      "Active severe infection",
+      "Pregnancy or breastfeeding",
+      "Known hypersensitivity to anthracyclines, taxanes, or excipients",
+      "Prior cumulative anthracycline dose >300 mg/m² doxorubicin equivalent",
+      "Severe hepatic impairment (bilirubin >3x ULN)",
+      "Severe renal impairment (CrCl <30 mL/min)",
+      "Active cardiac arrhythmias requiring medication"
+    ],
+    "version": "2.1",
+    "status": "active",
+    "createdBy": null,
+    "updatedBy": null,
+    "createdAt": "2024-01-15T10:30:00.000Z",
+    "updatedAt": "2024-01-15T10:30:00.000Z",
+    "lastReviewed": "2024-01-15T10:30:00.000Z"
+  },
+  {
+    "id": "33eaf82f-6192-4c0b-804d-a9023e977d59",
+    "code": "TCH",
+    "tumourGroup": "Breast",
+    "tumourSupergroup": "Breast",
+    "treatmentIntent": "Curative",
+    "summary": "TCH (Docetaxel, Carboplatin, Trastuzumab) is a NCCN Category 1 regimen for HER2-positive early-stage breast cancer. This anthracycline-free approach provides excellent efficacy while avoiding cardiotoxicity associated with doxorubicin-trastuzumab combinations.",
+    "eligibility": {
+      "summary": [
+        "Early-stage HER2-positive breast cancer",
+        "Alternative to anthracycline-containing regimens",
+        "Preferred for patients with cardiac risk factors"
+      ],
+      "criteria": {
+        "Age": "18+ years",
+        "ECOG": "0–2",
+        "Other": "No active infections, adequate organ function",
+        "Cardiac": "LVEF ≥50% or within institutional normal limits",
+        "Biomarkers": "HER2-positive (IHC 3+ or FISH amplified)"
+      },
+      "nccn_category": "1",
+      "line_of_therapy": "Adjuvant",
+      "treatment_setting": "Early-stage",
+      "biomarker_requirements": {
+        "HER2": "Positive (IHC 3+ or FISH amplified, HER2/CEP17 ratio ≥2.0)",
+        "ER_PR": "Any status"
+      }
+    },
+    "precautions": [
+      "Trastuzumab cardiotoxicity monitoring required",
+      "Docetaxel hypersensitivity potential",
+      "Carboplatin allergic reactions"
+    ],
+    "treatment": {
+      "drugs": [
+        {
+          "dose": "75 mg/m²",
+          "name": "Docetaxel",
+          "route": "IV",
+          "schedule": "Day 1"
+        },
+        {
+          "dose": "AUC 6",
+          "name": "Carboplatin",
+          "route": "IV",
+          "schedule": "Day 1"
+        },
+        {
+          "dose": "8 mg/kg loading, then 6 mg/kg",
+          "name": "Trastuzumab",
+          "route": "IV",
+          "schedule": "Day 1"
+        }
+      ],
+      "cycles": "6 cycles every 21 days, then trastuzumab continues"
+    },
+    "tests": [
+      "Full blood count",
+      "Liver function tests",
+      "LVEF assessment",
+      "Renal function"
+    ],
+    "doseModifications": {
+      "neuropathy": "Reduce docetaxel by 25% for grade 2, hold for grade 3+",
+      "neutropenia": "Hold treatment if ANC <1.5, resume with growth factor support",
+      "cardiotoxicity": "Hold trastuzumab if LVEF drops >10% from baseline or <50%, resume when recovered",
+      "dose_reductions": {
+        "carboplatin": "Reduce AUC by 25% for persistent toxicity",
+        "docetaxel_level_1": "75 mg/m² → 60 mg/m²",
+        "docetaxel_level_2": "60 mg/m² → 45 mg/m²"
+      },
+      "hypersensitivity": "Premedicate with steroids, antihistamines; discontinue for severe reactions",
+      "alternate_options": {
+        "cardiac_concerns": "Monitor more frequently, consider cardio-oncology consultation",
+        "docetaxel_intolerance": "Switch to paclitaxel 80 mg/m² weekly x 12",
+        "carboplatin_intolerance": "Consider AC-TH (doxorubicin/cyclophosphamide → taxane/trastuzumab)"
+      }
+    },
+    "referenceList": [
+      "NCCN Breast Cancer Guidelines",
+      "ASCO Guidelines"
+    ],
+    "cycleInfo": {
+      "cycle_length": "21 days",
+      "total_cycles": "6 + maintenance",
+      "administration_time": "5-6 hours"
+    },
+    "preMedications": {
+      "antiemetic": [
+        "Ondansetron 8mg IV"
+      ],
+      "hypersensitivity_prevention": [
+        "Dexamethasone 8mg PO x3 days",
+        "Diphenhydramine 50mg IV",
+        "Ranitidine 50mg IV"
+      ]
+    },
+    "postMedications": {
+      "nausea": "Ondansetron 8mg TDS PRN",
+      "mucositis": "Magic mouthwash PRN",
+      "neuropathy": "Gabapentin if symptomatic"
+    },
+    "supportiveCare": {
+      "skin_care": "Moisturizers for hand-foot syndrome",
+      "growth_factors": "G-CSF if febrile neutropenia",
+      "cardiac_monitoring": "LVEF every 3 cycles"
+    },
+    "rescueAgents": {
+      "hypersensitivity": "Epinephrine, steroids, antihistamines",
+      "cardiac_dysfunction": "ACE inhibitors, beta-blockers",
+      "febrile_neutropenia": "Broad-spectrum antibiotics"
+    },
+    "monitoring": {
+      "baseline": [
+        "FBC",
+        "U&E",
+        "LFTs",
+        "LVEF",
+        "HER2 status"
+      ],
+      "every_3_cycles": [
+        "LVEF assessment"
+      ],
+      "before_each_cycle": [
+        "FBC",
+        "U&E",
+        "LFTs",
+        "Clinical assessment"
+      ]
+    },
+    "toxicityMonitoring": {
+      "monitoring_tools": [
+        "CBC with differential",
+        "ECHO or MUGA scan",
+        "Neurological assessment",
+        "Infusion reaction monitoring",
+        "Weight and edema assessment"
+      ],
+      "primary_toxicities": [
+        "Myelosuppression",
+        "Cardiotoxicity (trastuzumab-related)",
+        "Peripheral neuropathy",
+        "Hypersensitivity reactions",
+        "Fluid retention",
+        "Alopecia"
+      ],
+      "monitoring_schedule": {
+        "baseline": [
+          "CBC",
+          "Comprehensive metabolic panel",
+          "LVEF assessment",
+          "HER2 testing confirmation"
+        ],
+        "post_treatment": [
+          "LVEF assessment at completion and 6 months post-treatment"
+        ],
+        "during_treatment": [
+          "LVEF assessment every 3 months",
+          "Weekly CBC during cycle 1"
+        ],
+        "before_each_cycle": [
+          "CBC",
+          "Basic metabolic panel",
+          "Performance status",
+          "Cardiac symptoms assessment"
+        ]
+      }
+    },
+    "interactions": {
+      "warfarin": "Monitor INR closely",
+      "anthracyclines": "Avoid concurrent use"
+    },
+    "contraindications": [
+      "Severe heart failure (LVEF <40%)",
+      "Active severe infection",
+      "Pregnancy or breastfeeding",
+      "Known hypersensitivity to trastuzumab, docetaxel, or carboplatin",
+      "Severe hepatic impairment (bilirubin >3x ULN)",
+      "Severe renal impairment (CrCl <30 mL/min)",
+      "Uncontrolled cardiac arrhythmias",
+      "Recent myocardial infarction (<6 months)"
+    ],
+    "version": "1.8",
+    "status": "active",
+    "createdBy": null,
+    "updatedBy": null,
+    "createdAt": "2024-01-15T10:30:00.000Z",
+    "updatedAt": "2024-01-15T10:30:00.000Z",
+    "lastReviewed": "2024-01-15T10:30:00.000Z"
+  },
+  {
+    "id": "88eaf82f-6192-4c0b-804d-a9023e977d64",
+    "code": "CMF",
+    "tumourGroup": "Breast",
+    "tumourSupergroup": "Breast",
+    "treatmentIntent": "Curative",
+    "summary": "CMF (Cyclophosphamide, Methotrexate, 5-Fluorouracil) is a well-established NCCN Category 1 regimen for early-stage breast cancer. This anthracycline-free approach is particularly suitable for patients with cardiac contraindications or lower-risk disease.",
+    "eligibility": {
+      "summary": [
+        "Early-stage breast cancer",
+        "Alternative to anthracycline-based regimens",
+        "Suitable for older patients or those with cardiac comorbidities"
+      ],
+      "criteria": {
+        "Age": "18+ years (often preferred for >65 years)",
+        "ECOG": "0–2",
+        "Other": "Adequate renal and hepatic function",
+        "Cardiac": "Any LVEF (cardiac-sparing regimen)",
+        "Biomarkers": "HER2-negative preferred"
+      },
+      "nccn_category": "1",
+      "line_of_therapy": "Adjuvant",
+      "treatment_setting": "Early-stage",
+      "biomarker_requirements": {
+        "HER2": "Negative preferred",
+        "ER_PR": "Any status (particularly effective in ER-positive disease)"
+      }
+    },
+    "precautions": [
+      "Methotrexate mucositis and pneumonitis",
+      "Cyclophosphamide hemorrhagic cystitis",
+      "5-FU mucositis"
+    ],
+    "treatment": {
+      "drugs": [
+        {
+          "dose": "600 mg/m²",
+          "name": "Cyclophosphamide",
+          "route": "IV",
+          "schedule": "Days 1 and 8"
+        },
+        {
+          "dose": "40 mg/m²",
+          "name": "Methotrexate",
+          "route": "IV",
+          "schedule": "Days 1 and 8"
+        },
+        {
+          "dose": "600 mg/m²",
+          "name": "5-Fluorouracil",
+          "route": "IV",
+          "schedule": "Days 1 and 8"
+        }
+      ],
+      "cycles": "6 cycles every 28 days"
+    },
+    "tests": [
+      "Full blood count",
+      "Liver function tests",
+      "Renal function",
+      "Chest X-ray"
+    ],
+    "doseModifications": {
+      "mucositis": "Hold for grade 3+ mucositis, resume with 25% dose reduction",
+      "hepatotoxicity": "Monitor LFTs, reduce methotrexate by 50% if ALT/AST >3x ULN",
+      "renal_toxicity": "Adjust methotrexate based on creatinine clearance",
+      "dose_reductions": {
+        "level_1": "25% reduction in all drugs",
+        "level_2": "50% reduction in all drugs"
+      },
+      "myelosuppression": "Hold if ANC <1.5 or platelets <100,000, reduce doses by 25% for grade 3+ toxicity",
+      "alternate_options": {
+        "hepatotoxicity": "Substitute methotrexate with docetaxel (switch to TC regimen)",
+        "elderly_patients": "Consider dose reduction to 75% of standard doses upfront",
+        "mucositis_intolerance": "Consider oral CMF regimen with lower 5-FU doses"
+      }
+    },
+    "referenceList": [
+      "NCCN Guidelines",
+      "ESMO Guidelines",
+      "Early Breast Cancer Trialists Collaborative Group"
+    ],
+    "cycleInfo": {
+      "cycle_length": "28 days",
+      "total_cycles": "6",
+      "administration_time": "2-3 hours"
+    },
+    "preMedications": {
+      "hydration": [
+        "Normal saline 500ml pre/post"
+      ],
+      "antiemetic": [
+        "Ondansetron 8mg IV"
+      ]
+    },
+    "postMedications": {
+      "nausea": "Ondansetron PRN",
+      "cystitis": "Increased fluid intake",
+      "mucositis": "Oral care, folate supplementation"
+    },
+    "supportiveCare": {
+      "bladder_protection": "Adequate hydration",
+      "infection_prevention": "Monitor WBC",
+      "folate_supplementation": "Folic acid 5mg daily"
+    },
+    "rescueAgents": {
+      "pneumonitis": "Steroids, stop MTX",
+      "severe_mucositis": "IV hydration",
+      "hemorrhagic_cystitis": "Bladder irrigation"
+    },
+    "monitoring": {
+      "weekly": [
+        "FBC"
+      ],
+      "baseline": [
+        "FBC",
+        "U&E",
+        "LFTs",
+        "CXR"
+      ],
+      "each_cycle": [
+        "U&E",
+        "LFTs",
+        "Clinical assessment"
+      ]
+    },
+    "toxicityMonitoring": {
+      "monitoring_tools": [
+        "CBC with differential",
+        "Liver function tests",
+        "Renal function tests",
+        "Oral examination",
+        "Pulmonary function if indicated"
+      ],
+      "primary_toxicities": [
+        "Myelosuppression",
+        "Mucositis",
+        "Nausea/vomiting",
+        "Alopecia",
+        "Hepatotoxicity (methotrexate)",
+        "Pulmonary toxicity (rare)"
+      ],
+      "monitoring_schedule": {
+        "baseline": [
+          "CBC",
+          "Comprehensive metabolic panel",
+          "LFTs",
+          "Creatinine clearance"
+        ],
+        "post_treatment": [
+          "Follow-up CBC and chemistry panel 4-6 weeks post-completion"
+        ],
+        "during_treatment": [
+          "Weekly CBC for first 2 cycles",
+          "Oral cavity assessment"
+        ],
+        "before_each_cycle": [
+          "CBC",
+          "LFTs",
+          "Creatinine",
+          "Performance status"
+        ]
+      }
     },
     "interactions": {
       "warfarin": "Enhanced anticoagulation",
-      "proton_pump_inhibitors": "Take 2h before PPI",
-      "strong_CYP3A4_inhibitors": "Avoid concurrent use"
+      "trimethoprim": "Folate antagonism"
     },
     "contraindications": [
+      "Severe hepatic impairment (bilirubin >3x ULN)",
+      "Severe renal impairment (CrCl <30 mL/min)",
+      "Active severe infection",
+      "Pregnancy or breastfeeding",
+      "Known hypersensitivity to study drugs",
+      "Severe mucositis or active peptic ulcer disease",
+      "Immunodeficiency syndromes",
+      "Active pulmonary disease (relative contraindication)"
+    ],
+    "version": "1.5",
+    "status": "active",
+    "createdBy": null,
+    "updatedBy": null,
+    "createdAt": "2024-01-15T10:30:00.000Z",
+    "updatedAt": "2024-01-15T10:30:00.000Z",
+    "lastReviewed": "2024-01-15T10:30:00.000Z"
+  },
+  {
+    "id": "b3daf82f-6192-4c0b-804d-a9023e977e02",
+    "code": "Trastuzumab-Pertuzumab-Docetaxel",
+    "tumourGroup": "Breast",
+    "tumourSupergroup": "Breast",
+    "treatmentIntent": "Curative",
+    "summary": "Trastuzumab-Pertuzumab-Docetaxel (THP) is the NCCN Category 1 standard first-line regimen for HER2-positive metastatic breast cancer. This dual HER2 blockade with chemotherapy provides superior efficacy compared to single-agent HER2 targeting.",
+    "eligibility": {
+      "summary": [
+        "HER2-positive metastatic breast cancer",
+        "First-line treatment",
+        "No prior anti-HER2 therapy in metastatic setting"
+      ],
+      "criteria": {
+        "Age": "18+ years",
+        "ECOG": "0–2",
+        "Other": "Adequate organ function, life expectancy >3 months",
+        "Cardiac": "LVEF ≥50% or within institutional normal limits",
+        "Biomarkers": "HER2-positive (IHC 3+ or FISH amplified)"
+      },
+      "nccn_category": "1",
+      "line_of_therapy": "First-line",
+      "treatment_setting": "Metastatic",
+      "biomarker_requirements": {
+        "HER2": "Positive (IHC 3+ or FISH amplified, HER2/CEP17 ratio ≥2.0)",
+        "ER_PR": "Any status"
+      }
+    },
+    "precautions": [
+      "Dual HER2 blockade cardiotoxicity",
+      "Docetaxel hypersensitivity",
+      "Diarrhea with pertuzumab"
+    ],
+    "treatment": {
+      "drugs": [
+        {
+          "dose": "8 mg/kg loading, then 6 mg/kg",
+          "name": "Trastuzumab",
+          "route": "IV",
+          "schedule": "Every 3 weeks"
+        },
+        {
+          "dose": "840mg loading, then 420mg",
+          "name": "Pertuzumab",
+          "route": "IV",
+          "schedule": "Every 3 weeks"
+        },
+        {
+          "dose": "75 mg/m²",
+          "name": "Docetaxel",
+          "route": "IV",
+          "schedule": "Day 1"
+        }
+      ],
+      "cycles": "Until progression"
+    },
+    "tests": [
+      "Full blood count",
+      "LVEF assessment",
+      "HER2 status",
+      "Liver function tests"
+    ],
+    "doseModifications": {
+      "diarrhea": "Manage with antidiarrheals, hold pertuzumab for grade 3+ diarrhea",
+      "neuropathy": "Reduce or discontinue docetaxel for grade 2+, continue HER2 agents",
+      "neutropenia": "Hold chemotherapy if ANC <1.0, continue HER2 agents with growth factor support",
+      "cardiotoxicity": "Hold HER2-targeted agents if LVEF drops >10% or <50%, resume when recovered",
+      "dose_reductions": {
+        "docetaxel_level_1": "75 mg/m² → 60 mg/m²",
+        "docetaxel_level_2": "60 mg/m² → 45 mg/m²"
+      },
+      "alternate_options": {
+        "cardiac_toxicity": "Hold HER2 agents, resume when LVEF recovers, consider cardio-oncology",
+        "docetaxel_intolerance": "Switch to paclitaxel 80 mg/m² weekly or carboplatin AUC 6",
+        "progression_on_therapy": "Continue HER2 agents with different chemotherapy backbone"
+      }
+    },
+    "referenceList": [
+      "NCCN Breast Guidelines",
+      "CLEOPATRA Study",
+      "ESMO Guidelines"
+    ],
+    "cycleInfo": {
+      "cycle_length": "21 days",
+      "total_cycles": "Until progression",
+      "administration_time": "4-6 hours"
+    },
+    "preMedications": {
+      "cardiac_monitoring": "Baseline LVEF",
+      "infusion_monitoring": "First cycle closely monitored",
+      "docetaxel_premedication": "Dexamethasone 8mg PO x3 days"
+    },
+    "postMedications": {
+      "diarrhea": "Early loperamide intervention",
+      "mucositis": "Oral care",
+      "neuropathy": "Gabapentin if symptomatic"
+    },
+    "supportiveCare": {
+      "GI_support": "Antidiarrheal agents",
+      "cardiac_protection": "LVEF every 3 cycles",
+      "neuropathy_prevention": "Dose modifications"
+    },
+    "rescueAgents": {
+      "severe_diarrhea": "IV hydration, electrolytes",
+      "severe_neuropathy": "Docetaxel dose reduction",
+      "cardiac_dysfunction": "Hold HER2 agents, cardio-oncology"
+    },
+    "monitoring": {
+      "baseline": [
+        "FBC",
+        "LFTs",
+        "LVEF",
+        "HER2 status"
+      ],
+      "each_cycle": [
+        "FBC",
+        "LFTs",
+        "Diarrhea assessment"
+      ],
+      "every_3_cycles": "LVEF"
+    },
+    "toxicityMonitoring": {
+      "monitoring_tools": [
+        "ECHO or MUGA scan",
+        "CBC with differential",
+        "Neurological assessment",
+        "Diarrhea assessment and management",
+        "Infusion reaction monitoring"
+      ],
+      "primary_toxicities": [
+        "Cardiotoxicity (trastuzumab/pertuzumab)",
+        "Myelosuppression",
+        "Peripheral neuropathy",
+        "Diarrhea (pertuzumab-specific)",
+        "Hypersensitivity reactions",
+        "Fluid retention"
+      ],
+      "monitoring_schedule": {
+        "ongoing": [
+          "Continue HER2-targeted therapy until progression"
+        ],
+        "baseline": [
+          "LVEF assessment",
+          "CBC",
+          "Comprehensive metabolic panel",
+          "Performance status"
+        ],
+        "during_treatment": [
+          "LVEF assessment every 3 months",
+          "Weekly CBC for first 2 cycles"
+        ],
+        "before_each_cycle": [
+          "CBC",
+          "Basic metabolic panel",
+          "Cardiac symptoms",
+          "Toxicity assessment"
+        ]
+      }
+    },
+    "interactions": {
+      "warfarin": "Monitor INR",
+      "anthracyclines": "Avoid concurrent use"
+    },
+    "contraindications": [
+      "Severe heart failure (LVEF <40%)",
+      "Known hypersensitivity to trastuzumab, pertuzumab, or docetaxel",
+      "Pregnancy or breastfeeding",
       "Severe hepatic impairment",
-      "Congenital long QT syndrome",
-      "Uncontrolled bleeding",
-      "RET fusion-negative"
+      "Active severe infection",
+      "Uncontrolled cardiac arrhythmias",
+      "Recent myocardial infarction (<6 months)"
+    ],
+    "version": "2.6",
+    "status": "active",
+    "createdBy": null,
+    "updatedBy": null,
+    "createdAt": "2024-01-15T10:30:00.000Z",
+    "updatedAt": "2024-01-15T10:30:00.000Z",
+    "lastReviewed": "2024-01-15T10:30:00.000Z"
+  },
+  {
+    "id": "c8faf82f-6192-4c0b-804d-a9023e977e27",
+    "code": "Palbociclib-Letrozole",
+    "tumourGroup": "Breast",
+    "tumourSupergroup": "Breast",
+    "treatmentIntent": "Palliative",
+    "summary": "Palbociclib-Letrozole is a NCCN Category 1 first-line regimen for hormone receptor-positive, HER2-negative metastatic breast cancer in postmenopausal women. This CDK4/6 inhibitor combination significantly improves progression-free survival.",
+    "eligibility": {
+      "summary": [
+        "HR-positive, HER2-negative metastatic breast cancer",
+        "Postmenopausal women or premenopausal with ovarian suppression",
+        "First-line endocrine therapy"
+      ],
+      "criteria": {
+        "Age": "18+ years (postmenopausal preferred)",
+        "ECOG": "0–2",
+        "Other": "Adequate organ function, no visceral crisis",
+        "Biomarkers": "ER+ and/or PR+, HER2-negative",
+        "Menopausal": "Postmenopausal or with ovarian suppression"
+      },
+      "nccn_category": "1",
+      "line_of_therapy": "First-line",
+      "treatment_setting": "Metastatic",
+      "biomarker_requirements": {
+        "ER": "Positive (≥1% by IHC)",
+        "PR": "Any status",
+        "HER2": "Negative (IHC 0-1+ or FISH negative)"
+      }
+    },
+    "precautions": [
+      "Myelosuppression",
+      "Fatigue",
+      "Pulmonary embolism risk"
+    ],
+    "treatment": {
+      "drugs": [
+        {
+          "dose": "125mg daily",
+          "name": "Palbociclib",
+          "route": "PO",
+          "schedule": "Days 1-21"
+        },
+        {
+          "dose": "2.5mg daily",
+          "name": "Letrozole",
+          "route": "PO",
+          "schedule": "Continuous"
+        }
+      ],
+      "cycles": "Every 28 days"
+    },
+    "tests": [
+      "Full blood count",
+      "Liver function tests",
+      "Estrogen receptor status",
+      "Performance status"
+    ],
+    "doseModifications": {
+      "letrozole": "Standard 2.5 mg daily, no dose reductions typically needed",
+      "neutropenia": "Hold for ANC <1.0, resume with dose reduction for grade 3+ neutropenia",
+      "other_toxicity": "Hold for grade 3+ non-hematologic toxicity, resume with dose reduction",
+      "dose_reductions": {
+        "palbociclib_level_1": "125 mg → 100 mg daily",
+        "palbociclib_level_2": "100 mg → 75 mg daily"
+      },
+      "alternate_options": {
+        "progression": "Consider fulvestrant + CDK4/6 inhibitor or chemotherapy",
+        "letrozole_intolerance": "Switch to anastrozole 1 mg daily or exemestane 25 mg daily",
+        "palbociclib_intolerance": "Switch to ribociclib 600 mg daily or abemaciclib 150 mg BID"
+      }
+    },
+    "referenceList": [
+      "NCCN Breast Guidelines",
+      "PALOMA Studies",
+      "ESMO Guidelines"
+    ],
+    "cycleInfo": {
+      "cycle_length": "28 days",
+      "total_cycles": "Until progression",
+      "administration_time": "21 days on, 7 days off palbociclib + continuous letrozole"
+    },
+    "preMedications": {
+      "fatigue_assessment": "Baseline ECOG",
+      "thrombosis_assessment": "Risk factors",
+      "myelosuppression_monitoring": "Baseline FBC"
+    },
+    "postMedications": {
+      "fatigue": "Energy conservation techniques",
+      "infection_prevention": "Neutropenia precautions",
+      "thrombosis_prevention": "Mobilization"
+    },
+    "supportiveCare": {
+      "fatigue_management": "Dose modifications",
+      "thrombosis_prevention": "Risk assessment",
+      "neutropenia_monitoring": "Weekly FBC first 2 cycles"
+    },
+    "rescueAgents": {
+      "severe_fatigue": "Dose reduction",
+      "pulmonary_embolism": "Anticoagulation",
+      "febrile_neutropenia": "G-CSF, antibiotics"
+    },
+    "monitoring": {
+      "baseline": [
+        "FBC",
+        "LFTs",
+        "ER status",
+        "ECOG"
+      ],
+      "each_cycle": "FBC, clinical assessment",
+      "weekly_first_2_cycles": "FBC"
+    },
+    "toxicityMonitoring": {
+      "monitoring_tools": [
+        "CBC with differential",
+        "Performance status assessment",
+        "Symptom monitoring",
+        "Quality of life assessment"
+      ],
+      "primary_toxicities": [
+        "Neutropenia",
+        "Fatigue",
+        "Nausea",
+        "Diarrhea",
+        "Alopecia",
+        "Stomatitis"
+      ],
+      "monitoring_schedule": {
+        "cycle_1": [
+          "CBC on days 1, 15"
+        ],
+        "ongoing": [
+          "Monthly CBC, toxicity assessment every 3 months"
+        ],
+        "baseline": [
+          "CBC",
+          "Comprehensive metabolic panel",
+          "Performance status"
+        ],
+        "subsequent_cycles": [
+          "CBC day 1 of each cycle"
+        ]
+      }
+    },
+    "interactions": {
+      "warfarin": "Monitor INR",
+      "strong_CYP3A4_inhibitors": "Reduce palbociclib dose"
+    },
+    "contraindications": [
+      "Pregnancy or breastfeeding",
+      "Known hypersensitivity to palbociclib or letrozole",
+      "Severe hepatic impairment",
+      "Premenopausal status without ovarian suppression",
+      "Visceral crisis requiring immediate cytoreduction",
+      "Concurrent strong CYP3A inhibitors"
+    ],
+    "version": "1.8",
+    "status": "active",
+    "createdBy": null,
+    "updatedBy": null,
+    "createdAt": "2024-01-15T10:30:00.000Z",
+    "updatedAt": "2024-01-15T10:30:00.000Z",
+    "lastReviewed": "2024-01-15T10:30:00.000Z"
+  },
+  {
+    "id": "a4eaf82f-6192-4c0b-804d-a9023e977e13",
+    "code": "Doxorubicin-Cyclophosphamide",
+    "tumourGroup": "Breast",
+    "tumourSupergroup": "Breast",
+    "treatmentIntent": "Curative",
+    "summary": "Doxorubicin-Cyclophosphamide (AC) is a NCCN Category 1 regimen for early-stage breast cancer when taxanes are contraindicated or by patient preference. This anthracycline-based doublet provides excellent efficacy with shorter treatment duration.",
+    "eligibility": {
+      "summary": [
+        "Early-stage breast cancer",
+        "Taxane contraindication or intolerance",
+        "Patient preference for shorter regimen"
+      ],
+      "criteria": {
+        "Age": "18–75 years",
+        "ECOG": "0–2",
+        "Other": "Adequate organ function, no peripheral neuropathy concerns",
+        "Cardiac": "LVEF ≥50% or within institutional normal limits",
+        "Biomarkers": "HER2-negative"
+      },
+      "nccn_category": "1",
+      "line_of_therapy": "Adjuvant",
+      "treatment_setting": "Early-stage",
+      "biomarker_requirements": {
+        "HER2": "Negative",
+        "ER_PR": "Any status"
+      }
+    },
+    "precautions": [
+      "Doxorubicin cardiotoxicity",
+      "Cyclophosphamide hemorrhagic cystitis",
+      "Myelosuppression"
+    ],
+    "treatment": {
+      "drugs": [
+        {
+          "dose": "60 mg/m²",
+          "name": "Doxorubicin",
+          "route": "IV",
+          "schedule": "Day 1"
+        },
+        {
+          "dose": "600 mg/m²",
+          "name": "Cyclophosphamide",
+          "route": "IV",
+          "schedule": "Day 1"
+        }
+      ],
+      "cycles": "4 cycles every 21 days"
+    },
+    "tests": [
+      "Full blood count",
+      "LVEF assessment",
+      "Liver function tests",
+      "Renal function"
+    ],
+    "doseModifications": {
+      "mucositis": "Hold for grade 3+ mucositis, resume with dose reduction",
+      "neutropenia": "Hold treatment if ANC <1.0, resume with growth factor support",
+      "cardiotoxicity": "Discontinue if LVEF drops >10% from baseline or <50%",
+      "dose_reductions": {
+        "level_1": "25% dose reduction for grade 3+ toxicity",
+        "level_2": "50% dose reduction for recurrent grade 3+ toxicity"
+      },
+      "thrombocytopenia": "Hold if platelets <100,000",
+      "alternate_options": {
+        "severe_nausea": "Enhanced antiemetic regimen with NK1 antagonists",
+        "cardiac_concerns": "Consider CMF or TC regimen",
+        "patient_preference": "Discuss AC-T for potentially better outcomes"
+      }
+    },
+    "referenceList": [
+      "NCCN Breast Guidelines",
+      "NSABP Studies",
+      "ESMO Guidelines"
+    ],
+    "cycleInfo": {
+      "cycle_length": "21 days",
+      "total_cycles": "4",
+      "administration_time": "2-3 hours"
+    },
+    "preMedications": {
+      "hydration": "Adequate fluid intake",
+      "antiemetic": "Ondansetron 8mg IV, dexamethasone 8mg IV",
+      "cardiac_protection": "Consider dexrazoxane if high cumulative dose"
+    },
+    "postMedications": {
+      "nausea": "Ondansetron PRN",
+      "alopecia": "Scalp cooling if available",
+      "mucositis": "Oral care"
+    },
+    "supportiveCare": {
+      "bladder_protection": "Adequate hydration",
+      "cardiac_monitoring": "LVEF every 2 cycles",
+      "infection_prevention": "Neutropenia precautions"
+    },
+    "rescueAgents": {
+      "cardiotoxicity": "Cardio-oncology referral",
+      "febrile_neutropenia": "G-CSF, antibiotics",
+      "hemorrhagic_cystitis": "Bladder irrigation"
+    },
+    "monitoring": {
+      "baseline": [
+        "FBC",
+        "LVEF",
+        "LFTs",
+        "U&E"
+      ],
+      "each_cycle": [
+        "FBC",
+        "Clinical assessment"
+      ],
+      "every_2_cycles": "LVEF"
+    },
+    "toxicityMonitoring": {
+      "monitoring_tools": [
+        "CBC with differential",
+        "ECHO or MUGA scan",
+        "Symptom assessment",
+        "Performance status evaluation"
+      ],
+      "primary_toxicities": [
+        "Myelosuppression",
+        "Cardiotoxicity",
+        "Nausea/vomiting",
+        "Alopecia",
+        "Mucositis",
+        "Secondary malignancies (rare)"
+      ],
+      "monitoring_schedule": {
+        "baseline": [
+          "CBC",
+          "Comprehensive metabolic panel",
+          "LVEF assessment"
+        ],
+        "post_treatment": [
+          "LVEF assessment 3-6 months post completion"
+        ],
+        "during_treatment": [
+          "LVEF assessment every 2 cycles"
+        ],
+        "before_each_cycle": [
+          "CBC",
+          "Basic metabolic panel",
+          "Performance status"
+        ]
+      }
+    },
+    "interactions": {
+      "warfarin": "Enhanced anticoagulation",
+      "phenytoin": "Monitor levels"
+    },
+    "contraindications": [
+      "Severe heart failure (LVEF <40%)",
+      "Prior cumulative anthracycline dose >240 mg/m² doxorubicin equivalent",
+      "Active severe infection",
+      "Pregnancy or breastfeeding",
+      "Known hypersensitivity to anthracyclines",
+      "Severe hepatic impairment",
+      "Uncontrolled cardiac arrhythmias"
+    ],
+    "version": "1.8",
+    "status": "active",
+    "createdBy": null,
+    "updatedBy": null,
+    "createdAt": "2024-01-15T10:30:00.000Z",
+    "updatedAt": "2024-01-15T10:30:00.000Z",
+    "lastReviewed": "2024-01-15T10:30:00.000Z"
+  },
+  {
+    "id": "a6faf82f-6192-4c0b-804d-a9023e977e25",
+    "code": "Lapatinib-Capecitabine",
+    "tumourGroup": "Breast",
+    "tumourSupergroup": "Breast",
+    "treatmentIntent": "Palliative",
+    "summary": "Lapatinib-Capecitabine is a NCCN Category 1 regimen for HER2-positive metastatic breast cancer after trastuzumab failure. This dual HER2/EGFR inhibition with oral chemotherapy provides an effective salvage option.",
+    "eligibility": {
+      "summary": [
+        "HER2-positive metastatic breast cancer",
+        "Prior trastuzumab therapy",
+        "Progression on or after trastuzumab"
+      ],
+      "criteria": {
+        "Age": "18+ years",
+        "ECOG": "0–2",
+        "Other": "Adequate organ function, able to swallow oral medications",
+        "Cardiac": "LVEF ≥50% (lapatinib less cardiotoxic than trastuzumab)",
+        "Biomarkers": "HER2-positive (IHC 3+ or FISH amplified)"
+      },
+      "nccn_category": "1",
+      "line_of_therapy": "Second-line or later",
+      "treatment_setting": "Metastatic",
+      "biomarker_requirements": {
+        "HER2": "Positive (IHC 3+ or FISH amplified)",
+        "ER_PR": "Any status"
+      }
+    },
+    "precautions": [
+      "Lapatinib diarrhea",
+      "Hepatotoxicity",
+      "Capecitabine hand-foot syndrome"
+    ],
+    "treatment": {
+      "drugs": [
+        {
+          "dose": "1250mg daily",
+          "name": "Lapatinib",
+          "route": "PO",
+          "schedule": "Continuous"
+        },
+        {
+          "dose": "2000 mg/m² daily",
+          "name": "Capecitabine",
+          "route": "PO",
+          "schedule": "Days 1-14"
+        }
+      ],
+      "cycles": "Every 21 days"
+    },
+    "tests": [
+      "Full blood count",
+      "Liver function tests",
+      "LVEF assessment",
+      "Hand-foot assessment"
+    ],
+    "doseModifications": {
+      "rash": "Hold for grade 3+ rash, treat with topical steroids",
+      "diarrhea": "Hold for grade 3+ diarrhea, resume with dose reduction and antidiarrheals",
+      "hepatotoxicity": "Hold for grade 3+ ALT/AST elevation",
+      "dose_reductions": {
+        "lapatinib_level_1": "1250 mg daily → 1000 mg daily",
+        "lapatinib_level_2": "1000 mg daily → 750 mg daily",
+        "capecitabine_level_1": "2000 mg/m² daily → 1500 mg/m² daily",
+        "capecitabine_level_2": "1500 mg/m² daily → 1000 mg/m² daily"
+      },
+      "alternate_options": {
+        "progression": "Consider trastuzumab deruxtecan or neratinib-based regimens",
+        "severe_diarrhea": "Consider T-DM1 or other HER2-targeted agents",
+        "hand_foot_syndrome": "Switch capecitabine to different chemotherapy backbone"
+      },
+      "hand_foot_syndrome": "Hold for grade 2+ HFS, resume with dose reduction"
+    },
+    "referenceList": [
+      "NCCN Breast Guidelines",
+      "EGF100151 Study",
+      "ESMO Guidelines"
+    ],
+    "cycleInfo": {
+      "cycle_length": "21 days",
+      "total_cycles": "Until progression",
+      "administration_time": "Continuous lapatinib + 14 days capecitabine"
+    },
+    "preMedications": {
+      "GI_monitoring": "Baseline assessment",
+      "cardiac_monitoring": "Baseline LVEF",
+      "hepatic_monitoring": "Baseline LFTs"
+    },
+    "postMedications": {
+      "nausea": "Take with food",
+      "diarrhea": "Early loperamide intervention",
+      "hand_foot_care": "Urea cream, avoid friction"
+    },
+    "supportiveCare": {
+      "skin_monitoring": "Daily foot inspection",
+      "liver_monitoring": "Regular LFTs",
+      "diarrhea_management": "Aggressive early intervention"
+    },
+    "rescueAgents": {
+      "severe_HFS": "Treatment interruption",
+      "severe_diarrhea": "IV hydration, dose reduction",
+      "severe_hepatotoxicity": "Permanent discontinuation"
+    },
+    "monitoring": {
+      "baseline": [
+        "FBC",
+        "LFTs",
+        "LVEF"
+      ],
+      "each_cycle": "FBC, LFTs, LVEF if indicated, HFS assessment",
+      "weekly_first_month": "LFTs"
+    },
+    "toxicityMonitoring": {
+      "monitoring_tools": [
+        "Diarrhea assessment and management",
+        "Skin examination",
+        "Liver function tests",
+        "ECG monitoring if indicated"
+      ],
+      "primary_toxicities": [
+        "Diarrhea",
+        "Hand-foot syndrome",
+        "Rash",
+        "Fatigue",
+        "Hepatotoxicity",
+        "QT prolongation (rare)"
+      ],
+      "monitoring_schedule": {
+        "ongoing": [
+          "Continue monitoring throughout treatment"
+        ],
+        "baseline": [
+          "LFTs",
+          "CBC",
+          "Performance status",
+          "Skin assessment"
+        ],
+        "subsequent_cycles": [
+          "LFTs monthly",
+          "Toxicity assessment every 2 weeks"
+        ],
+        "weekly_first_cycle": [
+          "Toxicity assessment",
+          "Diarrhea monitoring"
+        ]
+      }
+    },
+    "interactions": {
+      "warfarin": "Monitor INR closely",
+      "acid_reducing_agents": "Take lapatinib 1 hour before food"
+    },
+    "contraindications": [
+      "Pregnancy or breastfeeding",
+      "Known hypersensitivity to lapatinib or capecitabine",
+      "Severe hepatic impairment",
+      "Severe renal impairment (CrCl <30 mL/min)",
+      "Dihydropyrimidine dehydrogenase deficiency",
+      "Concurrent warfarin therapy"
+    ],
+    "version": "1.7",
+    "status": "active",
+    "createdBy": null,
+    "updatedBy": null,
+    "createdAt": "2024-01-15T10:30:00.000Z",
+    "updatedAt": "2024-01-15T10:30:00.000Z",
+    "lastReviewed": "2024-01-15T10:30:00.000Z"
+  },
+  {
+    "id": "d0dddd2f-6192-4c0b-804d-a9023e977e58",
+    "code": "Trastuzumab-Deruxtecan",
+    "tumourGroup": "Breast",
+    "tumourSupergroup": "Breast",
+    "treatmentIntent": "Palliative",
+    "summary": "Trastuzumab-Deruxtecan (T-DXd) is a NCCN Category 1 HER2-directed antibody-drug conjugate for HER2-positive metastatic breast cancer after prior anti-HER2 therapy. This agent shows remarkable efficacy even in HER2-low expressing tumors.",
+    "eligibility": {
+      "summary": [
+        "HER2-positive metastatic breast cancer",
+        "Prior anti-HER2 therapy",
+        "Also active in HER2-low disease"
+      ],
+      "criteria": {
+        "Age": "18+ years",
+        "ECOG": "0–1",
+        "Other": "Adequate organ function, no severe comorbidities",
+        "Pulmonary": "No active ILD or pneumonitis",
+        "Biomarkers": "HER2-positive (IHC 3+ or FISH amplified) or HER2-low (IHC 1+ or 2+/FISH negative)"
+      },
+      "nccn_category": "1",
+      "line_of_therapy": "Second-line or later",
+      "treatment_setting": "Metastatic",
+      "biomarker_requirements": {
+        "HER2": "Positive (IHC 3+ or FISH amplified) or Low (IHC 1-2+/FISH negative)",
+        "ER_PR": "Any status"
+      }
+    },
+    "precautions": [
+      "Interstitial lung disease",
+      "Left ventricular dysfunction",
+      "Nausea and fatigue"
+    ],
+    "treatment": {
+      "drugs": [
+        {
+          "dose": "5.4 mg/kg",
+          "name": "Trastuzumab deruxtecan",
+          "route": "IV",
+          "schedule": "Every 3 weeks"
+        }
+      ],
+      "cycles": "Until progression or toxicity"
+    },
+    "tests": [
+      "Full blood count",
+      "LVEF assessment",
+      "Chest imaging",
+      "HER2 status"
+    ],
+    "doseModifications": {
+      "neutropenia": "Hold for grade 3+ neutropenia, resume with growth factor support",
+      "lvef_decline": "Hold for LVEF drop >10% or <45%, resume when recovered",
+      "dose_reductions": {
+        "level_1": "5.4 mg/kg → 4.4 mg/kg",
+        "level_2": "4.4 mg/kg → 3.2 mg/kg"
+      },
+      "ild_pneumonitis": "Permanently discontinue for grade 2+ ILD",
+      "alternate_options": {
+        "progression": "Consider tucatinib-based regimens or clinical trials",
+        "ild_development": "Consider other HER2-targeted agents (tucatinib combinations)",
+        "cardiac_toxicity": "Hold and reassess, consider cardio-oncology consultation"
+      }
+    },
+    "referenceList": [
+      "NCCN Breast Guidelines",
+      "DESTINY-Breast Studies",
+      "ESMO Guidelines"
+    ],
+    "cycleInfo": {
+      "cycle_length": "21 days",
+      "total_cycles": "Until progression",
+      "administration_time": "90 minutes"
+    },
+    "preMedications": {
+      "cardiac_monitoring": "Baseline LVEF",
+      "antiemetic_protocol": "Comprehensive premedication",
+      "pulmonary_monitoring": "Baseline chest imaging"
+    },
+    "postMedications": {
+      "nausea": "Aggressive antiemetic support",
+      "ILD_symptoms": "Report dyspnea immediately",
+      "cardiac_effects": "Monitor for symptoms"
+    },
+    "supportiveCare": {
+      "cardiac_protection": "LVEF every 3 cycles",
+      "pulmonary_monitoring": "Serial chest imaging",
+      "antiemetic_optimization": "Prophylactic regimen"
+    },
+    "rescueAgents": {
+      "ILD": "Discontinue permanently, high-dose steroids",
+      "severe_nausea": "IV antiemetics, dose delay",
+      "cardiac_dysfunction": "Cardio-oncology referral"
+    },
+    "monitoring": {
+      "baseline": [
+        "FBC",
+        "LVEF",
+        "CXR",
+        "HER2 status"
+      ],
+      "each_cycle": "FBC, pulmonary assessment",
+      "every_3_cycles": "LVEF, CXR"
+    },
+    "toxicityMonitoring": {
+      "monitoring_tools": [
+        "Chest CT scan",
+        "CBC with differential",
+        "ECHO or MUGA scan",
+        "Pulmonary function assessment",
+        "Symptom monitoring"
+      ],
+      "primary_toxicities": [
+        "Interstitial lung disease",
+        "Myelosuppression",
+        "Nausea/vomiting",
+        "Fatigue",
+        "Alopecia",
+        "Left ventricular dysfunction"
+      ],
+      "monitoring_schedule": {
+        "ongoing": [
+          "Immediate evaluation for respiratory symptoms"
+        ],
+        "baseline": [
+          "Chest CT",
+          "LVEF assessment",
+          "CBC",
+          "Pulmonary symptoms"
+        ],
+        "every_2_cycles": [
+          "Chest imaging for ILD screening"
+        ],
+        "before_each_cycle": [
+          "CBC",
+          "Pulmonary symptoms",
+          "Performance status"
+        ]
+      }
+    },
+    "interactions": {
+      "live_vaccines": "Contraindicated",
+      "strong_CYP3A4_inhibitors": "Monitor for increased toxicity"
+    },
+    "contraindications": [
+      "Active interstitial lung disease or pneumonitis",
+      "Severe pulmonary impairment",
+      "Known hypersensitivity to trastuzumab deruxtecan",
+      "Pregnancy or breastfeeding",
+      "Severe heart failure (LVEF <40%)",
+      "History of severe ILD"
+    ],
+    "version": "2.1",
+    "status": "active",
+    "createdBy": null,
+    "updatedBy": null,
+    "createdAt": "2024-01-15T10:30:00.000Z",
+    "updatedAt": "2024-01-15T10:30:00.000Z",
+    "lastReviewed": "2024-01-15T10:30:00.000Z"
+  },
+  {
+    "id": "c9cccc2f-6192-4c0b-804d-a9023e977e57",
+    "code": "Sacituzumab-Govitecan",
+    "tumourGroup": "Breast",
+    "tumourSupergroup": "Breast",
+    "treatmentIntent": "Palliative",
+    "summary": "Sacituzumab-Govitecan is a NCCN Category 1 TROP-2 directed antibody-drug conjugate for metastatic triple-negative breast cancer after prior chemotherapy. This agent provides significant survival benefit in heavily pretreated patients.",
+    "eligibility": {
+      "summary": [
+        "Metastatic triple-negative breast cancer",
+        "Prior chemotherapy in metastatic setting",
+        "TROP-2 expression (typically positive)"
+      ],
+      "criteria": {
+        "Age": "18+ years",
+        "ECOG": "0–1",
+        "Other": "Adequate organ function, UGT1A1 genotyping recommended",
+        "Biomarkers": "Triple-negative (ER <1%, PR <1%, HER2-negative)",
+        "Prior_therapy": "At least 2 prior chemotherapies for metastatic disease"
+      },
+      "nccn_category": "1",
+      "line_of_therapy": "Second-line or later",
+      "treatment_setting": "Metastatic",
+      "biomarker_requirements": {
+        "ER": "Negative (<1% by IHC)",
+        "PR": "Negative (<1% by IHC)",
+        "HER2": "Negative (IHC 0-1+ or FISH negative)",
+        "TROP2": "Positive (typically expressed in >90% of TNBC)"
+      }
+    },
+    "precautions": [
+      "Severe diarrhea",
+      "Neutropenia",
+      "Nausea and vomiting"
+    ],
+    "treatment": {
+      "drugs": [
+        {
+          "dose": "10 mg/kg",
+          "name": "Sacituzumab govitecan",
+          "route": "IV",
+          "schedule": "Days 1 and 8"
+        }
+      ],
+      "cycles": "Every 21 days"
+    },
+    "tests": [
+      "Full blood count",
+      "Liver function tests",
+      "UGT1A1 genotyping",
+      "Performance status"
+    ],
+    "doseModifications": {
+      "diarrhea": "Hold for grade 3+ diarrhea, aggressive antidiarrheal management",
+      "neutropenia": "Hold for ANC <1500, resume with dose reduction for grade 3+ neutropenia",
+      "dose_reductions": {
+        "level_1": "10 mg/kg → 7.5 mg/kg",
+        "level_2": "7.5 mg/kg → 5 mg/kg"
+      },
+      "ugt1a1_variants": "Reduce dose by one level for UGT1A1*28 homozygotes",
+      "alternate_options": {
+        "progression": "Consider clinical trials or other ADCs if available",
+        "severe_neutropenia": "Growth factor support, consider dose reduction",
+        "diarrhea_intolerance": "Aggressive supportive care, dose modification"
+      }
+    },
+    "referenceList": [
+      "NCCN Breast Guidelines",
+      "ASCENT Study",
+      "FDA Approval"
+    ],
+    "cycleInfo": {
+      "cycle_length": "21 days",
+      "total_cycles": "Until progression",
+      "administration_time": "2 days per cycle"
+    },
+    "preMedications": {
+      "GI_monitoring": "Baseline assessment",
+      "UGT1A1_testing": "Baseline genotyping",
+      "myelosuppression_monitoring": "Weekly FBC first 2 cycles"
+    },
+    "postMedications": {
+      "nausea": "Aggressive antiemetics",
+      "diarrhea": "Early loperamide intervention",
+      "neutropenia": "G-CSF support"
+    },
+    "supportiveCare": {
+      "antiemetic_protocol": "Comprehensive coverage",
+      "diarrhea_management": "Aggressive early intervention",
+      "neutropenia_monitoring": "Weekly FBC first 2 cycles"
+    },
+    "rescueAgents": {
+      "severe_nausea": "IV antiemetics",
+      "severe_diarrhea": "IV hydration, dose reduction",
+      "febrile_neutropenia": "G-CSF, antibiotics"
+    },
+    "monitoring": {
+      "baseline": [
+        "FBC",
+        "LFTs",
+        "UGT1A1",
+        "ECOG"
+      ],
+      "each_cycle": "FBC, diarrhea assessment",
+      "weekly_first_2_cycles": "FBC"
+    },
+    "toxicityMonitoring": {
+      "monitoring_tools": [
+        "CBC with differential",
+        "UGT1A1 genotyping",
+        "Diarrhea management",
+        "Performance status assessment"
+      ],
+      "primary_toxicities": [
+        "Neutropenia",
+        "Diarrhea",
+        "Nausea/vomiting",
+        "Fatigue",
+        "Alopecia",
+        "Rash"
+      ],
+      "monitoring_schedule": {
+        "weekly": [
+          "CBC for first 2 cycles"
+        ],
+        "ongoing": [
+          "Continue monitoring throughout treatment"
+        ],
+        "baseline": [
+          "CBC",
+          "UGT1A1 testing",
+          "Comprehensive metabolic panel"
+        ],
+        "before_each_cycle": [
+          "CBC",
+          "Performance status",
+          "Toxicity assessment"
+        ]
+      }
+    },
+    "interactions": {
+      "UGT1A1_inhibitors": "Monitor for increased toxicity",
+      "strong_CYP3A4_inhibitors": "Monitor closely"
+    },
+    "contraindications": [
+      "Known hypersensitivity to sacituzumab govitecan",
+      "Pregnancy or breastfeeding",
+      "Severe neutropenia (ANC <1000)",
+      "UGT1A1*28 homozygosity (relative contraindication - requires dose reduction)",
+      "Active severe infection",
+      "Severe hepatic impairment"
+    ],
+    "version": "1.8",
+    "status": "active",
+    "createdBy": null,
+    "updatedBy": null,
+    "createdAt": "2024-01-15T10:30:00.000Z",
+    "updatedAt": "2024-01-15T10:30:00.000Z",
+    "lastReviewed": "2024-01-15T10:30:00.000Z"
+  },
+  {
+    "id": "e1ffff2f-6192-4c0b-804d-a9023e977e89",
+    "code": "Tamoxifen",
+    "tumourGroup": "Breast",
+    "tumourSupergroup": "Breast",
+    "treatmentIntent": "Curative",
+    "summary": "Tamoxifen is a NCCN Category 1 selective estrogen receptor modulator for hormone receptor-positive breast cancer in pre/postmenopausal women. This oral endocrine therapy is used in adjuvant and metastatic settings.",
+    "eligibility": {
+      "summary": [
+        "HR-positive breast cancer",
+        "Adjuvant or metastatic treatment",
+        "Pre/postmenopausal women"
+      ],
+      "criteria": {
+        "Age": "18+ years",
+        "ECOG": "0–2",
+        "Other": "No contraindications to estrogen modulation",
+        "Biomarkers": "ER+ and/or PR+",
+        "Thrombotic_risk": "No active thromboembolism"
+      },
+      "nccn_category": "1",
+      "line_of_therapy": "First-line or adjuvant",
+      "treatment_setting": "Adjuvant or metastatic",
+      "biomarker_requirements": {
+        "ER": "Positive (≥1% by IHC)",
+        "PR": "Any status",
+        "HER2": "Any status"
+      }
+    },
+    "precautions": [
+      "Thromboembolic events",
+      "Endometrial cancer risk",
+      "Hot flashes"
+    ],
+    "treatment": {
+      "drugs": [
+        {
+          "dose": "20mg daily",
+          "name": "Tamoxifen",
+          "route": "PO",
+          "schedule": "Continuous"
+        }
+      ],
+      "cycles": "5-10 years"
+    },
+    "tests": [
+      "Liver function tests",
+      "Endometrial assessment",
+      "Coagulation studies",
+      "Estrogen receptor status"
+    ],
+    "doseModifications": {
+      "standard_dose": "20 mg daily, no routine dose modifications",
+      "alternate_options": {
+        "premenopausal": "Consider ovarian suppression + AI",
+        "thrombosis_risk": "Consider aromatase inhibitors in postmenopausal women",
+        "tolerance_issues": "Switch to different SERM or AI"
+      }
+    },
+    "referenceList": [
+      "NCCN Breast Guidelines",
+      "ATLAS Study",
+      "ESMO Guidelines"
+    ],
+    "cycleInfo": {
+      "cycle_length": "Continuous",
+      "total_cycles": "5-10 years",
+      "administration_time": "Once daily oral"
+    },
+    "preMedications": {
+      "liver_monitoring": "Baseline LFTs",
+      "thrombosis_assessment": "Risk factors",
+      "endometrial_monitoring": "Baseline pelvic exam"
+    },
+    "postMedications": {
+      "hot_flashes": "Lifestyle modifications",
+      "thrombosis_prevention": "Mobilization, avoid prolonged immobility",
+      "endometrial_monitoring": "Report abnormal bleeding"
+    },
+    "supportiveCare": {
+      "liver_protection": "Regular LFTs",
+      "thrombosis_prevention": "Risk assessment",
+      "endometrial_monitoring": "Annual gynecological exam"
+    },
+    "rescueAgents": {
+      "thrombosis": "Anticoagulation, consider discontinuation",
+      "endometrial_cancer": "Urgent gynecological referral",
+      "severe_liver_dysfunction": "Discontinue tamoxifen"
+    },
+    "monitoring": {
+      "annually": "Pelvic exam",
+      "baseline": [
+        "LFTs",
+        "Pelvic exam",
+        "ER status",
+        "Coagulation"
+      ],
+      "every_6_months": "LFTs"
+    },
+    "toxicityMonitoring": {
+      "monitoring_tools": [
+        "Gynecologic examination",
+        "Thrombosis assessment",
+        "Mood evaluation"
+      ],
+      "primary_toxicities": [
+        "Hot flashes",
+        "Vaginal discharge",
+        "Thromboembolism",
+        "Endometrial cancer",
+        "Mood changes"
+      ],
+      "monitoring_schedule": {
+        "ongoing": [
+          "Monitor for thrombotic symptoms"
+        ],
+        "annually": [
+          "Gynecologic exam",
+          "Endometrial assessment if indicated"
+        ],
+        "baseline": [
+          "Gynecologic exam",
+          "Thrombosis history"
+        ]
+      }
+    },
+    "interactions": {
+      "warfarin": "Enhanced anticoagulation",
+      "CYP2D6_inhibitors": "May reduce efficacy"
+    },
+    "contraindications": [
+      "Active thromboembolism",
+      "Pregnancy or breastfeeding",
+      "Known hypersensitivity",
+      "High-risk endometrial pathology"
     ],
     "version": "1.0",
     "status": "active",
     "createdBy": null,
     "updatedBy": null,
-    "createdAt": "2025-06-30T03:12:10.866Z",
-    "updatedAt": "2025-06-30T03:12:10.866Z",
-    "lastReviewed": "2025-06-30T03:12:10.866Z"
+    "createdAt": "2024-01-15T10:30:00.000Z",
+    "updatedAt": "2024-01-15T10:30:00.000Z",
+    "lastReviewed": "2024-01-15T10:30:00.000Z"
+  },
+  {
+    "id": "c9dddd2f-6192-4c0b-804d-a9023e977e87",
+    "code": "Letrozole",
+    "tumourGroup": "Breast",
+    "tumourSupergroup": "Breast",
+    "treatmentIntent": "Curative",
+    "summary": "Letrozole is a NCCN Category 1 aromatase inhibitor for hormone receptor-positive breast cancer in postmenopausal women. This oral endocrine therapy is used in adjuvant and metastatic settings.",
+    "eligibility": {
+      "summary": [
+        "HR-positive breast cancer",
+        "Postmenopausal women",
+        "Adjuvant or metastatic treatment"
+      ],
+      "criteria": {
+        "Age": "18+ years (postmenopausal)",
+        "Bone": "Adequate bone health assessment",
+        "ECOG": "0–2",
+        "Biomarkers": "ER+ and/or PR+",
+        "Menopausal": "Postmenopausal status confirmed"
+      },
+      "nccn_category": "1",
+      "line_of_therapy": "First-line or adjuvant",
+      "treatment_setting": "Adjuvant or metastatic",
+      "biomarker_requirements": {
+        "ER": "Positive (≥1% by IHC)",
+        "PR": "Any status",
+        "HER2": "Any status"
+      }
+    },
+    "precautions": [
+      "Bone loss and fractures",
+      "Arthralgia",
+      "Fatigue"
+    ],
+    "treatment": {
+      "drugs": [
+        {
+          "dose": "2.5mg daily",
+          "name": "Letrozole",
+          "route": "PO",
+          "schedule": "Continuous"
+        }
+      ],
+      "cycles": "5 years adjuvant or until progression"
+    },
+    "tests": [
+      "Bone density scan",
+      "Liver function tests",
+      "Estrogen receptor status",
+      "Cholesterol levels"
+    ],
+    "doseModifications": {
+      "standard_dose": "2.5 mg daily, no routine dose modifications",
+      "alternate_options": {
+        "bone_loss": "Add bisphosphonates or denosumab",
+        "arthralgia": "Switch to different AI or tamoxifen",
+        "intolerance": "Consider anastrozole or exemestane"
+      }
+    },
+    "referenceList": [
+      "NCCN Breast Guidelines",
+      "BIG 1-98 Study",
+      "ESMO Guidelines"
+    ],
+    "cycleInfo": {
+      "cycle_length": "Continuous",
+      "total_cycles": "5 years or until progression",
+      "administration_time": "Once daily oral"
+    },
+    "preMedications": {
+      "bone_monitoring": "Baseline DEXA scan",
+      "liver_monitoring": "Baseline LFTs",
+      "arthralgia_assessment": "Joint symptoms"
+    },
+    "postMedications": {
+      "fatigue": "Energy conservation",
+      "arthralgia": "Exercise, NSAIDs",
+      "bone_health": "Calcium and vitamin D supplementation"
+    },
+    "supportiveCare": {
+      "joint_care": "Physical therapy",
+      "bone_protection": "Bisphosphonates if indicated",
+      "fatigue_management": "Lifestyle modifications"
+    },
+    "rescueAgents": {
+      "severe_fatigue": "Dose interruption",
+      "severe_bone_loss": "Bisphosphonates, specialist referral",
+      "severe_arthralgia": "Switch AI or tamoxifen"
+    },
+    "monitoring": {
+      "annually": "DEXA scan",
+      "baseline": [
+        "DEXA",
+        "LFTs",
+        "ER status",
+        "Cholesterol"
+      ],
+      "every_6_months": "LFTs, cholesterol"
+    },
+    "toxicityMonitoring": {
+      "monitoring_tools": [
+        "DEXA scan",
+        "Lipid profile",
+        "Joint assessment"
+      ],
+      "primary_toxicities": [
+        "Bone loss",
+        "Arthralgia",
+        "Hot flashes",
+        "Fatigue",
+        "Hypercholesterolemia"
+      ],
+      "monitoring_schedule": {
+        "ongoing": [
+          "Bone health management"
+        ],
+        "annually": [
+          "DEXA scan",
+          "Lipid monitoring"
+        ],
+        "baseline": [
+          "DEXA scan",
+          "Lipid profile"
+        ]
+      }
+    },
+    "interactions": {
+      "warfarin": "Monitor INR",
+      "estrogen_supplements": "Contraindicated"
+    },
+    "contraindications": [
+      "Premenopausal status",
+      "Pregnancy or breastfeeding",
+      "Known hypersensitivity",
+      "Severe hepatic impairment"
+    ],
+    "version": "1.0",
+    "status": "active",
+    "createdBy": null,
+    "updatedBy": null,
+    "createdAt": "2024-01-15T10:30:00.000Z",
+    "updatedAt": "2024-01-15T10:30:00.000Z",
+    "lastReviewed": "2024-01-15T10:30:00.000Z"
+  },
+  {
+    "id": "f1faf82f-6192-4c0b-804d-a9023e977e30",
+    "code": "Everolimus-Exemestane",
+    "tumourGroup": "Breast",
+    "tumourSupergroup": "Breast",
+    "treatmentIntent": "Palliative",
+    "summary": "Everolimus-Exemestane is a NCCN Category 1 mTOR inhibitor combination for hormone receptor-positive metastatic breast cancer after prior AI failure.",
+    "eligibility": {
+      "nccn_category": "1",
+      "line_of_therapy": "Second-line or later",
+      "treatment_setting": "Metastatic",
+      "biomarker_requirements": {
+        "ER": "Positive (≥1% by IHC)",
+        "HER2": "Negative"
+      }
+    },
+    "precautions": [
+      "Everolimus pneumonitis",
+      "Mucositis",
+      "Hyperglycemia"
+    ],
+    "treatment": {
+      "drugs": [
+        {
+          "dose": "10mg daily",
+          "name": "Everolimus",
+          "route": "PO",
+          "schedule": "Continuous"
+        },
+        {
+          "dose": "25mg daily",
+          "name": "Exemestane",
+          "route": "PO",
+          "schedule": "Continuous"
+        }
+      ],
+      "cycles": "Continuous until progression"
+    },
+    "tests": [
+      "Full blood count",
+      "Liver function tests",
+      "Chest imaging",
+      "Blood glucose",
+      "Lipid profile"
+    ],
+    "doseModifications": {
+      "mucositis": "Dose reduction",
+      "pneumonitis": "Hold everolimus, steroids if grade 2+",
+      "hyperglycemia": "Diabetes management"
+    },
+    "referenceList": [
+      "NCCN Breast Guidelines",
+      "BOLERO Studies",
+      "ESMO Guidelines"
+    ],
+    "cycleInfo": {
+      "cycle_length": "Continuous",
+      "total_cycles": "Until progression",
+      "administration_time": "Daily oral therapy"
+    },
+    "preMedications": {
+      "metabolic_monitoring": "Glucose and lipids",
+      "mucositis_prevention": "Oral care protocol",
+      "pulmonary_monitoring": "Baseline chest imaging"
+    },
+    "postMedications": {
+      "mucositis": "Magic mouthwash, soft diet",
+      "pneumonitis": "Report dyspnea immediately",
+      "hyperglycemia": "Monitor blood sugar"
+    },
+    "supportiveCare": {
+      "mucositis_care": "Intensive oral hygiene",
+      "metabolic_monitoring": "Regular glucose and lipids",
+      "pulmonary_monitoring": "Serial chest imaging"
+    },
+    "rescueAgents": {
+      "pneumonitis": "Discontinue everolimus, high-dose steroids",
+      "severe_mucositis": "Treatment interruption",
+      "severe_hyperglycemia": "Insulin therapy"
+    },
+    "monitoring": {
+      "monthly": "FBC, LFTs, glucose",
+      "baseline": [
+        "FBC",
+        "LFTs",
+        "CXR",
+        "Glucose",
+        "Lipids"
+      ],
+      "every_3_months": "CXR"
+    },
+    "toxicityMonitoring": {
+      "monitoring_tools": [
+        "Chest CT",
+        "Glucose monitoring"
+      ],
+      "primary_toxicities": [
+        "Pneumonitis",
+        "Stomatitis",
+        "Hyperglycemia"
+      ]
+    },
+    "interactions": {
+      "ACE_inhibitors": "Monitor for angioedema",
+      "strong_CYP3A4_inhibitors": "Reduce everolimus dose"
+    },
+    "contraindications": [
+      "Active pneumonitis",
+      "Severe immunosuppression",
+      "Live vaccines"
+    ],
+    "version": "1.6",
+    "status": "active",
+    "createdBy": null,
+    "updatedBy": null,
+    "createdAt": "2024-01-15T10:30:00.000Z",
+    "updatedAt": "2024-01-15T10:30:00.000Z",
+    "lastReviewed": "2024-01-15T10:30:00.000Z"
+  },
+  {
+    "id": "f2aaaa2f-6192-4c0b-804d-a9023e977e90",
+    "code": "Goserelin",
+    "tumourGroup": "Breast",
+    "tumourSupergroup": "Breast",
+    "treatmentIntent": "Curative",
+    "summary": "Goserelin is a NCCN Category 1 GnRH agonist for ovarian suppression in premenopausal women with hormone receptor-positive breast cancer.",
+    "eligibility": {
+      "nccn_category": "1",
+      "line_of_therapy": "Adjuvant or first-line",
+      "treatment_setting": "Adjuvant or metastatic",
+      "biomarker_requirements": {
+        "ER": "Positive (≥1% by IHC)",
+        "HER2": "Any status"
+      }
+    },
+    "precautions": [
+      "Menopausal symptoms",
+      "Bone loss",
+      "Mood changes"
+    ],
+    "treatment": {
+      "drugs": [
+        {
+          "dose": "3.6mg",
+          "name": "Goserelin",
+          "route": "SC",
+          "schedule": "Every 28 days"
+        }
+      ],
+      "cycles": "2-5 years with endocrine therapy"
+    },
+    "tests": [
+      "Estradiol levels",
+      "Bone density scan",
+      "LH/FSH levels",
+      "Mood assessment"
+    ],
+    "doseModifications": {
+      "bone_loss": "Bisphosphonates",
+      "mood_changes": "Psychological support",
+      "inadequate_suppression": "Check injection technique"
+    },
+    "referenceList": [
+      "NCCN Breast Guidelines",
+      "SOFT/TEXT Studies",
+      "ESMO Guidelines"
+    ],
+    "cycleInfo": {
+      "cycle_length": "28 days",
+      "total_cycles": "2-5 years",
+      "administration_time": "Monthly SC injection"
+    },
+    "preMedications": {
+      "bone_monitoring": "Baseline DEXA scan",
+      "mood_assessment": "Baseline evaluation",
+      "hormonal_monitoring": "Estradiol levels"
+    },
+    "postMedications": {
+      "bone_health": "Calcium, vitamin D",
+      "mood_support": "Counseling available",
+      "menopausal_symptoms": "HRT contraindicated, lifestyle modifications"
+    },
+    "supportiveCare": {
+      "bone_protection": "Bisphosphonates if osteoporosis",
+      "mood_monitoring": "Regular assessment",
+      "hormonal_monitoring": "Estradiol suppression"
+    },
+    "rescueAgents": {
+      "severe_bone_loss": "Bisphosphonates, endocrine referral",
+      "severe_mood_changes": "Psychiatric referral",
+      "inadequate_suppression": "Alternative LHRH agonist"
+    },
+    "monitoring": {
+      "annually": "DEXA scan",
+      "baseline": [
+        "Estradiol",
+        "DEXA",
+        "LH/FSH",
+        "Mood assessment"
+      ],
+      "every_3_months": "Estradiol"
+    },
+    "toxicityMonitoring": {
+      "monitoring_tools": [
+        "DEXA scan",
+        "Mood assessment"
+      ],
+      "primary_toxicities": [
+        "Hot flashes",
+        "Bone loss",
+        "Mood changes"
+      ]
+    },
+    "interactions": {
+      "estrogen_supplements": "Contraindicated",
+      "bone_protecting_agents": "Consider if osteoporosis"
+    },
+    "contraindications": [
+      "Pregnancy",
+      "Postmenopausal status",
+      "Known hypersensitivity"
+    ],
+    "version": "1.0",
+    "status": "active",
+    "createdBy": null,
+    "updatedBy": null,
+    "createdAt": "2024-01-15T10:30:00.000Z",
+    "updatedAt": "2024-01-15T10:30:00.000Z",
+    "lastReviewed": "2024-01-15T10:30:00.000Z"
   }
 ]

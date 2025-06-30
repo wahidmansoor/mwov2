@@ -1,0 +1,10 @@
+[
+  {
+    "id": "626ef9a8-46cb-4f75-b6da-1065963cf69a",
+    "userId": "958d41db-959c-48e6-839c-b2d089837394",
+    "action": "approve",
+    "adminEmail": "local@test.com",
+    "notes": "Test approval for Dr. Jane Doe",
+    "createdAt": "2025-06-30T17:39:12.113Z"
+  }
+]

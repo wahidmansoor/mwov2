@@ -1,18 +1,5 @@
 [
   {
-    "id": "958d41db-959c-48e6-839c-b2d089837394",
-    "email": "dr.jane.doe@oncovista.ai",
-    "firstName": "Jane",
-    "lastName": "Doe",
-    "profileImageUrl": null,
-    "role": "medical_oncologist",
-    "department": "Oncology",
-    "licenseNumber": "MD123456",
-    "isActive": true,
-    "createdAt": "2025-06-20T19:53:23.549Z",
-    "updatedAt": "2025-06-20T19:53:23.549Z"
-  },
-  {
     "id": "9bd3c162-767d-4e15-83ac-3515b6e31979",
     "email": "local@test.com",
     "firstName": "Local",
@@ -22,7 +9,28 @@
     "department": null,
     "licenseNumber": null,
     "isActive": true,
+    "isApproved": false,
+    "approvedAt": null,
+    "approvedBy": null,
+    "registrationEmailSent": false,
     "createdAt": "2025-06-29T15:25:42.151Z",
     "updatedAt": "2025-06-29T15:25:42.151Z"
+  },
+  {
+    "id": "958d41db-959c-48e6-839c-b2d089837394",
+    "email": "dr.jane.doe@oncovista.ai",
+    "firstName": "Jane",
+    "lastName": "Doe",
+    "profileImageUrl": null,
+    "role": "medical_oncologist",
+    "department": "Oncology",
+    "licenseNumber": "MD123456",
+    "isActive": true,
+    "isApproved": true,
+    "approvedAt": "2025-06-30T17:39:12.005Z",
+    "approvedBy": "local@test.com",
+    "registrationEmailSent": false,
+    "createdAt": "2025-06-20T19:53:23.549Z",
+    "updatedAt": "2025-06-30T17:39:12.005Z"
   }
 ]

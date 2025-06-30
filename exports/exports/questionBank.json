@@ -1,0 +1,112 @@
+[
+  {
+    "id": "d5f387a9-f0e2-4249-83be-185721ab2a95",
+    "topicId": null,
+    "scenarioId": null,
+    "questionType": "MCQ",
+    "questionText": "A 45-year-old woman with newly diagnosed invasive ductal carcinoma of the breast has the following pathology: T1c (1.8 cm), N0, M0, ER 90%, PR 80%, HER2 1+, Ki-67 15%. According to NCCN guidelines, what is the most appropriate next step?",
+    "options": {
+      "A": "Start adjuvant chemotherapy followed by hormone therapy",
+      "B": "Order Oncotype DX recurrence score testing",
+      "C": "Begin immediate hormone therapy with tamoxifen",
+      "D": "Refer for neoadjuvant chemotherapy"
+    },
+    "correctAnswer": "B",
+    "rationale": "For hormone receptor-positive, HER2-negative, node-negative breast cancer (T1-3), NCCN guidelines recommend consideration of multigene assays like Oncotype DX to guide adjuvant treatment decisions. This is particularly important for T1c tumors where the benefit of chemotherapy may be marginal.",
+    "explanationDetail": "The Oncotype DX assay provides a recurrence score that helps predict the likelihood of distant recurrence and the potential benefit from adjuvant chemotherapy. Scores are categorized as low risk (<11), intermediate risk (11-25), and high risk (>25). This patient's profile (T1c, N0, hormone receptor-positive, HER2-negative, relatively low Ki-67) makes her an ideal candidate for multigene testing to avoid unnecessary chemotherapy toxicity.",
+    "guidelineReferences": [
+      "NCCN Breast Cancer Guidelines V4.2025",
+      "ASCO Clinical Practice Guideline on Adjuvant Chemotherapy 2019"
+    ],
+    "citations": [
+      "Sparano JA, et al. N Engl J Med 2018;379:111-121",
+      "Kalinsky K, et al. N Engl J Med 2021;385:896-907"
+    ],
+    "difficulty": "Fellow",
+    "examRelevance": [
+      "MRCP",
+      "ESMO"
+    ],
+    "imageUrl": null,
+    "tags": [
+      "Breast Cancer",
+      "Biomarkers",
+      "Treatment Planning"
+    ],
+    "createdAt": "2025-06-30T13:55:55.212Z",
+    "isActive": true
+  },
+  {
+    "id": "575ebcc9-55dc-44d8-815f-ecc7740bb64b",
+    "topicId": null,
+    "scenarioId": null,
+    "questionType": "EMQ",
+    "questionText": "For each clinical scenario, select the most appropriate first-line treatment regimen according to current NCCN guidelines:",
+    "options": {
+      "A": "Carboplatin/Etoposide",
+      "B": "Carboplatin/Etoposide + Atezolizumab",
+      "C": "Cisplatin/Etoposide + concurrent radiation",
+      "D": "Durvalumab maintenance",
+      "E": "Topotecan"
+    },
+    "correctAnswer": "B",
+    "rationale": "For extensive-stage SCLC, the combination of carboplatin/etoposide plus atezolizumab is now the preferred first-line regimen based on the IMpower133 trial, which showed improved overall survival compared to chemotherapy alone.",
+    "explanationDetail": "The IMpower133 study demonstrated that adding atezolizumab to carboplatin/etoposide significantly improved overall survival (12.3 vs 10.3 months, HR 0.70) and progression-free survival in treatment-naive extensive-stage SCLC patients. This regimen is now NCCN Category 1 recommendation for extensive-stage disease.",
+    "guidelineReferences": [
+      "NCCN Small Cell Lung Cancer Guidelines V4.2025"
+    ],
+    "citations": [
+      "Horn L, et al. N Engl J Med 2018;379:2220-2229"
+    ],
+    "difficulty": "Resident",
+    "examRelevance": [
+      "MRCP",
+      "ESMO",
+      "FRCR"
+    ],
+    "imageUrl": null,
+    "tags": [
+      "Lung Cancer",
+      "Immunotherapy",
+      "First-line Treatment"
+    ],
+    "createdAt": "2025-06-30T13:55:55.294Z",
+    "isActive": true
+  },
+  {
+    "id": "16d8df6a-f1b3-4ef3-8a38-07557c3c958c",
+    "topicId": null,
+    "scenarioId": null,
+    "questionType": "Case",
+    "questionText": "A 35-year-old male presents with a 6-month history of knee pain and swelling. X-ray shows a destructive lesion in the distal femur with soft tissue extension. Biopsy confirms high-grade osteosarcoma. Staging workup shows no metastatic disease. According to NCCN guidelines, what is the most appropriate initial management approach?",
+    "options": {
+      "A": "Immediate amputation",
+      "B": "Neoadjuvant chemotherapy followed by limb-salvage surgery",
+      "C": "Radiation therapy to the primary site",
+      "D": "Palliative care consultation"
+    },
+    "correctAnswer": "B",
+    "rationale": "For localized high-grade osteosarcoma, NCCN guidelines recommend neoadjuvant chemotherapy followed by surgical resection. This approach allows for assessment of chemotherapy response, potential tumor downsizing, and time for limb-salvage planning.",
+    "explanationDetail": "Standard neoadjuvant chemotherapy for osteosarcoma includes combinations such as doxorubicin/cisplatin, high-dose methotrexate, and ifosfamide. The degree of necrosis after neoadjuvant therapy (≥90% necrosis indicates good response) is a strong prognostic factor. Limb-salvage surgery is preferred when oncologically safe and functionally superior to amputation.",
+    "guidelineReferences": [
+      "NCCN Bone Cancer Guidelines V1.2025"
+    ],
+    "citations": [
+      "Bielack SS, et al. J Clin Oncol 2002;20:776-790",
+      "Whelan JS, et al. Lancet Oncol 2015;16:152-162"
+    ],
+    "difficulty": "Fellow",
+    "examRelevance": [
+      "MRCP",
+      "ESMO"
+    ],
+    "imageUrl": null,
+    "tags": [
+      "Bone Cancer",
+      "Neoadjuvant Therapy",
+      "Surgical Planning"
+    ],
+    "createdAt": "2025-06-30T13:55:55.373Z",
+    "isActive": true
+  }
+]

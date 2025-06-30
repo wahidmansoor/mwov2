@@ -1,0 +1,180 @@
+[
+  {
+    "id": "22741dff-32dc-4951-a838-0cf641d5d781",
+    "cancerType": "Breast Cancer",
+    "scoreName": "Gail Model (BCRAT)",
+    "requiredInputs": [
+      "age",
+      "age_at_menarche",
+      "age_at_first_birth",
+      "number_of_biopsies",
+      "atypical_hyperplasia",
+      "first_degree_relatives_with_breast_cancer",
+      "race_ethnicity"
+    ],
+    "scoreRange": "0-100% 5-year risk",
+    "interpretation": "Estimates 5-year and lifetime breast cancer risk for women ≥35 years",
+    "clinicalAction": "High risk (≥1.7% 5-year): Consider chemoprevention or enhanced screening",
+    "source": "NCI Breast Cancer Risk Assessment Tool",
+    "validationStudies": [
+      "BCPT_P1_trial",
+      "STAR_trial",
+      "validation_cohorts"
+    ],
+    "limitations": "Limited accuracy in women with strong family history or genetic predisposition",
+    "calculator": {
+      "formula": "complex_logistic_regression",
+      "variables": [
+        "age",
+        "menarche",
+        "first_birth",
+        "biopsies",
+        "relatives"
+      ]
+    },
+    "riskCategories": {
+      "low_risk": "<1.7% 5-year",
+      "high_risk": ">3.0% 5-year",
+      "intermediate_risk": "1.7-3.0% 5-year"
+    },
+    "createdAt": "2025-06-30T11:51:05.498Z",
+    "updatedAt": "2025-06-30T11:51:05.498Z"
+  },
+  {
+    "id": "a3bbfd7a-e4b5-4fe3-96de-90c8092d79f7",
+    "cancerType": "Breast Cancer",
+    "scoreName": "Oncotype DX Recurrence Score",
+    "requiredInputs": [
+      "ER_status",
+      "PR_status",
+      "HER2_status",
+      "Ki67",
+      "GSTM1",
+      "CD68",
+      "BAG1"
+    ],
+    "scoreRange": "0-100 Recurrence Score",
+    "interpretation": "21-gene expression assay predicting chemotherapy benefit in ER+ breast cancer",
+    "clinicalAction": "Low (<26): Endocrine therapy alone; High (≥26): Consider chemotherapy + endocrine therapy",
+    "source": "Genomic Health/Exact Sciences",
+    "validationStudies": [
+      "TAILORx_trial",
+      "RxPONDER_trial"
+    ],
+    "limitations": "Only validated in ER+/HER2- breast cancer, requires adequate tissue",
+    "calculator": {
+      "genes": 21,
+      "method": "RT_PCR_gene_expression"
+    },
+    "riskCategories": {
+      "low_risk": "0-25",
+      "high_risk": ">30",
+      "intermediate_risk": "26-30"
+    },
+    "createdAt": "2025-06-30T11:51:05.498Z",
+    "updatedAt": "2025-06-30T11:51:05.498Z"
+  },
+  {
+    "id": "e8603883-0c74-492b-b85c-60d6b7f7d703",
+    "cancerType": "Lung Cancer",
+    "scoreName": "PLCOm2012 Lung Cancer Risk Model",
+    "requiredInputs": [
+      "age",
+      "race",
+      "education",
+      "BMI",
+      "COPD",
+      "personal_cancer_history",
+      "family_lung_cancer_history",
+      "smoking_status",
+      "smoking_duration",
+      "smoking_intensity",
+      "quit_years"
+    ],
+    "scoreRange": "0-30% 6-year risk",
+    "interpretation": "Estimates 6-year lung cancer risk for screening eligibility",
+    "clinicalAction": "High risk (≥1.5%): Eligible for annual low-dose CT screening",
+    "source": "National Cancer Institute",
+    "validationStudies": [
+      "PLCO_trial",
+      "NLST_validation"
+    ],
+    "limitations": "May overestimate risk in some populations, requires accurate smoking history",
+    "calculator": {
+      "model": "logistic_regression",
+      "validation": "PLCO_NLST_cohorts"
+    },
+    "riskCategories": {
+      "low_risk": "<1.5% 6-year",
+      "high_risk": "≥1.5% 6-year"
+    },
+    "createdAt": "2025-06-30T11:51:05.498Z",
+    "updatedAt": "2025-06-30T11:51:05.498Z"
+  },
+  {
+    "id": "fbbfd050-a5e0-4af4-b200-ab1baafe478d",
+    "cancerType": "Colorectal Cancer",
+    "scoreName": "Microsatellite Instability (MSI) Status",
+    "requiredInputs": [
+      "MLH1_IHC",
+      "MSH2_IHC",
+      "MSH6_IHC",
+      "PMS2_IHC",
+      "MSI_PCR_or_NGS"
+    ],
+    "scoreRange": "MSS, MSI-L, MSI-H",
+    "interpretation": "Determines mismatch repair deficiency and immunotherapy candidacy",
+    "clinicalAction": "MSI-H: Candidate for immune checkpoint inhibitors (pembrolizumab)",
+    "source": "NCCN Guidelines",
+    "validationStudies": [
+      "KEYNOTE_177",
+      "KEYNOTE_164"
+    ],
+    "limitations": "Technical factors may affect testing accuracy, requires adequate tumor content",
+    "calculator": {
+      "cutoff": "MSI_H_if_unstable_loci_≥2",
+      "method": "IHC_plus_molecular"
+    },
+    "riskCategories": {
+      "MSS": "microsatellite_stable",
+      "MSI_H": "high_instability",
+      "MSI_L": "low_instability"
+    },
+    "createdAt": "2025-06-30T11:51:05.498Z",
+    "updatedAt": "2025-06-30T11:51:05.498Z"
+  },
+  {
+    "id": "a174f094-3121-4e0f-a86b-f107dbcfe761",
+    "cancerType": "Colorectal Cancer",
+    "scoreName": "AJCC TNM Staging",
+    "requiredInputs": [
+      "T_stage",
+      "N_stage",
+      "M_stage",
+      "histologic_grade",
+      "lymphovascular_invasion",
+      "perineural_invasion"
+    ],
+    "scoreRange": "Stage I-IV",
+    "interpretation": "Anatomic staging system for prognosis and treatment planning",
+    "clinicalAction": "Stage I: Surgery alone; Stage II-III: Consider adjuvant therapy; Stage IV: Systemic therapy",
+    "source": "AJCC 8th Edition",
+    "validationStudies": [
+      "multiple_international_cohorts",
+      "SEER_database"
+    ],
+    "limitations": "Does not incorporate molecular features or biomarkers",
+    "calculator": {
+      "system": "TNM_anatomic_staging",
+      "edition": 8
+    },
+    "riskCategories": {
+      "stage_I": "T1-2N0M0",
+      "stage_II": "T3-4N0M0",
+      "stage_IV": "any_T_any_N_M1",
+      "stage_III": "any_T_N1-2_M0"
+    },
+    "createdAt": "2025-06-30T11:51:05.498Z",
+    "updatedAt": "2025-06-30T11:51:05.498Z"
+  }
+]

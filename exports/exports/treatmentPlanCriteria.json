@@ -1,0 +1,572 @@
+[
+  {
+    "id": 1,
+    "category": "histology",
+    "value": "Adenocarcinoma",
+    "description": "Most common type of cancer arising from glandular tissue",
+    "isCommon": true,
+    "sortOrder": 1,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 2,
+    "category": "histology",
+    "value": "Squamous Cell",
+    "description": "Cancer arising from squamous epithelial cells",
+    "isCommon": true,
+    "sortOrder": 2,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 3,
+    "category": "histology",
+    "value": "Large Cell",
+    "description": "Undifferentiated non-small cell lung cancer",
+    "isCommon": true,
+    "sortOrder": 3,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 4,
+    "category": "histology",
+    "value": "Small Cell",
+    "description": "Neuroendocrine carcinoma with rapid growth",
+    "isCommon": true,
+    "sortOrder": 4,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 5,
+    "category": "histology",
+    "value": "Ductal",
+    "description": "Invasive ductal carcinoma, most common breast cancer type",
+    "isCommon": true,
+    "sortOrder": 5,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 6,
+    "category": "histology",
+    "value": "Lobular",
+    "description": "Invasive lobular carcinoma of the breast",
+    "isCommon": true,
+    "sortOrder": 6,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 7,
+    "category": "histology",
+    "value": "Neuroendocrine",
+    "description": "Cancer arising from neuroendocrine cells",
+    "isCommon": false,
+    "sortOrder": 10,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 8,
+    "category": "histology",
+    "value": "Sarcoma",
+    "description": "Cancer arising from connective tissue",
+    "isCommon": false,
+    "sortOrder": 11,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 9,
+    "category": "histology",
+    "value": "Melanoma",
+    "description": "Cancer arising from melanocytes",
+    "isCommon": false,
+    "sortOrder": 12,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 10,
+    "category": "histology",
+    "value": "Transitional Cell",
+    "description": "Urothelial carcinoma",
+    "isCommon": false,
+    "sortOrder": 13,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 11,
+    "category": "histology",
+    "value": "Medullary",
+    "description": "Rare breast cancer subtype",
+    "isCommon": false,
+    "sortOrder": 14,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 12,
+    "category": "histology",
+    "value": "Papillary",
+    "description": "Papillary carcinoma",
+    "isCommon": false,
+    "sortOrder": 15,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 13,
+    "category": "histology",
+    "value": "Clear Cell",
+    "description": "Renal cell carcinoma subtype",
+    "isCommon": false,
+    "sortOrder": 16,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 14,
+    "category": "histology",
+    "value": "Mucinous",
+    "description": "Mucin-producing adenocarcinoma",
+    "isCommon": false,
+    "sortOrder": 17,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 15,
+    "category": "histology",
+    "value": "Signet Ring Cell",
+    "description": "Aggressive adenocarcinoma variant",
+    "isCommon": false,
+    "sortOrder": 18,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 16,
+    "category": "histology",
+    "value": "Undifferentiated",
+    "description": "Poorly differentiated carcinoma",
+    "isCommon": false,
+    "sortOrder": 19,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 17,
+    "category": "histology",
+    "value": "Anaplastic",
+    "description": "Highly aggressive undifferentiated cancer",
+    "isCommon": false,
+    "sortOrder": 20,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 18,
+    "category": "biomarker",
+    "value": "ER+",
+    "description": "Estrogen receptor positive",
+    "isCommon": true,
+    "sortOrder": 1,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 19,
+    "category": "biomarker",
+    "value": "ER-",
+    "description": "Estrogen receptor negative",
+    "isCommon": true,
+    "sortOrder": 2,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 20,
+    "category": "biomarker",
+    "value": "PR+",
+    "description": "Progesterone receptor positive",
+    "isCommon": true,
+    "sortOrder": 3,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 21,
+    "category": "biomarker",
+    "value": "PR-",
+    "description": "Progesterone receptor negative",
+    "isCommon": true,
+    "sortOrder": 4,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 22,
+    "category": "biomarker",
+    "value": "HER2+",
+    "description": "Human epidermal growth factor receptor 2 positive",
+    "isCommon": true,
+    "sortOrder": 5,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 23,
+    "category": "biomarker",
+    "value": "HER2-",
+    "description": "Human epidermal growth factor receptor 2 negative",
+    "isCommon": true,
+    "sortOrder": 6,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 24,
+    "category": "biomarker",
+    "value": "PD-L1+",
+    "description": "Programmed death-ligand 1 positive (≥1%)",
+    "isCommon": true,
+    "sortOrder": 7,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 25,
+    "category": "biomarker",
+    "value": "PD-L1-",
+    "description": "Programmed death-ligand 1 negative (<1%)",
+    "isCommon": true,
+    "sortOrder": 8,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 26,
+    "category": "biomarker",
+    "value": "MSI-H",
+    "description": "Microsatellite instability high",
+    "isCommon": true,
+    "sortOrder": 9,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 27,
+    "category": "biomarker",
+    "value": "MSS",
+    "description": "Microsatellite stable",
+    "isCommon": true,
+    "sortOrder": 10,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 28,
+    "category": "biomarker",
+    "value": "ALK+",
+    "description": "Anaplastic lymphoma kinase rearrangement",
+    "isCommon": true,
+    "sortOrder": 11,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 29,
+    "category": "biomarker",
+    "value": "EGFR+",
+    "description": "Epidermal growth factor receptor mutation",
+    "isCommon": true,
+    "sortOrder": 12,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 30,
+    "category": "biomarker",
+    "value": "KRAS+",
+    "description": "KRAS oncogene mutation",
+    "isCommon": true,
+    "sortOrder": 13,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 31,
+    "category": "biomarker",
+    "value": "BRAF+",
+    "description": "BRAF oncogene mutation",
+    "isCommon": true,
+    "sortOrder": 14,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 32,
+    "category": "biomarker",
+    "value": "BRCA1+",
+    "description": "BRCA1 gene mutation",
+    "isCommon": false,
+    "sortOrder": 20,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 33,
+    "category": "biomarker",
+    "value": "BRCA2+",
+    "description": "BRCA2 gene mutation",
+    "isCommon": false,
+    "sortOrder": 21,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 34,
+    "category": "biomarker",
+    "value": "TMB-High",
+    "description": "Tumor mutational burden high (≥10 mutations/Mb)",
+    "isCommon": false,
+    "sortOrder": 22,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 35,
+    "category": "biomarker",
+    "value": "RET+",
+    "description": "RET gene rearrangement",
+    "isCommon": false,
+    "sortOrder": 30,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 36,
+    "category": "biomarker",
+    "value": "ROS1+",
+    "description": "ROS1 gene rearrangement",
+    "isCommon": false,
+    "sortOrder": 31,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 37,
+    "category": "biomarker",
+    "value": "MET+",
+    "description": "MET gene amplification or exon 14 skipping",
+    "isCommon": false,
+    "sortOrder": 32,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 38,
+    "category": "biomarker",
+    "value": "FGFR2/3+",
+    "description": "FGFR2 or FGFR3 gene alteration",
+    "isCommon": false,
+    "sortOrder": 33,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 39,
+    "category": "biomarker",
+    "value": "IDH1/2+",
+    "description": "IDH1 or IDH2 gene mutation",
+    "isCommon": false,
+    "sortOrder": 34,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 40,
+    "category": "biomarker",
+    "value": "CTLA-4+",
+    "description": "CTLA-4 expression for immunotherapy",
+    "isCommon": false,
+    "sortOrder": 35,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 41,
+    "category": "biomarker",
+    "value": "TP53+",
+    "description": "TP53 tumor suppressor gene mutation",
+    "isCommon": false,
+    "sortOrder": 36,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 42,
+    "category": "intent",
+    "value": "Curative",
+    "description": "Treatment with curative intent",
+    "isCommon": true,
+    "sortOrder": 1,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 43,
+    "category": "intent",
+    "value": "Palliative",
+    "description": "Treatment for symptom control and quality of life",
+    "isCommon": true,
+    "sortOrder": 2,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 44,
+    "category": "intent",
+    "value": "Adjuvant",
+    "description": "Treatment after primary therapy to prevent recurrence",
+    "isCommon": true,
+    "sortOrder": 3,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 45,
+    "category": "intent",
+    "value": "Neoadjuvant",
+    "description": "Treatment before primary therapy to downsize tumor",
+    "isCommon": true,
+    "sortOrder": 4,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 46,
+    "category": "line",
+    "value": "1st Line",
+    "description": "First-line treatment",
+    "isCommon": true,
+    "sortOrder": 1,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 47,
+    "category": "line",
+    "value": "2nd Line",
+    "description": "Second-line treatment",
+    "isCommon": true,
+    "sortOrder": 2,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 48,
+    "category": "line",
+    "value": "3rd Line",
+    "description": "Third-line treatment",
+    "isCommon": true,
+    "sortOrder": 3,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 49,
+    "category": "line",
+    "value": "Maintenance",
+    "description": "Maintenance therapy after response",
+    "isCommon": true,
+    "sortOrder": 4,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 50,
+    "category": "line",
+    "value": "Adjuvant",
+    "description": "Adjuvant therapy",
+    "isCommon": true,
+    "sortOrder": 5,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 51,
+    "category": "line",
+    "value": "Neoadjuvant",
+    "description": "Neoadjuvant therapy",
+    "isCommon": true,
+    "sortOrder": 6,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 52,
+    "category": "reason",
+    "value": "Not applicable",
+    "description": "First treatment selection",
+    "isCommon": true,
+    "sortOrder": 1,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 53,
+    "category": "reason",
+    "value": "Disease Progression",
+    "description": "Radiographic or clinical progression",
+    "isCommon": true,
+    "sortOrder": 2,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 54,
+    "category": "reason",
+    "value": "Toxicity/Intolerance",
+    "description": "Unacceptable side effects",
+    "isCommon": true,
+    "sortOrder": 3,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 55,
+    "category": "reason",
+    "value": "Resistance",
+    "description": "Development of treatment resistance",
+    "isCommon": true,
+    "sortOrder": 4,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 56,
+    "category": "reason",
+    "value": "Completion of Treatment",
+    "description": "Planned treatment completed",
+    "isCommon": true,
+    "sortOrder": 5,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  },
+  {
+    "id": 57,
+    "category": "reason",
+    "value": "Patient Preference",
+    "description": "Patient choice to change therapy",
+    "isCommon": true,
+    "sortOrder": 6,
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.757Z"
+  }
+]

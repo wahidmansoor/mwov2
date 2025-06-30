@@ -1,0 +1,28 @@
+[
+  {
+    "id": "958d41db-959c-48e6-839c-b2d089837394",
+    "email": "dr.jane.doe@oncovista.ai",
+    "firstName": "Jane",
+    "lastName": "Doe",
+    "profileImageUrl": null,
+    "role": "medical_oncologist",
+    "department": "Oncology",
+    "licenseNumber": "MD123456",
+    "isActive": true,
+    "createdAt": "2025-06-20T19:53:23.549Z",
+    "updatedAt": "2025-06-20T19:53:23.549Z"
+  },
+  {
+    "id": "9bd3c162-767d-4e15-83ac-3515b6e31979",
+    "email": "local@test.com",
+    "firstName": "Local",
+    "lastName": "Dev",
+    "profileImageUrl": null,
+    "role": "admin",
+    "department": null,
+    "licenseNumber": null,
+    "isActive": true,
+    "createdAt": "2025-06-29T15:25:42.151Z",
+    "updatedAt": "2025-06-29T15:25:42.151Z"
+  }
+]

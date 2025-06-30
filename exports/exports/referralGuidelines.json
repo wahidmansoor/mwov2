@@ -1,0 +1,280 @@
+[
+  {
+    "id": "39ec64a1-bd14-4b1c-a759-7c1c883b152e",
+    "cancerType": "Breast Cancer",
+    "indication": "Newly diagnosed invasive breast cancer",
+    "urgency": "Urgent",
+    "toSpecialist": "Medical Oncology",
+    "reason": "Treatment planning and systemic therapy management",
+    "followupRequired": true,
+    "source": "NCCN BINV v3.2025",
+    "timeframe": "Within 2 weeks of diagnosis",
+    "requiredDocumentation": [
+      "pathology_report",
+      "imaging_studies",
+      "ER_PR_HER2_results"
+    ],
+    "patientPreparation": "Compile all diagnostic studies and pathology reports",
+    "providerInstructions": "Include full staging workup results and performance status",
+    "insuranceConsiderations": "Prior authorization may be required for advanced imaging",
+    "createdAt": "2025-06-30T11:49:58.891Z",
+    "updatedAt": "2025-06-30T11:49:58.891Z"
+  },
+  {
+    "id": "40be8903-ded7-49bc-9cff-c4c2d5389959",
+    "cancerType": "Breast Cancer",
+    "indication": "BRCA1/2 mutation or strong family history",
+    "urgency": "Semi-urgent",
+    "toSpecialist": "Genetic Counseling",
+    "reason": "Risk assessment and genetic testing coordination",
+    "followupRequired": true,
+    "source": "NCCN BINV v3.2025",
+    "timeframe": "Within 4 weeks",
+    "requiredDocumentation": [
+      "family_history_pedigree",
+      "prior_genetic_testing"
+    ],
+    "patientPreparation": "Prepare 3-generation family history",
+    "providerInstructions": "Coordinate with genetics clinic for appointment availability",
+    "insuranceConsiderations": "Genetic counseling covered by most insurance plans",
+    "createdAt": "2025-06-30T11:49:58.891Z",
+    "updatedAt": "2025-06-30T11:49:58.891Z"
+  },
+  {
+    "id": "23a2029d-d412-4f49-a7c0-9c1df0a5b47d",
+    "cancerType": "Breast Cancer",
+    "indication": "Locally advanced or inflammatory breast cancer",
+    "urgency": "Urgent",
+    "toSpecialist": "Radiation Oncology",
+    "reason": "Multimodal therapy planning and radiation treatment",
+    "followupRequired": true,
+    "source": "NCCN BINV v3.2025",
+    "timeframe": "Within 1-2 weeks",
+    "requiredDocumentation": [
+      "staging_studies",
+      "surgical_consultation",
+      "pathology_review"
+    ],
+    "patientPreparation": "Complete staging workup including cardiac function assessment",
+    "providerInstructions": "Coordinate multidisciplinary tumor board discussion",
+    "insuranceConsiderations": "Advanced radiation techniques may require prior authorization",
+    "createdAt": "2025-06-30T11:49:58.891Z",
+    "updatedAt": "2025-06-30T11:49:58.891Z"
+  },
+  {
+    "id": "01b1ea2c-0b7d-4ccc-918f-cd3f52347c63",
+    "cancerType": "Lung Cancer",
+    "indication": "Suspected or confirmed lung cancer",
+    "urgency": "Urgent",
+    "toSpecialist": "Thoracic Oncology",
+    "reason": "Comprehensive staging and treatment planning",
+    "followupRequired": true,
+    "source": "NCCN NSCLC v5.2025",
+    "timeframe": "Within 1-2 weeks of diagnosis",
+    "requiredDocumentation": [
+      "CT_chest",
+      "PET_scan",
+      "molecular_profiling",
+      "pulmonary_function_tests"
+    ],
+    "patientPreparation": "Smoking cessation counseling and pulmonary rehabilitation referral",
+    "providerInstructions": "Include all staging studies and molecular biomarker results",
+    "insuranceConsiderations": "Molecular profiling may require specific insurance pre-approval",
+    "createdAt": "2025-06-30T11:49:58.891Z",
+    "updatedAt": "2025-06-30T11:49:58.891Z"
+  },
+  {
+    "id": "138710bb-3d96-4c8b-a1fb-0d836c04d48f",
+    "cancerType": "Lung Cancer",
+    "indication": "Stage I-II NSCLC surgical candidate",
+    "urgency": "Urgent",
+    "toSpecialist": "Thoracic Surgery",
+    "reason": "Surgical resection evaluation and planning",
+    "followupRequired": true,
+    "source": "NCCN NSCLC v5.2025",
+    "timeframe": "Within 2 weeks",
+    "requiredDocumentation": [
+      "pulmonary_function_tests",
+      "cardiac_clearance",
+      "staging_studies"
+    ],
+    "patientPreparation": "Optimize pulmonary function and manage comorbidities",
+    "providerInstructions": "Coordinate multidisciplinary evaluation with anesthesia",
+    "insuranceConsiderations": "Robotic surgery may require specialized center referral",
+    "createdAt": "2025-06-30T11:49:58.891Z",
+    "updatedAt": "2025-06-30T11:49:58.891Z"
+  },
+  {
+    "id": "6fa8a16f-588e-4669-9bec-71b5c6ad5660",
+    "cancerType": "Colorectal Cancer",
+    "indication": "Newly diagnosed colorectal cancer",
+    "urgency": "Urgent",
+    "toSpecialist": "Colorectal Surgery",
+    "reason": "Surgical planning and resection",
+    "followupRequired": true,
+    "source": "NCCN Colon v3.2025",
+    "timeframe": "Within 2-3 weeks",
+    "requiredDocumentation": [
+      "colonoscopy_report",
+      "staging_CT",
+      "CEA_level",
+      "molecular_testing"
+    ],
+    "patientPreparation": "Bowel preparation instructions and anesthesia clearance",
+    "providerInstructions": "Include complete colonoscopy with tattooing of tumor site",
+    "insuranceConsiderations": "Complex resections may require referral to specialized center",
+    "createdAt": "2025-06-30T11:49:58.891Z",
+    "updatedAt": "2025-06-30T11:49:58.891Z"
+  },
+  {
+    "id": "9bf053ad-bca9-4b13-9e02-d56a45c3fc08",
+    "cancerType": "Colorectal Cancer",
+    "indication": "Metastatic colorectal cancer",
+    "urgency": "Urgent",
+    "toSpecialist": "Medical Oncology",
+    "reason": "Systemic therapy planning and biomarker-directed treatment",
+    "followupRequired": true,
+    "source": "NCCN Colon v3.2025",
+    "timeframe": "Within 1-2 weeks",
+    "requiredDocumentation": [
+      "molecular_profiling",
+      "staging_studies",
+      "performance_status"
+    ],
+    "patientPreparation": "Complete molecular profiling including RAS, BRAF, MSI, HER2",
+    "providerInstructions": "Coordinate potential clinical trial enrollment",
+    "insuranceConsiderations": "Biomarker testing and targeted therapy require prior authorization",
+    "createdAt": "2025-06-30T11:49:58.891Z",
+    "updatedAt": "2025-06-30T11:49:58.891Z"
+  },
+  {
+    "id": "3fb44777-53c3-458b-98e8-d17de4ed9327",
+    "cancerType": "Prostate Cancer",
+    "indication": "Newly diagnosed prostate cancer",
+    "urgency": "Semi-urgent",
+    "toSpecialist": "Urologic Oncology",
+    "reason": "Treatment planning and risk stratification",
+    "followupRequired": true,
+    "source": "NCCN Prostate v4.2025",
+    "timeframe": "Within 4-6 weeks",
+    "requiredDocumentation": [
+      "PSA_history",
+      "biopsy_results",
+      "imaging_studies",
+      "comorbidity_assessment"
+    ],
+    "patientPreparation": "Complete staging workup and bone scan if indicated",
+    "providerInstructions": "Include Gleason score, PSA kinetics, and imaging results",
+    "insuranceConsiderations": "Advanced imaging (PSMA PET) may require prior authorization",
+    "createdAt": "2025-06-30T11:49:58.891Z",
+    "updatedAt": "2025-06-30T11:49:58.891Z"
+  },
+  {
+    "id": "085cf83b-2431-4fdb-ada6-12afe427c319",
+    "cancerType": "Prostate Cancer",
+    "indication": "High-risk or locally advanced prostate cancer",
+    "urgency": "Urgent",
+    "toSpecialist": "Radiation Oncology",
+    "reason": "Definitive radiation therapy planning",
+    "followupRequired": true,
+    "source": "NCCN Prostate v4.2025",
+    "timeframe": "Within 2-3 weeks",
+    "requiredDocumentation": [
+      "staging_studies",
+      "hormone_therapy_consideration",
+      "comorbidity_assessment"
+    ],
+    "patientPreparation": "Hormonal therapy coordination and bowel/bladder function optimization",
+    "providerInstructions": "Coordinate with medical oncology for androgen deprivation therapy",
+    "insuranceConsiderations": "Hypofractionated regimens may reduce treatment burden",
+    "createdAt": "2025-06-30T11:49:58.891Z",
+    "updatedAt": "2025-06-30T11:49:58.891Z"
+  },
+  {
+    "id": "ab1282b5-0e8e-48a3-be33-1bba7bbdeb12",
+    "cancerType": "Bone Cancer",
+    "indication": "Suspected primary bone tumor age <40",
+    "urgency": "Urgent",
+    "toSpecialist": "Orthopedic Oncology",
+    "reason": "Specialized biopsy and surgical planning",
+    "followupRequired": true,
+    "source": "NCCN Bone v1.2025",
+    "timeframe": "Within 1 week",
+    "requiredDocumentation": [
+      "imaging_studies",
+      "laboratory_studies",
+      "alkaline_phosphatase",
+      "LDH"
+    ],
+    "patientPreparation": "Fertility counseling for young patients before treatment",
+    "providerInstructions": "DO NOT BIOPSY - refer immediately to specialized center",
+    "insuranceConsiderations": "Specialized bone tumor centers have better outcomes",
+    "createdAt": "2025-06-30T11:49:58.891Z",
+    "updatedAt": "2025-06-30T11:49:58.891Z"
+  },
+  {
+    "id": "d081b504-cd7d-404a-bd9d-d5177ad18532",
+    "cancerType": "Bone Cancer",
+    "indication": "Suspected bone metastases age ≥40",
+    "urgency": "Semi-urgent",
+    "toSpecialist": "Medical Oncology",
+    "reason": "Primary cancer workup and systemic therapy",
+    "followupRequired": true,
+    "source": "NCCN Bone v1.2025",
+    "timeframe": "Within 2-3 weeks",
+    "requiredDocumentation": [
+      "bone_scan",
+      "CT_chest_abdomen_pelvis",
+      "PSA_mammogram",
+      "SPEP"
+    ],
+    "patientPreparation": "Pain management and pathologic fracture risk assessment",
+    "providerInstructions": "Complete metastatic workup before bone biopsy",
+    "insuranceConsiderations": "Bone-targeted therapy may be indicated",
+    "createdAt": "2025-06-30T11:49:58.891Z",
+    "updatedAt": "2025-06-30T11:49:58.891Z"
+  },
+  {
+    "id": "95e841cc-12ad-4896-8fe2-42dffbbcf22f",
+    "cancerType": "Ampullary Cancer",
+    "indication": "Suspected or confirmed ampullary carcinoma",
+    "urgency": "Urgent",
+    "toSpecialist": "Hepatobiliary Surgery",
+    "reason": "Surgical evaluation and pancreaticoduodenectomy planning",
+    "followupRequired": true,
+    "source": "NCCN Ampullary v2.2025",
+    "timeframe": "Within 1-2 weeks",
+    "requiredDocumentation": [
+      "ERCP_results",
+      "CT_pancreas_protocol",
+      "genetic_testing",
+      "performance_status"
+    ],
+    "patientPreparation": "Nutritional optimization and diabetes management",
+    "providerInstructions": "Coordinate with high-volume pancreatic surgery center",
+    "insuranceConsiderations": "Complex pancreatic surgery requires specialized expertise",
+    "createdAt": "2025-06-30T11:49:58.891Z",
+    "updatedAt": "2025-06-30T11:49:58.891Z"
+  },
+  {
+    "id": "cab93f60-b546-4098-86ea-b2e2dcd0ad3d",
+    "cancerType": "Ampullary Cancer",
+    "indication": "Resectable ampullary cancer",
+    "urgency": "Urgent",
+    "toSpecialist": "Medical Oncology",
+    "reason": "Perioperative therapy planning and genetic counseling",
+    "followupRequired": true,
+    "source": "NCCN Ampullary v2.2025",
+    "timeframe": "Within 2 weeks",
+    "requiredDocumentation": [
+      "staging_studies",
+      "genetic_testing_results",
+      "surgical_consultation"
+    ],
+    "patientPreparation": "Genetic counseling for hereditary cancer syndromes",
+    "providerInstructions": "Include comprehensive genetic testing panel results",
+    "insuranceConsiderations": "Genetic testing and counseling typically covered by insurance",
+    "createdAt": "2025-06-30T11:49:58.891Z",
+    "updatedAt": "2025-06-30T11:49:58.891Z"
+  }
+]

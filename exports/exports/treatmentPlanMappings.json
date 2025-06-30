@@ -1,0 +1,171 @@
+[
+  {
+    "id": 1,
+    "cancerType": "Breast Cancer",
+    "histology": "Ductal",
+    "biomarkers": [
+      "HER2+",
+      "ER+"
+    ],
+    "treatmentIntent": "Curative",
+    "lineOfTreatment": "1st Line",
+    "treatmentProtocol": "TCH (Docetaxel + Carboplatin + Trastuzumab)",
+    "evidenceReference": "Category 1",
+    "nccnReference": "BREAST-4",
+    "conflictingBiomarkers": null,
+    "requiredStage": [
+      "II",
+      "III"
+    ],
+    "confidenceScore": "0.92",
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.837Z",
+    "updatedAt": "2025-06-30T11:14:00.837Z"
+  },
+  {
+    "id": 2,
+    "cancerType": "Breast Cancer",
+    "histology": "Ductal",
+    "biomarkers": [
+      "HER2+",
+      "ER-"
+    ],
+    "treatmentIntent": "Curative",
+    "lineOfTreatment": "1st Line",
+    "treatmentProtocol": "AC-TH (Doxorubicin + Cyclophosphamide → Docetaxel + Trastuzumab)",
+    "evidenceReference": "Category 1",
+    "nccnReference": "BREAST-4",
+    "conflictingBiomarkers": null,
+    "requiredStage": [
+      "II",
+      "III"
+    ],
+    "confidenceScore": "0.90",
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.837Z",
+    "updatedAt": "2025-06-30T11:14:00.837Z"
+  },
+  {
+    "id": 3,
+    "cancerType": "Lung Cancer (NSCLC)",
+    "histology": "Adenocarcinoma",
+    "biomarkers": [
+      "PD-L1+"
+    ],
+    "treatmentIntent": "Palliative",
+    "lineOfTreatment": "1st Line",
+    "treatmentProtocol": "Pembrolizumab Monotherapy",
+    "evidenceReference": "Category 1",
+    "nccnReference": "NSCL-8",
+    "conflictingBiomarkers": null,
+    "requiredStage": [
+      "IV"
+    ],
+    "confidenceScore": "0.88",
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.837Z",
+    "updatedAt": "2025-06-30T11:14:00.837Z"
+  },
+  {
+    "id": 4,
+    "cancerType": "Lung Cancer (NSCLC)",
+    "histology": "Adenocarcinoma",
+    "biomarkers": [
+      "EGFR+"
+    ],
+    "treatmentIntent": "Palliative",
+    "lineOfTreatment": "1st Line",
+    "treatmentProtocol": "Osimertinib",
+    "evidenceReference": "Category 1",
+    "nccnReference": "NSCL-9",
+    "conflictingBiomarkers": null,
+    "requiredStage": [
+      "IV"
+    ],
+    "confidenceScore": "0.95",
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.837Z",
+    "updatedAt": "2025-06-30T11:14:00.837Z"
+  },
+  {
+    "id": 5,
+    "cancerType": "Colorectal Cancer",
+    "histology": "Adenocarcinoma",
+    "biomarkers": [
+      "MSI-H"
+    ],
+    "treatmentIntent": "Palliative",
+    "lineOfTreatment": "1st Line",
+    "treatmentProtocol": "Pembrolizumab + Chemotherapy",
+    "evidenceReference": "Category 2A",
+    "nccnReference": "COLON-C",
+    "conflictingBiomarkers": null,
+    "requiredStage": [
+      "IV"
+    ],
+    "confidenceScore": "0.85",
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.837Z",
+    "updatedAt": "2025-06-30T11:14:00.837Z"
+  },
+  {
+    "id": 6,
+    "cancerType": "Colorectal Cancer",
+    "histology": "Adenocarcinoma",
+    "biomarkers": [
+      "KRAS+",
+      "MSS"
+    ],
+    "treatmentIntent": "Palliative",
+    "lineOfTreatment": "1st Line",
+    "treatmentProtocol": "FOLFOX + Bevacizumab",
+    "evidenceReference": "Category 1",
+    "nccnReference": "COLON-C",
+    "conflictingBiomarkers": null,
+    "requiredStage": [
+      "IV"
+    ],
+    "confidenceScore": "0.87",
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.837Z",
+    "updatedAt": "2025-06-30T11:14:00.837Z"
+  },
+  {
+    "id": 7,
+    "cancerType": "Lung Cancer (SCLC)",
+    "histology": "Small Cell",
+    "biomarkers": [],
+    "treatmentIntent": "Curative",
+    "lineOfTreatment": "1st Line",
+    "treatmentProtocol": "Cisplatin + Etoposide + Concurrent RT",
+    "evidenceReference": "Category 1",
+    "nccnReference": "SCLC-4",
+    "conflictingBiomarkers": null,
+    "requiredStage": [
+      "III"
+    ],
+    "confidenceScore": "0.90",
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.837Z",
+    "updatedAt": "2025-06-30T11:14:00.837Z"
+  },
+  {
+    "id": 8,
+    "cancerType": "Lung Cancer (SCLC)",
+    "histology": "Small Cell",
+    "biomarkers": [],
+    "treatmentIntent": "Palliative",
+    "lineOfTreatment": "1st Line",
+    "treatmentProtocol": "Carboplatin + Etoposide + Atezolizumab",
+    "evidenceReference": "Category 1",
+    "nccnReference": "SCLC-5",
+    "conflictingBiomarkers": null,
+    "requiredStage": [
+      "IV"
+    ],
+    "confidenceScore": "0.88",
+    "isActive": true,
+    "createdAt": "2025-06-30T11:14:00.837Z",
+    "updatedAt": "2025-06-30T11:14:00.837Z"
+  }
+]

@@ -1,0 +1,18 @@
+[
+  {
+    "sid": "m8KPxZY3W71iMVK-413tAmkaFHsS3MRY",
+    "sess": {
+      "cookie": {
+        "originalMaxAge": 604800000,
+        "expires": "2025-07-06T15:36:52.962Z",
+        "secure": true,
+        "httpOnly": true,
+        "path": "/"
+      },
+      "replit.com": {
+        "code_verifier": "-FtZK8ltxvu8p_0YWgJXSc_KDEq5mpVUQrpe7hnPMs8"
+      }
+    },
+    "expire": "2025-07-06T15:36:53.000Z"
+  }
+]

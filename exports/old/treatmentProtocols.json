@@ -1,0 +1,59 @@
+[
+  {
+    "id": "51cc3f2f-0358-448e-a3c3-1a472f1bf9a1",
+    "protocolCode": "LUNG-ADJ-001",
+    "tumourGroup": "lung",
+    "protocolName": "Adjuvant Chemotherapy for NSCLC",
+    "indications": {
+      "stage": "IB-IIIA",
+      "histology": "Non-small cell",
+      "performance_status": "0-1"
+    },
+    "contraindications": {
+      "cardiac_function": "ejection fraction < 50%",
+      "renal_impairment": "severe"
+    },
+    "dosingSchedule": {
+      "medications": [
+        {
+          "day": 1,
+          "dose": "75 mg/m2",
+          "name": "Cisplatin"
+        },
+        {
+          "day": [
+            1,
+            8
+          ],
+          "dose": "25 mg/m2",
+          "name": "Vinorelbine"
+        }
+      ],
+      "cycle_length": "21 days",
+      "total_cycles": 4
+    },
+    "toxicityProfile": {
+      "common": [
+        "nausea",
+        "fatigue",
+        "neuropathy"
+      ],
+      "serious": [
+        "nephrotoxicity",
+        "ototoxicity",
+        "myelosuppression"
+      ]
+    },
+    "monitoringRequirements": {
+      "labs": [
+        "CBC",
+        "CMP",
+        "Mg",
+        "audiometry"
+      ],
+      "frequency": "weekly during treatment"
+    },
+    "createdAt": "2025-06-20T19:53:48.599Z",
+    "updatedAt": "2025-06-20T19:53:48.599Z"
+  }
+]

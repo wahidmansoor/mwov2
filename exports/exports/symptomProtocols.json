@@ -1,0 +1,654 @@
+[
+  {
+    "id": "8054d46a-061a-4aa5-a53d-1acdc1cfd800",
+    "symptom": "Pain",
+    "severityLevel": "Mild (1-3)",
+    "recommendations": {
+      "escalation": "If pain >3/10 or affecting function",
+      "monitoring": [
+        "Daily pain scores",
+        "Functional assessment"
+      ],
+      "pharmacological": [
+        "Acetaminophen 1000mg q6h",
+        "NSAIDs if appropriate"
+      ],
+      "nonPharmacological": [
+        "Heat/cold therapy",
+        "Gentle exercise",
+        "Relaxation techniques"
+      ]
+    },
+    "evidenceLevel": "Category 1",
+    "guidelineSource": "NCCN Adult Cancer Pain Guidelines v1.2025",
+    "createdAt": "2025-06-30T12:51:05.785Z",
+    "updatedAt": "2025-06-30T12:51:05.785Z"
+  },
+  {
+    "id": "6be9aff8-3a21-4b67-a003-5c786a52f6e3",
+    "symptom": "Pain",
+    "severityLevel": "Moderate (4-6)",
+    "recommendations": {
+      "escalation": "If pain >6/10 or uncontrolled",
+      "monitoring": [
+        "Q4h pain assessment",
+        "Bowel regimen",
+        "Sedation score"
+      ],
+      "pharmacological": [
+        "Morphine 5-10mg PO q4h PRN",
+        "Oxycodone 5mg PO q4h PRN"
+      ],
+      "nonPharmacological": [
+        "Physical therapy",
+        "TENS unit",
+        "Mindfulness"
+      ]
+    },
+    "evidenceLevel": "Category 1",
+    "guidelineSource": "NCCN Adult Cancer Pain Guidelines v1.2025",
+    "createdAt": "2025-06-30T12:51:05.785Z",
+    "updatedAt": "2025-06-30T12:51:05.785Z"
+  },
+  {
+    "id": "25505e57-5d68-4ebf-9f4a-c65b4f734aec",
+    "symptom": "Pain",
+    "severityLevel": "Severe (7-10)",
+    "recommendations": {
+      "escalation": "Pain specialist consultation within 24h",
+      "monitoring": [
+        "Hourly assessment",
+        "Respiratory status",
+        "Sedation"
+      ],
+      "pharmacological": [
+        "Morphine 10-20mg PO q4h",
+        "Consider IV/SQ route",
+        "Breakthrough dosing"
+      ],
+      "nonPharmacological": [
+        "Immediate comfort measures",
+        "Family support"
+      ]
+    },
+    "evidenceLevel": "Category 1",
+    "guidelineSource": "NCCN Adult Cancer Pain Guidelines v1.2025",
+    "createdAt": "2025-06-30T12:51:05.785Z",
+    "updatedAt": "2025-06-30T12:51:05.785Z"
+  },
+  {
+    "id": "f4819288-45f6-4185-aac7-89bf55532a97",
+    "symptom": "Nausea",
+    "severityLevel": "Mild",
+    "recommendations": {
+      "escalation": "If persistent >48h or affecting nutrition",
+      "monitoring": [
+        "Daily symptom assessment",
+        "Nutritional intake"
+      ],
+      "pharmacological": [
+        "Ondansetron 4mg PO q8h PRN",
+        "Metoclopramide 10mg PO qid"
+      ],
+      "nonPharmacological": [
+        "Small frequent meals",
+        "Ginger tea",
+        "Aromatherapy"
+      ]
+    },
+    "evidenceLevel": "Category 1",
+    "guidelineSource": "NCCN Antiemesis Guidelines v2.2025",
+    "createdAt": "2025-06-30T12:51:05.785Z",
+    "updatedAt": "2025-06-30T12:51:05.785Z"
+  },
+  {
+    "id": "b147657a-9592-4794-a37d-591ae8f3a03a",
+    "symptom": "Nausea",
+    "severityLevel": "Moderate",
+    "recommendations": {
+      "escalation": "If grade 3-4 or dehydration",
+      "monitoring": [
+        "Q8h assessment",
+        "Weight monitoring"
+      ],
+      "pharmacological": [
+        "Ondansetron 8mg PO q8h",
+        "Add dexamethasone 4mg daily"
+      ],
+      "nonPharmacological": [
+        "Dietary modifications",
+        "Acupressure"
+      ]
+    },
+    "evidenceLevel": "Category 1",
+    "guidelineSource": "NCCN Antiemesis Guidelines v2.2025",
+    "createdAt": "2025-06-30T12:51:05.785Z",
+    "updatedAt": "2025-06-30T12:51:05.785Z"
+  },
+  {
+    "id": "846aadba-beae-4b01-a779-26d9e24a664c",
+    "symptom": "Nausea",
+    "severityLevel": "Severe",
+    "recommendations": {
+      "escalation": "Consider hospitalization if persistent",
+      "monitoring": [
+        "Continuous monitoring",
+        "Electrolytes",
+        "I/O"
+      ],
+      "pharmacological": [
+        "Ondansetron 4mg IV q6h",
+        "Dexamethasone 8mg IV",
+        "Consider aprepitant"
+      ],
+      "nonPharmacological": [
+        "NPO if vomiting",
+        "IV hydration"
+      ]
+    },
+    "evidenceLevel": "Category 1",
+    "guidelineSource": "NCCN Antiemesis Guidelines v2.2025",
+    "createdAt": "2025-06-30T12:51:05.785Z",
+    "updatedAt": "2025-06-30T12:51:05.785Z"
+  },
+  {
+    "id": "18330e79-59db-4404-a41d-f63d636509f7",
+    "symptom": "Dyspnea",
+    "severityLevel": "Mild",
+    "recommendations": {
+      "escalation": "If RR >24 or O2 sat <90%",
+      "monitoring": [
+        "Respiratory rate",
+        "Oxygen saturation"
+      ],
+      "pharmacological": [
+        "Bronchodilators if appropriate",
+        "Low-dose morphine 2.5mg PO q4h"
+      ],
+      "nonPharmacological": [
+        "Fan therapy",
+        "Positioning",
+        "Breathing exercises"
+      ]
+    },
+    "evidenceLevel": "Category 2A",
+    "guidelineSource": "NCCN Palliative Care Guidelines v1.2025",
+    "createdAt": "2025-06-30T12:51:05.785Z",
+    "updatedAt": "2025-06-30T12:51:05.785Z"
+  },
+  {
+    "id": "95fe88cf-7f19-45f0-ad46-2b2667c70e99",
+    "symptom": "Dyspnea",
+    "severityLevel": "Moderate",
+    "recommendations": {
+      "escalation": "If respiratory distress or hypoxemia",
+      "monitoring": [
+        "Continuous pulse oximetry",
+        "ABG if indicated"
+      ],
+      "pharmacological": [
+        "Morphine 5mg PO q4h",
+        "Lorazepam 0.5mg PO q8h PRN"
+      ],
+      "nonPharmacological": [
+        "Oxygen therapy",
+        "Fan",
+        "Anxiety management"
+      ]
+    },
+    "evidenceLevel": "Category 2A",
+    "guidelineSource": "NCCN Palliative Care Guidelines v1.2025",
+    "createdAt": "2025-06-30T12:51:05.785Z",
+    "updatedAt": "2025-06-30T12:51:05.785Z"
+  },
+  {
+    "id": "a0ac5450-f52e-425e-86b6-a36bdb877cf3",
+    "symptom": "Dyspnea",
+    "severityLevel": "Severe",
+    "recommendations": {
+      "escalation": "Palliative care consultation urgently",
+      "monitoring": [
+        "Continuous monitoring",
+        "Comfort measures"
+      ],
+      "pharmacological": [
+        "Morphine 10mg PO/IV q2-4h",
+        "Anxiolytics",
+        "Nebulized morphine"
+      ],
+      "nonPharmacological": [
+        "High-flow oxygen",
+        "Positioning",
+        "Family presence"
+      ]
+    },
+    "evidenceLevel": "Category 2A",
+    "guidelineSource": "NCCN Palliative Care Guidelines v1.2025",
+    "createdAt": "2025-06-30T12:51:05.785Z",
+    "updatedAt": "2025-06-30T12:51:05.785Z"
+  },
+  {
+    "id": "94324107-52e4-4da4-b167-18eb3ea612b6",
+    "symptom": "Fatigue",
+    "severityLevel": "Mild",
+    "recommendations": {
+      "escalation": "If interfering with ADLs",
+      "monitoring": [
+        "Daily energy levels",
+        "Activity tolerance"
+      ],
+      "pharmacological": [
+        "Correct reversible causes",
+        "Consider methylphenidate"
+      ],
+      "nonPharmacological": [
+        "Energy conservation",
+        "Light exercise",
+        "Sleep hygiene"
+      ]
+    },
+    "evidenceLevel": "Category 2A",
+    "guidelineSource": "NCCN Cancer-Related Fatigue Guidelines v1.2025",
+    "createdAt": "2025-06-30T12:51:05.785Z",
+    "updatedAt": "2025-06-30T12:51:05.785Z"
+  },
+  {
+    "id": "61ba3852-9b7e-48ce-befa-80c29da36346",
+    "symptom": "Fatigue",
+    "severityLevel": "Moderate",
+    "recommendations": {
+      "escalation": "If severe impact on quality of life",
+      "monitoring": [
+        "Weekly assessment",
+        "Functional status"
+      ],
+      "pharmacological": [
+        "Methylphenidate 5mg BID",
+        "Modafinil 100mg daily"
+      ],
+      "nonPharmacological": [
+        "Structured exercise program",
+        "Cognitive behavioral therapy"
+      ]
+    },
+    "evidenceLevel": "Category 2A",
+    "guidelineSource": "NCCN Cancer-Related Fatigue Guidelines v1.2025",
+    "createdAt": "2025-06-30T12:51:05.785Z",
+    "updatedAt": "2025-06-30T12:51:05.785Z"
+  },
+  {
+    "id": "1924fa23-ce99-495a-b245-45eebc03828a",
+    "symptom": "Constipation",
+    "severityLevel": "Mild",
+    "recommendations": {
+      "escalation": "If no BM >3 days",
+      "monitoring": [
+        "Daily bowel movements",
+        "Abdominal assessment"
+      ],
+      "pharmacological": [
+        "Docusate 100mg BID",
+        "Senna 2 tabs daily"
+      ],
+      "nonPharmacological": [
+        "Increased fiber",
+        "Hydration",
+        "Activity"
+      ]
+    },
+    "evidenceLevel": "Category 1",
+    "guidelineSource": "NCCN Palliative Care Guidelines v1.2025",
+    "createdAt": "2025-06-30T12:51:05.785Z",
+    "updatedAt": "2025-06-30T12:51:05.785Z"
+  },
+  {
+    "id": "3ea55256-6d73-40ca-8792-022a39f8fa3b",
+    "symptom": "Constipation",
+    "severityLevel": "Moderate",
+    "recommendations": {
+      "escalation": "If impaction suspected",
+      "monitoring": [
+        "Daily assessment",
+        "Abdominal distension"
+      ],
+      "pharmacological": [
+        "Bisacodyl 10mg daily",
+        "Polyethylene glycol 17g daily"
+      ],
+      "nonPharmacological": [
+        "Dietary modifications",
+        "Abdominal massage"
+      ]
+    },
+    "evidenceLevel": "Category 1",
+    "guidelineSource": "NCCN Palliative Care Guidelines v1.2025",
+    "createdAt": "2025-06-30T12:51:05.785Z",
+    "updatedAt": "2025-06-30T12:51:05.785Z"
+  },
+  {
+    "id": "1595ce81-c6d7-439e-91d2-66d1ef6011ea",
+    "symptom": "Pain",
+    "severityLevel": "Mild (1-3)",
+    "recommendations": {
+      "escalation": "If pain >3/10 or affecting function",
+      "monitoring": [
+        "Daily pain scores",
+        "Functional assessment"
+      ],
+      "pharmacological": [
+        "Acetaminophen 1000mg q6h",
+        "NSAIDs if appropriate"
+      ],
+      "nonPharmacological": [
+        "Heat/cold therapy",
+        "Gentle exercise",
+        "Relaxation techniques"
+      ]
+    },
+    "evidenceLevel": "Category 1",
+    "guidelineSource": "NCCN Adult Cancer Pain Guidelines v1.2025",
+    "createdAt": "2025-06-30T12:51:32.976Z",
+    "updatedAt": "2025-06-30T12:51:32.976Z"
+  },
+  {
+    "id": "3b004a8e-6039-4795-8ab6-3bc9b4b97103",
+    "symptom": "Pain",
+    "severityLevel": "Moderate (4-6)",
+    "recommendations": {
+      "escalation": "If pain >6/10 or uncontrolled",
+      "monitoring": [
+        "Q4h pain assessment",
+        "Bowel regimen",
+        "Sedation score"
+      ],
+      "pharmacological": [
+        "Morphine 5-10mg PO q4h PRN",
+        "Oxycodone 5mg PO q4h PRN"
+      ],
+      "nonPharmacological": [
+        "Physical therapy",
+        "TENS unit",
+        "Mindfulness"
+      ]
+    },
+    "evidenceLevel": "Category 1",
+    "guidelineSource": "NCCN Adult Cancer Pain Guidelines v1.2025",
+    "createdAt": "2025-06-30T12:51:32.976Z",
+    "updatedAt": "2025-06-30T12:51:32.976Z"
+  },
+  {
+    "id": "cd6e84f4-5629-4e72-8a2f-d6ae38f3eacd",
+    "symptom": "Pain",
+    "severityLevel": "Severe (7-10)",
+    "recommendations": {
+      "escalation": "Pain specialist consultation within 24h",
+      "monitoring": [
+        "Hourly assessment",
+        "Respiratory status",
+        "Sedation"
+      ],
+      "pharmacological": [
+        "Morphine 10-20mg PO q4h",
+        "Consider IV/SQ route",
+        "Breakthrough dosing"
+      ],
+      "nonPharmacological": [
+        "Immediate comfort measures",
+        "Family support"
+      ]
+    },
+    "evidenceLevel": "Category 1",
+    "guidelineSource": "NCCN Adult Cancer Pain Guidelines v1.2025",
+    "createdAt": "2025-06-30T12:51:32.976Z",
+    "updatedAt": "2025-06-30T12:51:32.976Z"
+  },
+  {
+    "id": "d5a5fbc4-5961-44c9-bd9e-413c5f9af6af",
+    "symptom": "Nausea",
+    "severityLevel": "Mild",
+    "recommendations": {
+      "escalation": "If persistent >48h or affecting nutrition",
+      "monitoring": [
+        "Daily symptom assessment",
+        "Nutritional intake"
+      ],
+      "pharmacological": [
+        "Ondansetron 4mg PO q8h PRN",
+        "Metoclopramide 10mg PO qid"
+      ],
+      "nonPharmacological": [
+        "Small frequent meals",
+        "Ginger tea",
+        "Aromatherapy"
+      ]
+    },
+    "evidenceLevel": "Category 1",
+    "guidelineSource": "NCCN Antiemesis Guidelines v2.2025",
+    "createdAt": "2025-06-30T12:51:32.976Z",
+    "updatedAt": "2025-06-30T12:51:32.976Z"
+  },
+  {
+    "id": "abbb1677-df90-4ec8-bb06-efa9d13ed7c4",
+    "symptom": "Nausea",
+    "severityLevel": "Moderate",
+    "recommendations": {
+      "escalation": "If grade 3-4 or dehydration",
+      "monitoring": [
+        "Q8h assessment",
+        "Weight monitoring"
+      ],
+      "pharmacological": [
+        "Ondansetron 8mg PO q8h",
+        "Add dexamethasone 4mg daily"
+      ],
+      "nonPharmacological": [
+        "Dietary modifications",
+        "Acupressure"
+      ]
+    },
+    "evidenceLevel": "Category 1",
+    "guidelineSource": "NCCN Antiemesis Guidelines v2.2025",
+    "createdAt": "2025-06-30T12:51:32.976Z",
+    "updatedAt": "2025-06-30T12:51:32.976Z"
+  },
+  {
+    "id": "037245e3-6192-4b88-9cd0-954fc3ab64f3",
+    "symptom": "Nausea",
+    "severityLevel": "Severe",
+    "recommendations": {
+      "escalation": "Consider hospitalization if persistent",
+      "monitoring": [
+        "Continuous monitoring",
+        "Electrolytes",
+        "I/O"
+      ],
+      "pharmacological": [
+        "Ondansetron 4mg IV q6h",
+        "Dexamethasone 8mg IV",
+        "Consider aprepitant"
+      ],
+      "nonPharmacological": [
+        "NPO if vomiting",
+        "IV hydration"
+      ]
+    },
+    "evidenceLevel": "Category 1",
+    "guidelineSource": "NCCN Antiemesis Guidelines v2.2025",
+    "createdAt": "2025-06-30T12:51:32.976Z",
+    "updatedAt": "2025-06-30T12:51:32.976Z"
+  },
+  {
+    "id": "9491df42-6d1f-4cd9-9b66-7f3cd0be8575",
+    "symptom": "Dyspnea",
+    "severityLevel": "Mild",
+    "recommendations": {
+      "escalation": "If RR >24 or O2 sat <90%",
+      "monitoring": [
+        "Respiratory rate",
+        "Oxygen saturation"
+      ],
+      "pharmacological": [
+        "Bronchodilators if appropriate",
+        "Low-dose morphine 2.5mg PO q4h"
+      ],
+      "nonPharmacological": [
+        "Fan therapy",
+        "Positioning",
+        "Breathing exercises"
+      ]
+    },
+    "evidenceLevel": "Category 2A",
+    "guidelineSource": "NCCN Palliative Care Guidelines v1.2025",
+    "createdAt": "2025-06-30T12:51:32.976Z",
+    "updatedAt": "2025-06-30T12:51:32.976Z"
+  },
+  {
+    "id": "d0afa5d3-3a10-4d47-b595-3f0392b07c9c",
+    "symptom": "Dyspnea",
+    "severityLevel": "Moderate",
+    "recommendations": {
+      "escalation": "If respiratory distress or hypoxemia",
+      "monitoring": [
+        "Continuous pulse oximetry",
+        "ABG if indicated"
+      ],
+      "pharmacological": [
+        "Morphine 5mg PO q4h",
+        "Lorazepam 0.5mg PO q8h PRN"
+      ],
+      "nonPharmacological": [
+        "Oxygen therapy",
+        "Fan",
+        "Anxiety management"
+      ]
+    },
+    "evidenceLevel": "Category 2A",
+    "guidelineSource": "NCCN Palliative Care Guidelines v1.2025",
+    "createdAt": "2025-06-30T12:51:32.976Z",
+    "updatedAt": "2025-06-30T12:51:32.976Z"
+  },
+  {
+    "id": "07c8f4db-d7b9-4a27-8232-37cb0f02ba37",
+    "symptom": "Dyspnea",
+    "severityLevel": "Severe",
+    "recommendations": {
+      "escalation": "Palliative care consultation urgently",
+      "monitoring": [
+        "Continuous monitoring",
+        "Comfort measures"
+      ],
+      "pharmacological": [
+        "Morphine 10mg PO/IV q2-4h",
+        "Anxiolytics",
+        "Nebulized morphine"
+      ],
+      "nonPharmacological": [
+        "High-flow oxygen",
+        "Positioning",
+        "Family presence"
+      ]
+    },
+    "evidenceLevel": "Category 2A",
+    "guidelineSource": "NCCN Palliative Care Guidelines v1.2025",
+    "createdAt": "2025-06-30T12:51:32.976Z",
+    "updatedAt": "2025-06-30T12:51:32.976Z"
+  },
+  {
+    "id": "f19c6071-1965-4770-80ee-503b64ce65a6",
+    "symptom": "Fatigue",
+    "severityLevel": "Mild",
+    "recommendations": {
+      "escalation": "If interfering with ADLs",
+      "monitoring": [
+        "Daily energy levels",
+        "Activity tolerance"
+      ],
+      "pharmacological": [
+        "Correct reversible causes",
+        "Consider methylphenidate"
+      ],
+      "nonPharmacological": [
+        "Energy conservation",
+        "Light exercise",
+        "Sleep hygiene"
+      ]
+    },
+    "evidenceLevel": "Category 2A",
+    "guidelineSource": "NCCN Cancer-Related Fatigue Guidelines v1.2025",
+    "createdAt": "2025-06-30T12:51:32.976Z",
+    "updatedAt": "2025-06-30T12:51:32.976Z"
+  },
+  {
+    "id": "e57e2085-9d9c-4787-905e-f08cad3fe52f",
+    "symptom": "Fatigue",
+    "severityLevel": "Moderate",
+    "recommendations": {
+      "escalation": "If severe impact on quality of life",
+      "monitoring": [
+        "Weekly assessment",
+        "Functional status"
+      ],
+      "pharmacological": [
+        "Methylphenidate 5mg BID",
+        "Modafinil 100mg daily"
+      ],
+      "nonPharmacological": [
+        "Structured exercise program",
+        "Cognitive behavioral therapy"
+      ]
+    },
+    "evidenceLevel": "Category 2A",
+    "guidelineSource": "NCCN Cancer-Related Fatigue Guidelines v1.2025",
+    "createdAt": "2025-06-30T12:51:32.976Z",
+    "updatedAt": "2025-06-30T12:51:32.976Z"
+  },
+  {
+    "id": "7ab7b70d-e06a-457b-b97e-9edf17e571a5",
+    "symptom": "Constipation",
+    "severityLevel": "Mild",
+    "recommendations": {
+      "escalation": "If no BM >3 days",
+      "monitoring": [
+        "Daily bowel movements",
+        "Abdominal assessment"
+      ],
+      "pharmacological": [
+        "Docusate 100mg BID",
+        "Senna 2 tabs daily"
+      ],
+      "nonPharmacological": [
+        "Increased fiber",
+        "Hydration",
+        "Activity"
+      ]
+    },
+    "evidenceLevel": "Category 1",
+    "guidelineSource": "NCCN Palliative Care Guidelines v1.2025",
+    "createdAt": "2025-06-30T12:51:32.976Z",
+    "updatedAt": "2025-06-30T12:51:32.976Z"
+  },
+  {
+    "id": "dec154cc-7049-4b33-a724-47d40e285d65",
+    "symptom": "Constipation",
+    "severityLevel": "Moderate",
+    "recommendations": {
+      "escalation": "If impaction suspected",
+      "monitoring": [
+        "Daily assessment",
+        "Abdominal distension"
+      ],
+      "pharmacological": [
+        "Bisacodyl 10mg daily",
+        "Polyethylene glycol 17g daily"
+      ],
+      "nonPharmacological": [
+        "Dietary modifications",
+        "Abdominal massage"
+      ]
+    },
+    "evidenceLevel": "Category 1",
+    "guidelineSource": "NCCN Palliative Care Guidelines v1.2025",
+    "createdAt": "2025-06-30T12:51:32.976Z",
+    "updatedAt": "2025-06-30T12:51:32.976Z"
+  }
+]
