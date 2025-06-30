@@ -21,6 +21,7 @@ import EnhancedPainManagement from "./sections/EnhancedPainManagement";
 import FamilySupport from "./sections/FamilySupport";
 import AdvancedDirective from "./sections/AdvancedDirective";
 import PsychosocialCare from "./sections/PsychosocialCare";
+import QualityOfLife from "./sections/QualityOfLife";
 
 interface ModuleSection {
   id: string;
@@ -83,7 +84,7 @@ const sections: ModuleSection[] = [
 ];
 
 export default function PalliativeCareModule() {
-  const [activeSection, setActiveSection] = useState("pain");
+  const [activeSection, setActiveSection] = useState("symptom");
 
   const renderSectionContent = () => {
     switch (activeSection) {
@@ -97,6 +98,8 @@ export default function PalliativeCareModule() {
         return <AdvancedDirective />;
       case "psychosocial":
         return <PsychosocialCare />;
+      case "quality":
+        return <QualityOfLife />;
       default:
         return <EnhancedSymptomControl />;
     }
