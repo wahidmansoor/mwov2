@@ -223,7 +223,7 @@ const DiagnosticWorkupSection = () => {
       if (!response.ok) throw new Error('Failed to fetch diagnostic workup steps');
       return response.json();
     },
-    enabled: selectedCancer !== "" || symptomSearch !== ""
+    enabled: true
   });
 
   // Extract unique cancer types from the data
@@ -366,7 +366,7 @@ const BiomarkerTestingSection = () => {
       if (!response.ok) throw new Error('Failed to fetch biomarkers');
       return response.json();
     },
-    enabled: selectedCancer !== ""
+    enabled: true
   });
 
   // Extract unique cancer types from the data
@@ -495,7 +495,7 @@ const ReferralGuidelinesSection = () => {
       if (!response.ok) throw new Error('Failed to fetch referral guidelines');
       return response.json();
     },
-    enabled: selectedCancer !== "" || selectedUrgency !== ""
+    enabled: true
   });
 
   // Extract unique cancer types from the data
