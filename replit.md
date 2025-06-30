@@ -46,6 +46,15 @@ OncoVista AI is a comprehensive medical-grade oncology platform providing AI-pow
 
 ## Recent Changes (June 30, 2025)
 
+### Development Tooling and Documentation Enhancement (COMPLETED - June 30, 2025)
+- Successfully created comprehensive handbook-generator.js script for automated component generation from markdown content
+- Fixed handbook module routing bug - updated App.tsx routes to match navigation hrefs (/handbook/medical, /handbook/radiation, /handbook/palliative)
+- Created detailed ONCOVISTA_DATABASE_MODULE_MAPPING.md documentation explaining all module-to-table database connections
+- Installed commander package for enhanced CLI functionality in handbook generator script
+- Enhanced script with ES module compatibility, preview mode, batch processing, and comprehensive configuration for all three oncology specialties
+- Added automated component generation with proper medical-grade styling, color coding, and responsive design
+- Platform now includes development tools for content creation and comprehensive database documentation for system understanding
+
 ### SCLC Module Removal and Cross-Module Integration (COMPLETED)
 - Successfully removed standalone SCLC Guidelines module from core navigation as requested
 - Distributed all SCLC Version 4.2025 data across relevant existing modules for better clinical workflow integration

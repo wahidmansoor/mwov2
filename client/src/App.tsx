@@ -113,19 +113,19 @@ function Router() {
         </Layout>
       </Route>
       
-      <Route path="/handbook/medical-oncology/:chapter?/:section?">
+      <Route path="/handbook/medical/:chapter?/:section?">
         <Layout>
           <MedicalOncologyView />
         </Layout>
       </Route>
       
-      <Route path="/handbook/radiation-oncology/:chapter?/:section?">
+      <Route path="/handbook/radiation/:chapter?/:section?">
         <Layout>
           <RadiationOncologyView />
         </Layout>
       </Route>
       
-      <Route path="/handbook/palliative-care/:chapter?/:section?">
+      <Route path="/handbook/palliative/:chapter?/:section?">
         <Layout>
           <PalliativeCareView />
         </Layout>
