@@ -36,6 +36,8 @@ interface DecisionOption {
 
 export default function AdvancedDirective() {
   const [activeTab, setActiveTab] = useState("documents");
+  
+  // 🎯 ENHANCED INTERACTIVE ADVANCE DIRECTIVE MODULE
 
   const legalDocuments: DirectiveDocument[] = [
     {
