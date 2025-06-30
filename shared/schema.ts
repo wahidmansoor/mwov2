@@ -92,6 +92,37 @@ export const aiInteractions = pgTable("ai_interactions", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
+// Treatment plan criteria for dynamic dropdown population
+export const treatmentPlanCriteria = pgTable("treatment_plan_criteria", {
+  id: serial("id").primaryKey(),
+  category: text("category").notNull(), // 'histology', 'biomarker', 'reason', 'intent', 'line'
+  value: text("value").notNull(),
+  description: text("description"),
+  isCommon: boolean("is_common").default(true), // Distinguish common vs rare markers
+  sortOrder: integer("sort_order").default(0),
+  isActive: boolean("is_active").default(true),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+// Treatment plan mappings for structured protocol matching
+export const treatmentPlanMappings = pgTable("treatment_plan_mappings", {
+  id: serial("id").primaryKey(),
+  cancerType: text("cancer_type").notNull(),
+  histology: text("histology"),
+  biomarkers: text("biomarkers").array(), // Array of required biomarkers
+  treatmentIntent: text("treatment_intent"),
+  lineOfTreatment: text("line_of_treatment"),
+  treatmentProtocol: text("treatment_protocol").notNull(),
+  evidenceReference: text("evidence_reference"),
+  nccnReference: text("nccn_reference"),
+  conflictingBiomarkers: text("conflicting_biomarkers").array(), // Contraindicated markers
+  requiredStage: text("required_stage").array(), // Applicable stages
+  confidenceScore: decimal("confidence_score", { precision: 3, scale: 2 }).default("0.85"),
+  isActive: boolean("is_active").default(true),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
 // Audit trail system
 export const auditLog = pgTable("audit_log", {
   id: uuid("id").primaryKey().defaultRandom(),
@@ -362,3 +393,11 @@ export type SclcProtocol = typeof sclcProtocols.$inferSelect;
 export type InsertSclcProtocol = z.infer<typeof insertSclcProtocolsSchema>;
 export type SclcStagingTable = typeof sclcStagingTables.$inferSelect;
 export type InsertSclcStagingTable = z.infer<typeof insertSclcStagingTablesSchema>;
+
+// Treatment Plan Types
+export const insertTreatmentPlanCriteriaSchema = createInsertSchema(treatmentPlanCriteria);
+export const insertTreatmentPlanMappingsSchema = createInsertSchema(treatmentPlanMappings);
+export type TreatmentPlanCriteria = typeof treatmentPlanCriteria.$inferSelect;
+export type InsertTreatmentPlanCriteria = z.infer<typeof insertTreatmentPlanCriteriaSchema>;
+export type TreatmentPlanMapping = typeof treatmentPlanMappings.$inferSelect;
+export type InsertTreatmentPlanMapping = z.infer<typeof insertTreatmentPlanMappingsSchema>;

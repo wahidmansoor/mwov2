@@ -434,6 +434,73 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Treatment Plan Criteria API endpoints (NEW)
+  app.get("/api/treatment-criteria", authMiddleware, async (req: any, res) => {
+    try {
+      const { category, isCommon } = req.query;
+      const criteria = await storage.getTreatmentCriteria({
+        category: category as string,
+        isCommon: isCommon ? JSON.parse(isCommon) : undefined
+      });
+      res.json(criteria);
+    } catch (error) {
+      console.error("Failed to get treatment criteria:", error);
+      res.status(500).json({ message: "Failed to get treatment criteria" });
+    }
+  });
+
+  app.get("/api/treatment-criteria/:category", authMiddleware, async (req: any, res) => {
+    try {
+      const { category } = req.params;
+      const criteria = await storage.getTreatmentCriteriaByCategory(category);
+      res.json(criteria);
+    } catch (error) {
+      console.error("Failed to get treatment criteria by category:", error);
+      res.status(500).json({ message: "Failed to get treatment criteria" });
+    }
+  });
+
+  // Treatment Plan Mappings API endpoints (NEW)
+  app.get("/api/treatment-plan-mappings", authMiddleware, async (req: any, res) => {
+    try {
+      const { cancerType, histology, treatmentIntent } = req.query;
+      const mappings = await storage.getTreatmentPlanMappings({
+        cancerType: cancerType as string,
+        histology: histology as string,
+        treatmentIntent: treatmentIntent as string
+      });
+      res.json(mappings);
+    } catch (error) {
+      console.error("Failed to get treatment plan mappings:", error);
+      res.status(500).json({ message: "Failed to get treatment plan mappings" });
+    }
+  });
+
+  app.post("/api/generate-recommendation", authMiddleware, async (req: any, res) => {
+    try {
+      const { cancerType, histology, biomarkers, treatmentIntent, lineOfTreatment, stage } = req.body;
+      
+      if (!cancerType) {
+        res.status(400).json({ message: "Cancer type is required" });
+        return;
+      }
+
+      const recommendations = await storage.generateTreatmentRecommendation({
+        cancerType,
+        histology,
+        biomarkers: biomarkers || [],
+        treatmentIntent,
+        lineOfTreatment,
+        stage
+      });
+      
+      res.json(recommendations);
+    } catch (error) {
+      console.error("Failed to generate treatment recommendation:", error);
+      res.status(500).json({ message: "Failed to generate treatment recommendation" });
+    }
+  });
+
   // Clinical decision support API endpoints
   app.get("/api/clinical-decision-support", isAuthenticated, async (req: any, res) => {
     try {

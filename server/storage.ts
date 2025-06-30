@@ -10,6 +10,8 @@ import {
   nccnGuidelines,
   clinicalDecisionSupport,
   biomarkerGuidelines,
+  treatmentPlanCriteria,
+  treatmentPlanMappings,
   type User, 
   type InsertUser,
   type UpsertUser,
@@ -30,7 +32,11 @@ import {
   type ClinicalDecisionSupport,
   type InsertClinicalDecisionSupport,
   type BiomarkerGuideline,
-  type InsertBiomarkerGuideline
+  type InsertBiomarkerGuideline,
+  type TreatmentPlanCriteria,
+  type InsertTreatmentPlanCriteria,
+  type TreatmentPlanMapping,
+  type InsertTreatmentPlanMapping
 } from "@shared/schema";
 import { db } from "./db";
 import { eq, sql } from "drizzle-orm";
@@ -102,6 +108,24 @@ export interface IStorage {
   getBiomarkerGuideline(id: string): Promise<BiomarkerGuideline | undefined>;
   getBiomarkersByType(cancerType: string): Promise<BiomarkerGuideline[]>;
   createBiomarkerGuideline(guideline: InsertBiomarkerGuideline): Promise<BiomarkerGuideline>;
+  
+  // Treatment Plan Criteria (NEW)
+  getTreatmentCriteria(filters?: { category?: string; isCommon?: boolean }): Promise<TreatmentPlanCriteria[]>;
+  getTreatmentCriteriaByCategory(category: string): Promise<TreatmentPlanCriteria[]>;
+  createTreatmentCriteria(criteria: InsertTreatmentPlanCriteria): Promise<TreatmentPlanCriteria>;
+  
+  // Treatment Plan Mappings (NEW)
+  getTreatmentPlanMappings(filters?: { cancerType?: string; histology?: string; treatmentIntent?: string }): Promise<TreatmentPlanMapping[]>;
+  getTreatmentPlanMapping(id: number): Promise<TreatmentPlanMapping | undefined>;
+  generateTreatmentRecommendation(criteria: {
+    cancerType: string;
+    histology?: string;
+    biomarkers: string[];
+    treatmentIntent?: string;
+    lineOfTreatment?: string;
+    stage?: string;
+  }): Promise<TreatmentPlanMapping[]>;
+  createTreatmentPlanMapping(mapping: InsertTreatmentPlanMapping): Promise<TreatmentPlanMapping>;
   
   // Cross-module integration
   getRelevantNccnGuidelines(clinicalContext: { stage?: string; biomarkers?: any; treatmentSetting?: string }): Promise<NccnGuideline[]>;
@@ -593,6 +617,123 @@ export class DatabaseStorage implements IStorage {
       .values(insertGuideline)
       .returning();
     return guideline;
+  }
+
+  // Treatment Plan Criteria Implementation
+  async getTreatmentCriteria(filters?: { category?: string; isCommon?: boolean }): Promise<TreatmentPlanCriteria[]> {
+    let query = db.select().from(treatmentPlanCriteria);
+    
+    if (filters?.category) {
+      query = query.where(eq(treatmentPlanCriteria.category, filters.category));
+    }
+    
+    if (filters?.isCommon !== undefined) {
+      query = query.where(eq(treatmentPlanCriteria.isCommon, filters.isCommon));
+    }
+    
+    return await query.orderBy(treatmentPlanCriteria.sortOrder, treatmentPlanCriteria.value);
+  }
+
+  async getTreatmentCriteriaByCategory(category: string): Promise<TreatmentPlanCriteria[]> {
+    return await db.select()
+      .from(treatmentPlanCriteria)
+      .where(eq(treatmentPlanCriteria.category, category))
+      .orderBy(treatmentPlanCriteria.sortOrder, treatmentPlanCriteria.value);
+  }
+
+  async createTreatmentCriteria(insertCriteria: InsertTreatmentPlanCriteria): Promise<TreatmentPlanCriteria> {
+    const [criteria] = await db
+      .insert(treatmentPlanCriteria)
+      .values(insertCriteria)
+      .returning();
+    return criteria;
+  }
+
+  // Treatment Plan Mappings Implementation
+  async getTreatmentPlanMappings(filters?: { cancerType?: string; histology?: string; treatmentIntent?: string }): Promise<TreatmentPlanMapping[]> {
+    let query = db.select().from(treatmentPlanMappings);
+    
+    if (filters?.cancerType) {
+      query = query.where(eq(treatmentPlanMappings.cancerType, filters.cancerType));
+    }
+    
+    if (filters?.histology) {
+      query = query.where(eq(treatmentPlanMappings.histology, filters.histology));
+    }
+    
+    if (filters?.treatmentIntent) {
+      query = query.where(eq(treatmentPlanMappings.treatmentIntent, filters.treatmentIntent));
+    }
+    
+    return await query.orderBy(sql`${treatmentPlanMappings.confidenceScore} DESC`);
+  }
+
+  async getTreatmentPlanMapping(id: number): Promise<TreatmentPlanMapping | undefined> {
+    const [mapping] = await db.select().from(treatmentPlanMappings).where(eq(treatmentPlanMappings.id, id));
+    return mapping || undefined;
+  }
+
+  async generateTreatmentRecommendation(criteria: {
+    cancerType: string;
+    histology?: string;
+    biomarkers: string[];
+    treatmentIntent?: string;
+    lineOfTreatment?: string;
+    stage?: string;
+  }): Promise<TreatmentPlanMapping[]> {
+    let query = db.select().from(treatmentPlanMappings);
+    
+    // Cancer type matching (required)
+    query = query.where(eq(treatmentPlanMappings.cancerType, criteria.cancerType));
+    
+    // Histology matching (optional)
+    if (criteria.histology) {
+      query = query.where(eq(treatmentPlanMappings.histology, criteria.histology));
+    }
+    
+    // Treatment intent matching (optional)
+    if (criteria.treatmentIntent) {
+      query = query.where(eq(treatmentPlanMappings.treatmentIntent, criteria.treatmentIntent));
+    }
+    
+    // Line of treatment matching (optional)
+    if (criteria.lineOfTreatment) {
+      query = query.where(eq(treatmentPlanMappings.lineOfTreatment, criteria.lineOfTreatment));
+    }
+    
+    // Stage matching (optional) - check if stage is in required_stage array
+    if (criteria.stage) {
+      query = query.where(sql`${criteria.stage} = ANY(${treatmentPlanMappings.requiredStage})`);
+    }
+    
+    // Get all potential matches
+    const allMappings = await query.orderBy(sql`${treatmentPlanMappings.confidenceScore} DESC`);
+    
+    // Apply biomarker filtering in memory for complex array matching
+    const filteredMappings = allMappings.filter(mapping => {
+      // Skip if no biomarkers specified in criteria
+      if (!criteria.biomarkers.length) return true;
+      
+      // Skip if mapping has no biomarker requirements
+      if (!mapping.biomarkers || !mapping.biomarkers.length) return true;
+      
+      // Check if all required biomarkers are present
+      const requiredBiomarkers = mapping.biomarkers;
+      const hasBiomarkers = criteria.biomarkers;
+      
+      // All required biomarkers must be present in the patient's biomarker profile
+      return requiredBiomarkers.every(required => hasBiomarkers.includes(required));
+    });
+    
+    return filteredMappings.slice(0, 5); // Return top 5 matches
+  }
+
+  async createTreatmentPlanMapping(insertMapping: InsertTreatmentPlanMapping): Promise<TreatmentPlanMapping> {
+    const [mapping] = await db
+      .insert(treatmentPlanMappings)
+      .values(insertMapping)
+      .returning();
+    return mapping;
   }
 
   // Cross-module integration

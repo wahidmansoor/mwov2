@@ -194,6 +194,22 @@ OncoVista AI is a comprehensive medical-grade oncology platform providing AI-pow
 - Enhanced with authentic protocol data, clinical workflow improvements, and professional medical-grade interfaces
 - Application now provides clinical-grade safety monitoring and comprehensive decision support tools
 
+### Deep Audit + Enhancement of Treatment Plan Selector (COMPLETED - June 30, 2025)
+- Successfully completed comprehensive deep audit and enhancement of Treatment Plan Selector following NCCN specifications
+- Created new database tables: treatment_plan_criteria and treatment_plan_mappings with PostgreSQL arrays and advanced data types
+- Implemented comprehensive seeding with 57 treatment criteria entries across 5 categories (histology, biomarker, reason, intent, line)
+- Enhanced with expanded histology types: 17 types including Adenocarcinoma, Squamous Cell, Neuroendocrine, Sarcoma, Anaplastic
+- Enhanced with comprehensive biomarkers: 23 markers including common (ER+/-, HER2+/-) and emerging targets (RET+, FGFR2/3+, TMB-High)
+- Enhanced with dynamic database-driven criteria loading instead of hardcoded arrays
+- Added sophisticated biomarker conflict detection preventing mutually exclusive selections (ER+/ER-, PD-L1+/PD-L1-)
+- Implemented EnhancedInputPanel with tooltips, descriptions, common/rare biomarker separation, and validation
+- Added new API endpoints: /api/treatment-criteria, /api/treatment-plan-mappings, /api/generate-recommendation
+- Enhanced storage interface with generateTreatmentRecommendation using complex biomarker array matching
+- Integrated NCCN-aligned treatment mappings with authentic protocols (TCH, AC-TH, Pembrolizumab, Osimertinib)
+- Added evidence-based confidence scoring, NCCN reference linking, and structured protocol matching
+- Enhanced with visual separators between common and advanced biomarkers for improved clinical usability
+- Treatment Plan Selector now provides dynamic, database-driven, clinically validated decision support
+
 ### Navigation Integration
 - Added all new modules to sidebar navigation
 - Created "Clinical Tools" navigation section

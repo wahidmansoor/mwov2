@@ -2,7 +2,7 @@ import { useState, useCallback, useMemo } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useQuery } from "@tanstack/react-query";
 import { Brain, Activity } from "lucide-react";
-import { InputPanel } from "./InputPanel";
+import { EnhancedInputPanel } from "./EnhancedInputPanel";
 import { RecommendationPanel } from "./RecommendationPanel";
 import { ExportPanel } from "./ExportPanel";
 import { useLocalStorage } from "../../../hooks/useLocalStorage";
@@ -71,7 +71,7 @@ export default function TreatmentPlanSelector() {
       </Card>
 
       <div className="grid lg:grid-cols-2 gap-6">
-        <InputPanel 
+        <EnhancedInputPanel 
           criteria={criteria}
           onCriteriaChange={updateCriteria}
           isLoading={isLoading}
