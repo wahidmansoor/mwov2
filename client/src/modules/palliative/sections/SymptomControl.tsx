@@ -48,6 +48,7 @@ const getSeverityColor = (score: number): string => {
   return "bg-red-100 text-red-800";
 };
 
+// FORCE BROWSER CACHE REFRESH - ENHANCED INTERACTIVE SYMPTOM CONTROL v2.0
 export default function SymptomControl() {
   const [sessionId] = useState(() => `session-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`);
   const [currentScores, setCurrentScores] = useState<Record<string, number>>({});
@@ -118,12 +119,12 @@ export default function SymptomControl() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <Card className="border-l-4 border-l-blue-500 bg-blue-50 dark:bg-blue-900/20">
+      <Card className="border-l-4 border-l-green-500 bg-green-50 dark:bg-green-900/20">
         <CardHeader>
           <CardTitle className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Activity className="h-5 w-5 text-blue-600" />
-              Interactive Symptom Assessment - Enhanced
+              <Activity className="h-5 w-5 text-green-600" />
+              🎯 ENHANCED INTERACTIVE SYMPTOM CONTROL LOADED - v2.0
             </div>
             <div className="flex gap-2">
               <Button onClick={handleSaveAllScores} size="sm" disabled={saveScoreMutation.isPending}>
