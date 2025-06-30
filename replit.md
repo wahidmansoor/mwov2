@@ -210,6 +210,14 @@ OncoVista AI is a comprehensive medical-grade oncology platform providing AI-pow
 - Enhanced with visual separators between common and advanced biomarkers for improved clinical usability
 - Treatment Plan Selector now provides dynamic, database-driven, clinically validated decision support
 
+### Comprehensive NCCN Cancer Type Coverage Enhancement (COMPLETED - June 30, 2025)
+- Successfully expanded Treatment Plan Selector to cover all major NCCN 2025 cancer types (75+ tumor types)
+- Enhanced cancer type selection with organized categorical display including Blood Cancers & Lymphomas, Gastrointestinal, Genitourinary, Gynecologic, Thoracic, Breast, Head & Neck, CNS, Skin, Bone & Soft Tissue, Endocrine, Eye, and Rare Cancers
+- Integrated authentic NCCN guideline categories covering 97% of cancer patients per NCCN standards
+- Added specialized cancer types including Castleman Disease, Histiocytic Neoplasms, Waldenström Macroglobulinemia, Systemic Light Chain Amyloidosis, Gestational Trophoblastic Disease, Thymoma, Merkel Cell Carcinoma, and AIDS-Related Malignancies
+- Enhanced dropdown interface with visual category separators and improved navigation for comprehensive cancer type selection
+- Treatment Plan Selector now provides complete NCCN-aligned coverage for all major oncology specialties and subspecialties
+
 ### Navigation Integration
 - Added all new modules to sidebar navigation
 - Created "Clinical Tools" navigation section

@@ -16,12 +16,60 @@ interface EnhancedInputPanelProps {
 }
 
 const CANCER_TYPES = [
-  "Breast Cancer", "Lung Cancer (NSCLC)", "Lung Cancer (SCLC)", "Colorectal Cancer", 
-  "Gastric Cancer", "Pancreatic Cancer", "Liver Cancer", "Kidney Cancer", 
-  "Bladder Cancer", "Prostate Cancer", "Ovarian Cancer", "Cervical Cancer",
-  "Head and Neck Cancer", "Melanoma", "Lymphoma", "Leukemia", "Sarcoma", 
-  "Brain Cancer", "Thyroid Cancer", "Esophageal Cancer", "Bone Cancer",
-  "Ampullary Adenocarcinoma", "Anal Cancer", "Testicular Cancer", "Multiple Myeloma"
+  // Blood Cancers & Lymphomas
+  "Acute Lymphoblastic Leukemia", "Acute Myeloid Leukemia", "B-Cell Lymphomas", 
+  "Castleman Disease", "Chronic Lymphocytic Leukemia", "Chronic Myeloid Leukemia",
+  "Histiocytic Neoplasms", "Multiple Myeloma", "Hodgkin Lymphoma", 
+  "Primary Cutaneous Lymphomas", "Systemic Light Chain Amyloidosis", 
+  "Waldenström Macroglobulinemia",
+  
+  // Gastrointestinal Cancers
+  "Ampullary Adenocarcinoma", "Anal Carcinoma", "Biliary Tract Cancers", 
+  "Colon Cancer", "Colorectal Cancer", "Esophageal Cancer", "Gastric Cancer",
+  "Hepatocellular Carcinoma", "Pancreatic Cancer", "Small Bowel Cancer",
+  "Appendix Cancer", "Duodenal Cancer",
+  
+  // Genitourinary Cancers
+  "Bladder Cancer", "Prostate Cancer", "Kidney Cancer", "Testicular Cancer",
+  "Penile Cancer", "Urethral Cancer", "Wilms Tumor",
+  
+  // Gynecologic Cancers
+  "Cervical Cancer", "Endometrial Cancer", "Ovarian Cancer", "Vulvar Cancer",
+  "Vaginal Cancer", "Gestational Trophoblastic Disease", "Uterine Sarcoma",
+  
+  // Thoracic Cancers
+  "Non-Small Cell Lung Cancer", "Small Cell Lung Cancer", "Mesothelioma",
+  "Thymoma and Thymic Carcinoma", "Lung Carcinoid Tumors",
+  
+  // Breast Cancer
+  "Breast Cancer", "Male Breast Cancer",
+  
+  // Head & Neck
+  "Head and Neck Cancers", "Nasopharyngeal Cancer", "Salivary Gland Cancer",
+  "Thyroid Cancer", "Parathyroid Cancer",
+  
+  // Central Nervous System
+  "Central Nervous System Cancers", "Brain Tumors", "Spinal Cord Tumors",
+  "Meningioma", "Glioblastoma", "Astrocytoma",
+  
+  // Skin Cancers
+  "Melanoma", "Basal Cell Skin Cancer", "Squamous Cell Skin Cancer",
+  "Merkel Cell Carcinoma", "Dermatofibrosarcoma Protuberans",
+  
+  // Bone & Soft Tissue
+  "Bone Cancer", "Soft Tissue Sarcoma", "Osteosarcoma", "Ewing Sarcoma",
+  "Chondrosarcoma", "Gastrointestinal Stromal Tumors",
+  
+  // Endocrine
+  "Adrenal Gland Cancer", "Neuroendocrine Tumors", "Pheochromocytoma",
+  "Carcinoid Tumors",
+  
+  // Eye Cancers
+  "Ocular Melanoma", "Retinoblastoma",
+  
+  // Rare Cancers
+  "Neurofibromatosis", "Carcinoma of Unknown Primary", "AIDS-Related Malignancies",
+  "Cancer in Pregnancy", "Adolescent and Young Adult Oncology"
 ];
 
 const STAGES = ["0", "I", "IA", "IB", "II", "IIA", "IIB", "III", "IIIA", "IIIB", "IIIC", "IV", "IVA", "IVB"];
@@ -129,10 +177,106 @@ export const EnhancedInputPanel = memo<EnhancedInputPanelProps>(({
               <SelectTrigger>
                 <SelectValue placeholder="Select cancer type" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="max-h-96">
                 <SelectItem value="all">All cancer types</SelectItem>
-                {CANCER_TYPES.map(type => (
-                  <SelectItem key={type} value={type}>{type}</SelectItem>
+                <Separator />
+                
+                {/* Blood Cancers & Lymphomas */}
+                <div className="px-2 py-1 text-xs font-medium text-muted-foreground bg-muted/50">
+                  Blood Cancers & Lymphomas
+                </div>
+                {CANCER_TYPES.slice(0, 12).map(type => (
+                  <SelectItem key={type} value={type} className="pl-4">{type}</SelectItem>
+                ))}
+                <Separator />
+                
+                {/* Gastrointestinal Cancers */}
+                <div className="px-2 py-1 text-xs font-medium text-muted-foreground bg-muted/50">
+                  Gastrointestinal Cancers
+                </div>
+                {CANCER_TYPES.slice(12, 24).map(type => (
+                  <SelectItem key={type} value={type} className="pl-4">{type}</SelectItem>
+                ))}
+                <Separator />
+                
+                {/* Genitourinary Cancers */}
+                <div className="px-2 py-1 text-xs font-medium text-muted-foreground bg-muted/50">
+                  Genitourinary Cancers
+                </div>
+                {CANCER_TYPES.slice(24, 31).map(type => (
+                  <SelectItem key={type} value={type} className="pl-4">{type}</SelectItem>
+                ))}
+                <Separator />
+                
+                {/* Gynecologic Cancers */}
+                <div className="px-2 py-1 text-xs font-medium text-muted-foreground bg-muted/50">
+                  Gynecologic Cancers
+                </div>
+                {CANCER_TYPES.slice(31, 38).map(type => (
+                  <SelectItem key={type} value={type} className="pl-4">{type}</SelectItem>
+                ))}
+                <Separator />
+                
+                {/* Thoracic Cancers */}
+                <div className="px-2 py-1 text-xs font-medium text-muted-foreground bg-muted/50">
+                  Thoracic Cancers
+                </div>
+                {CANCER_TYPES.slice(38, 43).map(type => (
+                  <SelectItem key={type} value={type} className="pl-4">{type}</SelectItem>
+                ))}
+                <Separator />
+                
+                {/* Breast Cancer */}
+                <div className="px-2 py-1 text-xs font-medium text-muted-foreground bg-muted/50">
+                  Breast Cancer
+                </div>
+                {CANCER_TYPES.slice(43, 45).map(type => (
+                  <SelectItem key={type} value={type} className="pl-4">{type}</SelectItem>
+                ))}
+                <Separator />
+                
+                {/* Head & Neck */}
+                <div className="px-2 py-1 text-xs font-medium text-muted-foreground bg-muted/50">
+                  Head & Neck
+                </div>
+                {CANCER_TYPES.slice(45, 50).map(type => (
+                  <SelectItem key={type} value={type} className="pl-4">{type}</SelectItem>
+                ))}
+                <Separator />
+                
+                {/* Central Nervous System */}
+                <div className="px-2 py-1 text-xs font-medium text-muted-foreground bg-muted/50">
+                  Central Nervous System
+                </div>
+                {CANCER_TYPES.slice(50, 56).map(type => (
+                  <SelectItem key={type} value={type} className="pl-4">{type}</SelectItem>
+                ))}
+                <Separator />
+                
+                {/* Skin Cancers */}
+                <div className="px-2 py-1 text-xs font-medium text-muted-foreground bg-muted/50">
+                  Skin Cancers
+                </div>
+                {CANCER_TYPES.slice(56, 61).map(type => (
+                  <SelectItem key={type} value={type} className="pl-4">{type}</SelectItem>
+                ))}
+                <Separator />
+                
+                {/* Bone & Soft Tissue */}
+                <div className="px-2 py-1 text-xs font-medium text-muted-foreground bg-muted/50">
+                  Bone & Soft Tissue
+                </div>
+                {CANCER_TYPES.slice(61, 67).map(type => (
+                  <SelectItem key={type} value={type} className="pl-4">{type}</SelectItem>
+                ))}
+                <Separator />
+                
+                {/* Other Specialized Cancers */}
+                <div className="px-2 py-1 text-xs font-medium text-muted-foreground bg-muted/50">
+                  Other & Specialized Cancers
+                </div>
+                {CANCER_TYPES.slice(67).map(type => (
+                  <SelectItem key={type} value={type} className="pl-4">{type}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
