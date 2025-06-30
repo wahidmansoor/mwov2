@@ -1,0 +1,262 @@
+{
+  "export_metadata": {
+    "timestamp": "2025-06-30T18:00:00Z",
+    "version": "1.0",
+    "platform": "OncoVista AI",
+    "content_type": "clinical_guidelines_template",
+    "ai_compatibility": "optimized_for_llm_processing",
+    "export_purpose": "AI model content generation and modification"
+  },
+  "ai_processing_instructions": {
+    "parsing_rules": {
+      "pdf_extraction": "Extract medical content from JSON parsed PDFs (NCCN, ESMO, ASCO)",
+      "content_categorization": "Break down content into logical categories for correct module/section mapping",
+      "metadata_tagging": "Include tags to direct content to appropriate app sections",
+      "evidence_grading": "Preserve NCCN evidence categories (1, 2A, 2B, 3)",
+      "version_tracking": "Maintain guideline version numbers and update dates"
+    },
+    "content_mapping": {
+      "target_modules": {
+        "opd": "Outpatient screening, diagnosis, biomarker testing",
+        "cdu": "Treatment protocols, dosage calculations, monitoring",
+        "inpatient": "Emergency protocols, admission criteria, complications",
+        "palliative": "Symptom management, pain control, supportive care",
+        "education": "Learning content by difficulty level and subspecialty",
+        "tools": "Calculators, risk assessments, red flag alerts"
+      },
+      "section_mapping": {
+        "Module: OPD": ["screening", "diagnosis", "biomarkers", "risk_assessment"],
+        "Module: CDU": ["protocols", "dosing", "monitoring", "toxicity"],
+        "Module: Inpatient": ["emergency", "admission", "complications", "coordination"],
+        "Module: Palliative": ["symptoms", "pain", "medications", "quality_of_life"],
+        "Module: Education": ["topics", "scenarios", "questions", "analytics"],
+        "Module: Tools": ["calculators", "alerts", "assessments", "references"]
+      }
+    },
+    "validation_criteria": {
+      "medical_accuracy": "Verify against source guidelines",
+      "completeness": "Ensure all critical information captured",
+      "structure": "Maintain consistent JSON schema",
+      "references": "Preserve all source citations and evidence levels"
+    }
+  },
+  "database_schema_template": {
+    "nccn_guidelines": {
+      "table_structure": {
+        "id": "UUID primary key",
+        "reference_code": "String (e.g., 'LUNG-1', 'BREAST-2')",
+        "name": "String (guideline name)",
+        "version": "String (e.g., 'v4.2025')",
+        "category": "String (cancer category)",
+        "summary": "Text (comprehensive summary)",
+        "evidence_level": "String (Category 1, 2A, 2B, 3)",
+        "stages": "Array[String] (cancer stages)",
+        "biomarkers": "Array[String] (relevant biomarkers)",
+        "cross_references": "Array[String] (related guidelines)",
+        "created_at": "Timestamp",
+        "updated_at": "Timestamp"
+      },
+      "content_example": {
+        "reference_code": "NSCLC-1",
+        "name": "Non-Small Cell Lung Cancer Diagnostic Workup",
+        "version": "v4.2025",
+        "category": "Thoracic Malignancies",
+        "summary": "Initial workup recommendations for suspected NSCLC including imaging, biopsy, and molecular testing",
+        "evidence_level": "Category 1",
+        "stages": ["Stage I", "Stage II", "Stage III", "Stage IV"],
+        "biomarkers": ["EGFR", "ALK", "ROS1", "PD-L1", "KRAS"],
+        "cross_references": ["NSCLC-2", "NSCLC-3", "LUNG-SCREENING"]
+      }
+    },
+    "clinical_decision_support": {
+      "table_structure": {
+        "id": "UUID primary key",
+        "guideline_id": "UUID (foreign key to nccn_guidelines)",
+        "decision_point": "String (clinical decision point)",
+        "criteria": "JSONB (decision criteria)",
+        "recommendation": "Text (clinical recommendation)",
+        "evidence_level": "String",
+        "alternatives": "Array[String] (alternative approaches)",
+        "contraindications": "Array[String] (contraindications)",
+        "monitoring": "Array[String] (monitoring requirements)"
+      },
+      "content_example": {
+        "decision_point": "First-line systemic therapy for metastatic NSCLC",
+        "criteria": {
+          "stage": "IV",
+          "histology": "adenocarcinoma",
+          "biomarker_status": {
+            "EGFR": "mutated",
+            "PD-L1": "≥50%"
+          }
+        },
+        "recommendation": "Osimertinib 80mg daily OR combination immunotherapy based on biomarker profile",
+        "evidence_level": "Category 1",
+        "alternatives": ["Combination chemotherapy", "Clinical trial"],
+        "contraindications": ["Severe cardiac dysfunction", "Active interstitial lung disease"],
+        "monitoring": ["Monthly CBC", "Liver function", "Cardiac monitoring"]
+      }
+    },
+    "educational_topics": {
+      "table_structure": {
+        "id": "UUID primary key",
+        "title": "String (topic title)",
+        "category": "String (content category)",
+        "subspecialty": "String (medical oncology, radiation, palliative)",
+        "organ_site": "String (lung, breast, colon, etc.)",
+        "difficulty": "String (Resident, Fellow, Attending)",
+        "content": "Text (educational content)",
+        "learning_objectives": "Array[String] (learning goals)",
+        "key_concepts": "Array[String] (important concepts)",
+        "guideline_reference": "String (source guideline)",
+        "exam_relevance": "Array[String] (relevant board exams)",
+        "tags": "Array[String] (searchable tags)"
+      },
+      "content_example": {
+        "title": "EGFR-Mutated NSCLC Treatment Selection",
+        "category": "Treatment Protocols",
+        "subspecialty": "Medical Oncology",
+        "organ_site": "Lung",
+        "difficulty": "Fellow",
+        "content": "Comprehensive approach to selecting targeted therapy for EGFR-mutated non-small cell lung cancer...",
+        "learning_objectives": [
+          "Identify EGFR mutation subtypes and their clinical significance",
+          "Select appropriate first-line targeted therapy",
+          "Recognize resistance mechanisms and subsequent treatment options"
+        ],
+        "key_concepts": ["EGFR mutations", "Targeted therapy", "Resistance mechanisms"],
+        "guideline_reference": "NCCN NSCLC Guidelines v4.2025",
+        "exam_relevance": ["Medical Oncology Board", "Hematology/Oncology Fellowship"],
+        "tags": ["EGFR", "targeted therapy", "NSCLC", "biomarkers"]
+      }
+    }
+  },
+  "content_import_workflow": {
+    "step_1_pdf_parsing": {
+      "description": "Parse PDF guidelines into structured JSON",
+      "tools": ["PDF-to-JSON converters", "OCR systems", "AI text extraction"],
+      "output_format": "Structured JSON with content hierarchy",
+      "validation": "Verify accuracy against original PDF"
+    },
+    "step_2_content_categorization": {
+      "description": "Categorize content by module and section",
+      "mapping_rules": {
+        "screening_protocols": "Module: OPD, Section: screening",
+        "treatment_algorithms": "Module: CDU, Section: protocols",
+        "emergency_management": "Module: Inpatient, Section: emergency",
+        "symptom_control": "Module: Palliative, Section: symptoms",
+        "educational_content": "Module: Education, Section: topics"
+      },
+      "metadata_tags": ["Module: [module_name]", "Section: [section_name]", "Evidence: [level]"]
+    },
+    "step_3_database_insertion": {
+      "description": "Insert categorized content into appropriate database tables",
+      "validation_checks": [
+        "Schema compliance",
+        "Data integrity",
+        "Foreign key relationships",
+        "Content completeness"
+      ],
+      "post_import_verification": "Test module functionality with new content"
+    }
+  },
+  "ai_generation_prompts": {
+    "guideline_extraction": {
+      "prompt_template": "Extract clinical guideline content from the following JSON data and structure it for the OncoVista AI platform. Focus on: {cancer_type} guidelines for {module_name} module. Include evidence levels, biomarkers, and treatment recommendations. Format as: {schema_template}",
+      "variables": {
+        "cancer_type": "Specific cancer type from guideline",
+        "module_name": "Target OncoVista module",
+        "schema_template": "Appropriate database schema from template"
+      }
+    },
+    "educational_content": {
+      "prompt_template": "Create educational content for {difficulty_level} learners about {topic}. Include learning objectives, key concepts, and clinical scenarios. Base content on {guideline_reference} and format for the Education module.",
+      "variables": {
+        "difficulty_level": "Resident/Fellow/Attending",
+        "topic": "Specific educational topic",
+        "guideline_reference": "Source NCCN/ASCO/ESMO guideline"
+      }
+    },
+    "decision_support": {
+      "prompt_template": "Generate clinical decision support rules for {clinical_scenario}. Include decision criteria, recommendations, evidence levels, and monitoring requirements. Structure for the {target_module} module.",
+      "variables": {
+        "clinical_scenario": "Specific clinical decision point",
+        "target_module": "OPD/CDU/Inpatient/Palliative"
+      }
+    }
+  },
+  "quality_assurance": {
+    "content_validation": {
+      "medical_accuracy": "Cross-reference with original guidelines",
+      "completeness": "Verify all critical information captured",
+      "consistency": "Ensure uniform formatting and structure",
+      "evidence_preservation": "Maintain all evidence levels and references"
+    },
+    "technical_validation": {
+      "schema_compliance": "Validate against database schema",
+      "data_integrity": "Check for missing or malformed data",
+      "relationship_validation": "Verify foreign key relationships",
+      "performance_testing": "Test import and query performance"
+    },
+    "clinical_review": {
+      "expert_validation": "Clinical expert review of content accuracy",
+      "guideline_compliance": "Verify adherence to source guidelines",
+      "practice_alignment": "Ensure alignment with clinical practice",
+      "update_tracking": "Maintain version control and update history"
+    }
+  },
+  "export_examples": {
+    "module_exports": {
+      "opd_screening_export": {
+        "module": "OPD",
+        "section": "screening",
+        "content_type": "cancer_screening_protocols",
+        "data_structure": {
+          "cancer_types": ["lung", "breast", "colorectal", "prostate", "cervical"],
+          "age_groups": ["<40", "40-49", "50-64", "65-74", "≥75"],
+          "risk_factors": ["family_history", "genetic_mutations", "environmental"],
+          "screening_intervals": "age_and_risk_based",
+          "biomarker_testing": "indicated_by_cancer_type"
+        }
+      },
+      "cdu_protocol_export": {
+        "module": "CDU",
+        "section": "protocols",
+        "content_type": "treatment_protocols",
+        "data_structure": {
+          "protocol_name": "standard_naming_convention",
+          "cancer_type": "primary_cancer_site",
+          "regimen_details": {
+            "medications": "drug_names_and_classes",
+            "dosing": "mg_per_m2_or_fixed_dose",
+            "schedule": "day_1_8_15_q21_format",
+            "cycle_length": "days",
+            "total_cycles": "number_or_until_progression"
+          },
+          "monitoring": ["labs", "imaging", "toxicity_assessments"],
+          "modifications": "dose_reduction_criteria"
+        }
+      }
+    }
+  },
+  "integration_guidelines": {
+    "api_endpoints": {
+      "import_endpoint": "/api/import/guidelines",
+      "validation_endpoint": "/api/validate/content",
+      "export_endpoint": "/api/export/template",
+      "status_endpoint": "/api/import/status"
+    },
+    "file_formats": {
+      "supported_inputs": ["JSON", "CSV", "XML"],
+      "output_format": "JSON with metadata",
+      "batch_processing": "support_for_multiple_files",
+      "error_handling": "detailed_validation_reports"
+    },
+    "performance_considerations": {
+      "batch_size": "Process 100-500 records per batch",
+      "timeout_handling": "30-second timeout per operation",
+      "memory_management": "Stream large files to prevent memory issues",
+      "error_recovery": "Rollback failed imports with detailed logging"
+    }
+  }
+}

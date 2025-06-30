@@ -5,6 +5,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import Logo from "@/components/common/Logo";
 import { useAuth } from "@/hooks/useAuth";
 import { usePermissions } from "@/hooks/usePermissions";
+import HelpSystem from "@/components/help/HelpSystem";
 import {
   Menu,
   Settings,
@@ -242,6 +243,7 @@ function Sidebar({ className = "" }: { className?: string }) {
 
       {/* Bottom Actions */}
       <div className="p-4 border-t border-slate-200 space-y-2">
+        <HelpSystem />
         <Button variant="ghost" className="w-full justify-start">
           <Settings className="w-4 h-4 mr-3" />
           Settings
@@ -264,6 +266,7 @@ function Header() {
         <Logo />
         
         <div className="flex items-center space-x-4">
+          <HelpSystem />
           <Button variant="ghost" size="sm">
             <Bell className="w-4 h-4" />
           </Button>
