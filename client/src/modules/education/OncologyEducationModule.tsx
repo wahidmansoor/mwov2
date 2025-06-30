@@ -44,9 +44,9 @@ const OncologyEducationModule: React.FC = () => {
     queryKey: ['/api/educational/topics', selectedDifficulty, selectedSpecialty, selectedOrganSite],
     queryFn: async () => {
       const params = new URLSearchParams();
-      if (selectedDifficulty) params.append('difficulty', selectedDifficulty);
-      if (selectedSpecialty) params.append('subspecialty', selectedSpecialty);
-      if (selectedOrganSite) params.append('organSite', selectedOrganSite);
+      if (selectedDifficulty && selectedDifficulty !== 'all') params.append('difficulty', selectedDifficulty);
+      if (selectedSpecialty && selectedSpecialty !== 'all') params.append('subspecialty', selectedSpecialty);
+      if (selectedOrganSite && selectedOrganSite !== 'all') params.append('organSite', selectedOrganSite);
       
       const response = await fetch(`/api/educational/topics?${params}`);
       if (!response.ok) throw new Error('Failed to fetch topics');
@@ -59,7 +59,7 @@ const OncologyEducationModule: React.FC = () => {
     queryKey: ['/api/educational/scenarios', selectedDifficulty],
     queryFn: async () => {
       const params = new URLSearchParams();
-      if (selectedDifficulty) params.append('difficulty', selectedDifficulty);
+      if (selectedDifficulty && selectedDifficulty !== 'all') params.append('difficulty', selectedDifficulty);
       
       const response = await fetch(`/api/educational/scenarios?${params}`);
       if (!response.ok) throw new Error('Failed to fetch scenarios');
@@ -104,7 +104,7 @@ const OncologyEducationModule: React.FC = () => {
             <SelectValue placeholder="Difficulty Level" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">All Levels</SelectItem>
+            <SelectItem value="all">All Levels</SelectItem>
             <SelectItem value="Resident">Resident</SelectItem>
             <SelectItem value="Fellow">Fellow</SelectItem>
             <SelectItem value="Attending">Attending</SelectItem>
@@ -116,7 +116,7 @@ const OncologyEducationModule: React.FC = () => {
             <SelectValue placeholder="Subspecialty" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">All Specialties</SelectItem>
+            <SelectItem value="all">All Specialties</SelectItem>
             <SelectItem value="Medical Oncology">Medical Oncology</SelectItem>
             <SelectItem value="Radiation Oncology">Radiation Oncology</SelectItem>
             <SelectItem value="Surgical Oncology">Surgical Oncology</SelectItem>
@@ -129,7 +129,7 @@ const OncologyEducationModule: React.FC = () => {
             <SelectValue placeholder="Organ Site" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">All Sites</SelectItem>
+            <SelectItem value="all">All Sites</SelectItem>
             <SelectItem value="Breast">Breast</SelectItem>
             <SelectItem value="Lung">Lung</SelectItem>
             <SelectItem value="Colon">Colon</SelectItem>
