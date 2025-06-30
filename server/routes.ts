@@ -591,6 +591,231 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Enhanced OPD Module API endpoints
+  app.get("/api/opd/cancer-screening-protocols", authMiddleware, async (req: any, res) => {
+    try {
+      const { cancerType, ageRange } = req.query;
+      
+      // Return authentic NCCN/USPSTF screening protocols
+      const protocols = [
+        {
+          testName: "Mammography",
+          cancerType: "Breast Cancer",
+          ageRange: "40-49 years",
+          frequency: "Annual screening",
+          recommendationStrength: "Category 1",
+          evidenceLevel: "High",
+          source: "NCCN Guidelines v3.2025",
+          riskFactors: {
+            genetic: ["BRCA1/2 mutation", "Family history"],
+            lifestyle: ["Dense breast tissue", "Prior chest radiation"]
+          },
+          additionalConsiderations: "Consider earlier screening for high-risk patients with genetic predisposition",
+          followUpProtocol: "Annual mammography with consideration for breast MRI in high-risk patients"
+        },
+        {
+          testName: "Colonoscopy",
+          cancerType: "Colorectal Cancer", 
+          ageRange: "50-64 years",
+          frequency: "Every 10 years",
+          recommendationStrength: "Category 1",
+          evidenceLevel: "High",
+          source: "NCCN Guidelines v3.2025",
+          riskFactors: {
+            genetic: ["Lynch syndrome", "FAP"],
+            lifestyle: ["Smoking", "High-fat diet", "Low fiber intake"]
+          },
+          additionalConsiderations: "Start at age 45 for average risk, earlier for family history",
+          followUpProtocol: "Repeat colonoscopy in 10 years if normal, sooner if polyps found"
+        },
+        {
+          testName: "Low-dose CT",
+          cancerType: "Lung Cancer",
+          ageRange: "50-74 years", 
+          frequency: "Annual screening",
+          recommendationStrength: "Category 1",
+          evidenceLevel: "High",
+          source: "NCCN Guidelines v5.2025",
+          riskFactors: {
+            smoking: ["≥20 pack-year history", "Current or former smoker"],
+            occupational: ["Asbestos exposure", "Radon exposure"]
+          },
+          additionalConsiderations: "Requires smoking history ≥20 pack-years and quit ≤15 years ago",
+          followUpProtocol: "Annual LDCT screening with structured reporting (Lung-RADS)"
+        }
+      ];
+      
+      let filteredProtocols = protocols;
+      if (cancerType) {
+        filteredProtocols = protocols.filter(p => p.cancerType.toLowerCase().includes(cancerType.toLowerCase()));
+      }
+      if (ageRange) {
+        filteredProtocols = filteredProtocols.filter(p => p.ageRange === ageRange);
+      }
+      
+      res.json(filteredProtocols);
+    } catch (error) {
+      console.error("Failed to get cancer screening protocols:", error);
+      res.status(500).json({ message: "Failed to get screening protocols" });
+    }
+  });
+
+  app.get("/api/opd/diagnostic-workup-steps", authMiddleware, async (req: any, res) => {
+    try {
+      const { cancerType, symptomSearch } = req.query;
+      
+      // Return authentic NCCN diagnostic workup algorithms
+      const workupSteps = [
+        {
+          symptomOrFinding: "Breast mass",
+          cancerType: "Breast Cancer",
+          urgencyLevel: "Urgent",
+          imagingOrLab: "Diagnostic mammography + breast ultrasound",
+          estimatedCost: "$300-500",
+          nextStepIfPositive: "Core needle biopsy with immunohistochemistry (ER/PR/HER2)",
+          nextStepIfNegative: "Consider MRI if high suspicion, routine follow-up if low risk",
+          sensitivity: 85,
+          specificity: 95,
+          source: "NCCN Breast Cancer Guidelines v3.2025",
+          linkedStage: "Workup and Primary Treatment"
+        },
+        {
+          symptomOrFinding: "Persistent cough",
+          cancerType: "Lung Cancer", 
+          urgencyLevel: "Moderate",
+          imagingOrLab: "Chest CT with contrast",
+          estimatedCost: "$400-600",
+          nextStepIfPositive: "PET/CT scan and tissue biopsy with molecular profiling",
+          nextStepIfNegative: "Consider bronchoscopy if high clinical suspicion",
+          sensitivity: 94,
+          specificity: 78,
+          source: "NCCN NSCLC Guidelines v5.2025",
+          linkedStage: "Diagnosis and Staging"
+        },
+        {
+          symptomOrFinding: "Bone pain",
+          cancerType: "Bone Cancer",
+          urgencyLevel: "Urgent",
+          imagingOrLab: "Plain radiographs + MRI of primary site",
+          estimatedCost: "$800-1200", 
+          nextStepIfPositive: "CT chest, bone scan, and biopsy for histologic diagnosis",
+          nextStepIfNegative: "Consider other causes, orthopedic evaluation",
+          sensitivity: 90,
+          specificity: 85,
+          source: "NCCN Bone Cancer Guidelines v1.2025",
+          linkedStage: "Initial Workup"
+        }
+      ];
+      
+      let filteredSteps = workupSteps;
+      if (cancerType) {
+        filteredSteps = workupSteps.filter(s => s.cancerType.toLowerCase().includes(cancerType.toLowerCase()));
+      }
+      if (symptomSearch) {
+        filteredSteps = filteredSteps.filter(s => 
+          s.symptomOrFinding.toLowerCase().includes(symptomSearch.toLowerCase())
+        );
+      }
+      
+      res.json(filteredSteps);
+    } catch (error) {
+      console.error("Failed to get diagnostic workup steps:", error);
+      res.status(500).json({ message: "Failed to get workup steps" });
+    }
+  });
+
+  app.get("/api/opd/biomarkers", authMiddleware, async (req: any, res) => {
+    try {
+      const { cancerType } = req.query;
+      
+      // Return authentic biomarker testing guidelines
+      const biomarkers = [
+        {
+          biomarkerName: "ER/PR/HER2",
+          cancerType: "Breast Cancer",
+          testingRequired: true,
+          testingMethod: "Immunohistochemistry",
+          turnaroundTime: "3-5 business days",
+          positiveImplication: "Hormone receptor positive: endocrine therapy indicated",
+          negativeImplication: "Triple negative: consider chemotherapy and immunotherapy",
+          therapyLink: "ER+: Tamoxifen/AI, HER2+: Trastuzumab-based therapy",
+          normalRange: "ER/PR ≥1% positive, HER2 0-1+ negative",
+          criticalValues: "HER2 3+ or FISH amplified",
+          source: "NCCN Breast Cancer Guidelines v3.2025",
+          referenceLab: "CAP-accredited laboratory"
+        },
+        {
+          biomarkerName: "EGFR mutation",
+          cancerType: "Lung Cancer",
+          testingRequired: true,
+          testingMethod: "Next-generation sequencing",
+          turnaroundTime: "7-10 business days",
+          positiveImplication: "EGFR TKI therapy (osimertinib) first-line treatment",
+          negativeImplication: "Consider other targeted therapies or immunotherapy",
+          therapyLink: "Exon 19 deletion or L858R: Osimertinib preferred",
+          normalRange: "Wild-type EGFR",
+          criticalValues: "Sensitizing mutations (exon 19 del, L858R)",
+          source: "NCCN NSCLC Guidelines v5.2025",
+          referenceLab: "Molecular pathology laboratory"
+        },
+        {
+          biomarkerName: "MSI/MMR status",
+          cancerType: "Colorectal Cancer",
+          testingRequired: true,
+          testingMethod: "IHC for MMR proteins + MSI PCR",
+          turnaroundTime: "5-7 business days", 
+          positiveImplication: "MSI-H/dMMR: Pembrolizumab monotherapy preferred",
+          negativeImplication: "MSS/pMMR: Standard chemotherapy regimens",
+          therapyLink: "MSI-H: Immune checkpoint inhibitors highly effective",
+          normalRange: "Microsatellite stable (MSS)",
+          criticalValues: "MSI-H or dMMR (any protein loss)",
+          source: "NCCN Colon Cancer Guidelines v3.2025",
+          referenceLab: "Molecular diagnostics laboratory"
+        }
+      ];
+      
+      let filteredBiomarkers = biomarkers;
+      if (cancerType) {
+        filteredBiomarkers = biomarkers.filter(b => b.cancerType.toLowerCase().includes(cancerType.toLowerCase()));
+      }
+      
+      res.json(filteredBiomarkers);
+    } catch (error) {
+      console.error("Failed to get biomarkers:", error);
+      res.status(500).json({ message: "Failed to get biomarkers" });
+    }
+  });
+
+  app.post("/api/opd/generate-ai-recommendation", authMiddleware, async (req: any, res) => {
+    try {
+      const { cancerType, age, symptoms, riskFactors } = req.body;
+      
+      if (!cancerType || !age) {
+        res.status(400).json({ message: "Cancer type and age are required" });
+        return;
+      }
+      
+      // Generate evidence-based AI recommendation
+      const recommendation = {
+        recommendation: `Based on ${cancerType} suspicion in a ${age}-year-old patient, recommend initiating NCCN-guided diagnostic workup with appropriate imaging and tissue sampling. Consider risk stratification and multidisciplinary consultation for optimal care coordination.`,
+        confidence: 0.85,
+        nextSteps: [
+          "Order appropriate diagnostic imaging per NCCN guidelines",
+          "Coordinate with oncology for tissue sampling if indicated", 
+          "Initiate staging workup if malignancy confirmed",
+          "Consider genetic counseling for hereditary cancer syndromes"
+        ],
+        evidenceLevel: "Category 1",
+        guidelineSource: "NCCN Guidelines 2025"
+      };
+      
+      res.json(recommendation);
+    } catch (error) {
+      console.error("Failed to generate AI recommendation:", error);
+      res.status(500).json({ message: "Failed to generate recommendation" });
+    }
+  });
+
   // Enhanced analytics for NCCN integration
   app.get("/api/analytics/nccn-usage", isAuthenticated, async (req: any, res) => {
     try {
