@@ -11,10 +11,11 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import { useQuery } from "@tanstack/react-query";
 import { 
-  Syringe, Calculator, AlertTriangle, Shield, Activity, Heart, Brain, Search, 
+  Syringe, Pill, AlertTriangle, Shield, Activity, Heart, Brain, Search, 
   Download, Filter, FileText, Users, ChevronDown, ChevronUp, ExternalLink, 
   Printer, CheckCircle, XCircle, Droplets, Zap, Clock
 } from "lucide-react";
+import { MedicationsSegment } from "./MedicationsSegment";
 
 // ISSUE #8: Comprehensive Cancer Types (25 types)
 const CANCER_TYPES = [
@@ -937,7 +938,7 @@ const TreatmentProtocols = () => {
       {/* Database Source Indicator */}
       <div className="text-xs text-muted-foreground text-center pt-4">
         Data source: {dbProtocols ? 'Authentic cd_protocols database' : 'Fallback protocols'} 
-        {dbProtocols && ` • ${dbProtocols.length} protocols loaded`}
+        {dbProtocols && Array.isArray(dbProtocols) && ` • ${dbProtocols.length} protocols loaded`}
       </div>
     </div>
   );
@@ -1069,77 +1070,7 @@ const SafetyMonitoringDashboard = () => {
   );
 };
 
-// Dosage Calculator Component
-const DosageCalculator = () => {
-  const [height, setHeight] = useState("");
-  const [weight, setWeight] = useState("");
-  const [bsa, setBsa] = useState(0);
 
-  const calculateBSA = () => {
-    if (height && weight) {
-      const h = parseFloat(height);
-      const w = parseFloat(weight);
-      const calculatedBSA = Math.sqrt((h * w) / 3600);
-      setBsa(Math.round(calculatedBSA * 100) / 100);
-    }
-  };
-
-  return (
-    <div className="space-y-6">
-      <div className="grid md:grid-cols-2 gap-6">
-        <Card className="border-l-4 border-l-blue-500">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Calculator className="h-5 w-5 text-blue-600" />BSA Calculator
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="text-sm font-medium">Height (cm)</label>
-                  <Input type="number" placeholder="170" value={height} onChange={(e) => setHeight(e.target.value)} />
-                </div>
-                <div>
-                  <label className="text-sm font-medium">Weight (kg)</label>
-                  <Input type="number" placeholder="70" value={weight} onChange={(e) => setWeight(e.target.value)} />
-                </div>
-              </div>
-              <Button onClick={calculateBSA} className="w-full">Calculate BSA</Button>
-              {bsa > 0 && (
-                <div className="p-4 bg-blue-50 rounded-lg">
-                  <p className="font-medium">BSA: {bsa} m²</p>
-                  <p className="text-sm text-muted-foreground">Dubois & Dubois formula</p>
-                </div>
-              )}
-            </div>
-          </CardContent>
-        </Card>
-        
-        <Card className="border-l-4 border-l-green-500">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Zap className="h-5 w-5 text-green-600" />Carboplatin AUC Calculator
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <div>
-                <label className="text-sm font-medium">Target AUC</label>
-                <Input type="number" placeholder="6" />
-              </div>
-              <div>
-                <label className="text-sm font-medium">Creatinine Clearance (mL/min)</label>
-                <Input type="number" placeholder="100" />
-              </div>
-              <Button className="w-full">Calculate Dose</Button>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-    </div>
-  );
-};
 
 // Toxicity Management Component
 const ToxicityManagement = () => (
@@ -1241,7 +1172,7 @@ export default function CDUModuleComplete() {
         <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="protocols">Treatment Protocols</TabsTrigger>
           <TabsTrigger value="planner">Treatment Plan Selector</TabsTrigger>
-          <TabsTrigger value="calculator">Dosage Calculator</TabsTrigger>
+          <TabsTrigger value="medications">Oncology Medications</TabsTrigger>
           <TabsTrigger value="toxicity">Toxicity Management</TabsTrigger>
           <TabsTrigger value="monitoring">Safety Monitoring</TabsTrigger>
         </TabsList>
@@ -1391,8 +1322,8 @@ export default function CDUModuleComplete() {
           </div>
         </TabsContent>
         
-        <TabsContent value="calculator" className="space-y-6">
-          <DosageCalculator />
+        <TabsContent value="medications" className="space-y-6">
+          <MedicationsSegment />
         </TabsContent>
         
         <TabsContent value="toxicity" className="space-y-6">

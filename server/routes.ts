@@ -279,6 +279,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // CDU Module specific endpoint for oncology medications
+  app.get("/api/cdu/medications", authMiddleware, async (req: any, res) => {
+    try {
+      const { classification, isChemotherapy, isImmunotherapy, isTargetedTherapy, search } = req.query;
+      const medications = await storage.getOncologyMedications({
+        classification: classification as string,
+        isChemotherapy: isChemotherapy === 'true',
+        isImmunotherapy: isImmunotherapy === 'true',
+        isTargetedTherapy: isTargetedTherapy === 'true',
+        search: search as string
+      });
+      res.json(medications);
+    } catch (error) {
+      console.error("Failed to get oncology medications:", error);
+      res.status(500).json({ message: "Failed to get oncology medications" });
+    }
+  });
+
   app.get("/api/cd-protocols/:id", authMiddleware, async (req: any, res) => {
     try {
       const protocol = await storage.getCdProtocol(req.params.id);

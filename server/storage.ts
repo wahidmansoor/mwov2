@@ -78,7 +78,7 @@ export interface IStorage {
   updateCdProtocol(id: string, updates: Partial<CdProtocol>): Promise<CdProtocol | undefined>;
   
   // Oncology medications
-  getOncologyMedications(filters?: { classification?: string; cancerType?: string; route?: string; search?: string }): Promise<OncologyMedication[]>;
+  getOncologyMedications(filters?: { classification?: string; isChemotherapy?: boolean; isImmunotherapy?: boolean; isTargetedTherapy?: boolean; search?: string }): Promise<OncologyMedication[]>;
   getOncologyMedication(id: string): Promise<OncologyMedication | undefined>;
   createOncologyMedication(medication: InsertOncologyMedication): Promise<OncologyMedication>;
   updateOncologyMedication(id: string, updates: Partial<OncologyMedication>): Promise<OncologyMedication | undefined>;
@@ -410,25 +410,39 @@ export class DatabaseStorage implements IStorage {
     return await db.select().from(cdProtocols);
   }
 
-  // Capital letters version for API compatibility
-  async getCDProtocols(): Promise<CdProtocol[]> {
-    return await db.select().from(cdProtocols);
-  }
-
   // Oncology medications methods
-  async getOncologyMedications(filters?: { classification?: string; cancerType?: string; route?: string; search?: string }): Promise<OncologyMedication[]> {
+  async getOncologyMedications(filters?: { classification?: string; isChemotherapy?: boolean; isImmunotherapy?: boolean; isTargetedTherapy?: boolean; search?: string }): Promise<OncologyMedication[]> {
     let query = db.select().from(oncologyMedications);
+    const conditions = [];
+    
+    if (filters?.classification) {
+      conditions.push(sql`${oncologyMedications.classification} ILIKE ${'%' + filters.classification + '%'}`);
+    }
+    
+    if (filters?.isChemotherapy !== undefined) {
+      conditions.push(eq(oncologyMedications.isChemotherapy, filters.isChemotherapy));
+    }
+    
+    if (filters?.isImmunotherapy !== undefined) {
+      conditions.push(eq(oncologyMedications.isImmunotherapy, filters.isImmunotherapy));
+    }
+    
+    if (filters?.isTargetedTherapy !== undefined) {
+      conditions.push(eq(oncologyMedications.isTargetedTherapy, filters.isTargetedTherapy));
+    }
     
     if (filters?.search) {
-      // Simple search implementation - can be enhanced with full-text search
       const searchTerm = `%${filters.search.toLowerCase()}%`;
-      query = query.where(
-        // Search by name or classification
-        sql`LOWER(${oncologyMedications.name}) LIKE ${searchTerm} OR LOWER(${oncologyMedications.classification}) LIKE ${searchTerm}`
+      conditions.push(
+        sql`LOWER(${oncologyMedications.name}) LIKE ${searchTerm} OR LOWER(${oncologyMedications.classification}) LIKE ${searchTerm} OR LOWER(${oncologyMedications.summary}) LIKE ${searchTerm}`
       );
     }
     
-    return await query;
+    if (conditions.length > 0) {
+      query = query.where(sql`${conditions.reduce((acc, condition, index) => index === 0 ? condition : sql`${acc} AND ${condition}`)}`);
+    }
+    
+    return await query.orderBy(oncologyMedications.name);
   }
 
   async getOncologyMedication(id: string): Promise<OncologyMedication | undefined> {
