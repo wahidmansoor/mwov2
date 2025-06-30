@@ -2495,6 +2495,95 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Educational Content API Endpoints - Real NCCN/ASCO/ESMO Data Integration
+  app.get("/api/educational/topics", authMiddleware, async (req: any, res) => {
+    try {
+      const { category, subspecialty, organSite, difficulty, guidelineReference } = req.query;
+      const topics = await storage.getEducationalTopics({
+        category: category || undefined,
+        subspecialty: subspecialty || undefined,
+        organSite: organSite || undefined,
+        difficulty: difficulty || undefined,
+        guidelineReference: guidelineReference || undefined
+      });
+      res.json(topics);
+    } catch (error) {
+      console.error("Failed to get educational topics:", error);
+      res.status(500).json({ message: "Failed to get educational topics" });
+    }
+  });
+
+  app.get("/api/educational/scenarios", authMiddleware, async (req: any, res) => {
+    try {
+      const { difficulty, organSite, scenario } = req.query;
+      const scenarios = await storage.getClinicalScenarios({
+        difficulty: difficulty || undefined,
+        organSite: organSite || undefined,
+        scenario: scenario || undefined
+      });
+      res.json(scenarios);
+    } catch (error) {
+      console.error("Failed to get clinical scenarios:", error);
+      res.status(500).json({ message: "Failed to get clinical scenarios" });
+    }
+  });
+
+  app.get("/api/educational/questions", authMiddleware, async (req: any, res) => {
+    try {
+      const { topicId, difficulty, questionType } = req.query;
+      const questions = await storage.getQuestions({
+        topicId: topicId || undefined,
+        difficulty: difficulty || undefined,
+        questionType: questionType || undefined
+      });
+      res.json(questions);
+    } catch (error) {
+      console.error("Failed to get questions:", error);
+      res.status(500).json({ message: "Failed to get questions" });
+    }
+  });
+
+  app.get("/api/educational/analytics/:sessionId", authMiddleware, async (req: any, res) => {
+    try {
+      const { sessionId } = req.params;
+      const analytics = await storage.getLearningProgress(sessionId);
+      res.json(analytics);
+    } catch (error) {
+      console.error("Failed to get learning analytics:", error);
+      res.status(500).json({ message: "Failed to get learning analytics" });
+    }
+  });
+
+  app.post("/api/educational/learning-session", authMiddleware, async (req: any, res) => {
+    try {
+      const session = await storage.createLearningSession(req.body);
+      res.json(session);
+    } catch (error) {
+      console.error("Failed to create learning session:", error);
+      res.status(500).json({ message: "Failed to create learning session" });
+    }
+  });
+
+  app.post("/api/educational/learning-progress", authMiddleware, async (req: any, res) => {
+    try {
+      const progress = await storage.createLearningProgress(req.body);
+      res.json(progress);
+    } catch (error) {
+      console.error("Failed to create learning progress:", error);
+      res.status(500).json({ message: "Failed to create learning progress" });
+    }
+  });
+
+  app.post("/api/educational/ai-interaction", authMiddleware, async (req: any, res) => {
+    try {
+      const interaction = await storage.createEducationalAiInteraction(req.body);
+      res.json(interaction);
+    } catch (error) {
+      console.error("Failed to create AI interaction:", error);
+      res.status(500).json({ message: "Failed to create AI interaction" });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }

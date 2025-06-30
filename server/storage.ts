@@ -1057,6 +1057,8 @@ export class DatabaseStorage implements IStorage {
   async getClinicalScenarios(filters?: { 
     topicId?: string; 
     difficulty?: string; 
+    organSite?: string;
+    scenario?: string;
     guidelineReference?: string;
   }): Promise<ClinicalScenario[]> {
     let query = db.select().from(clinicalScenarios).where(eq(clinicalScenarios.isActive, true));
@@ -1114,6 +1116,26 @@ export class DatabaseStorage implements IStorage {
       .values(insertQuestion)
       .returning();
     return question;
+  }
+
+  async getQuestions(filters?: { 
+    topicId?: string; 
+    difficulty?: string; 
+    questionType?: string;
+  }): Promise<Question[]> {
+    let query = db.select().from(questionBank).where(eq(questionBank.isActive, true));
+    
+    if (filters?.topicId) {
+      query = query.where(eq(questionBank.topicId, filters.topicId));
+    }
+    if (filters?.difficulty) {
+      query = query.where(eq(questionBank.difficulty, filters.difficulty));
+    }
+    if (filters?.questionType) {
+      query = query.where(eq(questionBank.questionType, filters.questionType));
+    }
+    
+    return await query.orderBy(questionBank.createdAt);
   }
 
   async createLearningSession(insertSession: InsertLearningSession): Promise<LearningSession> {
@@ -1180,6 +1202,22 @@ export class DatabaseStorage implements IStorage {
   async createAiInteraction(insertInteraction: InsertAiInteraction): Promise<AiInteraction> {
     const [interaction] = await db
       .insert(aiInteractions)
+      .values(insertInteraction)
+      .returning();
+    return interaction;
+  }
+
+  async createLearningProgress(insertProgress: InsertLearningProgress): Promise<LearningProgress> {
+    const [progress] = await db
+      .insert(learningProgress)
+      .values(insertProgress)
+      .returning();
+    return progress;
+  }
+
+  async createEducationalAiInteraction(insertInteraction: InsertEducationalAiInteraction): Promise<EducationalAiInteraction> {
+    const [interaction] = await db
+      .insert(educationalAiInteractions)
       .values(insertInteraction)
       .returning();
     return interaction;
