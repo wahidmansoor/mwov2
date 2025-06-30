@@ -64,6 +64,15 @@ const CancerScreeningSection = () => {
 
   const { data: screeningProtocols, isLoading } = useQuery({
     queryKey: ['/api/opd/cancer-screening-protocols', selectedCancer, selectedAge],
+    queryFn: async () => {
+      const params = new URLSearchParams();
+      if (selectedCancer) params.append('cancerType', selectedCancer);
+      if (selectedAge) params.append('ageRange', selectedAge);
+      
+      const response = await fetch(`/api/opd/cancer-screening-protocols?${params.toString()}`);
+      if (!response.ok) throw new Error('Failed to fetch screening protocols');
+      return response.json();
+    },
     enabled: true
   });
 
@@ -205,6 +214,15 @@ const DiagnosticWorkupSection = () => {
 
   const { data: workupSteps, isLoading } = useQuery({
     queryKey: ['/api/opd/diagnostic-workup-steps', selectedCancer, symptomSearch],
+    queryFn: async () => {
+      const params = new URLSearchParams();
+      if (selectedCancer) params.append('cancerType', selectedCancer);
+      if (symptomSearch) params.append('symptomSearch', symptomSearch);
+      
+      const response = await fetch(`/api/opd/diagnostic-workup-steps?${params.toString()}`);
+      if (!response.ok) throw new Error('Failed to fetch diagnostic workup steps');
+      return response.json();
+    },
     enabled: selectedCancer !== "" || symptomSearch !== ""
   });
 
@@ -340,6 +358,14 @@ const BiomarkerTestingSection = () => {
   
   const { data: biomarkers, isLoading } = useQuery({
     queryKey: ['/api/opd/biomarkers', selectedCancer],
+    queryFn: async () => {
+      const params = new URLSearchParams();
+      if (selectedCancer) params.append('cancerType', selectedCancer);
+      
+      const response = await fetch(`/api/opd/biomarkers?${params.toString()}`);
+      if (!response.ok) throw new Error('Failed to fetch biomarkers');
+      return response.json();
+    },
     enabled: selectedCancer !== ""
   });
 
@@ -444,6 +470,162 @@ const BiomarkerTestingSection = () => {
           ) : (
             <div className="text-center py-8 text-muted-foreground">
               Select cancer type to view evidence-based biomarker testing guidelines
+            </div>
+          )}
+        </CardContent>
+      </Card>
+    </div>
+  );
+};
+
+// Referral Guidelines Component with Real Data
+const ReferralGuidelinesSection = () => {
+  const [selectedCancer, setSelectedCancer] = useState("");
+  const [selectedUrgency, setSelectedUrgency] = useState("");
+
+  const { data: referralGuidelines, isLoading } = useQuery({
+    queryKey: ['/api/opd/referral-guidelines', selectedCancer, selectedUrgency],
+    queryFn: async () => {
+      const params = new URLSearchParams();
+      if (selectedCancer) params.append('cancerType', selectedCancer);
+      if (selectedUrgency) params.append('urgencyLevel', selectedUrgency);
+      
+      const response = await fetch(`/api/opd/referral-guidelines?${params.toString()}`);
+      if (!response.ok) throw new Error('Failed to fetch referral guidelines');
+      return response.json();
+    },
+    enabled: selectedCancer !== "" || selectedUrgency !== ""
+  });
+
+  const cancerTypes = [
+    "Breast Cancer", "Lung Cancer", "Colorectal Cancer", "Prostate Cancer"
+  ];
+
+  const urgencyLevels = ["Urgent", "Routine"];
+
+  return (
+    <div className="space-y-6">
+      <Card className="border-l-4 border-l-red-500">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <UserPlus className="h-5 w-5 text-red-600" />
+            NCCN Referral Guidelines
+          </CardTitle>
+          <CardDescription>
+            Evidence-based referral criteria and timeframes from NCCN Guidelines
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Cancer Type</label>
+              <Select value={selectedCancer} onValueChange={setSelectedCancer}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select cancer type" />
+                </SelectTrigger>
+                <SelectContent>
+                  {cancerTypes.map(type => (
+                    <SelectItem key={type} value={type}>{type}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Urgency Level</label>
+              <Select value={selectedUrgency} onValueChange={setSelectedUrgency}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select urgency level" />
+                </SelectTrigger>
+                <SelectContent>
+                  {urgencyLevels.map(level => (
+                    <SelectItem key={level} value={level}>{level}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          {isLoading ? (
+            <div className="flex items-center justify-center py-8">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-red-600"></div>
+            </div>
+          ) : referralGuidelines && referralGuidelines.length > 0 ? (
+            <div className="space-y-6">
+              {referralGuidelines.map((guideline: any, index: number) => (
+                <Card key={index} className="p-6">
+                  <div className="space-y-4">
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <h4 className="font-semibold text-lg">{guideline.cancerType}</h4>
+                        <p className="text-sm text-muted-foreground">{guideline.specialtyRequired}</p>
+                      </div>
+                      <Badge variant={guideline.urgencyLevel === 'Urgent' ? 'destructive' : 'secondary'}>
+                        {guideline.urgencyLevel} - {guideline.timeframe}
+                      </Badge>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="space-y-4">
+                        <div>
+                          <h5 className="font-medium text-sm mb-2 flex items-center gap-2">
+                            <CheckCircle2 className="h-4 w-4 text-green-600" />
+                            Referral Criteria
+                          </h5>
+                          <div className="space-y-1">
+                            {guideline.referralCriteria.map((criteria: string, idx: number) => (
+                              <div key={idx} className="text-sm pl-6 relative">
+                                <span className="absolute left-0 top-1">•</span>
+                                {criteria}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div>
+                          <h5 className="font-medium text-sm mb-2 flex items-center gap-2">
+                            <BookOpen className="h-4 w-4 text-blue-600" />
+                            Required Documentation
+                          </h5>
+                          <div className="space-y-1">
+                            {guideline.requiredDocumentation.map((doc: string, idx: number) => (
+                              <div key={idx} className="text-sm pl-6 relative">
+                                <span className="absolute left-0 top-1">•</span>
+                                {doc}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="space-y-4">
+                        <div>
+                          <h5 className="font-medium text-sm mb-2 flex items-center gap-2">
+                            <Activity className="h-4 w-4 text-purple-600" />
+                            Additional Tests
+                          </h5>
+                          <div className="space-y-1">
+                            {guideline.additionalTests.map((test: string, idx: number) => (
+                              <div key={idx} className="text-sm pl-6 relative">
+                                <span className="absolute left-0 top-1">•</span>
+                                {test}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="bg-slate-50 dark:bg-slate-800 p-3 rounded">
+                          <h5 className="font-medium text-sm mb-1">Source</h5>
+                          <p className="text-sm">{guideline.source}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-8 text-muted-foreground">
+              Select cancer type or urgency level to view NCCN referral guidelines
             </div>
           )}
         </CardContent>
@@ -584,7 +766,7 @@ export default function OPDModuleEnhanced() {
       case "risk-stratification":
         return <AIRecommendationSection />;
       case "referral-guidelines":
-        return <AIRecommendationSection />;
+        return <ReferralGuidelinesSection />;
       default:
         return <CancerScreeningSection />;
     }

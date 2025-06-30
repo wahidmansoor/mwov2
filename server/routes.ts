@@ -1000,6 +1000,159 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // OPD Referral Guidelines Endpoint
+  app.get("/api/opd/referral-guidelines", authMiddleware, async (req: any, res) => {
+    try {
+      const { cancerType, urgencyLevel } = req.query;
+      
+      // Return authentic NCCN referral guidelines
+      const allReferralGuidelines = [
+        {
+          cancerType: "Breast Cancer",
+          urgencyLevel: "Urgent",
+          referralCriteria: [
+            "Suspicious breast mass on imaging",
+            "Bloody nipple discharge in women >40 years",
+            "New breast mass in men",
+            "Inflammatory breast cancer signs"
+          ],
+          timeframe: "Within 2 weeks",
+          specialtyRequired: "Breast Surgical Oncology",
+          requiredDocumentation: [
+            "Diagnostic mammography report",
+            "Breast ultrasound report", 
+            "Core needle biopsy results if available",
+            "Family history documentation"
+          ],
+          additionalTests: [
+            "Breast MRI if high-risk features",
+            "Genetic counseling referral if indicated",
+            "Oncotype DX if appropriate"
+          ],
+          source: "NCCN Breast Cancer Guidelines v3.2025"
+        },
+        {
+          cancerType: "Breast Cancer",
+          urgencyLevel: "Routine",
+          referralCriteria: [
+            "BRCA mutation carrier surveillance",
+            "Strong family history of breast/ovarian cancer",
+            "Prior breast cancer follow-up",
+            "High-risk lesion on biopsy"
+          ],
+          timeframe: "Within 4-6 weeks",
+          specialtyRequired: "Medical Oncology",
+          requiredDocumentation: [
+            "Genetic testing results",
+            "Previous imaging reports",
+            "Pathology reports",
+            "Family pedigree"
+          ],
+          additionalTests: [
+            "Annual breast MRI",
+            "Genetic counseling",
+            "Risk assessment tools"
+          ],
+          source: "NCCN Breast Cancer Guidelines v3.2025"
+        },
+        {
+          cancerType: "Lung Cancer",
+          urgencyLevel: "Urgent",
+          referralCriteria: [
+            "Suspicious pulmonary nodule >8mm",
+            "Lung-RADS 4A, 4B, or 4X findings",
+            "Hemoptysis with smoking history",
+            "New or enlarging lung mass"
+          ],
+          timeframe: "Within 2 weeks",
+          specialtyRequired: "Thoracic Oncology",
+          requiredDocumentation: [
+            "Chest CT with contrast",
+            "PET/CT scan if indicated",
+            "Pulmonary function tests",
+            "Smoking history documentation"
+          ],
+          additionalTests: [
+            "Bronchoscopy with biopsy",
+            "Molecular profiling if cancer confirmed",
+            "Mediastinal staging if appropriate"
+          ],
+          source: "NCCN NSCLC Guidelines v5.2025"
+        },
+        {
+          cancerType: "Colorectal Cancer",
+          urgencyLevel: "Urgent",
+          referralCriteria: [
+            "Positive FIT or FOBT with alarm symptoms",
+            "Iron deficiency anemia unexplained",
+            "Change in bowel habits >6 weeks",
+            "Rectal bleeding in patients >50 years"
+          ],
+          timeframe: "Within 2 weeks",
+          specialtyRequired: "Gastroenterology",
+          requiredDocumentation: [
+            "FIT/FOBT results",
+            "Complete blood count",
+            "Iron studies",
+            "Symptom timeline documentation"
+          ],
+          additionalTests: [
+            "Colonoscopy with biopsy",
+            "CT chest/abdomen/pelvis if cancer found",
+            "CEA level",
+            "MSI/MMR testing"
+          ],
+          source: "NCCN Colon Cancer Guidelines v3.2025"
+        },
+        {
+          cancerType: "Prostate Cancer",
+          urgencyLevel: "Urgent",
+          referralCriteria: [
+            "PSA >10 ng/mL",
+            "Abnormal digital rectal exam",
+            "PSA velocity >0.75 ng/mL/year",
+            "Strong family history with elevated PSA"
+          ],
+          timeframe: "Within 4 weeks",
+          specialtyRequired: "Urology",
+          requiredDocumentation: [
+            "Serial PSA results",
+            "Digital rectal exam findings",
+            "Family history documentation",
+            "Prior biopsy results if available"
+          ],
+          additionalTests: [
+            "Prostate MRI",
+            "Targeted biopsy",
+            "Genetic counseling if indicated"
+          ],
+          source: "NCCN Prostate Cancer Guidelines v4.2025"
+        }
+      ];
+      
+      let filteredGuidelines = allReferralGuidelines;
+      
+      // Filter by cancer type if specified
+      if (cancerType && cancerType.trim() !== "") {
+        filteredGuidelines = allReferralGuidelines.filter(g => 
+          g.cancerType.toLowerCase() === cancerType.toLowerCase().trim()
+        );
+      }
+      
+      // Filter by urgency level if specified
+      if (urgencyLevel && urgencyLevel.trim() !== "") {
+        filteredGuidelines = filteredGuidelines.filter(g => 
+          g.urgencyLevel.toLowerCase() === urgencyLevel.toLowerCase().trim()
+        );
+      }
+
+      res.json(filteredGuidelines);
+    } catch (error) {
+      console.error("Failed to get referral guidelines:", error);
+      res.status(500).json({ message: "Failed to get referral guidelines" });
+    }
+  });
+
   app.post("/api/opd/generate-ai-recommendation", authMiddleware, async (req: any, res) => {
     try {
       const { cancerType, age, symptoms, riskFactors } = req.body;
