@@ -328,11 +328,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Oncology Medications routes
   app.get("/api/oncology-medications", authMiddleware, async (req: any, res) => {
     try {
-      const { classification, cancerType, route, search } = req.query;
+      const { classification, isChemotherapy, isImmunotherapy, isTargetedTherapy, search } = req.query;
       const medications = await storage.getOncologyMedications({
         classification: classification as string,
-        cancerType: cancerType as string,
-        route: route as string,
+        isChemotherapy: isChemotherapy === 'true',
+        isImmunotherapy: isImmunotherapy === 'true',
+        isTargetedTherapy: isTargetedTherapy === 'true',
         search: search as string
       });
       res.json(medications);

@@ -887,7 +887,7 @@ const TreatmentProtocols = () => {
         </Select>
 
         <Button variant="outline" onClick={() => {
-          setSearchTerm(""); setSelectedCancerType(""); setSelectedIntent(""); setSelectedBiomarkers([]);
+          setSearchTerm(""); setSelectedCancerType("all"); setSelectedIntent("all"); setSelectedBiomarkers([]);
         }}>
           <Filter className="h-4 w-4 mr-2" />Clear Filters
         </Button>
