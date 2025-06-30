@@ -7,7 +7,7 @@ import { useAuth } from "@/hooks/useAuth";
 import LandingPage from "@/pages/LandingPage";
 import Dashboard from "@/pages/Dashboard";
 import Layout from "@/components/layout/Layout";
-import OPDModule from "@/modules/opd/OPDModule";
+import OPDModuleEnhanced from "@/modules/opd/OPDModuleEnhanced";
 import CDUModule from "@/modules/cdu/CDUModule";
 import PalliativeModule from "@/modules/palliative/PalliativeModule";
 import InpatientModule from "@/modules/inpatient/InpatientModule";
@@ -51,7 +51,7 @@ function Router() {
       
       <Route path="/opd/:section?">
         <Layout>
-          <OPDModule />
+          <OPDModuleEnhanced />
         </Layout>
       </Route>
       

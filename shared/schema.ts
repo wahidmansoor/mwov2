@@ -387,12 +387,142 @@ export type ClinicalDecisionSupport = typeof clinicalDecisionSupport.$inferSelec
 export type InsertClinicalDecisionSupport = z.infer<typeof insertClinicalDecisionSupportSchema>;
 export type BiomarkerGuideline = typeof biomarkerGuidelines.$inferSelect;
 export type InsertBiomarkerGuideline = z.infer<typeof insertBiomarkerGuidelinesSchema>;
-export type SclcGuideline = typeof sclcGuidelines.$inferSelect;
-export type InsertSclcGuideline = z.infer<typeof insertSclcGuidelinesSchema>;
-export type SclcProtocol = typeof sclcProtocols.$inferSelect;
-export type InsertSclcProtocol = z.infer<typeof insertSclcProtocolsSchema>;
-export type SclcStagingTable = typeof sclcStagingTables.$inferSelect;
-export type InsertSclcStagingTable = z.infer<typeof insertSclcStagingTablesSchema>;
+
+// OPD Module Enhanced Tables
+export const cancerScreeningProtocols = pgTable("cancer_screening_protocols", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  cancerType: varchar("cancer_type", { length: 100 }).notNull(),
+  ageRange: varchar("age_range", { length: 50 }).notNull(),
+  riskFactors: jsonb("risk_factors").notNull(),
+  testName: varchar("test_name", { length: 200 }).notNull(),
+  frequency: varchar("frequency", { length: 100 }).notNull(),
+  recommendationStrength: varchar("recommendation_strength", { length: 50 }).notNull(),
+  source: varchar("source", { length: 100 }).notNull(),
+  evidenceLevel: varchar("evidence_level", { length: 50 }),
+  additionalConsiderations: text("additional_considerations"),
+  contraindications: jsonb("contraindications"),
+  followUpProtocol: text("follow_up_protocol"),
+  costEffectiveness: text("cost_effectiveness"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const diagnosticWorkupSteps = pgTable("diagnostic_workup_steps", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  cancerType: varchar("cancer_type", { length: 100 }).notNull(),
+  symptomOrFinding: varchar("symptom_or_finding", { length: 300 }).notNull(),
+  imagingOrLab: varchar("imaging_or_lab", { length: 200 }).notNull(),
+  nextStepIfPositive: text("next_step_if_positive").notNull(),
+  nextStepIfNegative: text("next_step_if_negative").notNull(),
+  linkedStage: varchar("linked_stage", { length: 50 }),
+  source: varchar("source", { length: 100 }).notNull(),
+  urgencyLevel: varchar("urgency_level", { length: 50 }),
+  estimatedCost: varchar("estimated_cost", { length: 100 }),
+  sensitivity: decimal("sensitivity", { precision: 5, scale: 2 }),
+  specificity: decimal("specificity", { precision: 5, scale: 2 }),
+  falsePosRisk: text("false_pos_risk"),
+  falseNegRisk: text("false_neg_risk"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const biomarkers = pgTable("biomarkers", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  biomarkerName: varchar("biomarker_name", { length: 100 }).notNull(),
+  cancerType: varchar("cancer_type", { length: 100 }).notNull(),
+  positiveImplication: text("positive_implication").notNull(),
+  negativeImplication: text("negative_implication").notNull(),
+  testingRequired: boolean("testing_required").default(true),
+  testingMethod: varchar("testing_method", { length: 200 }).notNull(),
+  therapyLink: text("therapy_link"),
+  source: varchar("source", { length: 100 }).notNull(),
+  clinicalUtility: text("clinical_utility"),
+  turnaroundTime: varchar("turnaround_time", { length: 50 }),
+  sampleRequirements: text("sample_requirements"),
+  referenceLab: varchar("reference_lab", { length: 200 }),
+  normalRange: varchar("normal_range", { length: 100 }),
+  criticalValues: varchar("critical_values", { length: 100 }),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const referralGuidelines = pgTable("referral_guidelines", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  cancerType: varchar("cancer_type", { length: 100 }).notNull(),
+  indication: text("indication").notNull(),
+  urgency: varchar("urgency", { length: 50 }).notNull(),
+  toSpecialist: varchar("to_specialist", { length: 100 }).notNull(),
+  reason: text("reason").notNull(),
+  followupRequired: boolean("followup_required").default(true),
+  source: varchar("source", { length: 100 }).notNull(),
+  timeframe: varchar("timeframe", { length: 100 }),
+  requiredDocumentation: jsonb("required_documentation"),
+  patientPreparation: text("patient_preparation"),
+  providerInstructions: text("provider_instructions"),
+  insuranceConsiderations: text("insurance_considerations"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const riskStratificationScores = pgTable("risk_stratification_scores", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  cancerType: varchar("cancer_type", { length: 100 }).notNull(),
+  scoreName: varchar("score_name", { length: 100 }).notNull(),
+  requiredInputs: jsonb("required_inputs").notNull(),
+  scoreRange: varchar("score_range", { length: 100 }).notNull(),
+  interpretation: text("interpretation").notNull(),
+  clinicalAction: text("clinical_action").notNull(),
+  source: varchar("source", { length: 100 }).notNull(),
+  validationStudies: jsonb("validation_studies"),
+  limitations: text("limitations"),
+  calculator: jsonb("calculator"), // Formula/algorithm for calculation
+  riskCategories: jsonb("risk_categories"), // Low, intermediate, high risk definitions
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+// Schema exports for OPD tables
+export const insertCancerScreeningProtocolsSchema = createInsertSchema(cancerScreeningProtocols).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertDiagnosticWorkupStepsSchema = createInsertSchema(diagnosticWorkupSteps).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertBiomarkersSchema = createInsertSchema(biomarkers).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertReferralGuidelinesSchema = createInsertSchema(referralGuidelines).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertRiskStratificationScoresSchema = createInsertSchema(riskStratificationScores).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+// Type exports for OPD tables
+export type CancerScreeningProtocol = typeof cancerScreeningProtocols.$inferSelect;
+export type InsertCancerScreeningProtocol = z.infer<typeof insertCancerScreeningProtocolsSchema>;
+export type DiagnosticWorkupStep = typeof diagnosticWorkupSteps.$inferSelect;
+export type InsertDiagnosticWorkupStep = z.infer<typeof insertDiagnosticWorkupStepsSchema>;
+export type Biomarker = typeof biomarkers.$inferSelect;
+export type InsertBiomarker = z.infer<typeof insertBiomarkersSchema>;
+export type ReferralGuideline = typeof referralGuidelines.$inferSelect;
+export type InsertReferralGuideline = z.infer<typeof insertReferralGuidelinesSchema>;
+export type RiskStratificationScore = typeof riskStratificationScores.$inferSelect;
+export type InsertRiskStratificationScore = z.infer<typeof insertRiskStratificationScoresSchema>;
 
 // Treatment Plan Types
 export const insertTreatmentPlanCriteriaSchema = createInsertSchema(treatmentPlanCriteria);

@@ -627,6 +627,91 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Enhanced OPD Module API Endpoints
+  app.get("/api/opd/cancer-screening-protocols", isAuthenticated, async (req: any, res) => {
+    try {
+      const { cancerType, ageRange } = req.query;
+      const protocols = await storage.getCancerScreeningProtocols({ cancerType, ageRange });
+      res.json(protocols);
+    } catch (error) {
+      console.error("Failed to get cancer screening protocols:", error);
+      res.status(500).json({ message: "Failed to get screening protocols" });
+    }
+  });
+
+  app.get("/api/opd/diagnostic-workup-steps", isAuthenticated, async (req: any, res) => {
+    try {
+      const { cancerType, symptom } = req.query;
+      const steps = await storage.getDiagnosticWorkupSteps({ cancerType, symptom });
+      res.json(steps);
+    } catch (error) {
+      console.error("Failed to get diagnostic workup steps:", error);
+      res.status(500).json({ message: "Failed to get workup steps" });
+    }
+  });
+
+  app.get("/api/opd/biomarkers", isAuthenticated, async (req: any, res) => {
+    try {
+      const { cancerType, testingRequired } = req.query;
+      const biomarkers = await storage.getBiomarkers({ 
+        cancerType, 
+        testingRequired: testingRequired === 'true' 
+      });
+      res.json(biomarkers);
+    } catch (error) {
+      console.error("Failed to get biomarkers:", error);
+      res.status(500).json({ message: "Failed to get biomarkers" });
+    }
+  });
+
+  app.get("/api/opd/referral-guidelines", isAuthenticated, async (req: any, res) => {
+    try {
+      const { cancerType, urgency, specialist } = req.query;
+      const guidelines = await storage.getReferralGuidelines({ cancerType, urgency, specialist });
+      res.json(guidelines);
+    } catch (error) {
+      console.error("Failed to get referral guidelines:", error);
+      res.status(500).json({ message: "Failed to get referral guidelines" });
+    }
+  });
+
+  app.get("/api/opd/risk-stratification-scores", isAuthenticated, async (req: any, res) => {
+    try {
+      const { cancerType, scoreName } = req.query;
+      const scores = await storage.getRiskStratificationScores({ cancerType, scoreName });
+      res.json(scores);
+    } catch (error) {
+      console.error("Failed to get risk stratification scores:", error);
+      res.status(500).json({ message: "Failed to get risk scores" });
+    }
+  });
+
+  app.post("/api/opd/generate-ai-recommendation", isAuthenticated, async (req: any, res) => {
+    try {
+      const { cancerType, symptoms, riskFactors, age, sex } = req.body;
+      
+      // Generate AI-powered clinical recommendation based on input
+      const context = `Patient presenting with ${symptoms.join(', ')} symptoms. 
+        Age: ${age}, Sex: ${sex}, Risk factors: ${riskFactors.join(', ')}.
+        Cancer type concern: ${cancerType}`;
+      
+      const aiResponse = await generateAiResponse(
+        `Generate evidence-based clinical recommendations for outpatient oncology workup: ${context}`,
+        req.user?.id
+      );
+      
+      res.json({
+        recommendation: aiResponse.response,
+        confidence: aiResponse.confidence,
+        nccnReferences: aiResponse.references || [],
+        nextSteps: aiResponse.nextSteps || []
+      });
+    } catch (error) {
+      console.error("Failed to generate AI recommendation:", error);
+      res.status(500).json({ message: "Failed to generate recommendation" });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }

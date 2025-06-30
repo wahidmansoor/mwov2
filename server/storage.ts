@@ -619,6 +619,121 @@ export class DatabaseStorage implements IStorage {
     return guideline;
   }
 
+  // OPD Module Enhanced Storage Methods
+  async getCancerScreeningProtocols(filters?: { cancerType?: string; ageRange?: string }): Promise<CancerScreeningProtocol[]> {
+    let query = db.select().from(cancerScreeningProtocols);
+    
+    if (filters?.cancerType) {
+      query = query.where(eq(cancerScreeningProtocols.cancerType, filters.cancerType));
+    }
+    
+    if (filters?.ageRange) {
+      query = query.where(eq(cancerScreeningProtocols.ageRange, filters.ageRange));
+    }
+    
+    return await query.orderBy(cancerScreeningProtocols.cancerType, cancerScreeningProtocols.ageRange);
+  }
+
+  async getDiagnosticWorkupSteps(filters?: { cancerType?: string; symptom?: string }): Promise<DiagnosticWorkupStep[]> {
+    let query = db.select().from(diagnosticWorkupSteps);
+    
+    if (filters?.cancerType) {
+      query = query.where(eq(diagnosticWorkupSteps.cancerType, filters.cancerType));
+    }
+    
+    if (filters?.symptom) {
+      query = query.where(like(diagnosticWorkupSteps.symptomOrFinding, `%${filters.symptom}%`));
+    }
+    
+    return await query.orderBy(diagnosticWorkupSteps.cancerType, diagnosticWorkupSteps.urgencyLevel);
+  }
+
+  async getBiomarkers(filters?: { cancerType?: string; testingRequired?: boolean }): Promise<Biomarker[]> {
+    let query = db.select().from(biomarkers);
+    
+    if (filters?.cancerType) {
+      query = query.where(eq(biomarkers.cancerType, filters.cancerType));
+    }
+    
+    if (filters?.testingRequired !== undefined) {
+      query = query.where(eq(biomarkers.testingRequired, filters.testingRequired));
+    }
+    
+    return await query.orderBy(biomarkers.cancerType, biomarkers.biomarkerName);
+  }
+
+  async getReferralGuidelines(filters?: { cancerType?: string; urgency?: string; specialist?: string }): Promise<ReferralGuideline[]> {
+    let query = db.select().from(referralGuidelines);
+    
+    if (filters?.cancerType) {
+      query = query.where(eq(referralGuidelines.cancerType, filters.cancerType));
+    }
+    
+    if (filters?.urgency) {
+      query = query.where(eq(referralGuidelines.urgency, filters.urgency));
+    }
+    
+    if (filters?.specialist) {
+      query = query.where(eq(referralGuidelines.toSpecialist, filters.specialist));
+    }
+    
+    return await query.orderBy(referralGuidelines.urgency, referralGuidelines.cancerType);
+  }
+
+  async getRiskStratificationScores(filters?: { cancerType?: string; scoreName?: string }): Promise<RiskStratificationScore[]> {
+    let query = db.select().from(riskStratificationScores);
+    
+    if (filters?.cancerType) {
+      query = query.where(eq(riskStratificationScores.cancerType, filters.cancerType));
+    }
+    
+    if (filters?.scoreName) {
+      query = query.where(like(riskStratificationScores.scoreName, `%${filters.scoreName}%`));
+    }
+    
+    return await query.orderBy(riskStratificationScores.cancerType, riskStratificationScores.scoreName);
+  }
+
+  async createCancerScreeningProtocol(insertProtocol: InsertCancerScreeningProtocol): Promise<CancerScreeningProtocol> {
+    const [protocol] = await db
+      .insert(cancerScreeningProtocols)
+      .values(insertProtocol)
+      .returning();
+    return protocol;
+  }
+
+  async createDiagnosticWorkupStep(insertStep: InsertDiagnosticWorkupStep): Promise<DiagnosticWorkupStep> {
+    const [step] = await db
+      .insert(diagnosticWorkupSteps)
+      .values(insertStep)
+      .returning();
+    return step;
+  }
+
+  async createBiomarker(insertBiomarker: InsertBiomarker): Promise<Biomarker> {
+    const [biomarker] = await db
+      .insert(biomarkers)
+      .values(insertBiomarker)
+      .returning();
+    return biomarker;
+  }
+
+  async createReferralGuideline(insertGuideline: InsertReferralGuideline): Promise<ReferralGuideline> {
+    const [guideline] = await db
+      .insert(referralGuidelines)
+      .values(insertGuideline)
+      .returning();
+    return guideline;
+  }
+
+  async createRiskStratificationScore(insertScore: InsertRiskStratificationScore): Promise<RiskStratificationScore> {
+    const [score] = await db
+      .insert(riskStratificationScores)
+      .values(insertScore)
+      .returning();
+    return score;
+  }
+
   // Treatment Plan Criteria Implementation
   async getTreatmentCriteria(filters?: { category?: string; isCommon?: boolean }): Promise<TreatmentPlanCriteria[]> {
     let query = db.select().from(treatmentPlanCriteria);
