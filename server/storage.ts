@@ -1156,13 +1156,13 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getLearningProgress(sessionId: string, topicId?: string): Promise<LearningProgress[]> {
-    let query = db.select().from(learningProgress).where(eq(learningProgress.sessionId, sessionId));
+    let query = db.select().from(learningProgress).where(eq(learningProgress.userId, sessionId));
     
     if (topicId) {
       query = query.where(eq(learningProgress.topicId, topicId));
     }
     
-    return await query.orderBy(learningProgress.lastStudied);
+    return await query.orderBy(learningProgress.lastAccessed);
   }
 
   async updateLearningProgress(sessionId: string, topicId: string, progressData: Partial<InsertLearningProgress>): Promise<LearningProgress> {
@@ -1170,7 +1170,7 @@ export class DatabaseStorage implements IStorage {
       .select()
       .from(learningProgress)
       .where(and(
-        eq(learningProgress.sessionId, sessionId),
+        eq(learningProgress.userId, sessionId),
         eq(learningProgress.topicId, topicId)
       ))
       .limit(1);
