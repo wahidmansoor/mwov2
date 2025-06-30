@@ -324,7 +324,7 @@ export const MedicationsSegment: React.FC<MedicationsSegmentProps> = ({ classNam
                     <div>
                       <h4 className="font-semibold mb-2">Indications</h4>
                       <ul className="text-sm text-gray-700 space-y-1">
-                        {selectedMedication.indications.map((indication, index) => (
+                        {(Array.isArray(selectedMedication.indications) ? selectedMedication.indications : []).map((indication, index) => (
                           <li key={index} className="flex items-start gap-2">
                             <span className="text-blue-500 mt-1">•</span>
                             {indication}
