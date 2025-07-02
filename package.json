@@ -7,7 +7,7 @@
     "dev": "NODE_ENV=development tsx server/index.ts",
     "build": "vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist",
     "build:netlify": "npm run build:client && npm run build:functions",
-    "build:client": "cd client && npm install && npm run build && cd .. && mkdir -p dist/public && cp -r client/dist/* dist/public/",
+    "build:client": "cd client && npm install --include=dev && npx vite build && cd .. && mkdir -p dist/public && cp -r client/dist/* dist/public/",
     "build:functions": "esbuild netlify/functions/api.ts --platform=node --packages=external --bundle --format=esm --outfile=netlify/functions/api.js",
     "install:client": "cd client && npm install",
     "start": "NODE_ENV=production node dist/index.js",
