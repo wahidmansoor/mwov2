@@ -1,0 +1,40 @@
+{
+  "name": "oncovista-localhost",
+  "version": "1.0.0",
+  "description": "OncoVista - Oncology Management System (Localhost Version)",
+  "main": "server/index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run server:dev\" \"npm run client:dev\"",
+    "server:dev": "cd server && nodemon index.js",
+    "client:dev": "cd client && vite",
+    "build": "cd client && npm run build",
+    "build:netlify": "cd client && npm install && npm run build",
+    "preview": "cd client && vite preview",
+    "db:migrate": "cd server && npx drizzle-kit migrate",
+    "db:generate": "cd server && npx drizzle-kit generate",
+    "db:studio": "cd server && npx drizzle-kit studio",
+    "seed": "cd server && node scripts/seed.js",
+    "install:all": "npm install && cd client && npm install && cd ../server && npm install && cd ../netlify/functions && npm install",
+    "start": "concurrently \"npm run server:start\" \"npm run client:preview\"",
+    "server:start": "cd server && node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "netlify:dev": "netlify dev",
+    "netlify:build": "npm run build:netlify",
+    "deploy": "netlify deploy --build",
+    "deploy:prod": "netlify deploy --build --prod"
+  },
+  "keywords": ["oncology", "healthcare", "medical", "react", "node", "express"],
+  "author": "OncoVista Team",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.0.2"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  }
+}
