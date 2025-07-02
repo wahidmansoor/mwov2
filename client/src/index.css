@@ -88,11 +88,11 @@
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-gray-200;
   }
   
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    @apply bg-white text-gray-900 font-sans antialiased;
     font-family: 'Inter', system-ui, sans-serif;
   }
   
@@ -246,20 +246,20 @@
 
 /* Loading states */
 .skeleton {
-  @apply animate-pulse bg-muted rounded;
+  @apply animate-pulse bg-gray-200 rounded;
 }
 
 /* Medical form styling */
 .medical-form-section {
-  @apply space-y-6 p-6 bg-card border border-border rounded-lg;
+  @apply space-y-6 p-6 bg-white border border-gray-200 rounded-lg;
 }
 
 .medical-input {
-  @apply w-full px-4 py-3 border border-input rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors;
+  @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors;
 }
 
 .medical-checkbox {
-  @apply w-4 h-4 text-primary border-input rounded focus:ring-primary;
+  @apply w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500;
 }
 
 /* Status indicators */
@@ -268,11 +268,11 @@
 }
 
 .status-active {
-  @apply bg-medical-green-light text-medical-green;
+  @apply bg-green-50 text-green-600;
 }
 
 .status-warning {
-  @apply bg-medical-orange-light text-medical-orange;
+  @apply bg-orange-50 text-orange-600;
 }
 
 .status-error {
@@ -280,22 +280,22 @@
 }
 
 .status-info {
-  @apply bg-medical-blue-light text-medical-blue;
+  @apply bg-blue-50 text-blue-600;
 }
 
 /* Module-specific styling */
 .opd-module {
-  @apply text-medical-blue;
+  @apply text-blue-600;
 }
 
 .cdu-module {
-  @apply text-medical-purple;
+  @apply text-purple-600;
 }
 
 .palliative-module {
-  @apply text-medical-green;
+  @apply text-green-600;
 }
 
 .inpatient-module {
-  @apply text-medical-orange;
+  @apply text-orange-600;
 }
