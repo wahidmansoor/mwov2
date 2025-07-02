@@ -1,0 +1,301 @@
+/* OncoVista AI Responsive Framework */
+@import './styles/responsive.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(210, 40%, 8%);
+  --muted: hsl(210, 40%, 96%);
+  --muted-foreground: hsl(215, 16%, 47%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(210, 40%, 8%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(210, 40%, 8%);
+  --border: hsl(214, 32%, 91%);
+  --input: hsl(214, 32%, 91%);
+  --primary: hsl(207, 100%, 40%);
+  --primary-foreground: hsl(0, 0%, 98%);
+  --secondary: hsl(210, 40%, 96%);
+  --secondary-foreground: hsl(222, 84%, 5%);
+  --accent: hsl(210, 40%, 96%);
+  --accent-foreground: hsl(222, 84%, 5%);
+  --destructive: hsl(0, 84%, 60%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(207, 100%, 40%);
+  --radius: 0.5rem;
+  
+  /* Medical theme colors */
+  --medical-blue: hsl(207, 100%, 40%);
+  --medical-blue-light: hsl(207, 100%, 95%);
+  --medical-blue-dark: hsl(207, 100%, 30%);
+  --medical-purple: hsl(250, 46%, 39%);
+  --medical-purple-light: hsl(250, 46%, 95%);
+  --medical-purple-dark: hsl(250, 46%, 29%);
+  --medical-green: hsl(151, 83%, 23%);
+  --medical-green-light: hsl(151, 83%, 95%);
+  --medical-green-dark: hsl(151, 83%, 18%);
+  --medical-orange: hsl(37, 91%, 55%);
+  --medical-orange-light: hsl(37, 91%, 95%);
+  --medical-orange-dark: hsl(37, 91%, 45%);
+  
+  /* Glassmorphism */
+  --glass-bg: hsla(0, 0%, 100%, 0.8);
+  --glass-border: hsla(0, 0%, 100%, 0.2);
+}
+
+.dark {
+  --background: hsl(210, 40%, 2%);
+  --foreground: hsl(0, 0%, 95%);
+  --muted: hsl(210, 40%, 10%);
+  --muted-foreground: hsl(215, 16%, 57%);
+  --popover: hsl(210, 40%, 2%);
+  --popover-foreground: hsl(0, 0%, 95%);
+  --card: hsl(210, 40%, 2%);
+  --card-foreground: hsl(0, 0%, 95%);
+  --border: hsl(215, 27%, 17%);
+  --input: hsl(215, 27%, 17%);
+  --primary: hsl(207, 100%, 50%);
+  --primary-foreground: hsl(0, 0%, 98%);
+  --secondary: hsl(210, 40%, 10%);
+  --secondary-foreground: hsl(0, 0%, 95%);
+  --accent: hsl(210, 40%, 10%);
+  --accent-foreground: hsl(0, 0%, 95%);
+  --destructive: hsl(0, 62%, 30%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(207, 100%, 50%);
+  
+  /* Dark theme medical colors */
+  --medical-blue: hsl(207, 100%, 60%);
+  --medical-blue-light: hsl(207, 100%, 15%);
+  --medical-blue-dark: hsl(207, 100%, 70%);
+  --medical-purple: hsl(250, 46%, 59%);
+  --medical-purple-light: hsl(250, 46%, 15%);
+  --medical-purple-dark: hsl(250, 46%, 69%);
+  --medical-green: hsl(151, 83%, 43%);
+  --medical-green-light: hsl(151, 83%, 15%);
+  --medical-green-dark: hsl(151, 83%, 53%);
+  --medical-orange: hsl(37, 91%, 65%);
+  --medical-orange-light: hsl(37, 91%, 15%);
+  --medical-orange-dark: hsl(37, 91%, 75%);
+  
+  /* Dark glassmorphism */
+  --glass-bg: hsla(210, 40%, 2%, 0.8);
+  --glass-border: hsla(0, 0%, 100%, 0.1);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight;
+  }
+}
+
+@layer components {
+  /* Medical theme utilities */
+  .medical-blue {
+    color: var(--medical-blue);
+  }
+  
+  .bg-medical-blue {
+    background-color: var(--medical-blue);
+  }
+  
+  .bg-medical-blue-light {
+    background-color: var(--medical-blue-light);
+  }
+  
+  .medical-purple {
+    color: var(--medical-purple);
+  }
+  
+  .bg-medical-purple {
+    background-color: var(--medical-purple);
+  }
+  
+  .bg-medical-purple-light {
+    background-color: var(--medical-purple-light);
+  }
+  
+  .medical-green {
+    color: var(--medical-green);
+  }
+  
+  .bg-medical-green {
+    background-color: var(--medical-green);
+  }
+  
+  .bg-medical-green-light {
+    background-color: var(--medical-green-light);
+  }
+  
+  .medical-orange {
+    color: var(--medical-orange);
+  }
+  
+  .bg-medical-orange {
+    background-color: var(--medical-orange);
+  }
+  
+  .bg-medical-orange-light {
+    background-color: var(--medical-orange-light);
+  }
+  
+  /* Glassmorphism utilities */
+  .glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+  }
+  
+  .glass-subtle {
+    background: var(--glass-bg);
+    backdrop-filter: blur(2px);
+    border: 1px solid var(--glass-border);
+  }
+  
+  /* Medical animations */
+  .animate-pulse-gentle {
+    animation: pulse-gentle 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .animate-slide-up {
+    animation: slide-up 0.5s ease-out;
+  }
+  
+  /* Medical gradients */
+  .gradient-medical-primary {
+    background: linear-gradient(135deg, var(--medical-blue), var(--medical-purple));
+  }
+  
+  .gradient-medical-success {
+    background: linear-gradient(135deg, var(--medical-green), var(--medical-blue));
+  }
+  
+  .gradient-medical-warning {
+    background: linear-gradient(135deg, var(--medical-orange), var(--medical-blue));
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Custom animations */
+@keyframes pulse-gentle {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes slide-up {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Medical icons and iconography */
+.medical-icon {
+  @apply inline-flex items-center justify-center rounded-lg;
+}
+
+.medical-icon-sm {
+  @apply w-8 h-8 text-sm;
+}
+
+.medical-icon-md {
+  @apply w-10 h-10 text-base;
+}
+
+.medical-icon-lg {
+  @apply w-12 h-12 text-lg;
+}
+
+/* Loading states */
+.skeleton {
+  @apply animate-pulse bg-muted rounded;
+}
+
+/* Medical form styling */
+.medical-form-section {
+  @apply space-y-6 p-6 bg-card border border-border rounded-lg;
+}
+
+.medical-input {
+  @apply w-full px-4 py-3 border border-input rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors;
+}
+
+.medical-checkbox {
+  @apply w-4 h-4 text-primary border-input rounded focus:ring-primary;
+}
+
+/* Status indicators */
+.status-indicator {
+  @apply inline-flex items-center px-2 py-1 rounded-full text-xs font-medium;
+}
+
+.status-active {
+  @apply bg-medical-green-light text-medical-green;
+}
+
+.status-warning {
+  @apply bg-medical-orange-light text-medical-orange;
+}
+
+.status-error {
+  @apply bg-red-50 text-red-600;
+}
+
+.status-info {
+  @apply bg-medical-blue-light text-medical-blue;
+}
+
+/* Module-specific styling */
+.opd-module {
+  @apply text-medical-blue;
+}
+
+.cdu-module {
+  @apply text-medical-purple;
+}
+
+.palliative-module {
+  @apply text-medical-green;
+}
+
+.inpatient-module {
+  @apply text-medical-orange;
+}

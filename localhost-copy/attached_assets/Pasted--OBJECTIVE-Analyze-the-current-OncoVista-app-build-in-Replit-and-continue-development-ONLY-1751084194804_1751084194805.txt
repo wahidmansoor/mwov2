@@ -1,0 +1,34 @@
+// 🔍 OBJECTIVE:
+// Analyze the current OncoVista app build in Replit and continue development ONLY as a clinical decision-support system — NOT an EHR.
+// This app is built to serve as a comprehensive oncology guidance tool for trainees and oncologists at all stages — not for recording or storing patient records.
+
+// ❌ DO NOT:
+// - Add real-time patient charting, hospital admissions, or dynamic EHR features
+// - Build a system for hospital billing, medication orders, or patient-specific identifiers
+// - Assume clinical data entry or storage is needed for real patients
+
+// ✅ DO:
+// - Build modular, interactive, and AI-enhanced educational tools
+// - Provide protocols, pathways, calculators, alerts, and clinical summaries
+// - Use dummy/mock data only where simulations are required (e.g., treatment examples)
+
+// 📦 MODULE GOALS:
+// I want you to now analyze what has been built in Replit and guide me to COMPLETE only the following missing parts:
+// 1. Inpatient Oncology Module — with admission protocols, emergency regimens, and monitoring workflows
+2. AI Chat Assistant — for answering guideline questions, not for storing patient info
+3. Notes Export — generate summaries or mock progress notes only for demonstration
+4. Tools Bar — with calculators, alerts, lab guides
+5. Analytics Dashboard — showing guideline usage, not patient stats
+
+// 📂 STRUCTURE:
+// All modules should follow the existing OPD, CDU, and Handbook folder structure
+// Use React + TypeScript + Tailwind + ShadCN + Lucide icons
+// Supabase can be used for static content, but no patient info should be stored
+
+// 📌 EXAMPLE TASK TO START WITH:
+// Build the missing Inpatient Oncology Module (src/modules/inpatient/InpatientModule.tsx)
+// Features: admission checklist, triage-based investigations, supportive care guides
+// Use tab-based layout with modular cards and color-coded alerts
+
+// 📣 PLEASE:
+// Before generating full components, give a breakdown of suggested file structure, subcomponents, and what each part will do — to ensure it matches our non-EHR design

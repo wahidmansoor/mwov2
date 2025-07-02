@@ -1,0 +1,68 @@
+/**
+ * 📊 CDU MODULE – DEEP INFORMATION AUDIT (NO OPTIMIZATION)
+ * 🧠 Environment: Replit.com project (React + TypeScript)
+ *
+ * 🎯 GOAL:
+ * Perform a complete information-only audit of the CDU (Chemotherapy Day Unit) module as it currently exists.
+ * This audit is to help the developer fully understand the existing codebase — how it works, how it’s structured, and how data and UI flow within it.
+ *
+ * ❗IMPORTANT: This is an analysis phase only. No refactoring, rewriting, or optimization is needed yet.
+ * ❗DO NOT scaffold, modify, rename, or restructure any code.
+ *
+ * ✅ WHAT TO DO:
+ *
+ * 1. 📁 List all files, components, utilities, and folders related to the CDU module.
+ *    - Include subcomponents like: protocols, planner, medications, safety, and toxicity.
+ *    - If components are reused or imported from shared folders, mention that too.
+ *
+ * 2. 🧩 For each file:
+ *    - Describe its purpose.
+ *    - Summarize all the React hooks and custom logic used.
+ *    - Show what inputs (props/state/API) the component accepts.
+ *    - Explain what outputs (UI/render/state changes) the component produces.
+ *    - Mention how it connects to other parts of the CDU module.
+ *
+ * 3. 🔍 SPECIAL EMPHASIS ON: **TreatmentPlanSelector**
+ *    - Locate and analyze the file/component named `TreatmentPlanSelector.tsx` (or similarly named).
+ *    - Explain:
+ *      - Its intended purpose in the CDU module
+ *      - Whether it’s currently being imported and rendered anywhere (e.g., under `/cdu/planner`)
+ *      - What data it needs: cancer type, stage, biomarkers, intent, line of therapy, etc.
+ *      - What UI it provides: dropdowns, selectors, recommendations, warnings
+ *    - Check if the component is functional, partially broken, or static (e.g., shows mockup content)
+ *    - Check whether it’s using any AI or logic like `generateTreatmentRecommendation`
+ *    - Check if it reads or writes any data from/to Replit’s database (or any database-like service)
+ *    - If possible, confirm if **any data already exists in the Replit database** related to cancer types, plans, or past recommendations
+ *    - If `TreatmentPlanSelector` is defined but NOT used anywhere, point it out clearly
+
+ * 4. 🔗 Routing:
+ *    - Confirm how the CDU module is routed (e.g., at `/cdu`)
+ *    - Confirm if the "planner" tab uses the actual `TreatmentPlanSelector` or a static fallback
+ *    - Mention if tabs are controlled by state or by route (query string or URL segment)
+ *
+ * 5. 🌐 API and Data:
+ *    - List all API endpoints used in this module (e.g., `/api/cdu/protocols`, `/api/cdu/medications`)
+ *    - For each endpoint:
+ *        - What data is fetched
+ *        - How it is used
+ *        - Any fallback or mock data used
+ *
+ * 6. 🧠 Business Logic:
+ *    - Document functions like: `transformProtocol`, `generateTreatmentRecommendation`, `getDoseModification`
+ *    - Summarize what each function does, where it's located, and where it's triggered from
+ *
+ * 7. 🎨 UI Flow:
+ *    - Describe tab logic and how each tab’s content is rendered
+ *    - Describe how protocols and medications are rendered, filtered, and styled
+ *    - Confirm whether the toxicity and safety dashboards are working or static demos
+ *
+ * 8. 📋 Output Format:
+ *    - Markdown with headings, tables, and clear explanations
+ *    - Summary of findings at the end
+ *    - Clear enough for a non-technical project owner to understand
+ *
+ * 🏥 CONTEXT:
+ * This is a clinical guidance module used by oncologists (not an EHR).
+ * The `TreatmentPlanSelector` segment is extremely important and was previously broken. 
+ * Your audit will help restore it safely without duplication or missed links.
+ */

@@ -1,0 +1,565 @@
+[
+  {
+    "id": "91c27d10-9068-4a9a-9946-4bf98dc71bc9",
+    "biomarkerName": "HER2",
+    "testingMethod": "IHC and/or FISH",
+    "cancerType": "breast",
+    "clinicalIndications": [
+      "All invasive breast cancers",
+      "Treatment selection"
+    ],
+    "nccnReference": "BINV-2",
+    "evidenceLevel": "Category 1",
+    "testingTiming": "At diagnosis",
+    "interpretationCriteria": {
+      "low": "IHC 1-2+/FISH negative",
+      "negative": "IHC 0-1+ or FISH negative",
+      "positive": "IHC 3+ or FISH amplified"
+    },
+    "therapeuticImplications": [
+      "Anti-HER2 therapy selection",
+      "Prognosis"
+    ],
+    "qualityRequirements": [
+      "CAP/ASCO guidelines"
+    ],
+    "reportingStandards": [
+      "Standardized reporting required"
+    ],
+    "costConsiderations": null,
+    "specialConsiderations": null,
+    "createdAt": "2025-06-28T17:06:29.010Z",
+    "updatedAt": "2025-06-28T17:06:29.010Z"
+  },
+  {
+    "id": "1cd71259-87da-4cb7-a20c-0005e3addc93",
+    "biomarkerName": "ER/PR",
+    "testingMethod": "Immunohistochemistry",
+    "cancerType": "breast",
+    "clinicalIndications": [
+      "All invasive breast cancers",
+      "Endocrine therapy selection"
+    ],
+    "nccnReference": "BINV-2",
+    "evidenceLevel": "Category 1",
+    "testingTiming": "At diagnosis",
+    "interpretationCriteria": {
+      "negative": "<1% nuclear staining",
+      "positive": "≥1% nuclear staining"
+    },
+    "therapeuticImplications": [
+      "Endocrine therapy selection",
+      "Prognosis"
+    ],
+    "qualityRequirements": [
+      "CAP/ASCO guidelines"
+    ],
+    "reportingStandards": [
+      "Standardized reporting required"
+    ],
+    "costConsiderations": null,
+    "specialConsiderations": null,
+    "createdAt": "2025-06-28T17:06:29.088Z",
+    "updatedAt": "2025-06-28T17:06:29.088Z"
+  },
+  {
+    "id": "70ed615e-94f5-488a-9df6-a8d1916f5286",
+    "biomarkerName": "HER2",
+    "testingMethod": "IHC and/or FISH",
+    "cancerType": "breast",
+    "clinicalIndications": [
+      "All invasive breast cancers",
+      "Treatment selection"
+    ],
+    "nccnReference": "BINV-5",
+    "evidenceLevel": "Category 1",
+    "testingTiming": "At diagnosis",
+    "interpretationCriteria": {
+      "low": "IHC 1-2+/FISH negative",
+      "negative": "IHC 0-1+ or FISH negative",
+      "positive": "IHC 3+ or FISH amplified"
+    },
+    "therapeuticImplications": [
+      "Anti-HER2 therapy selection",
+      "Prognosis"
+    ],
+    "qualityRequirements": [
+      "CAP/ASCO guidelines"
+    ],
+    "reportingStandards": [
+      "Standardized reporting required"
+    ],
+    "costConsiderations": null,
+    "specialConsiderations": null,
+    "createdAt": "2025-06-28T17:06:29.611Z",
+    "updatedAt": "2025-06-28T17:06:29.611Z"
+  },
+  {
+    "id": "79c04b40-4bde-4a26-bc21-a29987b71873",
+    "biomarkerName": "ER/PR",
+    "testingMethod": "Immunohistochemistry",
+    "cancerType": "breast",
+    "clinicalIndications": [
+      "All invasive breast cancers",
+      "Endocrine therapy selection"
+    ],
+    "nccnReference": "BINV-5",
+    "evidenceLevel": "Category 1",
+    "testingTiming": "At diagnosis",
+    "interpretationCriteria": {
+      "negative": "<1% nuclear staining",
+      "positive": "≥1% nuclear staining"
+    },
+    "therapeuticImplications": [
+      "Endocrine therapy selection",
+      "Prognosis"
+    ],
+    "qualityRequirements": [
+      "CAP/ASCO guidelines"
+    ],
+    "reportingStandards": [
+      "Standardized reporting required"
+    ],
+    "costConsiderations": null,
+    "specialConsiderations": null,
+    "createdAt": "2025-06-28T17:06:29.697Z",
+    "updatedAt": "2025-06-28T17:06:29.697Z"
+  },
+  {
+    "id": "03fbcf61-c10b-4640-8510-2edfac55c8e2",
+    "biomarkerName": "ER/PR",
+    "testingMethod": "Immunohistochemistry",
+    "cancerType": "breast",
+    "clinicalIndications": [
+      "All invasive breast cancers",
+      "Endocrine therapy selection"
+    ],
+    "nccnReference": "BINV-18",
+    "evidenceLevel": "Category 1",
+    "testingTiming": "At diagnosis",
+    "interpretationCriteria": {
+      "negative": "<1% nuclear staining",
+      "positive": "≥1% nuclear staining"
+    },
+    "therapeuticImplications": [
+      "Endocrine therapy selection",
+      "Prognosis"
+    ],
+    "qualityRequirements": [
+      "CAP/ASCO guidelines"
+    ],
+    "reportingStandards": [
+      "Standardized reporting required"
+    ],
+    "costConsiderations": null,
+    "specialConsiderations": null,
+    "createdAt": "2025-06-28T17:06:31.712Z",
+    "updatedAt": "2025-06-28T17:06:31.712Z"
+  },
+  {
+    "id": "56f28769-4694-40f4-92be-ef027cd9e4f1",
+    "biomarkerName": "HER2",
+    "testingMethod": "IHC and/or FISH",
+    "cancerType": "breast",
+    "clinicalIndications": [
+      "All invasive breast cancers",
+      "Treatment selection"
+    ],
+    "nccnReference": "BINV-25",
+    "evidenceLevel": "Category 1",
+    "testingTiming": "At diagnosis",
+    "interpretationCriteria": {
+      "low": "IHC 1-2+/FISH negative",
+      "negative": "IHC 0-1+ or FISH negative",
+      "positive": "IHC 3+ or FISH amplified"
+    },
+    "therapeuticImplications": [
+      "Anti-HER2 therapy selection",
+      "Prognosis"
+    ],
+    "qualityRequirements": [
+      "CAP/ASCO guidelines"
+    ],
+    "reportingStandards": [
+      "Standardized reporting required"
+    ],
+    "costConsiderations": null,
+    "specialConsiderations": null,
+    "createdAt": "2025-06-28T17:06:32.376Z",
+    "updatedAt": "2025-06-28T17:06:32.376Z"
+  },
+  {
+    "id": "0748481b-16eb-4674-9efd-bc00d3d94be2",
+    "biomarkerName": "ER/PR",
+    "testingMethod": "Immunohistochemistry",
+    "cancerType": "breast",
+    "clinicalIndications": [
+      "All invasive breast cancers",
+      "Endocrine therapy selection"
+    ],
+    "nccnReference": "BINV-25",
+    "evidenceLevel": "Category 1",
+    "testingTiming": "At diagnosis",
+    "interpretationCriteria": {
+      "negative": "<1% nuclear staining",
+      "positive": "≥1% nuclear staining"
+    },
+    "therapeuticImplications": [
+      "Endocrine therapy selection",
+      "Prognosis"
+    ],
+    "qualityRequirements": [
+      "CAP/ASCO guidelines"
+    ],
+    "reportingStandards": [
+      "Standardized reporting required"
+    ],
+    "costConsiderations": null,
+    "specialConsiderations": null,
+    "createdAt": "2025-06-28T17:06:32.450Z",
+    "updatedAt": "2025-06-28T17:06:32.450Z"
+  },
+  {
+    "id": "89636e10-dfda-425e-9a1f-2f3513285c0f",
+    "biomarkerName": "HER2",
+    "testingMethod": "IHC and/or FISH",
+    "cancerType": "breast",
+    "clinicalIndications": [
+      "All invasive breast cancers",
+      "Treatment selection"
+    ],
+    "nccnReference": "BINV-26",
+    "evidenceLevel": "Category 1",
+    "testingTiming": "At diagnosis",
+    "interpretationCriteria": {
+      "low": "IHC 1-2+/FISH negative",
+      "negative": "IHC 0-1+ or FISH negative",
+      "positive": "IHC 3+ or FISH amplified"
+    },
+    "therapeuticImplications": [
+      "Anti-HER2 therapy selection",
+      "Prognosis"
+    ],
+    "qualityRequirements": [
+      "CAP/ASCO guidelines"
+    ],
+    "reportingStandards": [
+      "Standardized reporting required"
+    ],
+    "costConsiderations": null,
+    "specialConsiderations": null,
+    "createdAt": "2025-06-28T17:06:32.743Z",
+    "updatedAt": "2025-06-28T17:06:32.743Z"
+  },
+  {
+    "id": "77531671-e251-4583-a3f4-5e59b534b06e",
+    "biomarkerName": "ER/PR",
+    "testingMethod": "Immunohistochemistry",
+    "cancerType": "breast",
+    "clinicalIndications": [
+      "All invasive breast cancers",
+      "Endocrine therapy selection"
+    ],
+    "nccnReference": "BINV-26",
+    "evidenceLevel": "Category 1",
+    "testingTiming": "At diagnosis",
+    "interpretationCriteria": {
+      "negative": "<1% nuclear staining",
+      "positive": "≥1% nuclear staining"
+    },
+    "therapeuticImplications": [
+      "Endocrine therapy selection",
+      "Prognosis"
+    ],
+    "qualityRequirements": [
+      "CAP/ASCO guidelines"
+    ],
+    "reportingStandards": [
+      "Standardized reporting required"
+    ],
+    "costConsiderations": null,
+    "specialConsiderations": null,
+    "createdAt": "2025-06-28T17:06:32.817Z",
+    "updatedAt": "2025-06-28T17:06:32.817Z"
+  },
+  {
+    "id": "ff32d93a-4d46-48b4-b266-c199d9b6928a",
+    "biomarkerName": "HER2",
+    "testingMethod": "IHC and/or FISH",
+    "cancerType": "breast",
+    "clinicalIndications": [
+      "All invasive breast cancers",
+      "Treatment selection"
+    ],
+    "nccnReference": "BINV-28",
+    "evidenceLevel": "Category 1",
+    "testingTiming": "At diagnosis",
+    "interpretationCriteria": {
+      "low": "IHC 1-2+/FISH negative",
+      "negative": "IHC 0-1+ or FISH negative",
+      "positive": "IHC 3+ or FISH amplified"
+    },
+    "therapeuticImplications": [
+      "Anti-HER2 therapy selection",
+      "Prognosis"
+    ],
+    "qualityRequirements": [
+      "CAP/ASCO guidelines"
+    ],
+    "reportingStandards": [
+      "Standardized reporting required"
+    ],
+    "costConsiderations": null,
+    "specialConsiderations": null,
+    "createdAt": "2025-06-28T17:06:33.112Z",
+    "updatedAt": "2025-06-28T17:06:33.112Z"
+  },
+  {
+    "id": "a98500af-8933-4f5d-8ba9-a3c598ad6a49",
+    "biomarkerName": "ER/PR",
+    "testingMethod": "Immunohistochemistry",
+    "cancerType": "breast",
+    "clinicalIndications": [
+      "All invasive breast cancers",
+      "Endocrine therapy selection"
+    ],
+    "nccnReference": "BINV-28",
+    "evidenceLevel": "Category 1",
+    "testingTiming": "At diagnosis",
+    "interpretationCriteria": {
+      "negative": "<1% nuclear staining",
+      "positive": "≥1% nuclear staining"
+    },
+    "therapeuticImplications": [
+      "Endocrine therapy selection",
+      "Prognosis"
+    ],
+    "qualityRequirements": [
+      "CAP/ASCO guidelines"
+    ],
+    "reportingStandards": [
+      "Standardized reporting required"
+    ],
+    "costConsiderations": null,
+    "specialConsiderations": null,
+    "createdAt": "2025-06-28T17:06:33.186Z",
+    "updatedAt": "2025-06-28T17:06:33.186Z"
+  },
+  {
+    "id": "77f0ae30-25a1-41fe-889a-3ce40e6fa053",
+    "biomarkerName": "HER2",
+    "testingMethod": "IHC/FISH",
+    "cancerType": "Ampullary Adenocarcinoma",
+    "clinicalIndications": [
+      "Advanced ampullary adenocarcinoma",
+      "Metastatic disease",
+      "Treatment selection"
+    ],
+    "nccnReference": null,
+    "evidenceLevel": "Category 1",
+    "testingTiming": null,
+    "interpretationCriteria": "HER2 overexpression positive: IHC 3+ or FISH amplified",
+    "therapeuticImplications": null,
+    "qualityRequirements": null,
+    "reportingStandards": null,
+    "costConsiderations": null,
+    "specialConsiderations": null,
+    "createdAt": "2025-06-29T00:17:04.939Z",
+    "updatedAt": "2025-06-29T00:17:04.939Z"
+  },
+  {
+    "id": "e8534e55-0607-4ce2-bb9a-9781c592e1d7",
+    "biomarkerName": "PD-L1",
+    "testingMethod": "IHC (CPS scoring)",
+    "cancerType": "Ampullary Adenocarcinoma",
+    "clinicalIndications": [
+      "Advanced disease",
+      "Immunotherapy selection",
+      "First-line treatment planning"
+    ],
+    "nccnReference": null,
+    "evidenceLevel": "Category 1",
+    "testingTiming": null,
+    "interpretationCriteria": "CPS ≥1 for pembrolizumab eligibility, CPS ≥5 for optimal benefit",
+    "therapeuticImplications": null,
+    "qualityRequirements": null,
+    "reportingStandards": null,
+    "costConsiderations": null,
+    "specialConsiderations": null,
+    "createdAt": "2025-06-29T00:17:05.020Z",
+    "updatedAt": "2025-06-29T00:17:05.020Z"
+  },
+  {
+    "id": "86ee8e9f-6bbf-4794-816f-63292a78560c",
+    "biomarkerName": "MSI-H/dMMR",
+    "testingMethod": "IHC for MMR proteins or PCR/NGS for MSI",
+    "cancerType": "Ampullary Adenocarcinoma",
+    "clinicalIndications": [
+      "Treatment planning",
+      "Immunotherapy eligibility",
+      "Perioperative therapy selection"
+    ],
+    "nccnReference": null,
+    "evidenceLevel": "Category 1",
+    "testingTiming": null,
+    "interpretationCriteria": "MSI-H or dMMR indicates deficient DNA repair",
+    "therapeuticImplications": null,
+    "qualityRequirements": null,
+    "reportingStandards": null,
+    "costConsiderations": null,
+    "specialConsiderations": null,
+    "createdAt": "2025-06-29T00:17:05.097Z",
+    "updatedAt": "2025-06-29T00:17:05.097Z"
+  },
+  {
+    "id": "7f36abcb-ead4-49a2-8491-38e7294252c3",
+    "biomarkerName": "CLDN18.2",
+    "testingMethod": "IHC",
+    "cancerType": "Ampullary Adenocarcinoma",
+    "clinicalIndications": [
+      "Advanced disease",
+      "Targeted therapy selection",
+      "First-line treatment"
+    ],
+    "nccnReference": null,
+    "evidenceLevel": "Category 1",
+    "testingTiming": null,
+    "interpretationCriteria": "CLDN18.2 positive by IHC",
+    "therapeuticImplications": null,
+    "qualityRequirements": null,
+    "reportingStandards": null,
+    "costConsiderations": null,
+    "specialConsiderations": null,
+    "createdAt": "2025-06-29T00:17:05.174Z",
+    "updatedAt": "2025-06-29T00:17:05.174Z"
+  },
+  {
+    "id": "f675cd43-16fe-48ad-b971-40462b40c3ba",
+    "biomarkerName": "Hereditary Cancer Panel",
+    "testingMethod": "Germline genetic testing",
+    "cancerType": "Ampullary Adenocarcinoma",
+    "clinicalIndications": [
+      "All confirmed ampullary adenocarcinoma patients",
+      "Positive family history",
+      "Risk assessment"
+    ],
+    "nccnReference": null,
+    "evidenceLevel": "Category 1",
+    "testingTiming": null,
+    "interpretationCriteria": "Test for ATM, BRCA1, BRCA2, CDKN2A, MLH1, MSH2, MSH6, PALB2, PMS2, STK11, TP53",
+    "therapeuticImplications": null,
+    "qualityRequirements": null,
+    "reportingStandards": null,
+    "costConsiderations": null,
+    "specialConsiderations": null,
+    "createdAt": "2025-06-29T00:17:05.251Z",
+    "updatedAt": "2025-06-29T00:17:05.251Z"
+  },
+  {
+    "id": "267b045e-f6fb-47ef-ad29-16db5312b21a",
+    "biomarkerName": "Alkaline Phosphatase",
+    "testingMethod": "Serum chemistry",
+    "cancerType": "Osteosarcoma",
+    "clinicalIndications": [
+      "Baseline assessment",
+      "Response monitoring",
+      "Surveillance"
+    ],
+    "nccnReference": null,
+    "evidenceLevel": "Category 2A",
+    "testingTiming": null,
+    "interpretationCriteria": "Elevated levels may indicate disease activity or progression",
+    "therapeuticImplications": null,
+    "qualityRequirements": null,
+    "reportingStandards": null,
+    "costConsiderations": null,
+    "specialConsiderations": null,
+    "createdAt": "2025-06-29T00:26:38.806Z",
+    "updatedAt": "2025-06-29T00:26:38.806Z"
+  },
+  {
+    "id": "54e546bd-f150-40c8-8011-2c2c28ff1ed6",
+    "biomarkerName": "LDH (Lactate Dehydrogenase)",
+    "testingMethod": "Serum chemistry",
+    "cancerType": "Osteosarcoma",
+    "clinicalIndications": [
+      "Baseline assessment",
+      "Prognostic evaluation",
+      "Response monitoring"
+    ],
+    "nccnReference": null,
+    "evidenceLevel": "Category 2A",
+    "testingTiming": null,
+    "interpretationCriteria": "Elevated LDH associated with worse prognosis",
+    "therapeuticImplications": null,
+    "qualityRequirements": null,
+    "reportingStandards": null,
+    "costConsiderations": null,
+    "specialConsiderations": null,
+    "createdAt": "2025-06-29T00:26:38.883Z",
+    "updatedAt": "2025-06-29T00:26:38.883Z"
+  },
+  {
+    "id": "7f716883-2977-488b-8fa4-4d23aa2c2477",
+    "biomarkerName": "EWSR1 Rearrangement",
+    "testingMethod": "Cytogenetics, FISH, RT-PCR",
+    "cancerType": "Ewing Sarcoma",
+    "clinicalIndications": [
+      "Diagnostic confirmation",
+      "Treatment selection"
+    ],
+    "nccnReference": null,
+    "evidenceLevel": "Category 2A",
+    "testingTiming": null,
+    "interpretationCriteria": "90% have one of four specific translocations (EWSR1-FLI1, EWSR1-ERG)",
+    "therapeuticImplications": null,
+    "qualityRequirements": null,
+    "reportingStandards": null,
+    "costConsiderations": null,
+    "specialConsiderations": null,
+    "createdAt": "2025-06-29T00:26:38.956Z",
+    "updatedAt": "2025-06-29T00:26:38.956Z"
+  },
+  {
+    "id": "75088a69-f0d4-4bf4-94d6-0625e886f828",
+    "biomarkerName": "CIC-DUX4 Fusion",
+    "testingMethod": "Molecular testing, RT-PCR",
+    "cancerType": "Ewing-like Sarcoma",
+    "clinicalIndications": [
+      "Differential diagnosis",
+      "Treatment selection"
+    ],
+    "nccnReference": null,
+    "evidenceLevel": "Category 2A",
+    "testingTiming": null,
+    "interpretationCriteria": "Ewing-like sarcoma that can be treated with Ewing protocols",
+    "therapeuticImplications": null,
+    "qualityRequirements": null,
+    "reportingStandards": null,
+    "costConsiderations": null,
+    "specialConsiderations": null,
+    "createdAt": "2025-06-29T00:26:39.028Z",
+    "updatedAt": "2025-06-29T00:26:39.028Z"
+  },
+  {
+    "id": "08f0642f-381b-4df5-ae1d-c1a341482a01",
+    "biomarkerName": "BCOR-CCNB3 Fusion",
+    "testingMethod": "Molecular testing, RT-PCR",
+    "cancerType": "Ewing-like Sarcoma",
+    "clinicalIndications": [
+      "Differential diagnosis",
+      "Treatment selection"
+    ],
+    "nccnReference": null,
+    "evidenceLevel": "Category 2A",
+    "testingTiming": null,
+    "interpretationCriteria": "Round cell sarcoma with Ewing-like features",
+    "therapeuticImplications": null,
+    "qualityRequirements": null,
+    "reportingStandards": null,
+    "costConsiderations": null,
+    "specialConsiderations": null,
+    "createdAt": "2025-06-29T00:26:39.101Z",
+    "updatedAt": "2025-06-29T00:26:39.101Z"
+  }
+]

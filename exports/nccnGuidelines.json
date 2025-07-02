@@ -1,0 +1,4491 @@
+[
+  {
+    "id": "1b02d706-1499-4d0d-b9a0-6a99a15a4311",
+    "referenceCode": "BINV-20",
+    "title": "BINV-20",
+    "category": "invasive_breast_cancer",
+    "cancerType": "breast",
+    "version": "4.2025",
+    "releaseDate": "2025-04-17",
+    "content": {
+      "updates": [
+        "Regimen revised: AC (doxorubicin/cyclophosphamide) followed or preceded by carboplatin + taxane (paclitaxel or docetaxel).",
+        "Added dosing for AC followed or preceded by carboplatin + taxane (paclitaxel).",
+        "Erratum: \"Datopotamab deruxtecan-dlnk is indicated as second- or subsequent-line therapy for those who have received a prior endocrine-based",
+        "For Breast Cancer Version 1.2025, BINV-M 6 of 10: Dosing correction for AC followed or preceded by carboplatin + docetaxel.",
+        "Regimen clarified: TC followed by or preceded by AC was replaced with AC (doxorubicin/cyclophosphamide) followed or preceded by carboplatin +",
+        "Erratum: Paclitaxel + trastuzumab + pertuzumab was inadvertently listed under \"Adjuvant setting only\". This has been corrected and this regimen is",
+        "Footnotes were adjusted in the table.",
+        "Dosing added for AC followed or preceded by carboplatin + docetaxel.",
+        "Formatting change for Docetaxel + Carboplatin + Pembrolizumab.",
+        "Dosing correction for Docetaxel + Carboplatin + Pembrolizumab.",
+        "Reference 34 added: Sohn J, Kim GM, Jung KH, et al. A randomized, multicenter, open-label, phase III trial comparing anthracyclines followed by"
+      ],
+      "fullText": "•  Last node, added \"and Supportive Care\".\nUpdates in Version 3.2025 of the NCCN Guidelines for Breast Cancer from Version 2.2025 include:\nErratum:\nBINV-M 3 of 10\n• Regimen revised: AC (doxorubicin/cyclophosphamide) followed or preceded by carboplatin + taxane (paclitaxel or docetaxel).\nBINV-M 6 of 10\n• Added dosing for AC followed or preceded by carboplatin + taxane (paclitaxel).\nBINV-Q 2 of 15\n• Erratum: \"Datopotamab deruxtecan-dlnk is indicated as second- or subsequent-line therapy for those who have received a prior endocrine-based\ntherapy and chemotherapy for unresectable or metastatic disease.\" was added to the beginning of footnote h to clarify that the recommendation aligns\nwith the FDA indication and panel vote.\n• For Breast Cancer Version 1.2025, BINV-M 6 of 10: Dosing correction for AC followed or preceded by carboplatin + docetaxel.\nBINV-M 3 of 10\n• Regimen clarified: TC followed by or preceded by AC was replaced with AC (doxorubicin/cyclophosphamide) followed or preceded by carboplatin +\ndocetaxel.\nBINV-M 4 of 10\n• Erratum: Paclitaxel + trastuzumab + pertuzumab was inadvertently listed under \"Adjuvant setting only\". This has been corrected and this regimen is\nlisted under \"Preoperative or adjuvant setting\".\n• Footnotes were adjusted in the table.\nBINV-M 6 of 10\n• Dosing added for AC followed or preceded by carboplatin + docetaxel.\n• Formatting change for Docetaxel + Carboplatin + Pembrolizumab.\n• Dosing correction for Docetaxel + Carboplatin + Pembrolizumab.\nBINV-M 10 of 10\n• Reference 34 added: Sohn J, Kim GM, Jung KH, et al. A randomized, multicenter, open-label, phase III trial comparing anthracyclines followed by\ntaxane versus anthracyclines followed by taxane plus carboplatin as (neo) adjuvant therapy in patients with early triple-negative breast cancer: Korean\nCancer Study Group BR 15-1 PEARLY trial. J Clin Oncol 2024; 42: LBA502.\nUpdates in Version 2.2025 of the NCCN Guidelines for Breast Cancer from Version 1.2025 include:\nPLEASE NOTE that use of this NCCN Content is governed by the End-User License Agreement, and you MAY NOT distribute this Content or use it with any artificial intelligence model or tool.\nPrinted by Mansoor Wahid on 6/25/2025 11:49:26 AM. Copyright © 2025 National Comprehensive Cancer Network, Inc. All Rights Reserved.\nNCCN Guidelines Version 4.2025",
+      "footnotes": [
+        "footnote h to clarify that the recommendation aligns\nwith the FDA indication and panel vote.\n"
+      ],
+      "keyPoints": [
+        "Last node, added \"and Supportive Care\".",
+        "Regimen revised: AC (doxorubicin/cyclophosphamide) followed or preceded by carboplatin + taxane (paclitaxel or docetaxel).",
+        "Added dosing for AC followed or preceded by carboplatin + taxane (paclitaxel).",
+        "Erratum: \"Datopotamab deruxtecan-dlnk is indicated as second- or subsequent-line therapy for those who have received a prior endocrine-based",
+        "For Breast Cancer Version 1.2025, BINV-M 6 of 10: Dosing correction for AC followed or preceded by carboplatin + docetaxel.",
+        "Regimen clarified: TC followed by or preceded by AC was replaced with AC (doxorubicin/cyclophosphamide) followed or preceded by carboplatin +",
+        "Erratum: Paclitaxel + trastuzumab + pertuzumab was inadvertently listed under \"Adjuvant setting only\". This has been corrected and this regimen is",
+        "Footnotes were adjusted in the table.",
+        "Dosing added for AC followed or preceded by carboplatin + docetaxel.",
+        "Formatting change for Docetaxel + Carboplatin + Pembrolizumab.",
+        "Dosing correction for Docetaxel + Carboplatin + Pembrolizumab.",
+        "Reference 34 added: Sohn J, Kim GM, Jung KH, et al. A randomized, multicenter, open-label, phase III trial comparing anthracyclines followed by"
+      ]
+    },
+    "evidenceLevel": "Category 2A",
+    "consensusLevel": "consensus",
+    "applicableStages": [],
+    "biomarkerRequirements": {},
+    "treatmentSettings": [
+      "adjuvant",
+      "metastatic"
+    ],
+    "specialPopulations": [],
+    "crossReferences": [
+      "BINV-M 3 of 10\n",
+      "BINV-M 6 of 10\n",
+      "BINV-Q 2 of 15\n",
+      "BINV-M 6 of 10",
+      "BINV-M 3 of 10\n",
+      "BINV-M 4 of 10\n",
+      "BINV-M 6 of 10\n",
+      "BINV-M 10 of 10\n"
+    ],
+    "evidenceReferences": [],
+    "updatesFromPrevious": "3.2025 of the NCCN Guidelines for Breast Cancer from Version 2.2025 include:\nErratum:\nBINV-M 3 of 10\n• Regimen revised: AC (doxorubicin/cyclophosphamide) followed or preceded by carboplatin + taxane (paclitaxel or docetaxel).\nBINV-M 6 of 10\n• Added dosing for AC followed or preceded by carboplatin + taxane (paclitaxel).\nBINV-Q 2 of 15\n• Erratum: \"Datopotamab deruxtecan-dlnk is indicated as second- or subsequent-line therapy for those who have received a prior endocrine-based\ntherapy and chemotherapy for unresectable or metastatic disease.\" was added to the beginning of footnote h to clarify that the recommendation aligns\nwith the FDA indication and panel vote.\n• For Breast Cancer Version 1.2025, BINV-M 6 of 10: Dosing correction for AC followed or preceded by carboplatin + docetaxel.\nBINV-M 3 of 10\n• Regimen clarified: TC followed by or preceded by AC was replaced with AC (doxorubicin/cyclophosphamide) followed or preceded by carboplatin +\ndocetaxel.\nBINV-M 4 of 10\n• Erratum: Paclitaxel + trastuzumab + pertuzumab was inadvertently listed under \"Adjuvant setting only\". This has been corrected and this regimen is\nlisted under \"Preoperative or adjuvant setting\".\n• Footnotes were adjusted in the table.\nBINV-M 6 of 10\n• Dosing added for AC followed or preceded by carboplatin + docetaxel.\n• Formatting change for Docetaxel + Carboplatin + Pembrolizumab.\n• Dosing correction for Docetaxel + Carboplatin + Pembrolizumab.\nBINV-M 10 of 10\n• Reference 34 added: Sohn J, Kim GM, Jung KH, et al. A randomized, multicenter, open-label, phase III trial comparing anthracyclines followed by\ntaxane versus anthracyclines followed by taxane plus carboplatin as (neo) adjuvant therapy in patients with early triple-negative breast cancer: Korean\nCancer Study Group BR 15-1 PEARLY trial. J Clin Oncol 2024; 42: LBA502.",
+    "clinicalDecisionPoints": [],
+    "monitoringRequirements": {},
+    "contraindications": [],
+    "alternativeApproaches": [
+      "Other treatment options"
+    ],
+    "qualityMeasures": {},
+    "createdAt": "2025-06-28T17:06:28.185Z",
+    "updatedAt": "2025-06-28T17:06:28.185Z"
+  },
+  {
+    "id": "d94f4cab-da2a-497e-aff9-e28b6e3ddd89",
+    "referenceCode": "DCIS-1",
+    "title": "DCIS-1",
+    "category": "ductal_carcinoma_in_situ",
+    "cancerType": "breast",
+    "version": "4.2025",
+    "releaseDate": "2025-04-17",
+    "content": {
+      "updates": [],
+      "fullText": "• Footnote g revised: Surgical axillary staging should not be performed for preoperative (biopsy-determined) pure DCIS unless there is some clinical-pathologic\nsuggestion of invasion or axillary metastasis. A SLNB should also can be considered in the setting of 1) mastectomy for DCIS, where there is a small risk of\ndetecting invasive disease in the mastectomy specimen or 2) excision in an anatomic location compromising the performance of a future SLNB procedure.\n• Footnote h added: A SLNB may be considered in the setting of 1) mastectomy for DCIS, 2) excision in an anatomic location compromising the performance of\na future SLNB procedure 3) oncoplastic breast conserving surgery (see BINV-D for appropriate candidates for SLNB).\n• Footnote m, last sentence revised: Select patients with \"low\" risk DCIS may be considered suitable for APBI/PBI or omission of RT (endocrine therapy alone, if\nall RTOG 9804 criteria are met: screen-detected, grade 1–2, size ≤2.5 cm, margins ≥3 mm).",
+      "footnotes": [
+        "Footnote g revised: Surgical axillary staging should not be performed for preoperative (biopsy-determined) pure DCIS unless there is some clinical-pathologic\nsuggestion of invasion or axillary metastasis. A SLNB should also can be considered in the setting of 1) mastectomy for DCIS, where there is a small risk of\ndetecting invasive disease in the mastectomy specimen or 2) excision in an anatomic location compromising the performance of a future SLNB procedure.\n",
+        "Footnote h added: A SLNB may be considered in the setting of 1) mastectomy for DCIS, 2) excision in an anatomic location compromising the performance of\na future SLNB procedure 3) oncoplastic breast conserving surgery (see BINV-D for appropriate candidates for SLNB).\n",
+        "Footnote m, last sentence revised: Select patients with \"low\" risk DCIS may be considered suitable for APBI/PBI or omission of RT (endocrine therapy alone, if\nall RTOG 9804 criteria are met: screen-detected, grade 1–2, size ≤2.5 cm, margins ≥3 mm)."
+      ],
+      "keyPoints": [
+        "Footnote g revised: Surgical axillary staging should not be performed for preoperative (biopsy-determined) pure DCIS unless there is some clinical-pathologic",
+        "Footnote h added: A SLNB may be considered in the setting of 1) mastectomy for DCIS, 2) excision in an anatomic location compromising the performance of",
+        "Footnote m, last sentence revised: Select patients with \"low\" risk DCIS may be considered suitable for APBI/PBI or omission of RT (endocrine therapy alone, if"
+      ]
+    },
+    "evidenceLevel": "Category 2A",
+    "consensusLevel": "consensus",
+    "applicableStages": [],
+    "biomarkerRequirements": {},
+    "treatmentSettings": [
+      "preoperative"
+    ],
+    "specialPopulations": [],
+    "crossReferences": [
+      "see BINV-D for appropriate candidates for SLNB"
+    ],
+    "evidenceReferences": [],
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Optional intervention",
+      "Recommended intervention"
+    ],
+    "monitoringRequirements": {},
+    "contraindications": [],
+    "alternativeApproaches": [],
+    "qualityMeasures": {},
+    "createdAt": "2025-06-28T17:06:28.416Z",
+    "updatedAt": "2025-06-28T17:06:28.416Z"
+  },
+  {
+    "id": "88d9478c-c492-4228-a36c-876ecf6f2179",
+    "referenceCode": "DCIS-2",
+    "title": "DCIS-2",
+    "category": "ductal_carcinoma_in_situ",
+    "cancerType": "breast",
+    "version": "4.2025",
+    "releaseDate": "2025-04-17",
+    "content": {
+      "updates": [],
+      "fullText": "• Surveillance/Follow-up, 2nd bullet revised: First mammogram 6–12 mo, after end of RT, if given, or after BCS therapy (category 2B) if no RT is given\nand annually thereafter\n• Footnote q revised: The standard dose of tamoxifen is 20 mg/day for 5 years. Low-dose tamoxifen (5 mg/day or 10 mg/every other day, for 3 years) is\nan option in patients who are symptomatic or unwilling to take standard 20-mg dosing. Low-dose tamoxifen (5 mg per day or 10 mg every other day for\n3–5 years) is an option if patient is symptomatic on the 20-mg dose or if patient is unwilling or unable to take standard-dose 20 mg per day tamoxifen\n[10 mg every other day since 5-mg dose is not available in the United States]. This low dosage needs further investigation in premenopausal individuals\n(DeCensi A, et al. J Clin Oncol 2019;37:1629-1637).",
+      "footnotes": [
+        "Footnote q revised: The standard dose of tamoxifen is 20 mg/day for 5 years. Low-dose tamoxifen (5 mg/day or 10 mg/every other day, for 3 years) is\nan option in patients who are symptomatic or unwilling to take standard 20-mg dosing. Low-dose tamoxifen (5 mg per day or 10 mg every other day for\n3–5 years) is an option if patient is symptomatic on the 20-mg dose or if patient is unwilling or unable to take standard-dose 20 mg per day tamoxifen\n[10 mg every other day since 5-mg dose is not available in the United States]. This low dosage needs further investigation in premenopausal individuals\n(DeCensi A, et al. J Clin Oncol 2019;37:1629-1637)."
+      ],
+      "keyPoints": [
+        "Surveillance/Follow-up, 2nd bullet revised: First mammogram 6–12 mo, after end of RT, if given, or after BCS therapy (category 2B) if no RT is given",
+        "Footnote q revised: The standard dose of tamoxifen is 20 mg/day for 5 years. Low-dose tamoxifen (5 mg/day or 10 mg/every other day, for 3 years) is"
+      ]
+    },
+    "evidenceLevel": "Category 2B",
+    "consensusLevel": "consensus",
+    "applicableStages": [],
+    "biomarkerRequirements": {},
+    "treatmentSettings": [],
+    "specialPopulations": [
+      "premenopausal"
+    ],
+    "crossReferences": [],
+    "evidenceReferences": [
+      "Censi A, et al. J Clin Oncol 2019;37:1629-1637"
+    ],
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [],
+    "monitoringRequirements": {},
+    "contraindications": [],
+    "alternativeApproaches": [
+      "Other treatment options"
+    ],
+    "qualityMeasures": {},
+    "createdAt": "2025-06-28T17:06:28.564Z",
+    "updatedAt": "2025-06-28T17:06:28.564Z"
+  },
+  {
+    "id": "87dbb38d-c5b6-4c0c-a156-19ac4dc66d6e",
+    "referenceCode": "BINV-1",
+    "title": "BINV-1",
+    "category": "invasive_breast_cancer",
+    "cancerType": "breast",
+    "version": "4.2025",
+    "releaseDate": "2025-04-17",
+    "content": {
+      "updates": [],
+      "fullText": "• Workup\n\u0017Last bullet added: Consider baseline lymphedema screening, as per NCCN Guidelines for Survivorship\n• Clinical Stage\n\u0017Bottom pathway, last column middle node, bullet 1 revised: BCS + surgical axillary staging ± whole breast RT Followed by RT\n\u0017Bottom pathway, last column middle node, bullet 2 revised: Mastectomy + surgical axillary staging ± PMRT Followed by RT",
+      "footnotes": [],
+      "keyPoints": [
+        "Workup",
+        "Clinical Stage"
+      ]
+    },
+    "evidenceLevel": "Category 2A",
+    "consensusLevel": "consensus",
+    "applicableStages": [],
+    "biomarkerRequirements": {},
+    "treatmentSettings": [],
+    "specialPopulations": [],
+    "crossReferences": [],
+    "evidenceReferences": [],
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Clinical consideration required"
+    ],
+    "monitoringRequirements": {},
+    "contraindications": [],
+    "alternativeApproaches": [],
+    "qualityMeasures": {},
+    "createdAt": "2025-06-28T17:06:28.715Z",
+    "updatedAt": "2025-06-28T17:06:28.715Z"
+  },
+  {
+    "id": "9f222183-ab3f-4fa3-9862-b35c17a7a01a",
+    "referenceCode": "BINV-2",
+    "title": "BINV-2",
+    "category": "invasive_breast_cancer",
+    "cancerType": "breast",
+    "version": "4.2025",
+    "releaseDate": "2025-04-17",
+    "content": {
+      "updates": [],
+      "fullText": "• Column headers added: Surgery, Adjuvant Systemic Therapy, Nodal Status, RT\n• Column 2\n\u0017Last sentence added: RT is typically given after systemic therapy (Also for BINV-3)\n• pN1a pathway, bullet 1 revised: cT1–T3 2, cN0\n• pN1a pathway, \"No\" node, last column revised: Whole breast RT with inclusion of any portion of the undissected axilla at risk ± boost to tumor bed\n(category 1). Strongly consider comprehensive RNI, including any portion of the undissected axilla.\n• Footnote o revised: Sentinel node biopsy may be omitted based on the SSO Choosing Wisely recommendation in patients ≥70 years of age with HR+/\nHER2-negative and pT1, cN0 tumors (Hughes KS, et al. J Clin Oncol 2013;31:2382-2387. Kunkler IH, et al. N Engl J Med 2023:388:585-594).\n• Footnote p added: Determined by surgery, clinical findings, or radiographic imaging.\n• Footnote q added: Based on emerging data from the SOUND trial, patients with HR+/HER2-negative tumors, pT1, N0 (node negative by axillary\nultrasound), may be considered for omission of SLN biopsy. Gentilini OD, et al. JAMA Oncol 2023;9:1557-1564.",
+      "footnotes": [
+        "Footnote o revised: Sentinel node biopsy may be omitted based on the SSO Choosing Wisely recommendation in patients ≥70 years of age with HR+/\nHER2-negative and pT1, cN0 tumors (Hughes KS, et al. J Clin Oncol 2013;31:2382-2387. Kunkler IH, et al. N Engl J Med 2023:388:585-594).\n",
+        "Footnote p added: Determined by surgery, clinical findings, or radiographic imaging.\n",
+        "Footnote q added: Based on emerging data from the SOUND trial, patients with HR+/HER2-negative tumors, pT1, N0 (node negative by axillary\nultrasound), may be considered for omission of SLN biopsy. Gentilini OD, et al. JAMA Oncol 2023;9:1557-1564."
+      ],
+      "keyPoints": [
+        "Column headers added: Surgery, Adjuvant Systemic Therapy, Nodal Status, RT",
+        "Column 2",
+        "pN1a pathway, bullet 1 revised: cT1–T3 2, cN0",
+        "pN1a pathway, \"No\" node, last column revised: Whole breast RT with inclusion of any portion of the undissected axilla at risk ± boost to tumor bed",
+        "Footnote o revised: Sentinel node biopsy may be omitted based on the SSO Choosing Wisely recommendation in patients ≥70 years of age with HR+/",
+        "Footnote p added: Determined by surgery, clinical findings, or radiographic imaging.",
+        "Footnote q added: Based on emerging data from the SOUND trial, patients with HR+/HER2-negative tumors, pT1, N0 (node negative by axillary"
+      ]
+    },
+    "evidenceLevel": "Category 1",
+    "consensusLevel": "consensus",
+    "applicableStages": [
+      "pN1a",
+      "pT1"
+    ],
+    "biomarkerRequirements": {
+      "ER": "Testing required",
+      "HER2": "Negative (IHC 0-1+ or FISH negative)"
+    },
+    "treatmentSettings": [],
+    "specialPopulations": [
+      "elderly"
+    ],
+    "crossReferences": [
+      "BINV-3"
+    ],
+    "evidenceReferences": [
+      "Hughes KS, et al. J Clin Oncol 2013;31:2382-2387",
+      "Gentilini OD, et al. JAMA Oncol 2023;9:1557-1564"
+    ],
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Optional intervention"
+    ],
+    "monitoringRequirements": {},
+    "contraindications": [],
+    "alternativeApproaches": [],
+    "qualityMeasures": {},
+    "createdAt": "2025-06-28T17:06:28.863Z",
+    "updatedAt": "2025-06-28T17:06:28.863Z"
+  },
+  {
+    "id": "bf6ef40d-dd93-4388-a986-853321d85c9b",
+    "referenceCode": "BINV-3",
+    "title": "BINV-3",
+    "category": "invasive_breast_cancer",
+    "cancerType": "breast",
+    "version": "4.2025",
+    "releaseDate": "2025-04-17",
+    "content": {
+      "updates": [],
+      "fullText": "• Header revised: Locoregional Treatment of cT–3, cN0 or cN+, M0 Disease: Mastectomy ± PMRT\n• Column headers added: Surgery, Adjuvant Systemic Therapy, Pathologic Nodal Status, RT\n• Column 1 revised: Nipple-sparing, skin-sparing, or total mastectomy with surgical axillary staging (category 1) ± reconstruction",
+      "footnotes": [],
+      "keyPoints": [
+        "Header revised: Locoregional Treatment of cT–3, cN0 or cN+, M0 Disease: Mastectomy ± PMRT",
+        "Column headers added: Surgery, Adjuvant Systemic Therapy, Pathologic Nodal Status, RT",
+        "Column 1 revised: Nipple-sparing, skin-sparing, or total mastectomy with surgical axillary staging (category 1) ± reconstruction"
+      ]
+    },
+    "evidenceLevel": "Category 1",
+    "consensusLevel": "consensus",
+    "applicableStages": [
+      "M0"
+    ],
+    "biomarkerRequirements": {},
+    "treatmentSettings": [],
+    "specialPopulations": [],
+    "crossReferences": [],
+    "evidenceReferences": [],
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [],
+    "monitoringRequirements": {},
+    "contraindications": [],
+    "alternativeApproaches": [],
+    "qualityMeasures": {},
+    "createdAt": "2025-06-28T17:06:29.236Z",
+    "updatedAt": "2025-06-28T17:06:29.236Z"
+  },
+  {
+    "id": "d3549545-7e0e-4f2a-83f4-07bac0cb3a22",
+    "referenceCode": "BINV-14",
+    "title": "BINV-14",
+    "category": "invasive_breast_cancer",
+    "cancerType": "breast",
+    "version": "4.2025",
+    "releaseDate": "2025-04-17",
+    "content": {
+      "updates": [],
+      "fullText": "• Footnote t added: Special Considerations for Breast Cancer in Males (Sex Assigned at Birth) (BINV-J). (Also for BINV-15 and BINV-16)",
+      "footnotes": [
+        "Footnote t added: Special Considerations for Breast Cancer in Males (Sex Assigned at Birth) (BINV-J). (Also for BINV-15 and BINV-16)"
+      ],
+      "keyPoints": [
+        "Footnote t added: Special Considerations for Breast Cancer in Males (Sex Assigned at Birth) (BINV-J). (Also for BINV-15 and BINV-16)"
+      ]
+    },
+    "evidenceLevel": "Category 2A",
+    "consensusLevel": "consensus",
+    "applicableStages": [],
+    "biomarkerRequirements": {},
+    "treatmentSettings": [],
+    "specialPopulations": [
+      "male_breast_cancer"
+    ],
+    "crossReferences": [
+      "BINV-J",
+      "BINV-15 and BINV"
+    ],
+    "evidenceReferences": [],
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Clinical consideration required"
+    ],
+    "monitoringRequirements": {},
+    "contraindications": [],
+    "alternativeApproaches": [],
+    "qualityMeasures": {},
+    "createdAt": "2025-06-28T17:06:31.025Z",
+    "updatedAt": "2025-06-28T17:06:31.025Z"
+  },
+  {
+    "id": "af525f00-7dc3-4d06-af0e-d1f5a0caa69a",
+    "referenceCode": "BINV-4",
+    "title": "BINV-4",
+    "category": "invasive_breast_cancer",
+    "cancerType": "breast",
+    "version": "4.2025",
+    "releaseDate": "2025-04-17",
+    "content": {
+      "updates": [],
+      "fullText": "• Header added: Adjuvant Systemic Therapy Considerations Based on Histology and Receptor Status after Upfront Surgery\nUpdates in Version 1.2025 of the NCCN Guidelines for Breast Cancer from Version 6.2024 include:\nPLEASE NOTE that use of this NCCN Content is governed by the End-User License Agreement, and you MAY NOT distribute this Content or use it with any artificial intelligence model or tool.\nPrinted by Mansoor Wahid on 6/25/2025 11:49:26 AM. Copyright © 2025 National Comprehensive Cancer Network, Inc. All Rights Reserved.\nNCCN Guidelines Version 4.2025",
+      "footnotes": [],
+      "keyPoints": [
+        "Header added: Adjuvant Systemic Therapy Considerations Based on Histology and Receptor Status after Upfront Surgery"
+      ]
+    },
+    "evidenceLevel": "Category 2A",
+    "consensusLevel": "consensus",
+    "applicableStages": [],
+    "biomarkerRequirements": {},
+    "treatmentSettings": [],
+    "specialPopulations": [],
+    "crossReferences": [],
+    "evidenceReferences": [],
+    "updatesFromPrevious": "1.2025 of the NCCN Guidelines for Breast Cancer from Version 6.2024 include:\nPLEASE NOTE that use of this NCCN Content is governed by the End-User License Agreement, and you MAY NOT distribute this Content or use it with any artificial intelligence model or tool.\nPrinted by Mansoor Wahid on 6/25/2025 11:49:26 AM. Copyright © 2025 National Comprehensive Cancer Network, Inc. All Rights Reserved.\nNCCN Guidelines Version 4.2025",
+    "clinicalDecisionPoints": [
+      "Clinical consideration required"
+    ],
+    "monitoringRequirements": {},
+    "contraindications": [],
+    "alternativeApproaches": [],
+    "qualityMeasures": {},
+    "createdAt": "2025-06-28T17:06:29.309Z",
+    "updatedAt": "2025-06-28T17:06:29.309Z"
+  },
+  {
+    "id": "6558e169-bf51-4135-9369-053a908afd1a",
+    "referenceCode": "BINV-5",
+    "title": "BINV-5",
+    "category": "invasive_breast_cancer",
+    "cancerType": "breast",
+    "version": "4.2025",
+    "releaseDate": "2025-04-17",
+    "content": {
+      "updates": [],
+      "fullText": "• pT1c-pT3 pathway revised: Adjuvant chemotherapy with trastuzumab (category 1) (± pertuzumab for pT2-T3) and endocrine therapy\n• Footnote hh revised: The prognosis of benefit of HER2-targeted therapy is uncertain in patients with HER2-positive breast cancer with pT1a–b, N0\ntumors, pT1a and pT1b tumors that are pN0 is uncertain even when HER2 is amplified or overexpressed. This is a population of patients with breast\ncancer that was not studied in available randomized trials. The decision for use of trastuzumab therapy in this cohort of patients must balance with the\nknown toxicities of trastuzumab, such as cardiac toxicity, and the uncertain, absolute benefits that may exist with trastuzumab therapy.\n• Footnote ii revised: Adjuvant chemotherapy with weekly paclitaxel and trastuzumab can be considered for pT1,N0,M0, HER2-positive cancers,\nparticularly if the primary cancer is HR-negative. The absolute benefit of HER2-based systemic chemotherapy is likely negligible in patients with HR-\npositive cancers and tumor size bordering on T1mic (<1 mm), when the estimated recurrence risk is less than 5% and endocrine therapy remains a\nviable option for systemic treatment. (Also for subsequent pages)",
+      "footnotes": [
+        "Footnote hh revised: The prognosis of benefit of HER2-targeted therapy is uncertain in patients with HER2-positive breast cancer with pT1a–b, N0\ntumors, pT1a and pT1b tumors that are pN0 is uncertain even when HER2 is amplified or overexpressed. This is a population of patients with breast\ncancer that was not studied in available randomized trials. The decision for use of trastuzumab therapy in this cohort of patients must balance with the\nknown toxicities of trastuzumab, such as cardiac toxicity, and the uncertain, absolute benefits that may exist with trastuzumab therapy.\n",
+        "Footnote ii revised: Adjuvant chemotherapy with weekly paclitaxel and trastuzumab can be considered for pT1,N0,M0, HER2-positive cancers,\nparticularly if the primary cancer is HR-negative. The absolute benefit of HER2-based systemic chemotherapy is likely negligible in patients with HR-\npositive cancers and tumor size bordering on T1mic (<1 mm), when the estimated recurrence risk is less than 5% and endocrine therapy remains a\nviable option for systemic treatment. (Also for subsequent pages)"
+      ],
+      "keyPoints": [
+        "pT1c-pT3 pathway revised: Adjuvant chemotherapy with trastuzumab (category 1) (± pertuzumab for pT2-T3) and endocrine therapy",
+        "Footnote hh revised: The prognosis of benefit of HER2-targeted therapy is uncertain in patients with HER2-positive breast cancer with pT1a–b, N0",
+        "Footnote ii revised: Adjuvant chemotherapy with weekly paclitaxel and trastuzumab can be considered for pT1,N0,M0, HER2-positive cancers,"
+      ]
+    },
+    "evidenceLevel": "Category 1",
+    "consensusLevel": "consensus",
+    "applicableStages": [
+      "pT1c",
+      "pT3",
+      "pT2",
+      "pT1a",
+      "pT1b",
+      "pN0",
+      "pT1",
+      "M0"
+    ],
+    "biomarkerRequirements": {
+      "ER": "Negative (<1% by IHC)",
+      "HER2": "Positive (IHC 3+ or FISH amplified)"
+    },
+    "treatmentSettings": [],
+    "specialPopulations": [],
+    "crossReferences": [],
+    "evidenceReferences": [],
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [],
+    "monitoringRequirements": {},
+    "contraindications": [],
+    "alternativeApproaches": [
+      "Other treatment options"
+    ],
+    "qualityMeasures": {},
+    "createdAt": "2025-06-28T17:06:29.387Z",
+    "updatedAt": "2025-06-28T17:06:29.387Z"
+  },
+  {
+    "id": "0f11d7eb-8579-4c50-ba5b-e94f52cd9ca9",
+    "referenceCode": "BINV-6",
+    "title": "BINV-6",
+    "category": "invasive_breast_cancer",
+    "cancerType": "breast",
+    "version": "4.2025",
+    "releaseDate": "2025-04-17",
+    "content": {
+      "updates": [],
+      "fullText": "• Middle pathway, column 3, new node added: Determine if candidate for chemotherapy (Also for BINV-7)\n\u0017New branch point added: Not a candidate for chemotherapy (Also for BINV-7)\n• Footnote removed: Addition of 1 year of adjuvant olaparib is an option for select patients with germline BRCA1/2 mutation after completion of adjuvant\nchemotherapy. See BINV-L. In patients eligible for adjuvant olaparib and abemaciclib or ribociclib the optimal sequence is not known. (Also for BINV-8\nand 10)",
+      "footnotes": [
+        "Footnote removed: Addition of 1 year of adjuvant olaparib is an option for select patients with germline BRCA1/2 mutation after completion of adjuvant\nchemotherapy. See BINV-L. In patients eligible for adjuvant olaparib and abemaciclib or ribociclib the optimal sequence is not known. (Also for BINV-8\nand 10)"
+      ],
+      "keyPoints": [
+        "Middle pathway, column 3, new node added: Determine if candidate for chemotherapy (Also for BINV-7)",
+        "Footnote removed: Addition of 1 year of adjuvant olaparib is an option for select patients with germline BRCA1/2 mutation after completion of adjuvant"
+      ]
+    },
+    "evidenceLevel": "Category 2A",
+    "consensusLevel": "consensus",
+    "applicableStages": [],
+    "biomarkerRequirements": {
+      "BRCA": "Germline mutation testing recommended"
+    },
+    "treatmentSettings": [
+      "adjuvant"
+    ],
+    "specialPopulations": [],
+    "crossReferences": [
+      "BINV-7",
+      "BINV-7",
+      "See BINV-L",
+      "BINV-8\nand 10"
+    ],
+    "evidenceReferences": [],
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [],
+    "monitoringRequirements": {},
+    "contraindications": [],
+    "alternativeApproaches": [
+      "Other treatment options"
+    ],
+    "qualityMeasures": {},
+    "createdAt": "2025-06-28T17:06:29.845Z",
+    "updatedAt": "2025-06-28T17:06:29.845Z"
+  },
+  {
+    "id": "73c7c679-3d86-410f-a96b-583700d1c525",
+    "referenceCode": "BINV-7",
+    "title": "BINV-7",
+    "category": "invasive_breast_cancer",
+    "cancerType": "breast",
+    "version": "4.2025",
+    "releaseDate": "2025-04-17",
+    "content": {
+      "updates": [],
+      "fullText": "• Not a candidate for chemotherapy, last column, new node added: Adjuvant endocrine therapy ± ovarian suppression/ablation. Consider adjuvant\nribociclib for eligible patients. See BINV-K 2 of 3 for eligibility criteria.",
+      "footnotes": [],
+      "keyPoints": [
+        "Not a candidate for chemotherapy, last column, new node added: Adjuvant endocrine therapy ± ovarian suppression/ablation. Consider adjuvant"
+      ]
+    },
+    "evidenceLevel": "Category 2A",
+    "consensusLevel": "consensus",
+    "applicableStages": [],
+    "biomarkerRequirements": {},
+    "treatmentSettings": [
+      "adjuvant"
+    ],
+    "specialPopulations": [],
+    "crossReferences": [
+      "See BINV-K 2 of 3 for eligibility criteria"
+    ],
+    "evidenceReferences": [],
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Clinical consideration required"
+    ],
+    "monitoringRequirements": {},
+    "contraindications": [],
+    "alternativeApproaches": [
+      "Other treatment options"
+    ],
+    "qualityMeasures": {},
+    "createdAt": "2025-06-28T17:06:30.066Z",
+    "updatedAt": "2025-06-28T17:06:30.066Z"
+  },
+  {
+    "id": "6b50968d-3994-49b3-8ee4-467a5f066bce",
+    "referenceCode": "BINV-8",
+    "title": "BINV-8",
+    "category": "invasive_breast_cancer",
+    "cancerType": "breast",
+    "version": "4.2025",
+    "releaseDate": "2025-04-17",
+    "content": {
+      "updates": [],
+      "fullText": "• Bottom pathway revised: Adjuvant chemotherapy followed by endocrine therapy ± ovarian suppression/ablation (category 1). Consider adjuvant\nabemaciclib or ribociclib and/or adjuvant olaparib if germline BRCA1/2 mutation for eligible patients. See BINV-K 2 of 3 and BINV-M for eligibility criteria.",
+      "footnotes": [],
+      "keyPoints": [
+        "Bottom pathway revised: Adjuvant chemotherapy followed by endocrine therapy ± ovarian suppression/ablation (category 1). Consider adjuvant"
+      ]
+    },
+    "evidenceLevel": "Category 1",
+    "consensusLevel": "consensus",
+    "applicableStages": [],
+    "biomarkerRequirements": {
+      "BRCA": "Germline mutation testing recommended"
+    },
+    "treatmentSettings": [
+      "adjuvant"
+    ],
+    "specialPopulations": [],
+    "crossReferences": [
+      "See BINV-K 2 of 3 and BINV"
+    ],
+    "evidenceReferences": [],
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Clinical consideration required"
+    ],
+    "monitoringRequirements": {},
+    "contraindications": [],
+    "alternativeApproaches": [
+      "Other treatment options"
+    ],
+    "qualityMeasures": {},
+    "createdAt": "2025-06-28T17:06:30.288Z",
+    "updatedAt": "2025-06-28T17:06:30.288Z"
+  },
+  {
+    "id": "2fd2a4b5-8c18-4278-8e9e-c599cef0c96a",
+    "referenceCode": "BINV-9",
+    "title": "BINV-9",
+    "category": "invasive_breast_cancer",
+    "cancerType": "breast",
+    "version": "4.2025",
+    "releaseDate": "2025-04-17",
+    "content": {
+      "updates": [],
+      "fullText": "• pT1c-pT3 pathway revised: Adjuvant chemotherapy with trastuzumab (category 1) (± pertuzumab for pT2-T3)",
+      "footnotes": [],
+      "keyPoints": [
+        "pT1c-pT3 pathway revised: Adjuvant chemotherapy with trastuzumab (category 1) (± pertuzumab for pT2-T3)"
+      ]
+    },
+    "evidenceLevel": "Category 1",
+    "consensusLevel": "consensus",
+    "applicableStages": [
+      "pT1c",
+      "pT3",
+      "pT2"
+    ],
+    "biomarkerRequirements": {},
+    "treatmentSettings": [],
+    "specialPopulations": [],
+    "crossReferences": [],
+    "evidenceReferences": [],
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [],
+    "monitoringRequirements": {},
+    "contraindications": [],
+    "alternativeApproaches": [
+      "Other treatment options"
+    ],
+    "qualityMeasures": {},
+    "createdAt": "2025-06-28T17:06:30.510Z",
+    "updatedAt": "2025-06-28T17:06:30.510Z"
+  },
+  {
+    "id": "72256edc-0feb-4290-898e-082c2e127364",
+    "referenceCode": "BINV-10",
+    "title": "BINV-10",
+    "category": "invasive_breast_cancer",
+    "cancerType": "breast",
+    "version": "4.2025",
+    "releaseDate": "2025-04-17",
+    "content": {
+      "updates": [],
+      "fullText": "• Last column, middle pathway revised: Consider adjuvant chemotherapy and adjuvant olaparib if germline BRCA1/2 mutation, see BINV-M for eligibility\ncriteria.\n• Last column, bottom pathway revised: Adjuvant chemotherapy (category 1) and adjuvant olaparib if germline BRCA1/2 mutation, see BINV-M for\neligibility criteria.",
+      "footnotes": [],
+      "keyPoints": [
+        "Last column, middle pathway revised: Consider adjuvant chemotherapy and adjuvant olaparib if germline BRCA1/2 mutation, see BINV-M for eligibility",
+        "Last column, bottom pathway revised: Adjuvant chemotherapy (category 1) and adjuvant olaparib if germline BRCA1/2 mutation, see BINV-M for"
+      ]
+    },
+    "evidenceLevel": "Category 1",
+    "consensusLevel": "consensus",
+    "applicableStages": [],
+    "biomarkerRequirements": {
+      "BRCA": "Germline mutation testing recommended"
+    },
+    "treatmentSettings": [
+      "adjuvant"
+    ],
+    "specialPopulations": [],
+    "crossReferences": [
+      "see BINV-M for eligibility\ncriteria",
+      "see BINV-M for\neligibility criteria"
+    ],
+    "evidenceReferences": [],
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Clinical consideration required"
+    ],
+    "monitoringRequirements": {},
+    "contraindications": [],
+    "alternativeApproaches": [
+      "Other treatment options"
+    ],
+    "qualityMeasures": {},
+    "createdAt": "2025-06-28T17:06:30.731Z",
+    "updatedAt": "2025-06-28T17:06:30.731Z"
+  },
+  {
+    "id": "97215a37-0886-489e-91f5-57acfc4b6159",
+    "referenceCode": "BINV-16",
+    "title": "BINV-16",
+    "category": "invasive_breast_cancer",
+    "cancerType": "breast",
+    "version": "4.2025",
+    "releaseDate": "2025-04-17",
+    "content": {
+      "updates": [],
+      "fullText": "• Footnote removed: High-risk criteria include stage II–III TNBC. The use of adjuvant pembrolizumab (category 2A) may be individualized.",
+      "footnotes": [
+        "Footnote removed: High-risk criteria include stage II–III TNBC. The use of adjuvant pembrolizumab (category 2A) may be individualized."
+      ],
+      "keyPoints": [
+        "Footnote removed: High-risk criteria include stage II–III TNBC. The use of adjuvant pembrolizumab (category 2A) may be individualized."
+      ]
+    },
+    "evidenceLevel": "Category 2A",
+    "consensusLevel": "consensus",
+    "applicableStages": [],
+    "biomarkerRequirements": {},
+    "treatmentSettings": [
+      "adjuvant"
+    ],
+    "specialPopulations": [],
+    "crossReferences": [],
+    "evidenceReferences": [],
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Optional intervention"
+    ],
+    "monitoringRequirements": {},
+    "contraindications": [],
+    "alternativeApproaches": [],
+    "qualityMeasures": {},
+    "createdAt": "2025-06-28T17:06:31.174Z",
+    "updatedAt": "2025-06-28T17:06:31.174Z"
+  },
+  {
+    "id": "d3d71a03-af87-488c-8a89-cc21ca7fd74f",
+    "referenceCode": "BINV-17",
+    "title": "BINV-17",
+    "category": "invasive_breast_cancer",
+    "cancerType": "breast",
+    "version": "4.2025",
+    "releaseDate": "2025-04-17",
+    "content": {
+      "updates": [],
+      "fullText": "• Endocrine therapy\n\u0017Psychosocial support added: Survivors are at elevated risk for fear of recurrence, distress, anxiety, and depression that may persist for many years\nafter diagnosis. Periodic screening and referral to mental health professionals if needed are recommended. See NCCN Guidelines for Survivorship.\nUpdates in Version 1.2025 of the NCCN Guidelines for Breast Cancer from Version 6.2024 include:\nPLEASE NOTE that use of this NCCN Content is governed by the End-User License Agreement, and you MAY NOT distribute this Content or use it with any artificial intelligence model or tool.\nPrinted by Mansoor Wahid on 6/25/2025 11:49:26 AM. Copyright © 2025 National Comprehensive Cancer Network, Inc. All Rights Reserved.\nNCCN Guidelines Version 4.2025",
+      "footnotes": [],
+      "keyPoints": [
+        "Endocrine therapy"
+      ]
+    },
+    "evidenceLevel": "Category 2A",
+    "consensusLevel": "consensus",
+    "applicableStages": [],
+    "biomarkerRequirements": {},
+    "treatmentSettings": [],
+    "specialPopulations": [],
+    "crossReferences": [],
+    "evidenceReferences": [],
+    "updatesFromPrevious": "1.2025 of the NCCN Guidelines for Breast Cancer from Version 6.2024 include:\nPLEASE NOTE that use of this NCCN Content is governed by the End-User License Agreement, and you MAY NOT distribute this Content or use it with any artificial intelligence model or tool.\nPrinted by Mansoor Wahid on 6/25/2025 11:49:26 AM. Copyright © 2025 National Comprehensive Cancer Network, Inc. All Rights Reserved.\nNCCN Guidelines Version 4.2025",
+    "clinicalDecisionPoints": [],
+    "monitoringRequirements": {},
+    "contraindications": [],
+    "alternativeApproaches": [],
+    "qualityMeasures": {},
+    "createdAt": "2025-06-28T17:06:31.322Z",
+    "updatedAt": "2025-06-28T17:06:31.322Z"
+  },
+  {
+    "id": "26559010-d97c-449f-960e-0e5798e2485d",
+    "referenceCode": "BINV-18",
+    "title": "BINV-18",
+    "category": "invasive_breast_cancer",
+    "cancerType": "breast",
+    "version": "4.2025",
+    "releaseDate": "2025-04-17",
+    "content": {
+      "updates": [],
+      "fullText": "• Workup, Imaging for systemic staging\n\u0017Bullet 6, sub-bullet revised: FDG-PET/CT (consider FES-PET/CT for ER-positive disease and lobular histology)\n• Footnote iii revised: Tumor tissue or plasma-based circulating tumor DNA (ctDNA) assays may be used and each of these have benefits and limitations for diagnosis\nand disease progression. Tissue-based assays have greater sensitivity for some alterations, but ctDNA may reflect tumor heterogeneity more accurately. If one\nspecimen is negative for actionable biomarkers, testing on the alternative specimen can be considered.\n• Footnote kkk added: In the setting of oligometastatic breast cancer, the currently available data do not support ablative metastasis-directed RT (ie, stereotactic body\nradiation therapy [SBRT]) for extending overall survival (OS) or progression-free survival (PFS). (Also for BINV-21)",
+      "footnotes": [
+        "Footnote iii revised: Tumor tissue or plasma-based circulating tumor DNA (ctDNA) assays may be used and each of these have benefits and limitations for diagnosis\nand disease progression. Tissue-based assays have greater sensitivity for some alterations, but ctDNA may reflect tumor heterogeneity more accurately. If one\nspecimen is negative for actionable biomarkers, testing on the alternative specimen can be considered.\n",
+        "Footnote kkk added: In the setting of oligometastatic breast cancer, the currently available data do not support ablative metastasis-directed RT (ie, stereotactic body\nradiation therapy [SBRT]) for extending overall survival (OS) or progression-free survival (PFS). (Also for BINV-21)"
+      ],
+      "keyPoints": [
+        "Workup, Imaging for systemic staging",
+        "Footnote iii revised: Tumor tissue or plasma-based circulating tumor DNA (ctDNA) assays may be used and each of these have benefits and limitations for diagnosis",
+        "Footnote kkk added: In the setting of oligometastatic breast cancer, the currently available data do not support ablative metastasis-directed RT (ie, stereotactic body"
+      ]
+    },
+    "evidenceLevel": "Category 2A",
+    "consensusLevel": "consensus",
+    "applicableStages": [],
+    "biomarkerRequirements": {
+      "ER": "Positive (≥1% by IHC)"
+    },
+    "treatmentSettings": [
+      "metastatic"
+    ],
+    "specialPopulations": [],
+    "crossReferences": [
+      "BINV-21"
+    ],
+    "evidenceReferences": [],
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Optional intervention"
+    ],
+    "monitoringRequirements": {},
+    "contraindications": [],
+    "alternativeApproaches": [
+      "Alternative approaches available"
+    ],
+    "qualityMeasures": {},
+    "createdAt": "2025-06-28T17:06:31.558Z",
+    "updatedAt": "2025-06-28T17:06:31.558Z"
+  },
+  {
+    "id": "5d2d247c-57b3-4846-af03-4019d5c2401a",
+    "referenceCode": "BINV-19",
+    "title": "BINV-19",
+    "category": "invasive_breast_cancer",
+    "cancerType": "breast",
+    "version": "4.2025",
+    "releaseDate": "2025-04-17",
+    "content": {
+      "updates": [],
+      "fullText": "• Column 3\n\u00171st row revised: Repeat BCS or mastectomy + consider surgical axillary staging if no prior ALND + RT after BCS and if indicated after mastectomy\n\u00172nd row revised: Total mastectomy + consider surgical axillary staging if no prior ALND + repeat RT if feasible and indicated\n\u00173rd row revised: Surgical resection if feasible + consider surgical axillary staging + postmastectomy radiotherapy (PMRT)\n\u00174th row revised: Surgical resection if feasible + consider surgical axillary staging if no prior ALND + repeat RT, if feasible and indicated\n• Footnote mmm revised: In patients with a local breast recurrence after BCS who had a prior SLNB, a repeat SLNB may be considered although the accuracy of repeat\nSLNB is unproven. After mastectomy, repeat SLNB may be considered although there are limited data in this setting. In patients who had a prior ALND or mastectomy,\nrepeat SLNB with lymphoscintigraphy may be considered rather than ALND (Poodt IGM, et al. Ann Surg Oncol 2019;26:2417-2427).",
+      "footnotes": [
+        "Footnote mmm revised: In patients with a local breast recurrence after BCS who had a prior SLNB, a repeat SLNB may be considered although the accuracy of repeat\nSLNB is unproven. After mastectomy, repeat SLNB may be considered although there are limited data in this setting. In patients who had a prior ALND or mastectomy,\nrepeat SLNB with lymphoscintigraphy may be considered rather than ALND (Poodt IGM, et al. Ann Surg Oncol 2019;26:2417-2427)."
+      ],
+      "keyPoints": [
+        "Column 3",
+        "Footnote mmm revised: In patients with a local breast recurrence after BCS who had a prior SLNB, a repeat SLNB may be considered although the accuracy of repeat"
+      ]
+    },
+    "evidenceLevel": "Category 2A",
+    "consensusLevel": "consensus",
+    "applicableStages": [],
+    "biomarkerRequirements": {},
+    "treatmentSettings": [],
+    "specialPopulations": [],
+    "crossReferences": [],
+    "evidenceReferences": [
+      "Poodt IGM, et al. Ann Surg Oncol 2019;26:2417-2427"
+    ],
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Optional intervention"
+    ],
+    "monitoringRequirements": {},
+    "contraindications": [],
+    "alternativeApproaches": [
+      "Other treatment options"
+    ],
+    "qualityMeasures": {},
+    "createdAt": "2025-06-28T17:06:31.860Z",
+    "updatedAt": "2025-06-28T17:06:31.860Z"
+  },
+  {
+    "id": "75c61771-3af4-40c3-ac06-a705765a8a1b",
+    "referenceCode": "BINV-22",
+    "title": "BINV-22",
+    "category": "invasive_breast_cancer",
+    "cancerType": "breast",
+    "version": "4.2025",
+    "releaseDate": "2025-04-17",
+    "content": {
+      "updates": [],
+      "fullText": "• Footnote removed: If progression on initial endocrine therapy, switch to a different endocrine therapy option.",
+      "footnotes": [
+        "Footnote removed: If progression on initial endocrine therapy, switch to a different endocrine therapy option."
+      ],
+      "keyPoints": [
+        "Footnote removed: If progression on initial endocrine therapy, switch to a different endocrine therapy option."
+      ]
+    },
+    "evidenceLevel": "Category 2A",
+    "consensusLevel": "consensus",
+    "applicableStages": [],
+    "biomarkerRequirements": {},
+    "treatmentSettings": [],
+    "specialPopulations": [],
+    "crossReferences": [],
+    "evidenceReferences": [],
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [],
+    "monitoringRequirements": {},
+    "contraindications": [],
+    "alternativeApproaches": [],
+    "qualityMeasures": {},
+    "createdAt": "2025-06-28T17:06:32.081Z",
+    "updatedAt": "2025-06-28T17:06:32.081Z"
+  },
+  {
+    "id": "a7804d03-dcb8-4018-929b-7417c5c0c3f1",
+    "referenceCode": "BINV-25",
+    "title": "BINV-25",
+    "category": "invasive_breast_cancer",
+    "cancerType": "breast",
+    "version": "4.2025",
+    "releaseDate": "2025-04-17",
+    "content": {
+      "updates": [],
+      "fullText": "• Top pathway, column 4 revised: Systemic therapy + ± HER2-targeted therapy until progression\n• Footnote cccc revised: Continue HER2-targeted therapy following progression on first-line HER2-targeted chemotherapy for metastatic breast cancer. The optimal\nduration of trastuzumab in patients with long-term control of disease is unknown. (Also for BINV-26)",
+      "footnotes": [
+        "Footnote cccc revised: Continue HER2-targeted therapy following progression on first-line HER2-targeted chemotherapy for metastatic breast cancer. The optimal\nduration of trastuzumab in patients with long-term control of disease is unknown. (Also for BINV-26)"
+      ],
+      "keyPoints": [
+        "Top pathway, column 4 revised: Systemic therapy + ± HER2-targeted therapy until progression",
+        "Footnote cccc revised: Continue HER2-targeted therapy following progression on first-line HER2-targeted chemotherapy for metastatic breast cancer. The optimal"
+      ]
+    },
+    "evidenceLevel": "Category 2A",
+    "consensusLevel": "consensus",
+    "applicableStages": [],
+    "biomarkerRequirements": {
+      "ER": "Testing required",
+      "HER2": "Testing required"
+    },
+    "treatmentSettings": [
+      "metastatic"
+    ],
+    "specialPopulations": [],
+    "crossReferences": [
+      "BINV-26"
+    ],
+    "evidenceReferences": [],
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [],
+    "monitoringRequirements": {},
+    "contraindications": [],
+    "alternativeApproaches": [
+      "Other treatment options"
+    ],
+    "qualityMeasures": {},
+    "createdAt": "2025-06-28T17:06:32.229Z",
+    "updatedAt": "2025-06-28T17:06:32.229Z"
+  },
+  {
+    "id": "ec1cfb13-5edf-4afc-9b89-414375d673a5",
+    "referenceCode": "BINV-26",
+    "title": "BINV-26",
+    "category": "invasive_breast_cancer",
+    "cancerType": "breast",
+    "version": "4.2025",
+    "releaseDate": "2025-04-17",
+    "content": {
+      "updates": [],
+      "fullText": "• Column 4 revised: Alternate systemic therapy + HER2-targeted therapy until progression",
+      "footnotes": [],
+      "keyPoints": [
+        "Column 4 revised: Alternate systemic therapy + HER2-targeted therapy until progression"
+      ]
+    },
+    "evidenceLevel": "Category 2A",
+    "consensusLevel": "consensus",
+    "applicableStages": [],
+    "biomarkerRequirements": {
+      "ER": "Testing required",
+      "HER2": "Testing required"
+    },
+    "treatmentSettings": [],
+    "specialPopulations": [],
+    "crossReferences": [],
+    "evidenceReferences": [],
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [],
+    "monitoringRequirements": {},
+    "contraindications": [],
+    "alternativeApproaches": [],
+    "qualityMeasures": {},
+    "createdAt": "2025-06-28T17:06:32.596Z",
+    "updatedAt": "2025-06-28T17:06:32.596Z"
+  },
+  {
+    "id": "b30d7f28-1fe2-45ec-bed2-53904f2f3f5a",
+    "referenceCode": "BINV-27",
+    "title": "BINV-27",
+    "category": "invasive_breast_cancer",
+    "cancerType": "breast",
+    "version": "4.2025",
+    "releaseDate": "2025-04-17",
+    "content": {
+      "updates": [],
+      "fullText": "• Footnote removed: Targeted Therapies and Associated Biomarker Testing for Recurrent Unresectable (Local or Regional) or Stage IV (M1) Disease BINV-Q (6).",
+      "footnotes": [
+        "Footnote removed: Targeted Therapies and Associated Biomarker Testing for Recurrent Unresectable (Local or Regional) or Stage IV (M1) Disease BINV-Q (6)."
+      ],
+      "keyPoints": [
+        "Footnote removed: Targeted Therapies and Associated Biomarker Testing for Recurrent Unresectable (Local or Regional) or Stage IV (M1) Disease BINV-Q (6)."
+      ]
+    },
+    "evidenceLevel": "Category 2A",
+    "consensusLevel": "consensus",
+    "applicableStages": [
+      "M1",
+      "Stage I",
+      "Stage IV"
+    ],
+    "biomarkerRequirements": {},
+    "treatmentSettings": [],
+    "specialPopulations": [],
+    "crossReferences": [
+      "BINV-Q "
+    ],
+    "evidenceReferences": [],
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [],
+    "monitoringRequirements": {},
+    "contraindications": [],
+    "alternativeApproaches": [],
+    "qualityMeasures": {},
+    "createdAt": "2025-06-28T17:06:32.965Z",
+    "updatedAt": "2025-06-28T17:06:32.965Z"
+  },
+  {
+    "id": "97c46747-717a-43a2-8c11-7cae83f8c08a",
+    "referenceCode": "BINV-28",
+    "title": "BINV-28",
+    "category": "invasive_breast_cancer",
+    "cancerType": "breast",
+    "version": "4.2025",
+    "releaseDate": "2025-04-17",
+    "content": {
+      "updates": [],
+      "fullText": "• New section: Principles of Survivorship for Those Living with Advanced or Metastatic Breast Cancer\nBINV-A (1 of 2)\n• Footnote d revised: The distinction between HER2 IHC 0 with no membrane staining from IHC 0+ with faint, partial membrane staining in ≤10%, 1+, or 2+/ISH negative\nresults (on primary or metastatic samples) and 1+ is currently clinically relevant in the since patients with metastatic disease setting since with HER2 1+ or 2+/ISH\nnegative results (on primary or metastatic samples) may be eligible for treatment targeting non-amplified levels of HER2 expression.",
+      "footnotes": [
+        "Footnote d revised: The distinction between HER2 IHC 0 with no membrane staining from IHC 0+ with faint, partial membrane staining in ≤10%, 1+, or 2+/ISH negative\nresults (on primary or metastatic samples) and 1+ is currently clinically relevant in the since patients with metastatic disease setting since with HER2 1+ or 2+/ISH\nnegative results (on primary or metastatic samples) may be eligible for treatment targeting non-amplified levels of HER2 expression."
+      ],
+      "keyPoints": [
+        "New section: Principles of Survivorship for Those Living with Advanced or Metastatic Breast Cancer",
+        "Footnote d revised: The distinction between HER2 IHC 0 with no membrane staining from IHC 0+ with faint, partial membrane staining in ≤10%, 1+, or 2+/ISH negative"
+      ]
+    },
+    "evidenceLevel": "Category 2A",
+    "consensusLevel": "consensus",
+    "applicableStages": [],
+    "biomarkerRequirements": {
+      "ER": "Testing required",
+      "HER2": "Testing required"
+    },
+    "treatmentSettings": [
+      "metastatic"
+    ],
+    "specialPopulations": [],
+    "crossReferences": [
+      "BINV-A "
+    ],
+    "evidenceReferences": [],
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Optional intervention"
+    ],
+    "monitoringRequirements": {},
+    "contraindications": [],
+    "alternativeApproaches": [],
+    "qualityMeasures": {},
+    "createdAt": "2025-06-28T17:06:33.039Z",
+    "updatedAt": "2025-06-28T17:06:33.039Z"
+  },
+  {
+    "id": "ca8bfb11-611f-41ff-a573-ac784fe593c1",
+    "referenceCode": "BINV-C",
+    "title": "BINV-C",
+    "category": "invasive_breast_cancer",
+    "cancerType": "breast",
+    "version": "4.2025",
+    "releaseDate": "2025-04-17",
+    "content": {
+      "updates": [],
+      "fullText": "• New paragraph added: The general considerations for fertility and sexual health/function outlined for specific populations in NCCN Guidelines for Adolescent and Young\nAdult (AYA) Oncology and NCCN Guidelines for Survivorship are applicable to all patients diagnosed with breast cancer. See NCCN Guidelines for Adolescent and\nYoung Adult (AYA) Oncology and NCCN Guidelines for Survivorship.",
+      "footnotes": [],
+      "keyPoints": [
+        "New paragraph added: The general considerations for fertility and sexual health/function outlined for specific populations in NCCN Guidelines for Adolescent and Young"
+      ]
+    },
+    "evidenceLevel": "Category 2A",
+    "consensusLevel": "consensus",
+    "applicableStages": [],
+    "biomarkerRequirements": {},
+    "treatmentSettings": [],
+    "specialPopulations": [],
+    "crossReferences": [],
+    "evidenceReferences": [],
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [],
+    "monitoringRequirements": {},
+    "contraindications": [],
+    "alternativeApproaches": [],
+    "qualityMeasures": {},
+    "createdAt": "2025-06-28T17:06:33.333Z",
+    "updatedAt": "2025-06-28T17:06:33.333Z"
+  },
+  {
+    "id": "39cdb8c7-c4db-4554-a5d9-40141766e1a8",
+    "referenceCode": "AMP-1",
+    "title": "Clinical Suspicion of Ampullary Neoplasm",
+    "category": "Diagnosis",
+    "cancerType": "Ampullary Adenocarcinoma",
+    "version": "v2.2025",
+    "releaseDate": "2025-01-10",
+    "content": {
+      "workup": [
+        "Digital rectal examination (DRE)",
+        "Inguinal lymph node evaluation",
+        "Consider biopsy or fine needle aspiration (FNA) if suspicious nodes",
+        "Chest/abdomen/pelvis CT or MRI",
+        "Consider FDG-PET/CT or FDG-PET/MRI",
+        "Anoscopy",
+        "HIV testing (if HIV status unknown)",
+        "Gynecologic exam, including screening for cervical cancer",
+        "Fertility risk discussion/counseling in appropriate patients"
+      ],
+      "geneticTesting": {
+        "genes": [
+          "ATM",
+          "BRCA1",
+          "BRCA2",
+          "CDKN2A",
+          "MLH1",
+          "MSH2",
+          "MSH6",
+          "PALB2",
+          "PMS2",
+          "STK11",
+          "TP53"
+        ],
+        "counseling": "Required for positive mutations and positive family history",
+        "indication": "Recommended for any patient with confirmed ampullary adenocarcinoma or positive family history"
+      }
+    },
+    "evidenceLevel": "Category 1",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "All stages"
+    ],
+    "biomarkerRequirements": [
+      "ATM",
+      "BRCA1",
+      "BRCA2",
+      "CDKN2A",
+      "MLH1",
+      "MSH2",
+      "MSH6",
+      "PALB2",
+      "PMS2",
+      "STK11",
+      "TP53"
+    ],
+    "treatmentSettings": [
+      "Initial Workup",
+      "Diagnostic"
+    ],
+    "specialPopulations": [
+      "Hereditary Cancer Syndromes",
+      "HIV Positive"
+    ],
+    "crossReferences": [
+      "AMP-A",
+      "ST-1"
+    ],
+    "evidenceReferences": null,
+    "updatesFromPrevious": "References updated throughout guidelines",
+    "clinicalDecisionPoints": [
+      "Genetic testing indication",
+      "Imaging modality selection",
+      "Biopsy consideration"
+    ],
+    "monitoringRequirements": [
+      "Follow-up imaging",
+      "Genetic counseling outcomes"
+    ],
+    "contraindications": [],
+    "alternativeApproaches": [
+      "Alternative imaging if CT/MRI contraindicated"
+    ],
+    "qualityMeasures": [
+      "Genetic testing completion rate",
+      "Imaging protocol adherence"
+    ],
+    "createdAt": "2025-06-29T00:14:58.262Z",
+    "updatedAt": "2025-06-29T00:14:58.262Z"
+  },
+  {
+    "id": "7040738f-c02a-40dd-b39c-9c8dd10432d7",
+    "referenceCode": "AMP-2",
+    "title": "Ampullary Adenoma Treatment",
+    "category": "Treatment",
+    "cancerType": "Ampullary Adenocarcinoma",
+    "version": "v2.2025",
+    "releaseDate": "2025-01-10",
+    "content": {
+      "treatmentOptions": [
+        {
+          "approach": "Endoscopic removal",
+          "indication": "Suitable adenomas without high-risk features",
+          "preference": "Preferred"
+        },
+        {
+          "approach": "Surgical ampullectomy",
+          "indication": "Complex adenomas not amenable to endoscopic removal",
+          "preference": "Alternative"
+        },
+        {
+          "approach": "Pancreatoduodenectomy",
+          "indication": "Large adenomas or suspicion of malignancy",
+          "preference": "Last resort"
+        }
+      ],
+      "surgicalPrinciples": "Follow AMP-C principles of surgical technique"
+    },
+    "evidenceLevel": "Category 1",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "Adenoma"
+    ],
+    "biomarkerRequirements": null,
+    "treatmentSettings": [
+      "Curative Intent"
+    ],
+    "specialPopulations": null,
+    "crossReferences": [
+      "AMP-C"
+    ],
+    "evidenceReferences": null,
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Treatment modality selection",
+      "Surgical approach"
+    ],
+    "monitoringRequirements": [
+      "Post-procedure surveillance"
+    ],
+    "contraindications": null,
+    "alternativeApproaches": [
+      "Multiple surgical approaches available"
+    ],
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:14:58.350Z",
+    "updatedAt": "2025-06-29T00:14:58.350Z"
+  },
+  {
+    "id": "1e78b82e-5cf3-4abc-b840-a9debdee7ac9",
+    "referenceCode": "AMP-3",
+    "title": "Adenocarcinoma Treatment Algorithm",
+    "category": "Treatment",
+    "cancerType": "Ampullary Adenocarcinoma",
+    "version": "v2.2025",
+    "releaseDate": "2025-01-10",
+    "content": {
+      "geneticTesting": {
+        "genes": [
+          "ATM",
+          "BRCA1",
+          "BRCA2",
+          "CDKN2A",
+          "MLH1",
+          "MSH2",
+          "MSH6",
+          "PALB2",
+          "PMS2",
+          "STK11",
+          "TP53"
+        ],
+        "timing": "If not previously noted",
+        "counseling": "Required for positive mutations and family history"
+      },
+      "treatmentAlgorithm": {
+        "confirmed": "Adenocarcinoma confirmed",
+        "stageI_II": {
+          "options": [
+            "Surgical resection",
+            "Adjuvant therapy consideration"
+          ],
+          "approach": "Curative intent"
+        },
+        "stageIII_IV": {
+          "options": [
+            "Systemic therapy",
+            "Palliative management"
+          ],
+          "approach": "Palliative/systemic therapy"
+        }
+      }
+    },
+    "evidenceLevel": "Category 1",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "All Stages"
+    ],
+    "biomarkerRequirements": [
+      "ATM",
+      "BRCA1",
+      "BRCA2",
+      "CDKN2A",
+      "MLH1",
+      "MSH2",
+      "MSH6",
+      "PALB2",
+      "PMS2",
+      "STK11",
+      "TP53"
+    ],
+    "treatmentSettings": [
+      "Curative Intent",
+      "Palliative"
+    ],
+    "specialPopulations": [
+      "Hereditary Cancer Syndromes"
+    ],
+    "crossReferences": null,
+    "evidenceReferences": null,
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Stage determination",
+      "Treatment intent",
+      "Genetic testing timing"
+    ],
+    "monitoringRequirements": [
+      "Disease progression",
+      "Treatment response"
+    ],
+    "contraindications": null,
+    "alternativeApproaches": null,
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:14:58.427Z",
+    "updatedAt": "2025-06-29T00:14:58.427Z"
+  },
+  {
+    "id": "3f0b6a12-40b0-4260-8fcc-ae478f39a1b0",
+    "referenceCode": "AMP-4",
+    "title": "Localized Disease Management",
+    "category": "Treatment",
+    "cancerType": "Ampullary Adenocarcinoma",
+    "version": "v2.2025",
+    "releaseDate": "2025-01-10",
+    "content": {
+      "surgicalRole": "Role unclear after complete response on neoadjuvant immunotherapy",
+      "biomarkerTesting": [
+        "MSI-H",
+        "dMMR"
+      ],
+      "primaryTreatment": {
+        "adjuvant": "See GAST-F for regimens",
+        "preferred": "Pancreatoduodenectomy with or without adjuvant chemoradiation",
+        "indication": "Medically able to tolerate major surgery"
+      },
+      "alternativeApproaches": {
+        "msiH_dMMR": {
+          "approach": "Perioperative immunotherapy",
+          "category": "2A",
+          "consultation": "Multidisciplinary team required"
+        },
+        "perioperative": "Chemoradiation or systemic therapy"
+      }
+    },
+    "evidenceLevel": "Category 1",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "Localized"
+    ],
+    "biomarkerRequirements": [
+      "MSI-H",
+      "dMMR"
+    ],
+    "treatmentSettings": [
+      "Curative Intent",
+      "Perioperative"
+    ],
+    "specialPopulations": null,
+    "crossReferences": [
+      "GAST-B",
+      "GAST-C",
+      "GAST-E",
+      "GAST-F"
+    ],
+    "evidenceReferences": null,
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Surgical candidacy",
+      "Adjuvant therapy selection",
+      "MSI-H/dMMR testing"
+    ],
+    "monitoringRequirements": [
+      "Surgical outcomes",
+      "Adjuvant therapy tolerance"
+    ],
+    "contraindications": [
+      "Medical inability to tolerate major surgery"
+    ],
+    "alternativeApproaches": [
+      "Chemoradiation for non-surgical candidates"
+    ],
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:14:58.504Z",
+    "updatedAt": "2025-06-29T00:14:58.504Z"
+  },
+  {
+    "id": "6ffe8845-a2ca-402d-8352-f9dfe57095cc",
+    "referenceCode": "AMP-5",
+    "title": "Postoperative Adjuvant Treatment",
+    "category": "Treatment",
+    "cancerType": "Ampullary Adenocarcinoma",
+    "version": "v2.2025",
+    "releaseDate": "2025-01-10",
+    "content": {
+      "adjuvantOptions": [
+        {
+          "approach": "Chemotherapy with or without chemoradiation",
+          "reference": "GAST-F (systemic therapy principles)"
+        },
+        {
+          "approach": "Chemoradiation and chemotherapy",
+          "reference": "GAST-G (radiation therapy principles)"
+        }
+      ],
+      "surgicalOutcomes": "For patients who have received systemic therapy (GAST-5)",
+      "individualizedApproach": "Based on patient factors and surgical outcomes"
+    },
+    "evidenceLevel": "Category 1",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "Postoperative"
+    ],
+    "biomarkerRequirements": null,
+    "treatmentSettings": [
+      "Adjuvant"
+    ],
+    "specialPopulations": null,
+    "crossReferences": [
+      "GAST-5",
+      "GAST-F",
+      "GAST-G"
+    ],
+    "evidenceReferences": null,
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Adjuvant regimen selection",
+      "Treatment duration"
+    ],
+    "monitoringRequirements": [
+      "Treatment tolerance",
+      "Disease recurrence"
+    ],
+    "contraindications": null,
+    "alternativeApproaches": null,
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:14:58.583Z",
+    "updatedAt": "2025-06-29T00:14:58.583Z"
+  },
+  {
+    "id": "47010910-4396-4c5c-bf02-8e7ea65b4fbb",
+    "referenceCode": "AMP-6",
+    "title": "Metastatic Disease Management",
+    "category": "Treatment",
+    "cancerType": "Ampullary Adenocarcinoma",
+    "version": "v2.2025",
+    "releaseDate": "2025-01-10",
+    "content": {
+      "supportiveCare": "Quality of life focused interventions",
+      "primaryApproach": "Palliative Management (GAST-9)",
+      "systemicTherapy": "For appropriate candidates based on performance status",
+      "biomarkerTesting": "Required for targeted therapy selection"
+    },
+    "evidenceLevel": "Category 1",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "Metastatic"
+    ],
+    "biomarkerRequirements": null,
+    "treatmentSettings": [
+      "Palliative"
+    ],
+    "specialPopulations": null,
+    "crossReferences": [
+      "GAST-9",
+      "GAST-B",
+      "GAST-C"
+    ],
+    "evidenceReferences": null,
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Treatment goals",
+      "Performance status assessment"
+    ],
+    "monitoringRequirements": [
+      "Symptom control",
+      "Quality of life measures"
+    ],
+    "contraindications": null,
+    "alternativeApproaches": null,
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:14:58.661Z",
+    "updatedAt": "2025-06-29T00:14:58.661Z"
+  },
+  {
+    "id": "b672c796-dd80-446c-95d9-1b9b244fd71b",
+    "referenceCode": "AMP-7",
+    "title": "Disease Progression Management",
+    "category": "Treatment",
+    "cancerType": "Ampullary Adenocarcinoma",
+    "version": "v2.2025",
+    "releaseDate": "2025-01-10",
+    "content": {
+      "clinicalTrials": "Consider appropriate clinical trial opportunities",
+      "supportiveCare": "Best supportive care measures",
+      "primaryApproach": "Palliative Management (GAST-9)",
+      "transitionOfCare": "Hospice referral when indicated"
+    },
+    "evidenceLevel": "Category 1",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "Progressive"
+    ],
+    "biomarkerRequirements": null,
+    "treatmentSettings": [
+      "Palliative"
+    ],
+    "specialPopulations": null,
+    "crossReferences": null,
+    "evidenceReferences": null,
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Treatment discontinuation",
+      "Hospice referral timing"
+    ],
+    "monitoringRequirements": [
+      "Symptom burden",
+      "Functional status"
+    ],
+    "contraindications": null,
+    "alternativeApproaches": null,
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:14:58.738Z",
+    "updatedAt": "2025-06-29T00:14:58.738Z"
+  },
+  {
+    "id": "abd1a3cc-e971-4315-b6f2-8673fea05a48",
+    "referenceCode": "AMP-A",
+    "title": "Principles of Diagnosis, Imaging, and Staging",
+    "category": "Diagnostic",
+    "cancerType": "Ampullary Adenocarcinoma",
+    "version": "v2.2025",
+    "releaseDate": "2025-01-10",
+    "content": {
+      "radiationDose": {
+        "boost": "Higher doses may be used for positive surgical margins in selected cases",
+        "standard": "45–50.4 Gy (1.8 Gy/day)",
+        "fractions": "25–28 total fractions"
+      },
+      "imagingProtocols": "Standardized approach for diagnosis and staging",
+      "stagingPrinciples": "Comprehensive staging evaluation required"
+    },
+    "evidenceLevel": "Category 1",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "All Stages"
+    ],
+    "biomarkerRequirements": null,
+    "treatmentSettings": [
+      "Diagnostic",
+      "Treatment Planning"
+    ],
+    "specialPopulations": null,
+    "crossReferences": null,
+    "evidenceReferences": null,
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Imaging modality selection",
+      "Radiation dose planning"
+    ],
+    "monitoringRequirements": [
+      "Imaging response",
+      "Radiation toxicity"
+    ],
+    "contraindications": null,
+    "alternativeApproaches": null,
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:14:58.815Z",
+    "updatedAt": "2025-06-29T00:14:58.815Z"
+  },
+  {
+    "id": "db4742dd-b9ec-4c8c-bb15-13e1963121b4",
+    "referenceCode": "AMP-E",
+    "title": "Principles of Systemic Therapy",
+    "category": "Treatment",
+    "cancerType": "Ampullary Adenocarcinoma",
+    "version": "v2.2025",
+    "releaseDate": "2025-01-10",
+    "content": {
+      "biomarkerTesting": [
+        "HER2",
+        "PD-L1",
+        "MSI-H",
+        "dMMR",
+        "CLDN18.2"
+      ],
+      "firstLineTherapy": [
+        {
+          "regimen": "Fluoropyrimidine (fluorouracil or capecitabine), oxaliplatin, and trastuzumab",
+          "category": "Category 1",
+          "indication": "HER2 overexpression positive"
+        },
+        {
+          "regimen": "Fluoropyrimidine, oxaliplatin, trastuzumab, and pembrolizumab",
+          "category": "Category 1",
+          "indication": "HER2+ and PD-L1 CPS ≥1"
+        },
+        {
+          "regimen": "Fluoropyrimidine, cisplatin, and trastuzumab",
+          "category": "Category 1",
+          "indication": "HER2 overexpression positive"
+        },
+        {
+          "regimen": "Fluoropyrimidine, oxaliplatin, and nivolumab",
+          "category": "Category 1 for PD-L1 CPS ≥5",
+          "indication": "PD-L1 CPS ≥1"
+        },
+        {
+          "regimen": "Fluoropyrimidine, oxaliplatin, and pembrolizumab",
+          "category": "Category 1 for PD-L1 CPS ≥5",
+          "indication": "PD-L1 CPS ≥1"
+        },
+        {
+          "regimen": "Fluoropyrimidine, oxaliplatin, and zolbetuximab-clzb",
+          "category": "Category 1",
+          "indication": "CLDN18.2 positive"
+        },
+        {
+          "regimen": "Pembrolizumab monotherapy",
+          "category": "Category 1",
+          "indication": "MSI-H/dMMR tumors (independent of PD-L1 status)"
+        },
+        {
+          "regimen": "Dostarlimab-gxly monotherapy",
+          "category": "Category 1",
+          "indication": "MSI-H/dMMR tumors"
+        },
+        {
+          "regimen": "Nivolumab and ipilimumab",
+          "category": "Category 2A",
+          "indication": "Advanced disease"
+        }
+      ],
+      "regimenSelection": "Based on biomarker results and patient factors"
+    },
+    "evidenceLevel": "Category 1",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "Advanced",
+      "Recurrent",
+      "Metastatic"
+    ],
+    "biomarkerRequirements": [
+      "HER2",
+      "PD-L1",
+      "MSI-H",
+      "dMMR",
+      "CLDN18.2"
+    ],
+    "treatmentSettings": [
+      "First-Line",
+      "Advanced Disease"
+    ],
+    "specialPopulations": null,
+    "crossReferences": null,
+    "evidenceReferences": null,
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Biomarker results",
+      "Performance status",
+      "Prior therapy"
+    ],
+    "monitoringRequirements": [
+      "Treatment response",
+      "Biomarker expression"
+    ],
+    "contraindications": null,
+    "alternativeApproaches": [
+      "Multiple regimen options based on biomarkers"
+    ],
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:14:58.893Z",
+    "updatedAt": "2025-06-29T00:14:58.893Z"
+  },
+  {
+    "id": "706b1856-defe-4471-9ebe-8863d3de8cd3",
+    "referenceCode": "AMP-1",
+    "title": "Clinical Suspicion of Ampullary Neoplasm",
+    "category": "Diagnosis",
+    "cancerType": "Ampullary Adenocarcinoma",
+    "version": "v2.2025",
+    "releaseDate": "2025-01-10",
+    "content": {
+      "workup": [
+        "Digital rectal examination (DRE)",
+        "Inguinal lymph node evaluation",
+        "Consider biopsy or fine needle aspiration (FNA) if suspicious nodes",
+        "Chest/abdomen/pelvis CT or MRI",
+        "Consider FDG-PET/CT or FDG-PET/MRI",
+        "Anoscopy",
+        "HIV testing (if HIV status unknown)",
+        "Gynecologic exam, including screening for cervical cancer",
+        "Fertility risk discussion/counseling in appropriate patients"
+      ],
+      "geneticTesting": {
+        "genes": [
+          "ATM",
+          "BRCA1",
+          "BRCA2",
+          "CDKN2A",
+          "MLH1",
+          "MSH2",
+          "MSH6",
+          "PALB2",
+          "PMS2",
+          "STK11",
+          "TP53"
+        ],
+        "counseling": "Required for positive mutations and positive family history",
+        "indication": "Recommended for any patient with confirmed ampullary adenocarcinoma or positive family history"
+      }
+    },
+    "evidenceLevel": "Category 1",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "All stages"
+    ],
+    "biomarkerRequirements": [
+      "ATM",
+      "BRCA1",
+      "BRCA2",
+      "CDKN2A",
+      "MLH1",
+      "MSH2",
+      "MSH6",
+      "PALB2",
+      "PMS2",
+      "STK11",
+      "TP53"
+    ],
+    "treatmentSettings": [
+      "Initial Workup",
+      "Diagnostic"
+    ],
+    "specialPopulations": [
+      "Hereditary Cancer Syndromes",
+      "HIV Positive"
+    ],
+    "crossReferences": [
+      "AMP-A",
+      "ST-1"
+    ],
+    "evidenceReferences": null,
+    "updatesFromPrevious": "References updated throughout guidelines",
+    "clinicalDecisionPoints": [
+      "Genetic testing indication",
+      "Imaging modality selection",
+      "Biopsy consideration"
+    ],
+    "monitoringRequirements": [
+      "Follow-up imaging",
+      "Genetic counseling outcomes"
+    ],
+    "contraindications": [],
+    "alternativeApproaches": [
+      "Alternative imaging if CT/MRI contraindicated"
+    ],
+    "qualityMeasures": [
+      "Genetic testing completion rate",
+      "Imaging protocol adherence"
+    ],
+    "createdAt": "2025-06-29T00:15:45.195Z",
+    "updatedAt": "2025-06-29T00:15:45.195Z"
+  },
+  {
+    "id": "c92da0d1-f68a-4478-8d16-4da12f777983",
+    "referenceCode": "AMP-2",
+    "title": "Ampullary Adenoma Treatment",
+    "category": "Treatment",
+    "cancerType": "Ampullary Adenocarcinoma",
+    "version": "v2.2025",
+    "releaseDate": "2025-01-10",
+    "content": {
+      "treatmentOptions": [
+        {
+          "approach": "Endoscopic removal",
+          "indication": "Suitable adenomas without high-risk features",
+          "preference": "Preferred"
+        },
+        {
+          "approach": "Surgical ampullectomy",
+          "indication": "Complex adenomas not amenable to endoscopic removal",
+          "preference": "Alternative"
+        },
+        {
+          "approach": "Pancreatoduodenectomy",
+          "indication": "Large adenomas or suspicion of malignancy",
+          "preference": "Last resort"
+        }
+      ],
+      "surgicalPrinciples": "Follow AMP-C principles of surgical technique"
+    },
+    "evidenceLevel": "Category 1",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "Adenoma"
+    ],
+    "biomarkerRequirements": null,
+    "treatmentSettings": [
+      "Curative Intent"
+    ],
+    "specialPopulations": null,
+    "crossReferences": [
+      "AMP-C"
+    ],
+    "evidenceReferences": null,
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Treatment modality selection",
+      "Surgical approach"
+    ],
+    "monitoringRequirements": [
+      "Post-procedure surveillance"
+    ],
+    "contraindications": null,
+    "alternativeApproaches": [
+      "Multiple surgical approaches available"
+    ],
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:15:45.290Z",
+    "updatedAt": "2025-06-29T00:15:45.290Z"
+  },
+  {
+    "id": "45abaa22-5aa6-4b9a-9981-807f0cf63b38",
+    "referenceCode": "AMP-7",
+    "title": "Disease Progression Management",
+    "category": "Treatment",
+    "cancerType": "Ampullary Adenocarcinoma",
+    "version": "v2.2025",
+    "releaseDate": "2025-01-10",
+    "content": {
+      "clinicalTrials": "Consider appropriate clinical trial opportunities",
+      "supportiveCare": "Best supportive care measures",
+      "primaryApproach": "Palliative Management (GAST-9)",
+      "transitionOfCare": "Hospice referral when indicated"
+    },
+    "evidenceLevel": "Category 1",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "Progressive"
+    ],
+    "biomarkerRequirements": null,
+    "treatmentSettings": [
+      "Palliative"
+    ],
+    "specialPopulations": null,
+    "crossReferences": null,
+    "evidenceReferences": null,
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Treatment discontinuation",
+      "Hospice referral timing"
+    ],
+    "monitoringRequirements": [
+      "Symptom burden",
+      "Functional status"
+    ],
+    "contraindications": null,
+    "alternativeApproaches": null,
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:17:04.315Z",
+    "updatedAt": "2025-06-29T00:17:04.315Z"
+  },
+  {
+    "id": "0377d28d-0276-41c4-adb4-805f653d6493",
+    "referenceCode": "AMP-3",
+    "title": "Adenocarcinoma Treatment Algorithm",
+    "category": "Treatment",
+    "cancerType": "Ampullary Adenocarcinoma",
+    "version": "v2.2025",
+    "releaseDate": "2025-01-10",
+    "content": {
+      "geneticTesting": {
+        "genes": [
+          "ATM",
+          "BRCA1",
+          "BRCA2",
+          "CDKN2A",
+          "MLH1",
+          "MSH2",
+          "MSH6",
+          "PALB2",
+          "PMS2",
+          "STK11",
+          "TP53"
+        ],
+        "timing": "If not previously noted",
+        "counseling": "Required for positive mutations and family history"
+      },
+      "treatmentAlgorithm": {
+        "confirmed": "Adenocarcinoma confirmed",
+        "stageI_II": {
+          "options": [
+            "Surgical resection",
+            "Adjuvant therapy consideration"
+          ],
+          "approach": "Curative intent"
+        },
+        "stageIII_IV": {
+          "options": [
+            "Systemic therapy",
+            "Palliative management"
+          ],
+          "approach": "Palliative/systemic therapy"
+        }
+      }
+    },
+    "evidenceLevel": "Category 1",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "All Stages"
+    ],
+    "biomarkerRequirements": [
+      "ATM",
+      "BRCA1",
+      "BRCA2",
+      "CDKN2A",
+      "MLH1",
+      "MSH2",
+      "MSH6",
+      "PALB2",
+      "PMS2",
+      "STK11",
+      "TP53"
+    ],
+    "treatmentSettings": [
+      "Curative Intent",
+      "Palliative"
+    ],
+    "specialPopulations": [
+      "Hereditary Cancer Syndromes"
+    ],
+    "crossReferences": null,
+    "evidenceReferences": null,
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Stage determination",
+      "Treatment intent",
+      "Genetic testing timing"
+    ],
+    "monitoringRequirements": [
+      "Disease progression",
+      "Treatment response"
+    ],
+    "contraindications": null,
+    "alternativeApproaches": null,
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:15:45.365Z",
+    "updatedAt": "2025-06-29T00:15:45.365Z"
+  },
+  {
+    "id": "cc86e1ac-23de-42e7-8773-89fc3f6fec00",
+    "referenceCode": "AMP-4",
+    "title": "Localized Disease Management",
+    "category": "Treatment",
+    "cancerType": "Ampullary Adenocarcinoma",
+    "version": "v2.2025",
+    "releaseDate": "2025-01-10",
+    "content": {
+      "surgicalRole": "Role unclear after complete response on neoadjuvant immunotherapy",
+      "biomarkerTesting": [
+        "MSI-H",
+        "dMMR"
+      ],
+      "primaryTreatment": {
+        "adjuvant": "See GAST-F for regimens",
+        "preferred": "Pancreatoduodenectomy with or without adjuvant chemoradiation",
+        "indication": "Medically able to tolerate major surgery"
+      },
+      "alternativeApproaches": {
+        "msiH_dMMR": {
+          "approach": "Perioperative immunotherapy",
+          "category": "2A",
+          "consultation": "Multidisciplinary team required"
+        },
+        "perioperative": "Chemoradiation or systemic therapy"
+      }
+    },
+    "evidenceLevel": "Category 1",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "Localized"
+    ],
+    "biomarkerRequirements": [
+      "MSI-H",
+      "dMMR"
+    ],
+    "treatmentSettings": [
+      "Curative Intent",
+      "Perioperative"
+    ],
+    "specialPopulations": null,
+    "crossReferences": [
+      "GAST-B",
+      "GAST-C",
+      "GAST-E",
+      "GAST-F"
+    ],
+    "evidenceReferences": null,
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Surgical candidacy",
+      "Adjuvant therapy selection",
+      "MSI-H/dMMR testing"
+    ],
+    "monitoringRequirements": [
+      "Surgical outcomes",
+      "Adjuvant therapy tolerance"
+    ],
+    "contraindications": [
+      "Medical inability to tolerate major surgery"
+    ],
+    "alternativeApproaches": [
+      "Chemoradiation for non-surgical candidates"
+    ],
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:15:45.441Z",
+    "updatedAt": "2025-06-29T00:15:45.441Z"
+  },
+  {
+    "id": "6056b721-f509-4bc4-9078-766fada15520",
+    "referenceCode": "AMP-5",
+    "title": "Postoperative Adjuvant Treatment",
+    "category": "Treatment",
+    "cancerType": "Ampullary Adenocarcinoma",
+    "version": "v2.2025",
+    "releaseDate": "2025-01-10",
+    "content": {
+      "adjuvantOptions": [
+        {
+          "approach": "Chemotherapy with or without chemoradiation",
+          "reference": "GAST-F (systemic therapy principles)"
+        },
+        {
+          "approach": "Chemoradiation and chemotherapy",
+          "reference": "GAST-G (radiation therapy principles)"
+        }
+      ],
+      "surgicalOutcomes": "For patients who have received systemic therapy (GAST-5)",
+      "individualizedApproach": "Based on patient factors and surgical outcomes"
+    },
+    "evidenceLevel": "Category 1",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "Postoperative"
+    ],
+    "biomarkerRequirements": null,
+    "treatmentSettings": [
+      "Adjuvant"
+    ],
+    "specialPopulations": null,
+    "crossReferences": [
+      "GAST-5",
+      "GAST-F",
+      "GAST-G"
+    ],
+    "evidenceReferences": null,
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Adjuvant regimen selection",
+      "Treatment duration"
+    ],
+    "monitoringRequirements": [
+      "Treatment tolerance",
+      "Disease recurrence"
+    ],
+    "contraindications": null,
+    "alternativeApproaches": null,
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:15:45.527Z",
+    "updatedAt": "2025-06-29T00:15:45.527Z"
+  },
+  {
+    "id": "3750a455-c050-49ed-8c56-0569246dcfc9",
+    "referenceCode": "AMP-6",
+    "title": "Metastatic Disease Management",
+    "category": "Treatment",
+    "cancerType": "Ampullary Adenocarcinoma",
+    "version": "v2.2025",
+    "releaseDate": "2025-01-10",
+    "content": {
+      "supportiveCare": "Quality of life focused interventions",
+      "primaryApproach": "Palliative Management (GAST-9)",
+      "systemicTherapy": "For appropriate candidates based on performance status",
+      "biomarkerTesting": "Required for targeted therapy selection"
+    },
+    "evidenceLevel": "Category 1",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "Metastatic"
+    ],
+    "biomarkerRequirements": null,
+    "treatmentSettings": [
+      "Palliative"
+    ],
+    "specialPopulations": null,
+    "crossReferences": [
+      "GAST-9",
+      "GAST-B",
+      "GAST-C"
+    ],
+    "evidenceReferences": null,
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Treatment goals",
+      "Performance status assessment"
+    ],
+    "monitoringRequirements": [
+      "Symptom control",
+      "Quality of life measures"
+    ],
+    "contraindications": null,
+    "alternativeApproaches": null,
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:15:45.603Z",
+    "updatedAt": "2025-06-29T00:15:45.603Z"
+  },
+  {
+    "id": "391f46b5-7ce3-4933-9c0b-339029ade03b",
+    "referenceCode": "AMP-7",
+    "title": "Disease Progression Management",
+    "category": "Treatment",
+    "cancerType": "Ampullary Adenocarcinoma",
+    "version": "v2.2025",
+    "releaseDate": "2025-01-10",
+    "content": {
+      "clinicalTrials": "Consider appropriate clinical trial opportunities",
+      "supportiveCare": "Best supportive care measures",
+      "primaryApproach": "Palliative Management (GAST-9)",
+      "transitionOfCare": "Hospice referral when indicated"
+    },
+    "evidenceLevel": "Category 1",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "Progressive"
+    ],
+    "biomarkerRequirements": null,
+    "treatmentSettings": [
+      "Palliative"
+    ],
+    "specialPopulations": null,
+    "crossReferences": null,
+    "evidenceReferences": null,
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Treatment discontinuation",
+      "Hospice referral timing"
+    ],
+    "monitoringRequirements": [
+      "Symptom burden",
+      "Functional status"
+    ],
+    "contraindications": null,
+    "alternativeApproaches": null,
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:15:45.678Z",
+    "updatedAt": "2025-06-29T00:15:45.678Z"
+  },
+  {
+    "id": "f6a6372c-5e95-4b11-a729-e00005b83fd0",
+    "referenceCode": "AMP-A",
+    "title": "Principles of Diagnosis, Imaging, and Staging",
+    "category": "Diagnostic",
+    "cancerType": "Ampullary Adenocarcinoma",
+    "version": "v2.2025",
+    "releaseDate": "2025-01-10",
+    "content": {
+      "radiationDose": {
+        "boost": "Higher doses may be used for positive surgical margins in selected cases",
+        "standard": "45–50.4 Gy (1.8 Gy/day)",
+        "fractions": "25–28 total fractions"
+      },
+      "imagingProtocols": "Standardized approach for diagnosis and staging",
+      "stagingPrinciples": "Comprehensive staging evaluation required"
+    },
+    "evidenceLevel": "Category 1",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "All Stages"
+    ],
+    "biomarkerRequirements": null,
+    "treatmentSettings": [
+      "Diagnostic",
+      "Treatment Planning"
+    ],
+    "specialPopulations": null,
+    "crossReferences": null,
+    "evidenceReferences": null,
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Imaging modality selection",
+      "Radiation dose planning"
+    ],
+    "monitoringRequirements": [
+      "Imaging response",
+      "Radiation toxicity"
+    ],
+    "contraindications": null,
+    "alternativeApproaches": null,
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:15:45.754Z",
+    "updatedAt": "2025-06-29T00:15:45.754Z"
+  },
+  {
+    "id": "91f0b82b-e7d9-47b0-a2e3-ffe728170afd",
+    "referenceCode": "AMP-E",
+    "title": "Principles of Systemic Therapy",
+    "category": "Treatment",
+    "cancerType": "Ampullary Adenocarcinoma",
+    "version": "v2.2025",
+    "releaseDate": "2025-01-10",
+    "content": {
+      "biomarkerTesting": [
+        "HER2",
+        "PD-L1",
+        "MSI-H",
+        "dMMR",
+        "CLDN18.2"
+      ],
+      "firstLineTherapy": [
+        {
+          "regimen": "Fluoropyrimidine (fluorouracil or capecitabine), oxaliplatin, and trastuzumab",
+          "category": "Category 1",
+          "indication": "HER2 overexpression positive"
+        },
+        {
+          "regimen": "Fluoropyrimidine, oxaliplatin, trastuzumab, and pembrolizumab",
+          "category": "Category 1",
+          "indication": "HER2+ and PD-L1 CPS ≥1"
+        },
+        {
+          "regimen": "Fluoropyrimidine, cisplatin, and trastuzumab",
+          "category": "Category 1",
+          "indication": "HER2 overexpression positive"
+        },
+        {
+          "regimen": "Fluoropyrimidine, oxaliplatin, and nivolumab",
+          "category": "Category 1 for PD-L1 CPS ≥5",
+          "indication": "PD-L1 CPS ≥1"
+        },
+        {
+          "regimen": "Fluoropyrimidine, oxaliplatin, and pembrolizumab",
+          "category": "Category 1 for PD-L1 CPS ≥5",
+          "indication": "PD-L1 CPS ≥1"
+        },
+        {
+          "regimen": "Fluoropyrimidine, oxaliplatin, and zolbetuximab-clzb",
+          "category": "Category 1",
+          "indication": "CLDN18.2 positive"
+        },
+        {
+          "regimen": "Pembrolizumab monotherapy",
+          "category": "Category 1",
+          "indication": "MSI-H/dMMR tumors (independent of PD-L1 status)"
+        },
+        {
+          "regimen": "Dostarlimab-gxly monotherapy",
+          "category": "Category 1",
+          "indication": "MSI-H/dMMR tumors"
+        },
+        {
+          "regimen": "Nivolumab and ipilimumab",
+          "category": "Category 2A",
+          "indication": "Advanced disease"
+        }
+      ],
+      "regimenSelection": "Based on biomarker results and patient factors"
+    },
+    "evidenceLevel": "Category 1",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "Advanced",
+      "Recurrent",
+      "Metastatic"
+    ],
+    "biomarkerRequirements": [
+      "HER2",
+      "PD-L1",
+      "MSI-H",
+      "dMMR",
+      "CLDN18.2"
+    ],
+    "treatmentSettings": [
+      "First-Line",
+      "Advanced Disease"
+    ],
+    "specialPopulations": null,
+    "crossReferences": null,
+    "evidenceReferences": null,
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Biomarker results",
+      "Performance status",
+      "Prior therapy"
+    ],
+    "monitoringRequirements": [
+      "Treatment response",
+      "Biomarker expression"
+    ],
+    "contraindications": null,
+    "alternativeApproaches": [
+      "Multiple regimen options based on biomarkers"
+    ],
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:15:45.831Z",
+    "updatedAt": "2025-06-29T00:15:45.831Z"
+  },
+  {
+    "id": "1ea5a60e-9332-4ed0-b2c3-354b92adce1f",
+    "referenceCode": "AMP-A",
+    "title": "Principles of Diagnosis, Imaging, and Staging",
+    "category": "Diagnostic",
+    "cancerType": "Ampullary Adenocarcinoma",
+    "version": "v2.2025",
+    "releaseDate": "2025-01-10",
+    "content": {
+      "radiationDose": {
+        "boost": "Higher doses may be used for positive surgical margins in selected cases",
+        "standard": "45–50.4 Gy (1.8 Gy/day)",
+        "fractions": "25–28 total fractions"
+      },
+      "imagingProtocols": "Standardized approach for diagnosis and staging",
+      "stagingPrinciples": "Comprehensive staging evaluation required"
+    },
+    "evidenceLevel": "Category 1",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "All Stages"
+    ],
+    "biomarkerRequirements": null,
+    "treatmentSettings": [
+      "Diagnostic",
+      "Treatment Planning"
+    ],
+    "specialPopulations": null,
+    "crossReferences": null,
+    "evidenceReferences": null,
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Imaging modality selection",
+      "Radiation dose planning"
+    ],
+    "monitoringRequirements": [
+      "Imaging response",
+      "Radiation toxicity"
+    ],
+    "contraindications": null,
+    "alternativeApproaches": null,
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:17:04.391Z",
+    "updatedAt": "2025-06-29T00:17:04.391Z"
+  },
+  {
+    "id": "fd9bb0e9-6f2a-4183-8401-2d20843cb819",
+    "referenceCode": "AMP-1",
+    "title": "Clinical Suspicion of Ampullary Neoplasm",
+    "category": "Diagnosis",
+    "cancerType": "Ampullary Adenocarcinoma",
+    "version": "v2.2025",
+    "releaseDate": "2025-01-10",
+    "content": {
+      "workup": [
+        "Digital rectal examination (DRE)",
+        "Inguinal lymph node evaluation",
+        "Consider biopsy or fine needle aspiration (FNA) if suspicious nodes",
+        "Chest/abdomen/pelvis CT or MRI",
+        "Consider FDG-PET/CT or FDG-PET/MRI",
+        "Anoscopy",
+        "HIV testing (if HIV status unknown)",
+        "Gynecologic exam, including screening for cervical cancer",
+        "Fertility risk discussion/counseling in appropriate patients"
+      ],
+      "geneticTesting": {
+        "genes": [
+          "ATM",
+          "BRCA1",
+          "BRCA2",
+          "CDKN2A",
+          "MLH1",
+          "MSH2",
+          "MSH6",
+          "PALB2",
+          "PMS2",
+          "STK11",
+          "TP53"
+        ],
+        "counseling": "Required for positive mutations and positive family history",
+        "indication": "Recommended for any patient with confirmed ampullary adenocarcinoma or positive family history"
+      }
+    },
+    "evidenceLevel": "Category 1",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "All stages"
+    ],
+    "biomarkerRequirements": [
+      "ATM",
+      "BRCA1",
+      "BRCA2",
+      "CDKN2A",
+      "MLH1",
+      "MSH2",
+      "MSH6",
+      "PALB2",
+      "PMS2",
+      "STK11",
+      "TP53"
+    ],
+    "treatmentSettings": [
+      "Initial Workup",
+      "Diagnostic"
+    ],
+    "specialPopulations": [
+      "Hereditary Cancer Syndromes",
+      "HIV Positive"
+    ],
+    "crossReferences": [
+      "AMP-A",
+      "ST-1"
+    ],
+    "evidenceReferences": null,
+    "updatesFromPrevious": "References updated throughout guidelines",
+    "clinicalDecisionPoints": [
+      "Genetic testing indication",
+      "Imaging modality selection",
+      "Biopsy consideration"
+    ],
+    "monitoringRequirements": [
+      "Follow-up imaging",
+      "Genetic counseling outcomes"
+    ],
+    "contraindications": [],
+    "alternativeApproaches": [
+      "Alternative imaging if CT/MRI contraindicated"
+    ],
+    "qualityMeasures": [
+      "Genetic testing completion rate",
+      "Imaging protocol adherence"
+    ],
+    "createdAt": "2025-06-29T00:16:24.446Z",
+    "updatedAt": "2025-06-29T00:16:24.446Z"
+  },
+  {
+    "id": "834c8eeb-bcfa-4ee8-b749-1108d2c6d0dc",
+    "referenceCode": "AMP-2",
+    "title": "Ampullary Adenoma Treatment",
+    "category": "Treatment",
+    "cancerType": "Ampullary Adenocarcinoma",
+    "version": "v2.2025",
+    "releaseDate": "2025-01-10",
+    "content": {
+      "treatmentOptions": [
+        {
+          "approach": "Endoscopic removal",
+          "indication": "Suitable adenomas without high-risk features",
+          "preference": "Preferred"
+        },
+        {
+          "approach": "Surgical ampullectomy",
+          "indication": "Complex adenomas not amenable to endoscopic removal",
+          "preference": "Alternative"
+        },
+        {
+          "approach": "Pancreatoduodenectomy",
+          "indication": "Large adenomas or suspicion of malignancy",
+          "preference": "Last resort"
+        }
+      ],
+      "surgicalPrinciples": "Follow AMP-C principles of surgical technique"
+    },
+    "evidenceLevel": "Category 1",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "Adenoma"
+    ],
+    "biomarkerRequirements": null,
+    "treatmentSettings": [
+      "Curative Intent"
+    ],
+    "specialPopulations": null,
+    "crossReferences": [
+      "AMP-C"
+    ],
+    "evidenceReferences": null,
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Treatment modality selection",
+      "Surgical approach"
+    ],
+    "monitoringRequirements": [
+      "Post-procedure surveillance"
+    ],
+    "contraindications": null,
+    "alternativeApproaches": [
+      "Multiple surgical approaches available"
+    ],
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:16:24.523Z",
+    "updatedAt": "2025-06-29T00:16:24.523Z"
+  },
+  {
+    "id": "e6bc3568-be62-4bbb-8b66-43d77fdc32d6",
+    "referenceCode": "AMP-3",
+    "title": "Adenocarcinoma Treatment Algorithm",
+    "category": "Treatment",
+    "cancerType": "Ampullary Adenocarcinoma",
+    "version": "v2.2025",
+    "releaseDate": "2025-01-10",
+    "content": {
+      "geneticTesting": {
+        "genes": [
+          "ATM",
+          "BRCA1",
+          "BRCA2",
+          "CDKN2A",
+          "MLH1",
+          "MSH2",
+          "MSH6",
+          "PALB2",
+          "PMS2",
+          "STK11",
+          "TP53"
+        ],
+        "timing": "If not previously noted",
+        "counseling": "Required for positive mutations and family history"
+      },
+      "treatmentAlgorithm": {
+        "confirmed": "Adenocarcinoma confirmed",
+        "stageI_II": {
+          "options": [
+            "Surgical resection",
+            "Adjuvant therapy consideration"
+          ],
+          "approach": "Curative intent"
+        },
+        "stageIII_IV": {
+          "options": [
+            "Systemic therapy",
+            "Palliative management"
+          ],
+          "approach": "Palliative/systemic therapy"
+        }
+      }
+    },
+    "evidenceLevel": "Category 1",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "All Stages"
+    ],
+    "biomarkerRequirements": [
+      "ATM",
+      "BRCA1",
+      "BRCA2",
+      "CDKN2A",
+      "MLH1",
+      "MSH2",
+      "MSH6",
+      "PALB2",
+      "PMS2",
+      "STK11",
+      "TP53"
+    ],
+    "treatmentSettings": [
+      "Curative Intent",
+      "Palliative"
+    ],
+    "specialPopulations": [
+      "Hereditary Cancer Syndromes"
+    ],
+    "crossReferences": null,
+    "evidenceReferences": null,
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Stage determination",
+      "Treatment intent",
+      "Genetic testing timing"
+    ],
+    "monitoringRequirements": [
+      "Disease progression",
+      "Treatment response"
+    ],
+    "contraindications": null,
+    "alternativeApproaches": null,
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:16:24.599Z",
+    "updatedAt": "2025-06-29T00:16:24.599Z"
+  },
+  {
+    "id": "f13b788a-fd7d-4967-ab9a-4072d5237db4",
+    "referenceCode": "AMP-4",
+    "title": "Localized Disease Management",
+    "category": "Treatment",
+    "cancerType": "Ampullary Adenocarcinoma",
+    "version": "v2.2025",
+    "releaseDate": "2025-01-10",
+    "content": {
+      "surgicalRole": "Role unclear after complete response on neoadjuvant immunotherapy",
+      "biomarkerTesting": [
+        "MSI-H",
+        "dMMR"
+      ],
+      "primaryTreatment": {
+        "adjuvant": "See GAST-F for regimens",
+        "preferred": "Pancreatoduodenectomy with or without adjuvant chemoradiation",
+        "indication": "Medically able to tolerate major surgery"
+      },
+      "alternativeApproaches": {
+        "msiH_dMMR": {
+          "approach": "Perioperative immunotherapy",
+          "category": "2A",
+          "consultation": "Multidisciplinary team required"
+        },
+        "perioperative": "Chemoradiation or systemic therapy"
+      }
+    },
+    "evidenceLevel": "Category 1",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "Localized"
+    ],
+    "biomarkerRequirements": [
+      "MSI-H",
+      "dMMR"
+    ],
+    "treatmentSettings": [
+      "Curative Intent",
+      "Perioperative"
+    ],
+    "specialPopulations": null,
+    "crossReferences": [
+      "GAST-B",
+      "GAST-C",
+      "GAST-E",
+      "GAST-F"
+    ],
+    "evidenceReferences": null,
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Surgical candidacy",
+      "Adjuvant therapy selection",
+      "MSI-H/dMMR testing"
+    ],
+    "monitoringRequirements": [
+      "Surgical outcomes",
+      "Adjuvant therapy tolerance"
+    ],
+    "contraindications": [
+      "Medical inability to tolerate major surgery"
+    ],
+    "alternativeApproaches": [
+      "Chemoradiation for non-surgical candidates"
+    ],
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:16:24.673Z",
+    "updatedAt": "2025-06-29T00:16:24.673Z"
+  },
+  {
+    "id": "e822f471-bcab-4220-9d81-f8135012a73d",
+    "referenceCode": "AMP-5",
+    "title": "Postoperative Adjuvant Treatment",
+    "category": "Treatment",
+    "cancerType": "Ampullary Adenocarcinoma",
+    "version": "v2.2025",
+    "releaseDate": "2025-01-10",
+    "content": {
+      "adjuvantOptions": [
+        {
+          "approach": "Chemotherapy with or without chemoradiation",
+          "reference": "GAST-F (systemic therapy principles)"
+        },
+        {
+          "approach": "Chemoradiation and chemotherapy",
+          "reference": "GAST-G (radiation therapy principles)"
+        }
+      ],
+      "surgicalOutcomes": "For patients who have received systemic therapy (GAST-5)",
+      "individualizedApproach": "Based on patient factors and surgical outcomes"
+    },
+    "evidenceLevel": "Category 1",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "Postoperative"
+    ],
+    "biomarkerRequirements": null,
+    "treatmentSettings": [
+      "Adjuvant"
+    ],
+    "specialPopulations": null,
+    "crossReferences": [
+      "GAST-5",
+      "GAST-F",
+      "GAST-G"
+    ],
+    "evidenceReferences": null,
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Adjuvant regimen selection",
+      "Treatment duration"
+    ],
+    "monitoringRequirements": [
+      "Treatment tolerance",
+      "Disease recurrence"
+    ],
+    "contraindications": null,
+    "alternativeApproaches": null,
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:16:24.751Z",
+    "updatedAt": "2025-06-29T00:16:24.751Z"
+  },
+  {
+    "id": "5af8b508-6466-4e36-bf7d-d6e46b703b43",
+    "referenceCode": "AMP-6",
+    "title": "Metastatic Disease Management",
+    "category": "Treatment",
+    "cancerType": "Ampullary Adenocarcinoma",
+    "version": "v2.2025",
+    "releaseDate": "2025-01-10",
+    "content": {
+      "supportiveCare": "Quality of life focused interventions",
+      "primaryApproach": "Palliative Management (GAST-9)",
+      "systemicTherapy": "For appropriate candidates based on performance status",
+      "biomarkerTesting": "Required for targeted therapy selection"
+    },
+    "evidenceLevel": "Category 1",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "Metastatic"
+    ],
+    "biomarkerRequirements": null,
+    "treatmentSettings": [
+      "Palliative"
+    ],
+    "specialPopulations": null,
+    "crossReferences": [
+      "GAST-9",
+      "GAST-B",
+      "GAST-C"
+    ],
+    "evidenceReferences": null,
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Treatment goals",
+      "Performance status assessment"
+    ],
+    "monitoringRequirements": [
+      "Symptom control",
+      "Quality of life measures"
+    ],
+    "contraindications": null,
+    "alternativeApproaches": null,
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:16:24.826Z",
+    "updatedAt": "2025-06-29T00:16:24.826Z"
+  },
+  {
+    "id": "a870220f-d5f0-41a1-ac00-b37f033e33d0",
+    "referenceCode": "AMP-7",
+    "title": "Disease Progression Management",
+    "category": "Treatment",
+    "cancerType": "Ampullary Adenocarcinoma",
+    "version": "v2.2025",
+    "releaseDate": "2025-01-10",
+    "content": {
+      "clinicalTrials": "Consider appropriate clinical trial opportunities",
+      "supportiveCare": "Best supportive care measures",
+      "primaryApproach": "Palliative Management (GAST-9)",
+      "transitionOfCare": "Hospice referral when indicated"
+    },
+    "evidenceLevel": "Category 1",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "Progressive"
+    ],
+    "biomarkerRequirements": null,
+    "treatmentSettings": [
+      "Palliative"
+    ],
+    "specialPopulations": null,
+    "crossReferences": null,
+    "evidenceReferences": null,
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Treatment discontinuation",
+      "Hospice referral timing"
+    ],
+    "monitoringRequirements": [
+      "Symptom burden",
+      "Functional status"
+    ],
+    "contraindications": null,
+    "alternativeApproaches": null,
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:16:24.902Z",
+    "updatedAt": "2025-06-29T00:16:24.902Z"
+  },
+  {
+    "id": "46eb8836-0dbb-4d5b-a1a2-1768612025cc",
+    "referenceCode": "AMP-A",
+    "title": "Principles of Diagnosis, Imaging, and Staging",
+    "category": "Diagnostic",
+    "cancerType": "Ampullary Adenocarcinoma",
+    "version": "v2.2025",
+    "releaseDate": "2025-01-10",
+    "content": {
+      "radiationDose": {
+        "boost": "Higher doses may be used for positive surgical margins in selected cases",
+        "standard": "45–50.4 Gy (1.8 Gy/day)",
+        "fractions": "25–28 total fractions"
+      },
+      "imagingProtocols": "Standardized approach for diagnosis and staging",
+      "stagingPrinciples": "Comprehensive staging evaluation required"
+    },
+    "evidenceLevel": "Category 1",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "All Stages"
+    ],
+    "biomarkerRequirements": null,
+    "treatmentSettings": [
+      "Diagnostic",
+      "Treatment Planning"
+    ],
+    "specialPopulations": null,
+    "crossReferences": null,
+    "evidenceReferences": null,
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Imaging modality selection",
+      "Radiation dose planning"
+    ],
+    "monitoringRequirements": [
+      "Imaging response",
+      "Radiation toxicity"
+    ],
+    "contraindications": null,
+    "alternativeApproaches": null,
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:16:24.978Z",
+    "updatedAt": "2025-06-29T00:16:24.978Z"
+  },
+  {
+    "id": "b7b6ef4a-5fea-4a6d-8aa1-5ae4d7ea81b6",
+    "referenceCode": "AMP-E",
+    "title": "Principles of Systemic Therapy",
+    "category": "Treatment",
+    "cancerType": "Ampullary Adenocarcinoma",
+    "version": "v2.2025",
+    "releaseDate": "2025-01-10",
+    "content": {
+      "biomarkerTesting": [
+        "HER2",
+        "PD-L1",
+        "MSI-H",
+        "dMMR",
+        "CLDN18.2"
+      ],
+      "firstLineTherapy": [
+        {
+          "regimen": "Fluoropyrimidine (fluorouracil or capecitabine), oxaliplatin, and trastuzumab",
+          "category": "Category 1",
+          "indication": "HER2 overexpression positive"
+        },
+        {
+          "regimen": "Fluoropyrimidine, oxaliplatin, trastuzumab, and pembrolizumab",
+          "category": "Category 1",
+          "indication": "HER2+ and PD-L1 CPS ≥1"
+        },
+        {
+          "regimen": "Fluoropyrimidine, cisplatin, and trastuzumab",
+          "category": "Category 1",
+          "indication": "HER2 overexpression positive"
+        },
+        {
+          "regimen": "Fluoropyrimidine, oxaliplatin, and nivolumab",
+          "category": "Category 1 for PD-L1 CPS ≥5",
+          "indication": "PD-L1 CPS ≥1"
+        },
+        {
+          "regimen": "Fluoropyrimidine, oxaliplatin, and pembrolizumab",
+          "category": "Category 1 for PD-L1 CPS ≥5",
+          "indication": "PD-L1 CPS ≥1"
+        },
+        {
+          "regimen": "Fluoropyrimidine, oxaliplatin, and zolbetuximab-clzb",
+          "category": "Category 1",
+          "indication": "CLDN18.2 positive"
+        },
+        {
+          "regimen": "Pembrolizumab monotherapy",
+          "category": "Category 1",
+          "indication": "MSI-H/dMMR tumors (independent of PD-L1 status)"
+        },
+        {
+          "regimen": "Dostarlimab-gxly monotherapy",
+          "category": "Category 1",
+          "indication": "MSI-H/dMMR tumors"
+        },
+        {
+          "regimen": "Nivolumab and ipilimumab",
+          "category": "Category 2A",
+          "indication": "Advanced disease"
+        }
+      ],
+      "regimenSelection": "Based on biomarker results and patient factors"
+    },
+    "evidenceLevel": "Category 1",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "Advanced",
+      "Recurrent",
+      "Metastatic"
+    ],
+    "biomarkerRequirements": [
+      "HER2",
+      "PD-L1",
+      "MSI-H",
+      "dMMR",
+      "CLDN18.2"
+    ],
+    "treatmentSettings": [
+      "First-Line",
+      "Advanced Disease"
+    ],
+    "specialPopulations": null,
+    "crossReferences": null,
+    "evidenceReferences": null,
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Biomarker results",
+      "Performance status",
+      "Prior therapy"
+    ],
+    "monitoringRequirements": [
+      "Treatment response",
+      "Biomarker expression"
+    ],
+    "contraindications": null,
+    "alternativeApproaches": [
+      "Multiple regimen options based on biomarkers"
+    ],
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:16:25.054Z",
+    "updatedAt": "2025-06-29T00:16:25.054Z"
+  },
+  {
+    "id": "6ef63e54-0b49-452c-8af2-f661bce7c03d",
+    "referenceCode": "AMP-1",
+    "title": "Clinical Suspicion of Ampullary Neoplasm",
+    "category": "Diagnosis",
+    "cancerType": "Ampullary Adenocarcinoma",
+    "version": "v2.2025",
+    "releaseDate": "2025-01-10",
+    "content": {
+      "workup": [
+        "Digital rectal examination (DRE)",
+        "Inguinal lymph node evaluation",
+        "Consider biopsy or fine needle aspiration (FNA) if suspicious nodes",
+        "Chest/abdomen/pelvis CT or MRI",
+        "Consider FDG-PET/CT or FDG-PET/MRI",
+        "Anoscopy",
+        "HIV testing (if HIV status unknown)",
+        "Gynecologic exam, including screening for cervical cancer",
+        "Fertility risk discussion/counseling in appropriate patients"
+      ],
+      "geneticTesting": {
+        "genes": [
+          "ATM",
+          "BRCA1",
+          "BRCA2",
+          "CDKN2A",
+          "MLH1",
+          "MSH2",
+          "MSH6",
+          "PALB2",
+          "PMS2",
+          "STK11",
+          "TP53"
+        ],
+        "counseling": "Required for positive mutations and positive family history",
+        "indication": "Recommended for any patient with confirmed ampullary adenocarcinoma or positive family history"
+      }
+    },
+    "evidenceLevel": "Category 1",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "All stages"
+    ],
+    "biomarkerRequirements": [
+      "ATM",
+      "BRCA1",
+      "BRCA2",
+      "CDKN2A",
+      "MLH1",
+      "MSH2",
+      "MSH6",
+      "PALB2",
+      "PMS2",
+      "STK11",
+      "TP53"
+    ],
+    "treatmentSettings": [
+      "Initial Workup",
+      "Diagnostic"
+    ],
+    "specialPopulations": [
+      "Hereditary Cancer Syndromes",
+      "HIV Positive"
+    ],
+    "crossReferences": [
+      "AMP-A",
+      "ST-1"
+    ],
+    "evidenceReferences": null,
+    "updatesFromPrevious": "References updated throughout guidelines",
+    "clinicalDecisionPoints": [
+      "Genetic testing indication",
+      "Imaging modality selection",
+      "Biopsy consideration"
+    ],
+    "monitoringRequirements": [
+      "Follow-up imaging",
+      "Genetic counseling outcomes"
+    ],
+    "contraindications": [],
+    "alternativeApproaches": [
+      "Alternative imaging if CT/MRI contraindicated"
+    ],
+    "qualityMeasures": [
+      "Genetic testing completion rate",
+      "Imaging protocol adherence"
+    ],
+    "createdAt": "2025-06-29T00:17:03.849Z",
+    "updatedAt": "2025-06-29T00:17:03.849Z"
+  },
+  {
+    "id": "c0c9ac18-ebc5-4b56-9676-f408b64d4882",
+    "referenceCode": "AMP-2",
+    "title": "Ampullary Adenoma Treatment",
+    "category": "Treatment",
+    "cancerType": "Ampullary Adenocarcinoma",
+    "version": "v2.2025",
+    "releaseDate": "2025-01-10",
+    "content": {
+      "treatmentOptions": [
+        {
+          "approach": "Endoscopic removal",
+          "indication": "Suitable adenomas without high-risk features",
+          "preference": "Preferred"
+        },
+        {
+          "approach": "Surgical ampullectomy",
+          "indication": "Complex adenomas not amenable to endoscopic removal",
+          "preference": "Alternative"
+        },
+        {
+          "approach": "Pancreatoduodenectomy",
+          "indication": "Large adenomas or suspicion of malignancy",
+          "preference": "Last resort"
+        }
+      ],
+      "surgicalPrinciples": "Follow AMP-C principles of surgical technique"
+    },
+    "evidenceLevel": "Category 1",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "Adenoma"
+    ],
+    "biomarkerRequirements": null,
+    "treatmentSettings": [
+      "Curative Intent"
+    ],
+    "specialPopulations": null,
+    "crossReferences": [
+      "AMP-C"
+    ],
+    "evidenceReferences": null,
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Treatment modality selection",
+      "Surgical approach"
+    ],
+    "monitoringRequirements": [
+      "Post-procedure surveillance"
+    ],
+    "contraindications": null,
+    "alternativeApproaches": [
+      "Multiple surgical approaches available"
+    ],
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:17:03.928Z",
+    "updatedAt": "2025-06-29T00:17:03.928Z"
+  },
+  {
+    "id": "a2eb4bc6-947f-4ce4-b132-9976f5ed1039",
+    "referenceCode": "AMP-3",
+    "title": "Adenocarcinoma Treatment Algorithm",
+    "category": "Treatment",
+    "cancerType": "Ampullary Adenocarcinoma",
+    "version": "v2.2025",
+    "releaseDate": "2025-01-10",
+    "content": {
+      "geneticTesting": {
+        "genes": [
+          "ATM",
+          "BRCA1",
+          "BRCA2",
+          "CDKN2A",
+          "MLH1",
+          "MSH2",
+          "MSH6",
+          "PALB2",
+          "PMS2",
+          "STK11",
+          "TP53"
+        ],
+        "timing": "If not previously noted",
+        "counseling": "Required for positive mutations and family history"
+      },
+      "treatmentAlgorithm": {
+        "confirmed": "Adenocarcinoma confirmed",
+        "stageI_II": {
+          "options": [
+            "Surgical resection",
+            "Adjuvant therapy consideration"
+          ],
+          "approach": "Curative intent"
+        },
+        "stageIII_IV": {
+          "options": [
+            "Systemic therapy",
+            "Palliative management"
+          ],
+          "approach": "Palliative/systemic therapy"
+        }
+      }
+    },
+    "evidenceLevel": "Category 1",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "All Stages"
+    ],
+    "biomarkerRequirements": [
+      "ATM",
+      "BRCA1",
+      "BRCA2",
+      "CDKN2A",
+      "MLH1",
+      "MSH2",
+      "MSH6",
+      "PALB2",
+      "PMS2",
+      "STK11",
+      "TP53"
+    ],
+    "treatmentSettings": [
+      "Curative Intent",
+      "Palliative"
+    ],
+    "specialPopulations": [
+      "Hereditary Cancer Syndromes"
+    ],
+    "crossReferences": null,
+    "evidenceReferences": null,
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Stage determination",
+      "Treatment intent",
+      "Genetic testing timing"
+    ],
+    "monitoringRequirements": [
+      "Disease progression",
+      "Treatment response"
+    ],
+    "contraindications": null,
+    "alternativeApproaches": null,
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:17:04.005Z",
+    "updatedAt": "2025-06-29T00:17:04.005Z"
+  },
+  {
+    "id": "3cad34ec-b23e-4592-891a-efda9ae64ca6",
+    "referenceCode": "AMP-4",
+    "title": "Localized Disease Management",
+    "category": "Treatment",
+    "cancerType": "Ampullary Adenocarcinoma",
+    "version": "v2.2025",
+    "releaseDate": "2025-01-10",
+    "content": {
+      "surgicalRole": "Role unclear after complete response on neoadjuvant immunotherapy",
+      "biomarkerTesting": [
+        "MSI-H",
+        "dMMR"
+      ],
+      "primaryTreatment": {
+        "adjuvant": "See GAST-F for regimens",
+        "preferred": "Pancreatoduodenectomy with or without adjuvant chemoradiation",
+        "indication": "Medically able to tolerate major surgery"
+      },
+      "alternativeApproaches": {
+        "msiH_dMMR": {
+          "approach": "Perioperative immunotherapy",
+          "category": "2A",
+          "consultation": "Multidisciplinary team required"
+        },
+        "perioperative": "Chemoradiation or systemic therapy"
+      }
+    },
+    "evidenceLevel": "Category 1",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "Localized"
+    ],
+    "biomarkerRequirements": [
+      "MSI-H",
+      "dMMR"
+    ],
+    "treatmentSettings": [
+      "Curative Intent",
+      "Perioperative"
+    ],
+    "specialPopulations": null,
+    "crossReferences": [
+      "GAST-B",
+      "GAST-C",
+      "GAST-E",
+      "GAST-F"
+    ],
+    "evidenceReferences": null,
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Surgical candidacy",
+      "Adjuvant therapy selection",
+      "MSI-H/dMMR testing"
+    ],
+    "monitoringRequirements": [
+      "Surgical outcomes",
+      "Adjuvant therapy tolerance"
+    ],
+    "contraindications": [
+      "Medical inability to tolerate major surgery"
+    ],
+    "alternativeApproaches": [
+      "Chemoradiation for non-surgical candidates"
+    ],
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:17:04.082Z",
+    "updatedAt": "2025-06-29T00:17:04.082Z"
+  },
+  {
+    "id": "619230b9-13fe-491f-b6e6-cac8c5bf0ced",
+    "referenceCode": "AMP-5",
+    "title": "Postoperative Adjuvant Treatment",
+    "category": "Treatment",
+    "cancerType": "Ampullary Adenocarcinoma",
+    "version": "v2.2025",
+    "releaseDate": "2025-01-10",
+    "content": {
+      "adjuvantOptions": [
+        {
+          "approach": "Chemotherapy with or without chemoradiation",
+          "reference": "GAST-F (systemic therapy principles)"
+        },
+        {
+          "approach": "Chemoradiation and chemotherapy",
+          "reference": "GAST-G (radiation therapy principles)"
+        }
+      ],
+      "surgicalOutcomes": "For patients who have received systemic therapy (GAST-5)",
+      "individualizedApproach": "Based on patient factors and surgical outcomes"
+    },
+    "evidenceLevel": "Category 1",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "Postoperative"
+    ],
+    "biomarkerRequirements": null,
+    "treatmentSettings": [
+      "Adjuvant"
+    ],
+    "specialPopulations": null,
+    "crossReferences": [
+      "GAST-5",
+      "GAST-F",
+      "GAST-G"
+    ],
+    "evidenceReferences": null,
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Adjuvant regimen selection",
+      "Treatment duration"
+    ],
+    "monitoringRequirements": [
+      "Treatment tolerance",
+      "Disease recurrence"
+    ],
+    "contraindications": null,
+    "alternativeApproaches": null,
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:17:04.161Z",
+    "updatedAt": "2025-06-29T00:17:04.161Z"
+  },
+  {
+    "id": "302f0a9e-8d45-4894-a9b1-ec94e4b8a39e",
+    "referenceCode": "AMP-6",
+    "title": "Metastatic Disease Management",
+    "category": "Treatment",
+    "cancerType": "Ampullary Adenocarcinoma",
+    "version": "v2.2025",
+    "releaseDate": "2025-01-10",
+    "content": {
+      "supportiveCare": "Quality of life focused interventions",
+      "primaryApproach": "Palliative Management (GAST-9)",
+      "systemicTherapy": "For appropriate candidates based on performance status",
+      "biomarkerTesting": "Required for targeted therapy selection"
+    },
+    "evidenceLevel": "Category 1",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "Metastatic"
+    ],
+    "biomarkerRequirements": null,
+    "treatmentSettings": [
+      "Palliative"
+    ],
+    "specialPopulations": null,
+    "crossReferences": [
+      "GAST-9",
+      "GAST-B",
+      "GAST-C"
+    ],
+    "evidenceReferences": null,
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Treatment goals",
+      "Performance status assessment"
+    ],
+    "monitoringRequirements": [
+      "Symptom control",
+      "Quality of life measures"
+    ],
+    "contraindications": null,
+    "alternativeApproaches": null,
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:17:04.238Z",
+    "updatedAt": "2025-06-29T00:17:04.238Z"
+  },
+  {
+    "id": "b6dd2ae9-2062-40f8-ac40-dadc547a70ab",
+    "referenceCode": "AMP-E",
+    "title": "Principles of Systemic Therapy",
+    "category": "Treatment",
+    "cancerType": "Ampullary Adenocarcinoma",
+    "version": "v2.2025",
+    "releaseDate": "2025-01-10",
+    "content": {
+      "biomarkerTesting": [
+        "HER2",
+        "PD-L1",
+        "MSI-H",
+        "dMMR",
+        "CLDN18.2"
+      ],
+      "firstLineTherapy": [
+        {
+          "regimen": "Fluoropyrimidine (fluorouracil or capecitabine), oxaliplatin, and trastuzumab",
+          "category": "Category 1",
+          "indication": "HER2 overexpression positive"
+        },
+        {
+          "regimen": "Fluoropyrimidine, oxaliplatin, trastuzumab, and pembrolizumab",
+          "category": "Category 1",
+          "indication": "HER2+ and PD-L1 CPS ≥1"
+        },
+        {
+          "regimen": "Fluoropyrimidine, cisplatin, and trastuzumab",
+          "category": "Category 1",
+          "indication": "HER2 overexpression positive"
+        },
+        {
+          "regimen": "Fluoropyrimidine, oxaliplatin, and nivolumab",
+          "category": "Category 1 for PD-L1 CPS ≥5",
+          "indication": "PD-L1 CPS ≥1"
+        },
+        {
+          "regimen": "Fluoropyrimidine, oxaliplatin, and pembrolizumab",
+          "category": "Category 1 for PD-L1 CPS ≥5",
+          "indication": "PD-L1 CPS ≥1"
+        },
+        {
+          "regimen": "Fluoropyrimidine, oxaliplatin, and zolbetuximab-clzb",
+          "category": "Category 1",
+          "indication": "CLDN18.2 positive"
+        },
+        {
+          "regimen": "Pembrolizumab monotherapy",
+          "category": "Category 1",
+          "indication": "MSI-H/dMMR tumors (independent of PD-L1 status)"
+        },
+        {
+          "regimen": "Dostarlimab-gxly monotherapy",
+          "category": "Category 1",
+          "indication": "MSI-H/dMMR tumors"
+        },
+        {
+          "regimen": "Nivolumab and ipilimumab",
+          "category": "Category 2A",
+          "indication": "Advanced disease"
+        }
+      ],
+      "regimenSelection": "Based on biomarker results and patient factors"
+    },
+    "evidenceLevel": "Category 1",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "Advanced",
+      "Recurrent",
+      "Metastatic"
+    ],
+    "biomarkerRequirements": [
+      "HER2",
+      "PD-L1",
+      "MSI-H",
+      "dMMR",
+      "CLDN18.2"
+    ],
+    "treatmentSettings": [
+      "First-Line",
+      "Advanced Disease"
+    ],
+    "specialPopulations": null,
+    "crossReferences": null,
+    "evidenceReferences": null,
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Biomarker results",
+      "Performance status",
+      "Prior therapy"
+    ],
+    "monitoringRequirements": [
+      "Treatment response",
+      "Biomarker expression"
+    ],
+    "contraindications": null,
+    "alternativeApproaches": [
+      "Multiple regimen options based on biomarkers"
+    ],
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:17:04.469Z",
+    "updatedAt": "2025-06-29T00:17:04.469Z"
+  },
+  {
+    "id": "619b071c-7bf1-4a05-ac56-12506cd45af3",
+    "referenceCode": "BONE-1",
+    "title": "Bone Cancer Workup and Diagnosis",
+    "category": "Diagnosis",
+    "cancerType": "Bone Cancer",
+    "version": "v1.2025",
+    "releaseDate": "2024-08-20",
+    "content": {
+      "workupProtocol": {
+        "ageUnder40": {
+          "biopsy": "Should be performed at treating institution",
+          "approach": "Refer to orthopedic oncologist",
+          "indication": "Symptomatic bone lesion with abnormal x-ray"
+        },
+        "age40AndOver": {
+          "labs": "CBC, CMP with calcium to assess hypercalcemia",
+          "approach": "Workup for potential bone metastasis",
+          "evaluation": [
+            "History and physical examination",
+            "Bone scan or FDG-PET/CT (category 2B)",
+            "Chest x-ray",
+            "Serum protein electrophoresis (SPEP)",
+            "Chest/abdomen/pelvis CT with contrast",
+            "PSA (males)",
+            "Mammogram (females)"
+          ]
+        }
+      },
+      "multidisciplinaryTeam": {
+        "coreGroup": [
+          "Orthopedic oncologist",
+          "Bone pathologist",
+          "Medical/pediatric oncologist",
+          "Radiation oncologist",
+          "Musculoskeletal radiologist"
+        ],
+        "specialistsCritical": [
+          "Thoracic surgeon",
+          "Plastic surgeon",
+          "Interventional radiologist",
+          "Physiatrist",
+          "Vascular/general surgeon",
+          "Neurosurgeon/orthopedic spine surgeon",
+          "Palliative care physician"
+        ]
+      }
+    },
+    "evidenceLevel": "Category 2A",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "All stages"
+    ],
+    "biomarkerRequirements": null,
+    "treatmentSettings": [
+      "Initial Workup",
+      "Diagnostic"
+    ],
+    "specialPopulations": null,
+    "crossReferences": null,
+    "evidenceReferences": null,
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Age-based approach",
+      "Biopsy timing",
+      "Metastasis workup"
+    ],
+    "monitoringRequirements": [
+      "Imaging follow-up",
+      "Laboratory monitoring"
+    ],
+    "contraindications": null,
+    "alternativeApproaches": [
+      "FDG-PET/CT as alternative to bone scan"
+    ],
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:26:37.000Z",
+    "updatedAt": "2025-06-29T00:26:37.000Z"
+  },
+  {
+    "id": "772d9cc1-05fd-420a-9cac-46f9535480bb",
+    "referenceCode": "OSTEO-1",
+    "title": "Osteosarcoma Workup and Primary Treatment",
+    "category": "Treatment",
+    "cancerType": "Osteosarcoma",
+    "version": "v1.2025",
+    "releaseDate": "2024-08-20",
+    "content": {
+      "primaryTreatment": {
+        "surgicalResection": "Wide excision with negative margins",
+        "adjuvantChemotherapy": "Based on histologic response to neoadjuvant therapy",
+        "neoadjuvantChemotherapy": "Standard approach for resectable disease"
+      },
+      "workupRequirements": [
+        "Complete history and physical examination",
+        "Plain radiographs of primary site",
+        "Chest CT (with or without contrast)",
+        "MRI of primary site",
+        "Bone scan or FDG-PET/CT",
+        "Complete blood count and chemistry panel",
+        "Alkaline phosphatase and LDH",
+        "Fertility consultation should be considered"
+      ],
+      "fertilityConsiderations": "Fertility consultation should be offered to appropriate patients"
+    },
+    "evidenceLevel": "Category 2A",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "Localized",
+      "Resectable"
+    ],
+    "biomarkerRequirements": [
+      "Alkaline phosphatase",
+      "LDH"
+    ],
+    "treatmentSettings": [
+      "Neoadjuvant",
+      "Adjuvant",
+      "Surgical"
+    ],
+    "specialPopulations": null,
+    "crossReferences": null,
+    "evidenceReferences": null,
+    "updatesFromPrevious": "Fertility consultation language updated from \"should be offered\" to \"should be considered\"",
+    "clinicalDecisionPoints": [
+      "Resectability assessment",
+      "Chemotherapy selection",
+      "Fertility preservation"
+    ],
+    "monitoringRequirements": [
+      "Response assessment",
+      "Toxicity monitoring"
+    ],
+    "contraindications": null,
+    "alternativeApproaches": null,
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:26:37.113Z",
+    "updatedAt": "2025-06-29T00:26:37.113Z"
+  },
+  {
+    "id": "d094683c-1556-4302-9e23-466120f5ccec",
+    "referenceCode": "OSTEO-2",
+    "title": "Osteosarcoma Neoadjuvant and Adjuvant Treatment",
+    "category": "Treatment",
+    "cancerType": "Osteosarcoma",
+    "version": "v1.2025",
+    "releaseDate": "2024-08-20",
+    "content": {
+      "adjuvantTreatment": {
+        "duration": "Typically 6 months total treatment",
+        "goodResponse": ">90% necrosis - continue same regimen",
+        "poorResponse": "<90% necrosis - consider alternative regimens"
+      },
+      "neoadjuvantProtocols": [
+        "Doxorubicin and cisplatin",
+        "MAP (methotrexate, doxorubicin, cisplatin)",
+        "High-dose methotrexate-based regimens"
+      ],
+      "surgicalConsiderations": {
+        "timing": "After 2-3 cycles of neoadjuvant therapy",
+        "margins": "Wide excision with negative margins required",
+        "terminology": "Resection (previously excision)"
+      }
+    },
+    "evidenceLevel": "Category 2A",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "Localized",
+      "Resectable"
+    ],
+    "biomarkerRequirements": null,
+    "treatmentSettings": [
+      "Neoadjuvant",
+      "Adjuvant"
+    ],
+    "specialPopulations": null,
+    "crossReferences": null,
+    "evidenceReferences": null,
+    "updatesFromPrevious": "Terminology revised from \"excision\" to \"resection\"",
+    "clinicalDecisionPoints": [
+      "Response assessment",
+      "Surgical timing",
+      "Adjuvant selection"
+    ],
+    "monitoringRequirements": [
+      "Histologic response evaluation",
+      "Toxicity assessment"
+    ],
+    "contraindications": null,
+    "alternativeApproaches": null,
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:26:37.188Z",
+    "updatedAt": "2025-06-29T00:26:37.188Z"
+  },
+  {
+    "id": "314dfdb3-4b9c-48c4-a121-fac9e5ea3309",
+    "referenceCode": "OSTEO-3",
+    "title": "Metastatic Osteosarcoma",
+    "category": "Treatment",
+    "cancerType": "Osteosarcoma",
+    "version": "v1.2025",
+    "releaseDate": "2024-08-20",
+    "content": {
+      "firstLineTherapy": [
+        "MAP (methotrexate, doxorubicin, cisplatin)",
+        "Doxorubicin and cisplatin",
+        "High-dose methotrexate-based regimens"
+      ],
+      "secondLineTherapy": [
+        "Docetaxel and gemcitabine",
+        "Gemcitabine ± docetaxel",
+        "Ifosfamide-based regimens",
+        "Clinical trials preferred"
+      ],
+      "surgicalManagement": {
+        "criteria": "Limited number of metastases, adequate pulmonary reserve",
+        "metastases": "Pulmonary metastasectomy if completely resectable",
+        "primarySite": "Consider resection if feasible"
+      }
+    },
+    "evidenceLevel": "Category 2A",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "Metastatic"
+    ],
+    "biomarkerRequirements": null,
+    "treatmentSettings": [
+      "First-Line",
+      "Second-Line",
+      "Surgical"
+    ],
+    "specialPopulations": null,
+    "crossReferences": null,
+    "evidenceReferences": null,
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Resectability assessment",
+      "Therapy selection",
+      "Surgery timing"
+    ],
+    "monitoringRequirements": [
+      "Disease progression",
+      "Pulmonary function"
+    ],
+    "contraindications": null,
+    "alternativeApproaches": [
+      "Clinical trial participation strongly encouraged"
+    ],
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:26:37.262Z",
+    "updatedAt": "2025-06-29T00:26:37.262Z"
+  },
+  {
+    "id": "e6b73403-a2f3-4f7b-8b95-cf3e7052a09a",
+    "referenceCode": "OSTEO-4",
+    "title": "Osteosarcoma Surveillance and Relapse",
+    "category": "Surveillance",
+    "cancerType": "Osteosarcoma",
+    "version": "v1.2025",
+    "releaseDate": "2024-08-20",
+    "content": {
+      "relapseManagement": {
+        "localRecurrence": "Surgical resection if feasible",
+        "systemicTherapy": "Second-line chemotherapy regimens",
+        "pulmonaryMetastases": "Metastasectomy if completely resectable"
+      },
+      "palliativeTreatment": {
+        "supportiveCare": "Multidisciplinary palliative approach",
+        "radiationTherapy": "Palliative RT for symptomatic lesions"
+      },
+      "surveillanceProtocol": [
+        "Chest imaging every 2-3 months for 2 years",
+        "Then every 3-6 months for years 3-5",
+        "Annual imaging thereafter",
+        "Primary site imaging as clinically indicated"
+      ]
+    },
+    "evidenceLevel": "Category 2A",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "Post-treatment"
+    ],
+    "biomarkerRequirements": null,
+    "treatmentSettings": [
+      "Surveillance",
+      "Relapse Management"
+    ],
+    "specialPopulations": null,
+    "crossReferences": null,
+    "evidenceReferences": null,
+    "updatesFromPrevious": "Palliative RT treatment option modified",
+    "clinicalDecisionPoints": [
+      "Imaging frequency",
+      "Resectability assessment",
+      "Palliative options"
+    ],
+    "monitoringRequirements": [
+      "Regular chest imaging",
+      "Clinical assessment"
+    ],
+    "contraindications": null,
+    "alternativeApproaches": null,
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:26:37.335Z",
+    "updatedAt": "2025-06-29T00:26:37.335Z"
+  },
+  {
+    "id": "6e7d4f5d-1f4f-4cb0-b24d-9a0330c1c166",
+    "referenceCode": "EW-1",
+    "title": "Ewing Sarcoma Workup and Primary Treatment",
+    "category": "Treatment",
+    "cancerType": "Ewing Sarcoma",
+    "version": "v1.2025",
+    "releaseDate": "2024-08-20",
+    "content": {
+      "workupProtocol": [
+        "Complete history and physical examination",
+        "Plain radiographs of primary site",
+        "MRI of primary site",
+        "FDG-PET/CT (preferred) head-to-toe and/or bone scan",
+        "Chest CT with contrast",
+        "Complete blood count and chemistry panel",
+        "LDH"
+      ],
+      "primaryTreatment": {
+        "approach": "Multidisciplinary planning essential",
+        "chemotherapy": "Multi-agent systemic therapy",
+        "localTherapy": "Surgery and/or radiation therapy"
+      },
+      "cytogeneticTesting": {
+        "standard": "90% have one of four specific translocations",
+        "ewingLike": "CIC::DUX4, BCOR::CCNB3 can be treated as Ewing sarcoma",
+        "molecularTesting": "Additional testing recommended if negative"
+      }
+    },
+    "evidenceLevel": "Category 2A",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "Localized",
+      "Metastatic"
+    ],
+    "biomarkerRequirements": [
+      "Cytogenetic analysis",
+      "LDH"
+    ],
+    "treatmentSettings": [
+      "Systemic Therapy",
+      "Local Therapy"
+    ],
+    "specialPopulations": null,
+    "crossReferences": null,
+    "evidenceReferences": null,
+    "updatesFromPrevious": "FDG-PET/CT now preferred, molecular testing guidance updated",
+    "clinicalDecisionPoints": [
+      "Cytogenetic confirmation",
+      "Local therapy selection",
+      "Treatment sequence"
+    ],
+    "monitoringRequirements": [
+      "Response assessment",
+      "Toxicity monitoring"
+    ],
+    "contraindications": null,
+    "alternativeApproaches": null,
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:26:37.409Z",
+    "updatedAt": "2025-06-29T00:26:37.409Z"
+  },
+  {
+    "id": "564eedc7-1149-45f9-ace9-639d9ab3aae6",
+    "referenceCode": "EW-2",
+    "title": "Ewing Sarcoma Additional Treatment and Surveillance",
+    "category": "Treatment",
+    "cancerType": "Ewing Sarcoma",
+    "version": "v1.2025",
+    "releaseDate": "2024-08-20",
+    "content": {
+      "relapseManagement": {
+        "approach": "Clinical trials preferred",
+        "localTherapy": "Surgery and/or radiation if feasible",
+        "systemicTherapy": "Second-line chemotherapy regimens"
+      },
+      "additionalTreatment": {
+        "duration": "Typically 12-15 cycles over 6-9 months",
+        "localTherapy": "Surgery and/or radiation based on response",
+        "consolidation": "Complete planned chemotherapy regimen"
+      },
+      "surveillanceProtocol": [
+        "History and physical every 2-3 months for 2 years",
+        "Chest imaging (x-ray or CT) every 2-3 months",
+        "Primary site imaging every 3-6 months",
+        "Then less frequent as appropriate"
+      ]
+    },
+    "evidenceLevel": "Category 2A",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "Post-primary treatment"
+    ],
+    "biomarkerRequirements": null,
+    "treatmentSettings": [
+      "Consolidation",
+      "Surveillance",
+      "Relapse"
+    ],
+    "specialPopulations": null,
+    "crossReferences": null,
+    "evidenceReferences": null,
+    "updatesFromPrevious": "Chest imaging frequency modified to every 2-3 months",
+    "clinicalDecisionPoints": [
+      "Treatment completion",
+      "Surveillance intensity",
+      "Relapse approach"
+    ],
+    "monitoringRequirements": [
+      "Regular imaging",
+      "Clinical assessment"
+    ],
+    "contraindications": null,
+    "alternativeApproaches": null,
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:26:37.483Z",
+    "updatedAt": "2025-06-29T00:26:37.483Z"
+  },
+  {
+    "id": "f0babb1e-2c6e-4acb-9e79-4dc94ab96d13",
+    "referenceCode": "EW-3",
+    "title": "Metastatic Ewing Sarcoma",
+    "category": "Treatment",
+    "cancerType": "Ewing Sarcoma",
+    "version": "v1.2025",
+    "releaseDate": "2024-08-20",
+    "content": {
+      "lungMetastases": {
+        "dosing": "Per radiation therapy guidelines",
+        "criteria": "Partial response to systemic therapy",
+        "wholelung": "± whole lung irradiation (WLI)"
+      },
+      "prognosticFactors": [
+        "Number of metastatic sites",
+        "Bone vs soft tissue primary",
+        "Age at diagnosis",
+        "Tumor volume"
+      ],
+      "treatmentApproach": {
+        "localTherapy": "Consider for primary and metastatic sites",
+        "consolidation": "High-dose therapy with stem cell rescue in select cases",
+        "systemicTherapy": "Intensive multi-agent chemotherapy"
+      }
+    },
+    "evidenceLevel": "Category 2A",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "Metastatic"
+    ],
+    "biomarkerRequirements": null,
+    "treatmentSettings": [
+      "Intensive Therapy",
+      "Consolidation"
+    ],
+    "specialPopulations": null,
+    "crossReferences": null,
+    "evidenceReferences": null,
+    "updatesFromPrevious": "WLI changed from mandatory (+) to optional (±)",
+    "clinicalDecisionPoints": [
+      "Treatment intensity",
+      "Local therapy inclusion",
+      "WLI consideration"
+    ],
+    "monitoringRequirements": [
+      "Response assessment",
+      "Toxicity management"
+    ],
+    "contraindications": null,
+    "alternativeApproaches": null,
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:26:37.557Z",
+    "updatedAt": "2025-06-29T00:26:37.557Z"
+  },
+  {
+    "id": "8c212e49-b0fe-466b-81b8-c36bb61f275b",
+    "referenceCode": "CHON-1",
+    "title": "Chondrosarcoma Presentation and Classification",
+    "category": "Diagnosis",
+    "cancerType": "Chondrosarcoma",
+    "version": "v1.2025",
+    "releaseDate": "2024-08-20",
+    "content": {
+      "subtypes": {
+        "atypical": "Atypical cartilaginous tumors",
+        "lowGrade": "Low-grade extracompartmental appendicular or Grade I axial",
+        "clearCell": "Clear cell chondrosarcoma",
+        "highGrade": "Grade II, Grade III",
+        "mesenchymal": "Links to CHON-3 and CHON-4 added",
+        "dedifferentiated": "Link to CHON-3 added"
+      },
+      "referralPathways": {
+        "atypical": "CHON-2",
+        "metastatic": "CHON-4",
+        "mesenchymal": "CHON-3 and CHON-4",
+        "dedifferentiated": "CHON-3 and CHON-4",
+        "lowGradeAndHighGrade": "CHON-3"
+      },
+      "gradingConsiderations": "Histology, radiologic features, size, and location influence treatment"
+    },
+    "evidenceLevel": "Category 2A",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "All presentations"
+    ],
+    "biomarkerRequirements": null,
+    "treatmentSettings": [
+      "Diagnostic"
+    ],
+    "specialPopulations": null,
+    "crossReferences": null,
+    "evidenceReferences": null,
+    "updatesFromPrevious": "Added links for dedifferentiated and mesenchymal subtypes",
+    "clinicalDecisionPoints": [
+      "Subtype classification",
+      "Grade determination",
+      "Treatment pathway"
+    ],
+    "monitoringRequirements": null,
+    "contraindications": null,
+    "alternativeApproaches": null,
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:26:37.631Z",
+    "updatedAt": "2025-06-29T00:26:37.631Z"
+  },
+  {
+    "id": "e95f3c1b-07d7-40ac-98a0-1f4a76dd03f2",
+    "referenceCode": "CHON-2",
+    "title": "Atypical Cartilaginous Tumors Primary Treatment",
+    "category": "Treatment",
+    "cancerType": "Chondrosarcoma",
+    "version": "v1.2025",
+    "releaseDate": "2024-08-20",
+    "content": {
+      "treatmentApproach": {
+        "primary": "Surgical resection with wide margins",
+        "adjuvant": "Generally not indicated for atypical cartilaginous tumors",
+        "surveillance": "Regular imaging follow-up"
+      },
+      "surgicalPrinciples": [
+        "Complete excision with negative margins",
+        "Avoid contamination during surgery",
+        "Consider reconstruction if needed"
+      ]
+    },
+    "evidenceLevel": "Category 2A",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "Atypical cartilaginous tumors"
+    ],
+    "biomarkerRequirements": null,
+    "treatmentSettings": [
+      "Surgical"
+    ],
+    "specialPopulations": null,
+    "crossReferences": null,
+    "evidenceReferences": null,
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Surgical approach",
+      "Margin assessment",
+      "Reconstruction needs"
+    ],
+    "monitoringRequirements": null,
+    "contraindications": null,
+    "alternativeApproaches": null,
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:26:37.704Z",
+    "updatedAt": "2025-06-29T00:26:37.704Z"
+  },
+  {
+    "id": "5d0a3f02-6edb-4396-a81a-145f047219ec",
+    "referenceCode": "CHON-3",
+    "title": "Chondrosarcoma High-Grade and Complex Cases",
+    "category": "Treatment",
+    "cancerType": "Chondrosarcoma",
+    "version": "v1.2025",
+    "releaseDate": "2024-08-20",
+    "content": {
+      "imagingUpdates": "Chest CT can be with or without contrast, low-dose non-contrast for restaging",
+      "treatmentOptions": {
+        "adjuvant": "Consider based on grade and margins",
+        "surgical": "Wide resection with negative margins",
+        "systemic": "Limited role except in specific subtypes"
+      },
+      "specialConsiderations": {
+        "mesenchymal": "Refer to EW-1 for Ewing-like treatment",
+        "dedifferentiated": "May consider treating as osteosarcoma (category 2B)"
+      }
+    },
+    "evidenceLevel": "Category 2A",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "High-grade",
+      "Complex subtypes"
+    ],
+    "biomarkerRequirements": null,
+    "treatmentSettings": [
+      "Surgical",
+      "Adjuvant"
+    ],
+    "specialPopulations": null,
+    "crossReferences": null,
+    "evidenceReferences": null,
+    "updatesFromPrevious": "Terminology revised to \"resection\", pathways added for dedifferentiated and mesenchymal",
+    "clinicalDecisionPoints": [
+      "Subtype-specific treatment",
+      "Surgical approach",
+      "Adjuvant consideration"
+    ],
+    "monitoringRequirements": null,
+    "contraindications": null,
+    "alternativeApproaches": null,
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:26:37.777Z",
+    "updatedAt": "2025-06-29T00:26:37.777Z"
+  },
+  {
+    "id": "90e05875-7755-4e3a-a90e-61690e6e93ef",
+    "referenceCode": "CHON-4",
+    "title": "Metastatic Chondrosarcoma",
+    "category": "Treatment",
+    "cancerType": "Chondrosarcoma",
+    "version": "v1.2025",
+    "releaseDate": "2024-08-20",
+    "content": {
+      "prognosticFactors": [
+        "Grade of primary tumor",
+        "Number and location of metastases",
+        "Patient performance status",
+        "Resectability of disease"
+      ],
+      "treatmentApproach": {
+        "surgical": "Resection of primary and metastases if feasible",
+        "systemic": "Limited effectiveness in conventional chondrosarcoma",
+        "palliative": "Symptom management and supportive care"
+      }
+    },
+    "evidenceLevel": "Category 2A",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "Metastatic"
+    ],
+    "biomarkerRequirements": null,
+    "treatmentSettings": [
+      "Surgical",
+      "Palliative"
+    ],
+    "specialPopulations": null,
+    "crossReferences": null,
+    "evidenceReferences": null,
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Resectability assessment",
+      "Systemic therapy consideration",
+      "Palliative care timing"
+    ],
+    "monitoringRequirements": null,
+    "contraindications": null,
+    "alternativeApproaches": null,
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:26:37.850Z",
+    "updatedAt": "2025-06-29T00:26:37.850Z"
+  },
+  {
+    "id": "2b8573f0-84e3-44e9-8742-bd02f3d9c812",
+    "referenceCode": "CHOR-1",
+    "title": "Chordoma Workup and Histologic Subtype",
+    "category": "Diagnosis",
+    "cancerType": "Chordoma",
+    "version": "v1.2025",
+    "releaseDate": "2024-08-20",
+    "content": {
+      "anatomicSites": [
+        "Skull base/clival",
+        "Mobile spine",
+        "Sacrococcygeal"
+      ],
+      "workupProtocol": [
+        "Complete history and physical examination",
+        "MRI of primary site with gadolinium",
+        "CT chest for staging",
+        "Additional imaging based on location"
+      ],
+      "histologicSubtypes": [
+        "Classical chordoma",
+        "Chondroid chordoma",
+        "Dedifferentiated chordoma"
+      ]
+    },
+    "evidenceLevel": "Category 2A",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "All presentations"
+    ],
+    "biomarkerRequirements": null,
+    "treatmentSettings": [
+      "Diagnostic"
+    ],
+    "specialPopulations": null,
+    "crossReferences": null,
+    "evidenceReferences": null,
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Subtype determination",
+      "Anatomic assessment",
+      "Staging completion"
+    ],
+    "monitoringRequirements": null,
+    "contraindications": null,
+    "alternativeApproaches": null,
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:26:37.924Z",
+    "updatedAt": "2025-06-29T00:26:37.924Z"
+  },
+  {
+    "id": "954237b5-3684-4cc8-8e20-c742cb5e027b",
+    "referenceCode": "CHOR-2",
+    "title": "Chordoma Primary and Adjuvant Treatment",
+    "category": "Treatment",
+    "cancerType": "Chordoma",
+    "version": "v1.2025",
+    "releaseDate": "2024-08-20",
+    "content": {
+      "treatmentByLocation": {
+        "skullBase": {
+          "resectable": "Surgical resection ± adjuvant RT",
+          "preoperative": "Consider preoperative RT if positive margins likely",
+          "unresectable": "Consider definitive RT"
+        },
+        "mobileSpine": {
+          "resectable": "Surgical resection ± adjuvant RT",
+          "unresectable": "Consider definitive RT"
+        },
+        "sacrococcygeal": {
+          "resectable": "Surgical resection ± adjuvant RT",
+          "unresectable": "Consider definitive RT"
+        }
+      },
+      "adjuvantConsiderations": "Consider adjuvant RT for positive margins or large extracompartmental tumors"
+    },
+    "evidenceLevel": "Category 2A",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "Localized"
+    ],
+    "biomarkerRequirements": null,
+    "treatmentSettings": [
+      "Surgical",
+      "Radiation Therapy"
+    ],
+    "specialPopulations": null,
+    "crossReferences": null,
+    "evidenceReferences": null,
+    "updatesFromPrevious": "RT treatment options modified for all anatomic sites",
+    "clinicalDecisionPoints": [
+      "Resectability assessment",
+      "RT indication",
+      "Preoperative RT consideration"
+    ],
+    "monitoringRequirements": null,
+    "contraindications": null,
+    "alternativeApproaches": null,
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:26:37.997Z",
+    "updatedAt": "2025-06-29T00:26:37.997Z"
+  },
+  {
+    "id": "0f657fda-4051-42d8-b1bd-786a470a4e07",
+    "referenceCode": "CHOR-3",
+    "title": "Chordoma Surveillance, Recurrence, and Treatment",
+    "category": "Treatment",
+    "cancerType": "Chordoma",
+    "version": "v1.2025",
+    "releaseDate": "2024-08-20",
+    "content": {
+      "imagingUpdates": "Low-dose, non-contrast CT recommended for restaging",
+      "recurrenceManagement": {
+        "local": "Surgical resection and/or RT and/or ablation and/or systemic therapy or clinical trial",
+        "metastatic": "Systemic therapy and/or surgical resection and/or RT or clinical trial and/or best supportive care"
+      },
+      "surveillanceProtocol": [
+        "Regular MRI of primary site",
+        "Chest imaging for metastases",
+        "Clinical assessment"
+      ]
+    },
+    "evidenceLevel": "Category 2A",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "Post-treatment",
+      "Recurrent"
+    ],
+    "biomarkerRequirements": null,
+    "treatmentSettings": [
+      "Surveillance",
+      "Recurrence Management"
+    ],
+    "specialPopulations": null,
+    "crossReferences": null,
+    "evidenceReferences": null,
+    "updatesFromPrevious": "Treatment options modified for both local and metastatic recurrence",
+    "clinicalDecisionPoints": [
+      "Recurrence detection",
+      "Treatment modality selection",
+      "Supportive care timing"
+    ],
+    "monitoringRequirements": null,
+    "contraindications": null,
+    "alternativeApproaches": null,
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:26:38.071Z",
+    "updatedAt": "2025-06-29T00:26:38.071Z"
+  },
+  {
+    "id": "827650da-00de-4bda-b44f-117d7d4d948d",
+    "referenceCode": "GCTB-1",
+    "title": "Giant Cell Tumor of Bone Workup and Presentation",
+    "category": "Diagnosis",
+    "cancerType": "Giant Cell Tumor of Bone",
+    "version": "v1.2025",
+    "releaseDate": "2024-08-20",
+    "content": {
+      "workupProtocol": [
+        "Complete history and physical examination",
+        "Plain radiographs",
+        "MRI of primary site",
+        "Chest imaging",
+        "Laboratory studies as indicated"
+      ],
+      "clinicalPresentation": [
+        "Pain and swelling",
+        "Limited range of motion",
+        "Pathologic fracture (uncommon)",
+        "Typically involves epiphysis/metaphysis"
+      ],
+      "differentialDiagnosis": [
+        "Osteosarcoma",
+        "Aneurysmal bone cyst",
+        "Brown tumor of hyperparathyroidism"
+      ]
+    },
+    "evidenceLevel": "Category 2A",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "All presentations"
+    ],
+    "biomarkerRequirements": null,
+    "treatmentSettings": [
+      "Diagnostic"
+    ],
+    "specialPopulations": null,
+    "crossReferences": null,
+    "evidenceReferences": null,
+    "updatesFromPrevious": null,
+    "clinicalDecisionPoints": [
+      "Differential diagnosis",
+      "Staging completion",
+      "Treatment planning"
+    ],
+    "monitoringRequirements": null,
+    "contraindications": null,
+    "alternativeApproaches": null,
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:26:38.145Z",
+    "updatedAt": "2025-06-29T00:26:38.145Z"
+  },
+  {
+    "id": "c9010d64-f0c5-4e3d-9299-fa384b446955",
+    "referenceCode": "GCTB-2",
+    "title": "Giant Cell Tumor of Bone Primary Treatment",
+    "category": "Treatment",
+    "cancerType": "Giant Cell Tumor of Bone",
+    "version": "v1.2025",
+    "releaseDate": "2024-08-20",
+    "content": {
+      "treatmentOptions": {
+        "adjuvant": "Consider denosumab for high-risk cases",
+        "resectable": "Surgical resection with wide margins",
+        "unresectable": "Denosumab (preferred)"
+      },
+      "metastaticDisease": {
+        "monitoring": "Regular imaging and clinical assessment",
+        "unresectable": "Denosumab (preferred)"
+      },
+      "surgicalConsiderations": [
+        "En bloc resection when possible",
+        "Avoid contamination",
+        "Consider reconstruction needs"
+      ]
+    },
+    "evidenceLevel": "Category 2A",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "Localized",
+      "Metastatic"
+    ],
+    "biomarkerRequirements": null,
+    "treatmentSettings": [
+      "Surgical",
+      "Systemic"
+    ],
+    "specialPopulations": null,
+    "crossReferences": null,
+    "evidenceReferences": null,
+    "updatesFromPrevious": "Denosumab recommendation modified to \"preferred\" for unresectable metastatic disease",
+    "clinicalDecisionPoints": [
+      "Resectability assessment",
+      "Denosumab indication",
+      "Surgical approach"
+    ],
+    "monitoringRequirements": null,
+    "contraindications": null,
+    "alternativeApproaches": null,
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:26:38.218Z",
+    "updatedAt": "2025-06-29T00:26:38.218Z"
+  },
+  {
+    "id": "0b4d2123-f55d-4e90-a07c-afd593bf0d88",
+    "referenceCode": "GCTB-3",
+    "title": "Giant Cell Tumor of Bone Surveillance and Recurrence",
+    "category": "Surveillance",
+    "cancerType": "Giant Cell Tumor of Bone",
+    "version": "v1.2025",
+    "releaseDate": "2024-08-20",
+    "content": {
+      "recurrenceManagement": {
+        "local": "Surgical resection if feasible",
+        "metastatic": "Denosumab preferred",
+        "monitoring": "Long-term follow-up required"
+      },
+      "surveillanceProtocol": [
+        "Regular imaging of primary site",
+        "Chest imaging for pulmonary metastases",
+        "Clinical assessment"
+      ],
+      "specialConsiderations": [
+        "Pulmonary metastases can occur",
+        "Generally indolent behavior",
+        "Long-term surveillance needed"
+      ]
+    },
+    "evidenceLevel": "Category 2A",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "Post-treatment"
+    ],
+    "biomarkerRequirements": null,
+    "treatmentSettings": [
+      "Surveillance",
+      "Recurrence Management"
+    ],
+    "specialPopulations": null,
+    "crossReferences": null,
+    "evidenceReferences": null,
+    "updatesFromPrevious": "Terminology revised from \"excision\" to \"resection\"",
+    "clinicalDecisionPoints": [
+      "Surveillance intensity",
+      "Recurrence treatment",
+      "Long-term monitoring"
+    ],
+    "monitoringRequirements": null,
+    "contraindications": null,
+    "alternativeApproaches": null,
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T00:26:38.292Z",
+    "updatedAt": "2025-06-29T00:26:38.292Z"
+  },
+  {
+    "id": "1f0e943d-5603-424f-a042-2a2d97ef5684",
+    "referenceCode": "MS-2",
+    "title": "Overview",
+    "category": "Guideline",
+    "cancerType": "Gastric Cancer",
+    "version": "v2.2025",
+    "releaseDate": "2025-04-04",
+    "content": [
+      {
+        "text": "The incidence of gastric cancer has decreased substantially...",
+        "type": "paragraph"
+      },
+      {
+        "text": "Globally, there were more than 660,000 deaths in 2022...",
+        "type": "bullet_point"
+      },
+      {
+        "url": "https://www.ncbi.nlm.nih.gov/pubmed/26667886.",
+        "text": "Torre LA, Siegel RL, Ward EM, Jemal A. Global cancer incidence and mortality rates and trends-an update.",
+        "type": "reference",
+        "reference_number": "1"
+      }
+    ],
+    "evidenceLevel": "Category 1",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "All stages"
+    ],
+    "biomarkerRequirements": [],
+    "treatmentSettings": [],
+    "specialPopulations": null,
+    "crossReferences": [],
+    "evidenceReferences": null,
+    "updatesFromPrevious": "Converted from structured document",
+    "clinicalDecisionPoints": [],
+    "monitoringRequirements": [],
+    "contraindications": null,
+    "alternativeApproaches": null,
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T19:40:49.666Z",
+    "updatedAt": "2025-06-29T19:40:49.666Z"
+  },
+  {
+    "id": "f10d10f9-cea1-4020-9ec0-9889f24ffa55",
+    "referenceCode": "GAST-1",
+    "title": "Workup",
+    "category": "Guideline",
+    "cancerType": "Gastric Cancer",
+    "version": "v2.2025",
+    "releaseDate": "2025-04-04",
+    "content": [
+      {
+        "text": "History and physical (H&P)",
+        "type": "heading",
+        "level": 2
+      },
+      {
+        "text": "Esophagogastroduodenoscopy (EGD) and biopsia",
+        "type": "bullet_point"
+      },
+      {
+        "rows": [
+          [
+            "History and physical (H&P)",
+            "cTis or cT1a",
+            "Recommend laparoscopy with cytology"
+          ],
+          [
+            "Esophagogastroduodenoscopy (EGD) and biopsia",
+            "Medically fitk, potentially resectable",
+            "Consider laparoscopy with cytology"
+          ]
+        ],
+        "type": "table",
+        "footnotes": [
+          {
+            "text": "Principles of Endoscopic Staging and Therapy (GAST-A).",
+            "footnote_letter": "a"
+          }
+        ],
+        "header_rows": [
+          [
+            "Workup",
+            "Clinical Stage",
+            "Additional Evaluation"
+          ]
+        ],
+        "table_title": null
+      },
+      {
+        "text": "If H. pylori testing is positive, discuss recommendations with family members as appropriate. See Principles of Surveillance (GAST-H).",
+        "type": "footnote",
+        "footnote_letter": "i"
+      }
+    ],
+    "evidenceLevel": "Category 1",
+    "consensusLevel": "Uniform NCCN Consensus",
+    "applicableStages": [
+      "All stages"
+    ],
+    "biomarkerRequirements": [],
+    "treatmentSettings": [],
+    "specialPopulations": null,
+    "crossReferences": [],
+    "evidenceReferences": null,
+    "updatesFromPrevious": "Converted from structured document",
+    "clinicalDecisionPoints": [],
+    "monitoringRequirements": [],
+    "contraindications": null,
+    "alternativeApproaches": null,
+    "qualityMeasures": null,
+    "createdAt": "2025-06-29T19:40:49.765Z",
+    "updatedAt": "2025-06-29T19:40:49.765Z"
+  }
+]

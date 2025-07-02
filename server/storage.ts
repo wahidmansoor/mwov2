@@ -2,6 +2,7 @@ import {
   users, 
   decisionSupportInputs, 
   clinicalProtocols, 
+  aiInteractions, 
   auditLog, 
   treatmentProtocols,
   cdProtocols,
@@ -16,6 +17,8 @@ import {
   type InsertDecisionSupportInput,
   type ClinicalProtocol,
   type InsertClinicalProtocol,
+  type AiInteraction,
+  type InsertAiInteraction,
   type TreatmentProtocol,
   type CdProtocol,
   type InsertCdProtocol,
@@ -31,24 +34,6 @@ import {
 } from "@shared/schema";
 import { db } from "./db";
 import { eq, sql } from "drizzle-orm";
-
-// Define AI interaction types locally since they're not exported from schema
-interface AiInteraction {
-  id: string;
-  userId?: string;
-  moduleType?: string;
-  input: any;
-  output: any;
-  createdAt?: Date;
-  updatedAt?: Date;
-}
-
-interface InsertAiInteraction {
-  userId?: string;
-  moduleType?: string;
-  input: any;
-  output: any;
-}
 
 // Enhanced storage interface for OncoVista AI
 export interface IStorage {
@@ -257,21 +242,23 @@ export class DatabaseStorage implements IStorage {
     return protocol;
   }
 
-  // AI interactions - using mock data since table doesn't exist in schema
+  // AI interactions
   async createAiInteraction(insertInteraction: InsertAiInteraction): Promise<AiInteraction> {
-    // Mock implementation - in production this would use a real table
-    const interaction: AiInteraction = {
-      id: Math.random().toString(36).substr(2, 9),
-      ...insertInteraction,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    };
+    const [interaction] = await db
+      .insert(aiInteractions)
+      .values(insertInteraction)
+      .returning();
     return interaction;
   }
 
   async getAiInteractions(filters?: { userId?: string; moduleType?: string }): Promise<AiInteraction[]> {
-    // Mock implementation - returns empty array
-    return [];
+    let query = db.select().from(aiInteractions);
+
+    if (filters?.userId) {
+      query = query.where(eq(aiInteractions.userId, filters.userId));
+    }
+
+    return await query;
   }
 
   // Audit logging
@@ -317,10 +304,11 @@ export class DatabaseStorage implements IStorage {
     protocolsUpdated: number;
   }> {
     const evaluationsCount = await db.select().from(decisionSupportInputs);
+    const aiInteractionsCount = await db.select().from(aiInteractions);
 
     return {
       activePatients: evaluationsCount.length,
-      aiRecommendations: 0, // Mock data since AI interactions table doesn't exist
+      aiRecommendations: aiInteractionsCount.length,
       criticalAlerts: 0,
       protocolsUpdated: 1
     };
@@ -335,6 +323,7 @@ export class DatabaseStorage implements IStorage {
     status: "completed" | "pending" | "alert";
   }>> {
     const evaluations = await db.select().from(decisionSupportInputs).limit(5);
+    const interactions = await db.select().from(aiInteractions).limit(5);
 
     const activities: Array<{
       id: string;
@@ -352,6 +341,17 @@ export class DatabaseStorage implements IStorage {
         title: "Patient Evaluation",
         description: `Clinical assessment completed${evaluation.patientId ? ` for patient ${evaluation.patientId}` : ''}`,
         timestamp: evaluation.createdAt?.toISOString() || new Date().toISOString(),
+        status: "completed"
+      });
+    });
+
+    interactions.forEach(interaction => {
+      activities.push({
+        id: interaction.id,
+        type: "ai_recommendation",
+        title: "AI Analysis",
+        description: `AI recommendation generated for ${interaction.moduleType || 'clinical'} module`,
+        timestamp: interaction.createdAt?.toISOString() || new Date().toISOString(),
         status: "completed"
       });
     });

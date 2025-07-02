@@ -1,0 +1,69 @@
+🔧 SYSTEM UPGRADE REQUEST FOR ONCOLOGY GUIDANCE APP 🔧
+
+You are tasked with upgrading the entire app into a fully structured, professional-grade clinical guidance platform (not EHR), focused on oncology and palliative care.
+
+Follow these upgrade instructions carefully and apply changes globally across **all modules and all segments** of the app.
+
+---
+
+✅ 1. **Cross-Platform Accessibility**
+- Ensure full responsive layout for **desktop, mobile, and tablet**.
+- Use a unified layout framework (e.g., responsive Tailwind or CSS Grid) across the app.
+- Add breakpoint-specific behavior to ensure smooth UX/UI on different devices.
+- Enable touch-friendly UI for mobile/tablet.
+
+---
+
+✅ 2. **Database Table Enforcement**
+- Every **section of every module** must have at least **one dedicated table** in the Replit Database.
+- If any section lacks a database table, **create one** with relevant keys and migrate any existing static/mock data into it.
+- Structure tables using key-value pairs and JSON objects compatible with Replit's database.
+- Maintain consistent naming conventions using kebab-case or snake_case.
+
+---
+
+✅ 3. **Dynamic Content Extendability**
+- App structure should support dynamic row-based extension.
+- Any future addition to a module or section should be easily handled by **just adding a new row** to the respective table.
+- Ensure UI auto-renders added content without requiring layout edits.
+
+---
+
+✅ 4. **Documentation System (User/Admin Manuals)**
+- 🔒 **Admin Manual**
+  - Create a detailed Markdown (`admin_manual.md`) guide for full app management, including:
+    - How to add/edit data via DB
+    - Template import/export
+    - User management
+    - App reset/recovery
+
+- 📘 **User Manual**
+  - Build an app-accessible interactive guide or help section.
+  - Explain how to use each module
+  - Add searchable FAQ and instructions.
+
+---
+
+✅ 5. **AI-Compatible Template Export + JSON Parser Support**
+- Create a **standardized export template file** (`template_export.md` or `.json`) that:
+  - Is ready to be used by any AI model for content generation or modification
+  - Can extract relevant medical content from **JSON** parsed from PDFs (e.g., NCCN, ESMO, ASCO)
+  - Breaks content down into logical categories for the correct module/section
+  - Includes tags or metadata to direct which section of the app the data belongs to (e.g., "Module: OPD", "Section: Biomarkers")
+
+---
+
+✅ 6. **Security: Auto Logoff Feature**
+- Implement **auto-logout** or session expiration logic:
+  - After **15 minutes of inactivity**, log the user out securely
+  - Clear session data and return to login screen
+  - Alert user with a countdown at 13 minutes for activity resumption
+
+---
+
+📌 FINAL INSTRUCTIONS:
+- DO NOT include any EHR components
+- Do NOT use Supabase, Firebase, or PostgreSQL. Stick to **Replit Database only**
+- Avoid dummy profiles. Use **actual data structure** templates and default real-world tags.
+- Optimize for **low-latency** and **scalability**
+- Place new files (manuals, templates) in `/docs` or `/system` folder

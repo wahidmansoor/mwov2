@@ -1,0 +1,249 @@
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useState } from "react";
+
+export function FamilySupportDialog() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState("education");
+
+  const educationTopics = [
+    {
+      title: "Illness Progression",
+      content: "Understanding disease trajectory and what to expect"
+    },
+    {
+      title: "Symptom Management",
+      content: "Recognizing and responding to common symptoms"
+    },
+    {
+      title: "Caregiving Skills",
+      content: "Practical training for daily care needs"
+    },
+    {
+      title: "Emergency Preparedness",
+      content: "When to call for help and what to do in crises"
+    }
+  ];
+
+  const psychologicalSupport = [
+    {
+      tool: "PHQ-9",
+      purpose: "Screening for depression in caregivers",
+      when: "At initial assessment and periodically"
+    },
+    {
+      tool: "GAD-7",
+      purpose: "Anxiety assessment",
+      when: "When caregiver shows signs of distress"
+    },
+    {
+      tool: "Zarit Burden Interview",
+      purpose: "Measuring caregiver strain",
+      when: "Every 3 months for primary caregivers"
+    }
+  ];
+
+  const bereavementResources = [
+    "Individual grief counseling",
+    "Support groups (in-person and virtual)",
+    "Bereavement literature and guides",
+    "Memorial event participation",
+    "Follow-up calls at 1, 3, 6, and 12 months"
+  ];
+
+  return (
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      <DialogContent className="max-w-4xl h-[90vh]">
+        <DialogHeader>
+          <DialogTitle>Family Support in Palliative Care</DialogTitle>
+          <DialogDescription>
+            Comprehensive resources for caregiver education, psychological support, and bereavement care
+          </DialogDescription>
+        </DialogHeader>
+
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="mt-4">
+          <TabsList className="grid w-full grid-cols-3">
+            <TabsTrigger value="education">Education</TabsTrigger>
+            <TabsTrigger value="support">Psychological Support</TabsTrigger>
+            <TabsTrigger value="bereavement">Bereavement Care</TabsTrigger>
+          </TabsList>
+
+          <ScrollArea className="h-[70vh] p-4">
+            <TabsContent value="education">
+              <h3 className="text-lg font-semibold mb-4">Family Education Topics</h3>
+              
+              <Accordion type="single" collapsible className="w-full">
+                {educationTopics.map((topic, index) => (
+                  <AccordionItem key={index} value={`item-${index}`}>
+                    <AccordionTrigger>{topic.title}</AccordionTrigger>
+                    <AccordionContent>
+                      <div className="p-4">
+                        <p>{topic.content}</p>
+                        <div className="mt-4">
+                          <h4 className="font-medium mb-2">Teaching Methods:</h4>
+                          <ul className="list-disc pl-5 space-y-1">
+                            <li>Structured family conferences</li>
+                            <li>Demonstrations with return demonstration</li>
+                            <li>Printed handouts and visual aids</li>
+                            <li>24/7 access to clinical team for questions</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+
+              <div className="mt-8">
+                <h4 className="font-semibold mb-2">Communication Best Practices:</h4>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="border p-4 rounded-lg">
+                    <p className="font-medium">Use Plain Language</p>
+                    <p className="text-sm mt-1">Avoid medical jargon; explain terms clearly</p>
+                  </div>
+                  <div className="border p-4 rounded-lg">
+                    <p className="font-medium">Teach-Back Method</p>
+                    <p className="text-sm mt-1">Ask families to explain back in their own words</p>
+                  </div>
+                  <div className="border p-4 rounded-lg">
+                    <p className="font-medium">Cultural Sensitivity</p>
+                    <p className="text-sm mt-1">Respect different communication norms</p>
+                  </div>
+                  <div className="border p-4 rounded-lg">
+                    <p className="font-medium">Emotional Validation</p>
+                    <p className="text-sm mt-1">Acknowledge feelings without judgment</p>
+                  </div>
+                </div>
+              </div>
+            </TabsContent>
+
+            <TabsContent value="support">
+              <h3 className="text-lg font-semibold mb-4">Psychological Support</h3>
+              
+              <div className="space-y-6">
+                <div>
+                  <h4 className="font-medium mb-2">Screening Tools</h4>
+                  <div className="border rounded-lg overflow-hidden">
+                    <table className="min-w-full divide-y divide-gray-200">
+                      <thead className="bg-gray-50">
+                        <tr>
+                          <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tool</th>
+                          <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Purpose</th>
+                          <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">When to Use</th>
+                        </tr>
+                      </thead>
+                      <tbody className="bg-white divide-y divide-gray-200">
+                        {psychologicalSupport.map((item, index) => (
+                          <tr key={index}>
+                            <td className="px-4 py-2 whitespace-nowrap text-sm font-medium">{item.tool}</td>
+                            <td className="px-4 py-2 text-sm">{item.purpose}</td>
+                            <td className="px-4 py-2 text-sm">{item.when}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="font-medium mb-2">Support Interventions</h4>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="border p-4 rounded-lg">
+                      <p className="font-medium">Individual Counseling</p>
+                      <p className="text-sm mt-1">With social workers or psychologists</p>
+                    </div>
+                    <div className="border p-4 rounded-lg">
+                      <p className="font-medium">Support Groups</p>
+                      <p className="text-sm mt-1">Peer-led or professionally facilitated</p>
+                    </div>
+                    <div className="border p-4 rounded-lg">
+                      <p className="font-medium">Crisis Support</p>
+                      <p className="text-sm mt-1">24/7 hotlines and emergency contacts</p>
+                    </div>
+                    <div className="border p-4 rounded-lg">
+                      <p className="font-medium">Respite Care</p>
+                      <p className="text-sm mt-1">Temporary relief for caregivers</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="font-medium mb-2">Caregiver Self-Care</h4>
+                  <ul className="list-disc pl-5 space-y-1">
+                    <li>Encourage regular breaks and rest periods</li>
+                    <li>Teach stress-reduction techniques (breathing, mindfulness)</li>
+                    <li>Promote healthy eating and sleep habits</li>
+                    <li>Connect with community resources</li>
+                  </ul>
+                </div>
+              </div>
+            </TabsContent>
+
+            <TabsContent value="bereavement">
+              <h3 className="text-lg font-semibold mb-4">Bereavement Support</h3>
+              
+              <div className="space-y-6">
+                <div>
+                  <h4 className="font-medium mb-2">Available Resources</h4>
+                  <ul className="list-disc pl-5 space-y-2">
+                    {bereavementResources.map((resource, index) => (
+                      <li key={index}>{resource}</li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="font-medium mb-2">High-Risk Indicators</h4>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="border p-4 rounded-lg">
+                      <p className="font-medium">Complicated Grief</p>
+                      <p className="text-sm mt-1">Prolonged intense grief impairing function</p>
+                    </div>
+                    <div className="border p-4 rounded-lg">
+                      <p className="font-medium">Sudden Loss</p>
+                      <p className="text-sm mt-1">Unexpected or traumatic death</p>
+                    </div>
+                    <div className="border p-4 rounded-lg">
+                      <p className="font-medium">Limited Support</p>
+                      <p className="text-sm mt-1">Isolated or socially disconnected</p>
+                    </div>
+                    <div className="border p-4 rounded-lg">
+                      <p className="font-medium">Prior Mental Health</p>
+                      <p className="text-sm mt-1">History of depression or anxiety</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="font-medium mb-2">Pediatric Grief Support</h4>
+                  <div className="space-y-3">
+                    <p className="text-sm">Children grieve differently than adults and need age-appropriate support:</p>
+                    <ul className="list-disc pl-5 space-y-1">
+                      <li>Use clear, concrete language about death</li>
+                      <li>Encourage expression through play and art</li>
+                      <li>Maintain routines for stability</li>
+                      <li>Offer children's grief groups</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </TabsContent>
+          </ScrollArea>
+        </Tabs>
+      </DialogContent>
+    </Dialog>
+  );
+}

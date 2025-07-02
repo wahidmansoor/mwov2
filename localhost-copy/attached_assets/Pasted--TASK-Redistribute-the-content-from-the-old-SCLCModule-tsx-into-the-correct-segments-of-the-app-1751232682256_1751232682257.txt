@@ -1,0 +1,52 @@
+🛠️ TASK:
+Redistribute the content from the old SCLCModule.tsx into the correct segments of the app’s main clinical modules.
+
+🔍 CONTEXT:
+The app mistakenly created a standalone "SCLC" module. But Small Cell Lung Cancer (SCLC) is a condition that spans across existing modules, including OPD, CDU, Inpatient, and Palliative Care.
+
+📦 SOURCE:
+All relevant content is in `/client/src/modules/sclc/SCLCModule.tsx`.
+
+🎯 GOAL:
+Remove the standalone `SCLCModule.tsx` and integrate its content across the following modules:
+
+---
+
+📌 1. OPDModule.tsx (client/src/modules/opd/OPDModule.tsx)
+➤ Distribute the following to correct tabs:
+- ➕ Cancer Screening: Add a new `SCLC Screening` card
+- 🔍 Diagnostic Pathways: Insert `SCLC Diagnostic Algorithm`
+- 🎯 Referral Guidelines: Add specific referral criteria for extensive vs. limited-stage SCLC
+- 📊 Follow-up Oncology: Add surveillance protocol from SCLC module
+
+---
+
+📌 2. CDUModule.tsx (client/src/modules/cdu/CDUModule.tsx)
+➤ Add `SCLC Chemotherapy Protocols` to treatment protocols section
+- Include limited and extensive stage protocols
+- Ensure integration into dropdown/select components used for regimen loading
+- Include reference to Carboplatin AUC calculator
+
+---
+
+📌 3. InpatientModule.tsx (client/src/modules/inpatient/InpatientModule.tsx)
+➤ Add any emergency regimens or toxicity alerts from SCLC guidelines
+- Particularly neutropenic fever, TLS, or rapid progression
+- Integrate into Emergency Regimens and Supportive Care if applicable
+
+---
+
+📌 4. PalliativeCareModule.tsx (client/src/modules/palliative/PalliativeCareModule.tsx)
+➤ Add content around symptom burden, poor prognosis, and end-stage planning for SCLC
+- Especially for aggressive/extensive stage disease
+- Add to Psychosocial Care or Terminal Support sections
+
+---
+
+🔁 AFTER:
+1. Delete the `/sclc/` module folder
+2. All SCLC data should be integrated into the above 4 modules
+3. Respect Tailwind/Framer Motion/Lucide component structures
+
+✅ DELIVERABLE:
+The SCLC content should be fully incorporated and the app should have no references left to a standalone SCLC module.

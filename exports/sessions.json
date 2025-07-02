@@ -1,0 +1,42 @@
+[
+  {
+    "sid": "QMACroS6yRwg-Vo9Jl-NU2Iozv4-mci7",
+    "sess": {
+      "cookie": {
+        "originalMaxAge": 604800000,
+        "expires": "2025-07-06T20:03:57.049Z",
+        "secure": true,
+        "httpOnly": true,
+        "path": "/"
+      },
+      "user": {
+        "claims": {
+          "sub": "9bd3c162-767d-4e15-83ac-3515b6e31979",
+          "email": "local@test.com",
+          "first_name": "Local",
+          "last_name": "Dev",
+          "profile_image_url": null
+        },
+        "access_token": "dev-token",
+        "expires_at": 1751231037
+      }
+    },
+    "expire": "2025-07-06T20:03:58.000Z"
+  },
+  {
+    "sid": "m8KPxZY3W71iMVK-413tAmkaFHsS3MRY",
+    "sess": {
+      "cookie": {
+        "originalMaxAge": 604800000,
+        "expires": "2025-07-06T15:36:52.962Z",
+        "secure": true,
+        "httpOnly": true,
+        "path": "/"
+      },
+      "replit.com": {
+        "code_verifier": "-FtZK8ltxvu8p_0YWgJXSc_KDEq5mpVUQrpe7hnPMs8"
+      }
+    },
+    "expire": "2025-07-08T04:34:09.000Z"
+  }
+]
