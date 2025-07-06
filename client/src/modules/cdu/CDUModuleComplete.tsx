@@ -117,7 +117,7 @@ const transformProtocol = (dbProtocol: any): EnhancedProtocol => {
     id: dbProtocol.id,
     code: dbProtocol.code,
     name: `${dbProtocol.code} - ${dbProtocol.summary?.substring(0, 50)}...`,
-    cancerType: dbProtocol.tumour_group || "Unknown",
+    cancerType: dbProtocol.tumour_group || dbProtocol.tumourGroup || "Unknown",
     treatmentIntent: dbProtocol.treatment_intent || "Treatment",
     summary: dbProtocol.summary || "No summary available",
     evidenceBase: {
@@ -581,20 +581,11 @@ const TreatmentProtocols = () => {
     if (!dbProtocols || !Array.isArray(dbProtocols)) {
       return fallbackProtocols; // Only use fallback during loading
     }
-    const transformed = dbProtocols.map(transformProtocol);
-    console.log('CDU Protocols - Total DB protocols:', dbProtocols.length);
-    console.log('CDU Protocols - Sample protocol:', dbProtocols[0]);
-    console.log('CDU Protocols - Transformed protocols:', transformed.length);
-    console.log('CDU Protocols - Sample transformed:', transformed[0]);
-    return transformed;
+    return dbProtocols.map(transformProtocol);
   }, [dbProtocols]);
 
   // Filter protocols based on search criteria and biomarkers
   const filteredProtocols = useMemo(() => {
-    console.log('CDU Filtering - Total protocols:', protocols.length);
-    console.log('CDU Filtering - Selected cancer type:', selectedCancerType);
-    console.log('CDU Filtering - Sample protocol cancerType:', protocols[0]?.cancerType);
-    
     const filtered = protocols.filter(protocol => {
       const matchesSearch = protocol.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            protocol.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -605,8 +596,6 @@ const TreatmentProtocols = () => {
       if (!matchesCancerType) {
         const protocolCancer = protocol.cancerType.toLowerCase();
         const selectedCancer = selectedCancerType.toLowerCase();
-        
-        console.log('CDU Filtering - Comparing:', selectedCancer, 'vs', protocolCancer);
         
         // Direct mapping for cancer types
         const cancerMapping: { [key: string]: string[] } = {
@@ -623,8 +612,6 @@ const TreatmentProtocols = () => {
         // Check if selected cancer type maps to protocol cancer type
         const mappedTerms = cancerMapping[selectedCancer] || [selectedCancer];
         matchesCancerType = mappedTerms.some(term => protocolCancer.includes(term));
-        
-        console.log('CDU Filtering - Mapped terms:', mappedTerms, 'Match result:', matchesCancerType);
       }
       
       const matchesIntent = selectedIntent === "all" || 
@@ -636,15 +623,10 @@ const TreatmentProtocols = () => {
           protocol.eligibility.biomarkers.preferred.includes(biomarker)
         );
       
-      const matches = matchesSearch && matchesCancerType && matchesIntent && matchesBiomarkers;
-      if (selectedCancerType === "Breast Cancer") {
-        console.log('CDU Filtering - Protocol:', protocol.code, 'cancerType:', protocol.cancerType, 'matches:', matches);
-      }
-      
-      return matches;
+      return matchesSearch && matchesCancerType && matchesIntent && matchesBiomarkers;
     });
     
-    console.log('CDU Filtering - Filtered protocols:', filtered.length);
+    console.log('CDU Module - Filtered protocols for', selectedCancerType + ':', filtered.length);
     return filtered;
   }, [protocols, searchTerm, selectedCancerType, selectedIntent, selectedBiomarkers]);
   
