@@ -1,0 +1,17 @@
+{
+  "timestamp": "2025-07-03T00:22:31.199Z",
+  "summary": {
+    "total": 1,
+    "passed": 0,
+    "failed": 1
+  },
+  "results": [
+    {
+      "suite": "Schema Evolution Tests",
+      "success": false,
+      "output": "Usage: migration_generator.py <old_schema.sql> <new_schema.sql> <migration_name>\n",
+      "error": "Exit code: 1",
+      "duration": 116
+    }
+  ]
+}
