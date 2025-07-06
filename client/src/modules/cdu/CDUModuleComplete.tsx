@@ -581,12 +581,21 @@ const TreatmentProtocols = () => {
     if (!dbProtocols || !Array.isArray(dbProtocols)) {
       return fallbackProtocols; // Only use fallback during loading
     }
-    return dbProtocols.map(transformProtocol);
+    const transformed = dbProtocols.map(transformProtocol);
+    console.log('CDU Protocols - Total DB protocols:', dbProtocols.length);
+    console.log('CDU Protocols - Sample protocol:', dbProtocols[0]);
+    console.log('CDU Protocols - Transformed protocols:', transformed.length);
+    console.log('CDU Protocols - Sample transformed:', transformed[0]);
+    return transformed;
   }, [dbProtocols]);
 
   // Filter protocols based on search criteria and biomarkers
   const filteredProtocols = useMemo(() => {
-    return protocols.filter(protocol => {
+    console.log('CDU Filtering - Total protocols:', protocols.length);
+    console.log('CDU Filtering - Selected cancer type:', selectedCancerType);
+    console.log('CDU Filtering - Sample protocol cancerType:', protocols[0]?.cancerType);
+    
+    const filtered = protocols.filter(protocol => {
       const matchesSearch = protocol.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            protocol.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            protocol.cancerType.toLowerCase().includes(searchTerm.toLowerCase());
@@ -596,6 +605,8 @@ const TreatmentProtocols = () => {
       if (!matchesCancerType && selectedCancerType !== "all") {
         const protocolCancer = protocol.cancerType.toLowerCase();
         const selectedCancer = selectedCancerType.toLowerCase();
+        
+        console.log('CDU Filtering - Comparing:', selectedCancer, 'vs', protocolCancer);
         
         // Handle specific cancer type mappings
         if (selectedCancer.includes("breast") && protocolCancer.includes("breast")) matchesCancerType = true;
@@ -619,8 +630,16 @@ const TreatmentProtocols = () => {
           protocol.eligibility.biomarkers.preferred.includes(biomarker)
         );
       
-      return matchesSearch && matchesCancerType && matchesIntent && matchesBiomarkers;
+      const matches = matchesSearch && matchesCancerType && matchesIntent && matchesBiomarkers;
+      if (selectedCancerType === "Breast Cancer") {
+        console.log('CDU Filtering - Protocol:', protocol.code, 'cancerType:', protocol.cancerType, 'matches:', matches);
+      }
+      
+      return matches;
     });
+    
+    console.log('CDU Filtering - Filtered protocols:', filtered.length);
+    return filtered;
   }, [protocols, searchTerm, selectedCancerType, selectedIntent, selectedBiomarkers]);
   
   const availableBiomarkers = ["HER2+", "HER2-", "ER+", "ER-", "EGFR+", "ALK+", "KRAS+", "MSI-H", "PD-L1+"];
