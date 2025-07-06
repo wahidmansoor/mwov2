@@ -600,36 +600,31 @@ const TreatmentProtocols = () => {
                            protocol.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            protocol.cancerType.toLowerCase().includes(searchTerm.toLowerCase());
       
-      // Improved cancer type matching using same logic as Treatment Plan Selector
+      // Simple cancer type matching
       let matchesCancerType = selectedCancerType === "all";
-      if (!matchesCancerType && selectedCancerType !== "all") {
+      if (!matchesCancerType) {
         const protocolCancer = protocol.cancerType.toLowerCase();
         const selectedCancer = selectedCancerType.toLowerCase();
         
         console.log('CDU Filtering - Comparing:', selectedCancer, 'vs', protocolCancer);
         
-        // Handle specific cancer type mappings (bidirectional matching)
-        if ((selectedCancer.includes("breast") && protocolCancer.includes("breast")) ||
-            (protocolCancer.includes("breast") && selectedCancer.includes("breast"))) matchesCancerType = true;
-        if ((selectedCancer.includes("lung") && protocolCancer.includes("lung")) ||
-            (protocolCancer.includes("lung") && selectedCancer.includes("lung"))) matchesCancerType = true;
-        if ((selectedCancer.includes("colorectal") && (protocolCancer.includes("colorectal") || protocolCancer.includes("colon"))) ||
-            ((protocolCancer.includes("colorectal") || protocolCancer.includes("colon")) && selectedCancer.includes("colorectal"))) matchesCancerType = true;
-        if ((selectedCancer.includes("gastric") && (protocolCancer.includes("gastric") || protocolCancer.includes("stomach"))) ||
-            ((protocolCancer.includes("gastric") || protocolCancer.includes("stomach")) && selectedCancer.includes("gastric"))) matchesCancerType = true;
+        // Direct mapping for cancer types
+        const cancerMapping: { [key: string]: string[] } = {
+          "breast cancer": ["breast"],
+          "lung cancer (nsclc)": ["lung", "nsclc"],
+          "lung cancer (sclc)": ["lung", "sclc"],
+          "colorectal cancer": ["colorectal", "colon"],
+          "gastric cancer": ["gastric", "stomach"],
+          "pancreatic cancer": ["pancreatic", "pancreas"],
+          "prostate cancer": ["prostate"],
+          "ovarian cancer": ["ovarian", "ovary"]
+        };
         
-        // Enhanced fuzzy matching for all cancer types
-        if (!matchesCancerType) {
-          const selectedKeywords = selectedCancer.split(/[\s\(\)]+/).filter(word => word.length > 2);
-          const protocolKeywords = protocolCancer.split(/[\s\(\)]+/).filter(word => word.length > 2);
-          
-          // Check if any keyword from selected matches any keyword from protocol
-          matchesCancerType = selectedKeywords.some(selectedWord => 
-            protocolKeywords.some(protocolWord => 
-              selectedWord.includes(protocolWord) || protocolWord.includes(selectedWord)
-            )
-          );
-        }
+        // Check if selected cancer type maps to protocol cancer type
+        const mappedTerms = cancerMapping[selectedCancer] || [selectedCancer];
+        matchesCancerType = mappedTerms.some(term => protocolCancer.includes(term));
+        
+        console.log('CDU Filtering - Mapped terms:', mappedTerms, 'Match result:', matchesCancerType);
       }
       
       const matchesIntent = selectedIntent === "all" || 
