@@ -107,27 +107,29 @@ interface CdProtocol {
 }
 
 // Transform database protocol to enhanced protocol format
-const transformProtocol = (dbProtocol: CdProtocol): EnhancedProtocol => {
+const transformProtocol = (dbProtocol: any): EnhancedProtocol => {
   const treatment = dbProtocol.treatment || {};
   const drugs = treatment.drugs || [];
+  const eligibility = typeof dbProtocol.eligibility === 'string' ? 
+    JSON.parse(dbProtocol.eligibility) : dbProtocol.eligibility || {};
   
   return {
     id: dbProtocol.id,
     code: dbProtocol.code,
     name: `${dbProtocol.code} - ${dbProtocol.summary?.substring(0, 50)}...`,
-    cancerType: dbProtocol.tumourGroup || "Unknown",
-    treatmentIntent: dbProtocol.treatmentIntent || "Treatment",
+    cancerType: dbProtocol.tumour_group || "Unknown",
+    treatmentIntent: dbProtocol.treatment_intent || "Treatment",
     summary: dbProtocol.summary || "No summary available",
     evidenceBase: {
-      guidelines: dbProtocol.referenceList || [],
-      lastReviewed: dbProtocol.lastReviewed || new Date().toISOString().split('T')[0],
-      evidenceLevel: "Category 1",
+      guidelines: dbProtocol.reference_list || [],
+      lastReviewed: dbProtocol.last_reviewed || new Date().toISOString().split('T')[0],
+      evidenceLevel: eligibility.nccn_category ? `Category ${eligibility.nccn_category}` : "Category 1",
       complianceScore: 95
     },
     eligibility: {
-      criteria: dbProtocol.eligibility?.criteria || [],
+      criteria: eligibility.summary || [],
       biomarkers: {
-        required: dbProtocol.eligibility?.indications || [],
+        required: eligibility.biomarker_requirements ? Object.values(eligibility.biomarker_requirements) : [],
         preferred: [],
         contraindicated: dbProtocol.contraindications || []
       }
@@ -148,18 +150,18 @@ const transformProtocol = (dbProtocol: CdProtocol): EnhancedProtocol => {
       monitoringRequired: dbProtocol.tests || []
     },
     toxicityProfile: {
-      common: Object.keys(dbProtocol.toxicityMonitoring || {}),
+      common: Object.keys(dbProtocol.toxicity_monitoring || {}),
       serious: [],
-      doseModifications: Object.entries(dbProtocol.doseModifications || {}).map(([grade, action]) => ({
+      doseModifications: Object.entries(dbProtocol.dose_modifications || {}).map(([grade, action]) => ({
         grade: parseInt(grade) || 2,
         action: String(action)
       }))
     },
     aiConfidence: 95,
     cycleInfo: {
-      length: dbProtocol.cycleInfo?.cycle_length || "21 days",
-      totalCycles: dbProtocol.cycleInfo?.total_cycles || "6 cycles",
-      administrationTime: dbProtocol.cycleInfo?.administration_time || "4-6 hours"
+      length: dbProtocol.cycle_info?.cycle_length || "21 days",
+      totalCycles: dbProtocol.cycle_info?.total_cycles || "6 cycles",
+      administrationTime: dbProtocol.cycle_info?.administration_time || "4-6 hours"
     }
   };
 };
@@ -589,8 +591,27 @@ const TreatmentProtocols = () => {
                            protocol.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            protocol.cancerType.toLowerCase().includes(searchTerm.toLowerCase());
       
-      const matchesCancerType = selectedCancerType === "all" || protocol.cancerType === selectedCancerType;
-      const matchesIntent = selectedIntent === "all" || protocol.treatmentIntent === selectedIntent;
+      // Improved cancer type matching using same logic as Treatment Plan Selector
+      let matchesCancerType = selectedCancerType === "all";
+      if (!matchesCancerType && selectedCancerType !== "all") {
+        const protocolCancer = protocol.cancerType.toLowerCase();
+        const selectedCancer = selectedCancerType.toLowerCase();
+        
+        // Handle specific cancer type mappings
+        if (selectedCancer.includes("breast") && protocolCancer.includes("breast")) matchesCancerType = true;
+        if (selectedCancer.includes("lung") && protocolCancer.includes("lung")) matchesCancerType = true;
+        if (selectedCancer.includes("colorectal") && (protocolCancer.includes("colorectal") || protocolCancer.includes("colon"))) matchesCancerType = true;
+        if (selectedCancer.includes("gastric") && (protocolCancer.includes("gastric") || protocolCancer.includes("stomach"))) matchesCancerType = true;
+        
+        // General fuzzy matching for other cancers
+        if (!matchesCancerType) {
+          const cancerKeywords = selectedCancer.split(/[\s\(\)]+/).filter(word => word.length > 2);
+          matchesCancerType = cancerKeywords.some(keyword => protocolCancer.includes(keyword));
+        }
+      }
+      
+      const matchesIntent = selectedIntent === "all" || 
+        (protocol.treatmentIntent && protocol.treatmentIntent.toLowerCase().includes(selectedIntent.toLowerCase()));
       
       const matchesBiomarkers = selectedBiomarkers.length === 0 || 
         selectedBiomarkers.some(biomarker => 
@@ -600,7 +621,7 @@ const TreatmentProtocols = () => {
       
       return matchesSearch && matchesCancerType && matchesIntent && matchesBiomarkers;
     });
-  }, [searchTerm, selectedCancerType, selectedIntent, selectedBiomarkers]);
+  }, [protocols, searchTerm, selectedCancerType, selectedIntent, selectedBiomarkers]);
   
   const availableBiomarkers = ["HER2+", "HER2-", "ER+", "ER-", "EGFR+", "ALK+", "KRAS+", "MSI-H", "PD-L1+"];
 
