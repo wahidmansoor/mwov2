@@ -608,16 +608,27 @@ const TreatmentProtocols = () => {
         
         console.log('CDU Filtering - Comparing:', selectedCancer, 'vs', protocolCancer);
         
-        // Handle specific cancer type mappings
-        if (selectedCancer.includes("breast") && protocolCancer.includes("breast")) matchesCancerType = true;
-        if (selectedCancer.includes("lung") && protocolCancer.includes("lung")) matchesCancerType = true;
-        if (selectedCancer.includes("colorectal") && (protocolCancer.includes("colorectal") || protocolCancer.includes("colon"))) matchesCancerType = true;
-        if (selectedCancer.includes("gastric") && (protocolCancer.includes("gastric") || protocolCancer.includes("stomach"))) matchesCancerType = true;
+        // Handle specific cancer type mappings (bidirectional matching)
+        if ((selectedCancer.includes("breast") && protocolCancer.includes("breast")) ||
+            (protocolCancer.includes("breast") && selectedCancer.includes("breast"))) matchesCancerType = true;
+        if ((selectedCancer.includes("lung") && protocolCancer.includes("lung")) ||
+            (protocolCancer.includes("lung") && selectedCancer.includes("lung"))) matchesCancerType = true;
+        if ((selectedCancer.includes("colorectal") && (protocolCancer.includes("colorectal") || protocolCancer.includes("colon"))) ||
+            ((protocolCancer.includes("colorectal") || protocolCancer.includes("colon")) && selectedCancer.includes("colorectal"))) matchesCancerType = true;
+        if ((selectedCancer.includes("gastric") && (protocolCancer.includes("gastric") || protocolCancer.includes("stomach"))) ||
+            ((protocolCancer.includes("gastric") || protocolCancer.includes("stomach")) && selectedCancer.includes("gastric"))) matchesCancerType = true;
         
-        // General fuzzy matching for other cancers
+        // Enhanced fuzzy matching for all cancer types
         if (!matchesCancerType) {
-          const cancerKeywords = selectedCancer.split(/[\s\(\)]+/).filter(word => word.length > 2);
-          matchesCancerType = cancerKeywords.some(keyword => protocolCancer.includes(keyword));
+          const selectedKeywords = selectedCancer.split(/[\s\(\)]+/).filter(word => word.length > 2);
+          const protocolKeywords = protocolCancer.split(/[\s\(\)]+/).filter(word => word.length > 2);
+          
+          // Check if any keyword from selected matches any keyword from protocol
+          matchesCancerType = selectedKeywords.some(selectedWord => 
+            protocolKeywords.some(protocolWord => 
+              selectedWord.includes(protocolWord) || protocolWord.includes(selectedWord)
+            )
+          );
         }
       }
       
