@@ -2584,6 +2584,275 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Inpatient Module API endpoints
+  app.get("/api/inpatient/admission-criteria", authMiddleware, async (req: any, res) => {
+    try {
+      const { cancerType, admissionType } = req.query;
+      
+      // Mock data for admission criteria until database seeding is complete
+      const mockAdmissionCriteria = [
+        {
+          id: "1",
+          criteriaName: "Acute Leukemia Admission Protocol",
+          cancerType: "Leukemia",
+          admissionType: "emergency",
+          clinicalIndications: [
+            "Newly diagnosed acute leukemia requiring immediate therapy",
+            "Fever with neutropenia (ANC < 500)",
+            "Tumor lysis syndrome risk",
+            "Coagulopathy requiring urgent management"
+          ],
+          exclusionCriteria: [
+            "Stable chronic leukemia without acute complications",
+            "Outpatient management feasible"
+          ],
+          riskFactors: [
+            "Age > 65 years",
+            "Performance status ECOG ≥ 2",
+            "Significant comorbidities"
+          ],
+          requiredAssessments: [
+            "Complete blood count with differential",
+            "Comprehensive metabolic panel",
+            "Coagulation studies",
+            "Blood bank type and screen"
+          ],
+          nccnReference: "AML-A",
+          evidenceLevel: "Category 1",
+          priority: "emergent",
+          estimatedLOS: 21,
+          specialRequirements: [
+            "Isolation precautions if neutropenic",
+            "Cardiology consultation for anthracycline therapy"
+          ]
+        },
+        {
+          id: "2", 
+          criteriaName: "Solid Tumor Emergency Admission",
+          cancerType: "Solid Tumor",
+          admissionType: "emergency",
+          clinicalIndications: [
+            "Superior vena cava syndrome",
+            "Spinal cord compression",
+            "Severe hypercalcemia (Ca > 14 mg/dL)",
+            "Malignant pericardial effusion"
+          ],
+          exclusionCriteria: [
+            "Mild symptoms manageable as outpatient"
+          ],
+          riskFactors: [
+            "Advanced stage disease",
+            "Prior radiation to mediastinum",
+            "Bone metastases"
+          ],
+          requiredAssessments: [
+            "CT chest/abdomen/pelvis",
+            "Echocardiogram if pericardial effusion suspected",
+            "MRI spine if cord compression suspected"
+          ],
+          nccnReference: "EMRG-1",
+          evidenceLevel: "Category 1",
+          priority: "emergent",
+          estimatedLOS: 7,
+          specialRequirements: [
+            "Radiation oncology consultation",
+            "Neurosurgery consultation if indicated"
+          ]
+        },
+        {
+          id: "3",
+          criteriaName: "Planned Chemotherapy Admission", 
+          cancerType: "Various",
+          admissionType: "planned",
+          clinicalIndications: [
+            "High-dose chemotherapy requiring monitoring",
+            "Complex multi-day regimens",
+            "Patient unable to receive outpatient therapy"
+          ],
+          exclusionCriteria: [
+            "Standard outpatient regimens",
+            "Patient preference for outpatient care when feasible"
+          ],
+          riskFactors: [
+            "Previous severe toxicity",
+            "Poor performance status",
+            "Significant comorbidities"
+          ],
+          requiredAssessments: [
+            "Pre-chemotherapy labs within 48 hours",
+            "Performance status assessment",
+            "Toxicity evaluation"
+          ],
+          nccnReference: "SUPP-1",
+          evidenceLevel: "Category 2A", 
+          priority: "standard",
+          estimatedLOS: 3,
+          specialRequirements: [
+            "Pharmacy consultation for complex regimens",
+            "Social work assessment for discharge planning"
+          ]
+        }
+      ];
+
+      let filteredCriteria = mockAdmissionCriteria;
+      
+      if (cancerType) {
+        filteredCriteria = filteredCriteria.filter(criteria => 
+          criteria.cancerType.toLowerCase().includes(cancerType.toLowerCase()) ||
+          criteria.cancerType === "Various"
+        );
+      }
+      
+      if (admissionType) {
+        filteredCriteria = filteredCriteria.filter(criteria => 
+          criteria.admissionType === admissionType
+        );
+      }
+      
+      res.json(filteredCriteria);
+    } catch (error) {
+      console.error("Failed to fetch admission criteria:", error);
+      res.status(500).json({ message: "Failed to fetch admission criteria" });
+    }
+  });
+
+  app.get("/api/inpatient/emergency-scenarios", authMiddleware, async (req: any, res) => {
+    try {
+      const { cancerType, severity, treatmentRelated } = req.query;
+      
+      // Return authentic emergency scenarios from database
+      const scenarios = await storage.getEmergencyScenarios({
+        cancerType: cancerType || undefined,
+        severity: severity || undefined,
+        treatmentRelated: treatmentRelated === 'true' ? true : undefined
+      });
+      
+      res.json(scenarios);
+    } catch (error) {
+      console.error("Failed to fetch emergency scenarios:", error);
+      res.status(500).json({ message: "Failed to fetch emergency scenarios" });
+    }
+  });
+
+  app.get("/api/inpatient/monitoring-parameters", authMiddleware, async (req: any, res) => {
+    try {
+      const { cancerType, category, treatmentPhase } = req.query;
+      
+      const parameters = await storage.getMonitoringParameters({
+        cancerType: cancerType || undefined,
+        category: category || undefined,
+        treatmentPhase: treatmentPhase || undefined
+      });
+      
+      res.json(parameters);
+    } catch (error) {
+      console.error("Failed to fetch monitoring parameters:", error);
+      res.status(500).json({ message: "Failed to fetch monitoring parameters" });
+    }
+  });
+
+  app.get("/api/inpatient/adverse-events", authMiddleware, async (req: any, res) => {
+    try {
+      const { category, grade, drugName } = req.query;
+      
+      const adverseEvents = await storage.getAdverseEvents({
+        category: category || undefined,
+        grade: grade ? parseInt(grade) : undefined,
+        drugName: drugName || undefined
+      });
+      
+      res.json(adverseEvents);
+    } catch (error) {
+      console.error("Failed to fetch adverse events:", error);
+      res.status(500).json({ message: "Failed to fetch adverse events" });
+    }
+  });
+
+  app.get("/api/inpatient/supportive-care-protocols", authMiddleware, async (req: any, res) => {
+    try {
+      const { category, cancerType, treatmentPhase } = req.query;
+      
+      const protocols = await storage.getSupportiveCareProtocols({
+        category: category || undefined,
+        cancerType: cancerType || undefined,
+        treatmentPhase: treatmentPhase || undefined
+      });
+      
+      res.json(protocols);
+    } catch (error) {
+      console.error("Failed to fetch supportive care protocols:", error);
+      res.status(500).json({ message: "Failed to fetch supportive care protocols" });
+    }
+  });
+
+  app.get("/api/inpatient/discharge-criteria", authMiddleware, async (req: any, res) => {
+    try {
+      const { cancerType, treatmentType, admissionType } = req.query;
+      
+      const criteria = await storage.getDischargeCriteria({
+        cancerType: cancerType || undefined,
+        treatmentType: treatmentType || undefined,
+        admissionType: admissionType || undefined
+      });
+      
+      res.json(criteria);
+    } catch (error) {
+      console.error("Failed to fetch discharge criteria:", error);
+      res.status(500).json({ message: "Failed to fetch discharge criteria" });
+    }
+  });
+
+  // Clinical Tools Module API endpoints
+  app.get("/api/tools/calculators", authMiddleware, async (req: any, res) => {
+    try {
+      const calculators = [
+        {
+          id: "bsa-calculator",
+          name: "Body Surface Area (BSA) Calculator",
+          description: "Calculate BSA using DuBois formula for chemotherapy dosing",
+          category: "dosing",
+          nccnReference: "SUPP-1"
+        },
+        {
+          id: "gfr-calculator", 
+          name: "Glomerular Filtration Rate (GFR) Calculator",
+          description: "Calculate GFR using CKD-EPI equation for drug dosing adjustments",
+          category: "dosing",
+          nccnReference: "SUPP-2"
+        },
+        {
+          id: "carboplatin-calculator",
+          name: "Carboplatin AUC Calculator", 
+          description: "Calculate carboplatin dose using Calvert formula",
+          category: "dosing",
+          nccnReference: "SCLC-2"
+        },
+        {
+          id: "performance-status",
+          name: "ECOG Performance Status",
+          description: "Assess functional status for treatment planning",
+          category: "assessment",
+          nccnReference: "GENERAL-1"
+        }
+      ];
+      
+      res.json(calculators);
+    } catch (error) {
+      console.error("Failed to fetch calculators:", error);
+      res.status(500).json({ message: "Failed to fetch calculators" });
+    }
+  });
+
+  app.get("/api/tools/red-flag-alerts", authMiddleware, async (req: any, res) => {
+    try {
+      const alerts = await storage.getRedFlagAlerts();
+      res.json(alerts);
+    } catch (error) {
+      console.error("Failed to fetch red flag alerts:", error);
+      res.status(500).json({ message: "Failed to fetch red flag alerts" });
+    }
+  });
+
   // Admin approval routes for authentication workflow
   app.get('/api/admin/pending-users', authMiddleware, async (req: any, res) => {
     try {

@@ -18,39 +18,7 @@ interface AIRecommendation {
   timestamp: string;
 }
 
-const mockRecommendations: AIRecommendation[] = [
-  {
-    id: "1",
-    type: "diagnostic",
-    title: "Diagnostic Suggestion",
-    description: "Based on symptoms, recommend CT chest scan and tumor markers (CEA, CA 19-9). Consider PET-CT if initial scans are inconclusive.",
-    confidence: 87,
-    priority: "high",
-    evidenceLevel: "1A",
-    source: "NCCN Guidelines",
-    timestamp: "2 minutes ago"
-  },
-  {
-    id: "2", 
-    type: "risk_alert",
-    title: "Risk Alert",
-    description: "High risk factors present - expedite evaluation. Patient meets criteria for urgent oncology referral within 2 weeks.",
-    confidence: 92,
-    priority: "high",
-    timestamp: "2 minutes ago"
-  },
-  {
-    id: "3",
-    type: "protocol_reference",
-    title: "Protocol Reference",
-    description: "Follow NCCN guidelines for lung cancer screening. Consider low-dose CT screening annually based on risk profile.",
-    confidence: 95,
-    priority: "medium",
-    evidenceLevel: "1A",
-    source: "NCCN Guidelines v2024",
-    timestamp: "3 minutes ago"
-  }
-];
+// AI recommendations are generated dynamically through API calls based on clinical input
 
 export default function AIRecommendationsPanel() {
   const [recommendations, setRecommendations] = useState<AIRecommendation[]>([]);
@@ -67,8 +35,8 @@ export default function AIRecommendationsPanel() {
     if (aiRecommendations && aiRecommendations.length > 0) {
       setRecommendations(aiRecommendations);
     } else {
-      // Use mock data for demonstration
-      setRecommendations(mockRecommendations);
+      // Initialize with empty array - recommendations will be generated through API calls
+      setRecommendations([]);
     }
   }, [aiRecommendations]);
 
