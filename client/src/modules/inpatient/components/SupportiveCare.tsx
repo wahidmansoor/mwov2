@@ -134,7 +134,7 @@ export const SupportiveCare = () => {
                 <SelectValue placeholder="All Categories" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Categories</SelectItem>
+                <SelectItem value="all">All Categories</SelectItem>
                 {categories.map(category => (
                   <SelectItem key={category} value={category}>
                     {category.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}
@@ -148,7 +148,7 @@ export const SupportiveCare = () => {
                 <SelectValue placeholder="All Cancer Types" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Cancer Types</SelectItem>
+                <SelectItem value="all">All Cancer Types</SelectItem>
                 {cancerTypes.map(type => (
                   <SelectItem key={type} value={type}>{type}</SelectItem>
                 ))}

@@ -122,7 +122,7 @@ export const DischargePlanning = () => {
                 <SelectValue placeholder="All Cancer Types" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Cancer Types</SelectItem>
+                <SelectItem value="all">All Cancer Types</SelectItem>
                 {cancerTypes.map(type => (
                   <SelectItem key={type} value={type}>{type}</SelectItem>
                 ))}
@@ -134,7 +134,7 @@ export const DischargePlanning = () => {
                 <SelectValue placeholder="All Treatment Types" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Treatment Types</SelectItem>
+                <SelectItem value="all">All Treatment Types</SelectItem>
                 {treatmentTypes.map(type => (
                   <SelectItem key={type} value={type}>{type}</SelectItem>
                 ))}

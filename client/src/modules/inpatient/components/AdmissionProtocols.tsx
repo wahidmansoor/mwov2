@@ -87,7 +87,7 @@ export const AdmissionProtocols: React.FC = () => {
               <SelectValue placeholder="Select cancer type" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">All Cancer Types</SelectItem>
+              <SelectItem value="all">All Cancer Types</SelectItem>
               {uniqueCancerTypes.map((type) => (
                 <SelectItem key={type} value={type}>{type}</SelectItem>
               ))}
@@ -102,7 +102,7 @@ export const AdmissionProtocols: React.FC = () => {
               <SelectValue placeholder="Select admission type" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">All Admission Types</SelectItem>
+              <SelectItem value="all">All Admission Types</SelectItem>
               {uniqueAdmissionTypes.map((type) => (
                 <SelectItem key={type} value={type}>{type}</SelectItem>
               ))}

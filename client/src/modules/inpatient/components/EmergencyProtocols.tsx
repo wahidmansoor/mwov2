@@ -128,7 +128,7 @@ export const EmergencyProtocols = () => {
                 <SelectValue placeholder="All Cancer Types" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Cancer Types</SelectItem>
+                <SelectItem value="all">All Cancer Types</SelectItem>
                 {cancerTypes.map(type => (
                   <SelectItem key={type} value={type}>{type}</SelectItem>
                 ))}
@@ -140,7 +140,7 @@ export const EmergencyProtocols = () => {
                 <SelectValue placeholder="All Severities" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Severities</SelectItem>
+                <SelectItem value="all">All Severities</SelectItem>
                 {severityLevels.map(level => (
                   <SelectItem key={level} value={level}>
                     {level.charAt(0).toUpperCase() + level.slice(1)}
