@@ -13,7 +13,8 @@ import { useQuery } from "@tanstack/react-query";
 import { 
   Syringe, Pill, AlertTriangle, Shield, Activity, Heart, Brain, Search, 
   Download, Filter, FileText, Users, ChevronDown, ChevronUp, ExternalLink, 
-  Printer, CheckCircle, XCircle, Droplets, Zap, Clock
+  Printer, CheckCircle, XCircle, Droplets, Zap, Clock, BookOpen, Calculator,
+  BarChart3, Stethoscope, Eye
 } from "lucide-react";
 import { MedicationsSegment } from "./MedicationsSegment";
 import EnhancedTreatmentPlanSelector from "./TreatmentPlanSelector";
@@ -847,82 +848,523 @@ const SafetyMonitoringDashboard = () => {
 
 
 
-// Toxicity Management Component
-const ToxicityManagement = () => (
-  <div className="space-y-6">
-    <div className="grid md:grid-cols-3 gap-6">
-      <Card className="border-l-4 border-l-red-500">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <AlertTriangle className="h-5 w-5 text-red-600" />Active Alerts
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-3">
-            <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
-              <p className="font-medium text-red-900">Grade 3 Neutropenia</p>
-              <p className="text-sm text-red-700">ANC: 0.8 × 10⁹/L</p>
-              <p className="text-xs text-red-600 mt-1">Consider G-CSF support</p>
-            </div>
-            <div className="p-3 bg-amber-50 border border-amber-200 rounded-lg">
-              <p className="font-medium text-amber-900">Grade 2 Neuropathy</p>
-              <p className="text-sm text-amber-700">Dose reduction indicated</p>
-              <p className="text-xs text-amber-600 mt-1">Paclitaxel → 75% dose</p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+// NCCN/ESMO/ASCO Toxicity Management Guidelines Database
+const TOXICITY_GUIDELINES = {
+  "Hematologic": {
+    "Neutropenia": {
+      description: "Decreased neutrophil count leading to increased infection risk",
+      grading: {
+        "Grade 1": "ANC 1.5-1.9 × 10⁹/L",
+        "Grade 2": "ANC 1.0-1.4 × 10⁹/L", 
+        "Grade 3": "ANC 0.5-0.9 × 10⁹/L",
+        "Grade 4": "ANC <0.5 × 10⁹/L"
+      },
+      management: {
+        "Grade 1-2": "Monitor CBC weekly, patient education on infection precautions",
+        "Grade 3": "Hold treatment, G-CSF support, prophylactic antibiotics if febrile",
+        "Grade 4": "Urgent hospitalization, broad-spectrum antibiotics, G-CSF"
+      },
+      doseModification: {
+        "Grade 3": "Delay until Grade ≤1, then 75% dose",
+        "Grade 4": "Delay until Grade ≤1, then 50% dose, consider G-CSF prophylaxis"
+      },
+      guidelines: "NCCN Guidelines for Myeloid Growth Factors v2.2025, ESMO Clinical Practice Guidelines"
+    },
+    "Thrombocytopenia": {
+      description: "Decreased platelet count with bleeding risk",
+      grading: {
+        "Grade 1": "PLT 75-150 × 10⁹/L",
+        "Grade 2": "PLT 50-74 × 10⁹/L",
+        "Grade 3": "PLT 25-49 × 10⁹/L", 
+        "Grade 4": "PLT <25 × 10⁹/L"
+      },
+      management: {
+        "Grade 1-2": "Monitor weekly, avoid anticoagulants, platelet transfusion if bleeding",
+        "Grade 3": "Hold treatment, platelet transfusion for bleeding/procedures",
+        "Grade 4": "Urgent hematology consult, prophylactic platelet transfusion"
+      },
+      doseModification: {
+        "Grade 3": "Delay until Grade ≤1, then 75% dose",
+        "Grade 4": "Delay until Grade ≤1, then 50% dose"
+      },
+      guidelines: "ASCO/ASH Guidelines for Platelet Transfusion, NCCN Supportive Care Guidelines"
+    },
+    "Anemia": {
+      description: "Decreased hemoglobin with fatigue and reduced quality of life",
+      grading: {
+        "Grade 1": "Hgb 10.0-10.9 g/dL (LLN-6.2 mmol/L)",
+        "Grade 2": "Hgb 8.0-9.9 g/dL (4.9-6.1 mmol/L)",
+        "Grade 3": "Hgb <8.0 g/dL (<4.9 mmol/L)",
+        "Grade 4": "Life-threatening, urgent intervention indicated"
+      },
+      management: {
+        "Grade 1": "Monitor, iron studies, B12/folate if indicated",
+        "Grade 2": "Evaluate etiology, consider ESA if chronic kidney disease",
+        "Grade 3-4": "Blood transfusion, urgent evaluation for bleeding"
+      },
+      doseModification: {
+        "Grade 3": "Consider dose delay until Grade ≤2",
+        "Grade 4": "Hold treatment until Grade ≤2"
+      },
+      guidelines: "ASCO/ASH Guidelines for ESA Use, NCCN Cancer-Related Anemia Guidelines"
+    }
+  },
+  "Gastrointestinal": {
+    "Nausea/Vomiting": {
+      description: "Chemotherapy-induced nausea and vomiting (CINV)",
+      grading: {
+        "Grade 1": "Loss of appetite without alteration in eating habits",
+        "Grade 2": "Oral intake decreased without significant weight loss",
+        "Grade 3": "Inadequate oral caloric/fluid intake; tube feeding indicated",
+        "Grade 4": "Life-threatening consequences"
+      },
+      management: {
+        "Prevention": "5-HT3 antagonist + dexamethasone + NK1 antagonist for HEC",
+        "Grade 1-2": "Optimize antiemetic regimen, dietary modifications",
+        "Grade 3-4": "IV hydration, parenteral nutrition consideration"
+      },
+      doseModification: {
+        "Grade 3-4": "Consider dose reduction if refractory to optimal antiemetics"
+      },
+      guidelines: "NCCN Antiemesis Guidelines v2.2025, ESMO/MASCC Guidelines"
+    },
+    "Diarrhea": {
+      description: "Increase in stool frequency or liquid consistency",
+      grading: {
+        "Grade 1": "Increase of <4 stools/day over baseline",
+        "Grade 2": "Increase of 4-6 stools/day over baseline",
+        "Grade 3": "Increase of ≥7 stools/day over baseline; incontinence",
+        "Grade 4": "Life-threatening consequences"
+      },
+      management: {
+        "Grade 1": "Dietary modifications, loperamide",
+        "Grade 2": "Loperamide, fluid replacement, dietary restrictions",
+        "Grade 3-4": "IV fluids, octreotide, infectious workup"
+      },
+      doseModification: {
+        "Grade 3": "Hold until Grade ≤1, then 75% dose",
+        "Grade 4": "Hold until Grade ≤1, then 50% dose"
+      },
+      guidelines: "ESMO Supportive Care Guidelines, NCCN Management of Drug-Related Toxicities"
+    },
+    "Mucositis": {
+      description: "Inflammation and ulceration of mucous membranes",
+      grading: {
+        "Grade 1": "Erythema of mucosa",
+        "Grade 2": "Patchy ulcerations or pseudomembranes",
+        "Grade 3": "Confluent ulcerations; unable to adequately aliment",
+        "Grade 4": "Tissue necrosis; life-threatening bleeding"
+      },
+      management: {
+        "Prevention": "Good oral hygiene, saline rinses, avoid trauma",
+        "Grade 1-2": "Topical analgesics, coating agents, nutritional support",
+        "Grade 3-4": "Systemic analgesics, parenteral nutrition, infection prophylaxis"
+      },
+      doseModification: {
+        "Grade 3": "Hold until Grade ≤1, consider 75% dose",
+        "Grade 4": "Hold until Grade ≤1, then 50% dose"
+      },
+      guidelines: "ESMO Guidelines for Oral Mucositis, MASCC/ISOO Evidence-Based Guidelines"
+    }
+  },
+  "Neurologic": {
+    "Peripheral Neuropathy": {
+      description: "Damage to peripheral nerves causing sensory/motor symptoms",
+      grading: {
+        "Grade 1": "Asymptomatic; clinical or diagnostic observations only",
+        "Grade 2": "Moderate symptoms; limiting instrumental ADL",
+        "Grade 3": "Severe symptoms; limiting self-care ADL",
+        "Grade 4": "Life-threatening consequences"
+      },
+      management: {
+        "Prevention": "Calcium/magnesium infusions (oxaliplatin), avoid cold exposure",
+        "Grade 1": "Patient education, safety measures",
+        "Grade 2-3": "Duloxetine 60mg daily, dose modification",
+        "Grade 4": "Discontinue neurotoxic agents"
+      },
+      doseModification: {
+        "Grade 2": "Consider 75% dose for persistent symptoms",
+        "Grade 3": "Hold until Grade ≤1, then 50% dose or discontinue",
+        "Grade 4": "Discontinue treatment"
+      },
+      guidelines: "ASCO Clinical Practice Guideline for CIPN, ESMO Guidelines"
+    }
+  },
+  "Cardiac": {
+    "Cardiotoxicity": {
+      description: "Chemotherapy-induced cardiac dysfunction",
+      grading: {
+        "Asymptomatic": "LVEF decline 10-15% from baseline but >50%",
+        "Symptomatic": "LVEF decline >15% from baseline or <50%",
+        "Heart Failure": "Clinical heart failure symptoms"
+      },
+      monitoring: {
+        "Anthracyclines": "ECHO/MUGA at baseline, 250mg/m², 400mg/m², then q 100mg/m²",
+        "Trastuzumab": "ECHO/MUGA at baseline, q3 months during treatment",
+        "TKIs": "ECG monitoring for QT prolongation"
+      },
+      management: {
+        "Asymptomatic": "Continue monitoring, cardio-oncology consult",
+        "Symptomatic": "ACE inhibitor/ARB, beta-blocker, hold cardiotoxic agents",
+        "Heart Failure": "Standard HF management, discontinue cardiotoxic drugs"
+      },
+      guidelines: "ESC Cardio-Oncology Guidelines, ASCO Expert Panel Statement"
+    }
+  },
+  "Dermatologic": {
+    "Hand-Foot Syndrome": {
+      description: "Palmar-plantar erythrodysesthesia from capecitabine/5-FU",
+      grading: {
+        "Grade 1": "Minimal skin changes without pain",
+        "Grade 2": "Skin changes with pain not interfering with function",
+        "Grade 3": "Ulcerative dermatitis; cannot wear regular clothing"
+      },
+      management: {
+        "Prevention": "Moisturizers, avoid heat/friction, pyridoxine 150mg BID",
+        "Grade 1": "Topical emollients, pyridoxine",
+        "Grade 2-3": "Topical steroids, dose interruption/reduction"
+      },
+      doseModification: {
+        "Grade 2": "Interrupt until Grade ≤1, then 75% dose",
+        "Grade 3": "Interrupt until Grade ≤1, then 50% dose"
+      },
+      guidelines: "ESMO Clinical Practice Guidelines for Skin Toxicity"
+    }
+  },
+  "Pulmonary": {
+    "Pneumonitis": {
+      description: "Drug-induced lung inflammation",
+      grading: {
+        "Grade 1": "Asymptomatic; radiographic findings only",
+        "Grade 2": "Symptomatic but not interfering with ADL",
+        "Grade 3": "Severe symptoms; limiting self-care ADL",
+        "Grade 4": "Life-threatening respiratory compromise"
+      },
+      management: {
+        "Grade 1": "Monitor, consider withholding drug",
+        "Grade 2": "Corticosteroids, hold drug permanently",
+        "Grade 3-4": "High-dose corticosteroids, permanent discontinuation"
+      },
+      guidelines: "NCCN Guidelines for Management of immunotherapy-Related Toxicities"
+    }
+  },
+  "Endocrine": {
+    "Thyroid Dysfunction": {
+      description: "Immunotherapy-induced thyroid disorders",
+      grading: {
+        "Grade 1": "Asymptomatic; TSH elevated",
+        "Grade 2": "Symptomatic hypothyroidism",
+        "Grade 3": "Severe hypothyroidism; hospitalization indicated",
+        "Grade 4": "Life-threatening consequences"
+      },
+      management: {
+        "Grade 1": "Monitor TSH q6-8 weeks",
+        "Grade 2": "Levothyroxine replacement, continue immunotherapy",
+        "Grade 3-4": "High-dose levothyroxine, endocrinology consult"
+      },
+      guidelines: "NCCN Guidelines for Management of immunotherapy-Related Toxicities"
+    },
+    "Adrenal Insufficiency": {
+      description: "Immunotherapy-induced hypoadrenalism",
+      grading: {
+        "Grade 1": "Asymptomatic; laboratory findings only",
+        "Grade 2": "Symptomatic but not interfering with ADL",
+        "Grade 3": "Severe symptoms; hospitalization indicated",
+        "Grade 4": "Life-threatening adrenal crisis"
+      },
+      management: {
+        "Grade 1": "Monitor cortisol levels",
+        "Grade 2": "Physiologic steroid replacement",
+        "Grade 3-4": "High-dose steroids, ICU monitoring"
+      },
+      guidelines: "ASCO Expert Panel, ESMO Guidelines for irAEs"
+    }
+  },
+  "Hepatic": {
+    "Hepatotoxicity": {
+      description: "Drug-induced liver injury",
+      grading: {
+        "Grade 1": "ALT/AST 1-3x ULN",
+        "Grade 2": "ALT/AST 3-5x ULN or bilirubin 1.5-3x ULN",
+        "Grade 3": "ALT/AST 5-20x ULN or bilirubin 3-10x ULN",
+        "Grade 4": "ALT/AST >20x ULN or bilirubin >10x ULN"
+      },
+      management: {
+        "Grade 1": "Monitor LFTs weekly",
+        "Grade 2": "Hold treatment, hepatology consult",
+        "Grade 3-4": "Corticosteroids, permanent discontinuation"
+      },
+      doseModification: {
+        "Grade 2": "Hold until Grade ≤1, then 75% dose",
+        "Grade 3-4": "Permanent discontinuation"
+      },
+      guidelines: "NCCN Guidelines for Hepatotoxicity, EASL Clinical Practice Guidelines"
+    }
+  },
+  "Renal": {
+    "Nephrotoxicity": {
+      description: "Drug-induced kidney injury",
+      grading: {
+        "Grade 1": "Creatinine 1-1.5x baseline",
+        "Grade 2": "Creatinine 1.5-3x baseline",
+        "Grade 3": "Creatinine 3-6x baseline",
+        "Grade 4": "Creatinine >6x baseline or dialysis"
+      },
+      management: {
+        "Grade 1": "Increase hydration, monitor q48h",
+        "Grade 2": "Hold nephrotoxic drugs, nephrology consult",
+        "Grade 3-4": "Urgent nephrology, consider RRT"
+      },
+      doseModification: {
+        "Grade 2": "Hold until Grade ≤1, then 75% dose",
+        "Grade 3-4": "Hold until Grade ≤1, then 50% dose or discontinue"
+      },
+      guidelines: "KDIGO Guidelines, ASCO/ONS Chemotherapy Administration Safety Standards"
+    }
+  },
+  "Immunologic": {
+    "Hypersensitivity Reactions": {
+      description: "Drug-induced allergic reactions",
+      grading: {
+        "Grade 1": "Mild transient rash, drug fever",
+        "Grade 2": "Moderate localized urticaria",
+        "Grade 3": "Severe generalized urticaria, angioedema",
+        "Grade 4": "Anaphylaxis, life-threatening"
+      },
+      management: {
+        "Grade 1": "Antihistamines, monitor closely",
+        "Grade 2": "Stop infusion, antihistamines, corticosteroids",
+        "Grade 3-4": "Emergency management, epinephrine, permanent discontinuation"
+      },
+      guidelines: "NCCN Guidelines for Hypersensitivity Reactions, ASCO Safety Standards"
+    },
+    "Cytokine Release Syndrome": {
+      description: "CAR-T and bispecific antibody-induced systemic inflammation",
+      grading: {
+        "Grade 1": "Fever only",
+        "Grade 2": "Hypotension responding to fluids, hypoxia requiring <40% FiO2",
+        "Grade 3": "Hypotension requiring vasopressors, hypoxia requiring ≥40% FiO2",
+        "Grade 4": "Life-threatening multi-organ failure"
+      },
+      management: {
+        "Grade 1": "Supportive care, monitor closely",
+        "Grade 2": "Tocilizumab 8mg/kg, corticosteroids if no response",
+        "Grade 3-4": "ICU care, tocilizumab + corticosteroids"
+      },
+      guidelines: "ASTCT Consensus Guidelines for CRS, CAR-T Cell Therapy Guidelines"
+    }
+  },
+  "Metabolic": {
+    "Tumor Lysis Syndrome": {
+      description: "Rapid cell death causing metabolic derangements",
+      grading: {
+        "Laboratory": "Elevated K+, PO4, uric acid; decreased Ca2+",
+        "Clinical": "AKI, arrhythmias, seizures, death"
+      },
+      management: {
+        "Prevention": "Allopurinol/rasburicase, aggressive hydration",
+        "Treatment": "Hemodialysis, electrolyte correction, ICU monitoring"
+      },
+      monitoring: {
+        "High Risk": "K+, PO4, Ca2+, uric acid, creatinine q6h x48h",
+        "Standard Risk": "Daily labs x72h"
+      },
+      guidelines: "ESMO Guidelines for TLS, NCCN Supportive Care Guidelines"
+    }
+  }
+};
 
-      <Card className="border-l-4 border-l-blue-500">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Heart className="h-5 w-5 text-blue-600" />Cardiotoxicity Monitor
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-3">
-            <div className="flex justify-between items-center">
-              <span className="text-sm">Cumulative Doxorubicin</span>
-              <Badge className="bg-blue-100 text-blue-800">240 mg/m²</Badge>
-            </div>
-            <Progress value={53} className="w-full" />
-            <p className="text-xs text-muted-foreground">53% of 450 mg/m² limit</p>
+// Enhanced Toxicity Management Guidance Component
+const ToxicityManagement = () => {
+  const [selectedCategory, setSelectedCategory] = useState<string>("Hematologic");
+  const [selectedToxicity, setSelectedToxicity] = useState<string>("Neutropenia");
+  const [searchTerm, setSearchTerm] = useState("");
+  
+  const categories = Object.keys(TOXICITY_GUIDELINES);
+  const toxicitiesInCategory = Object.keys(TOXICITY_GUIDELINES[selectedCategory] || {});
+  const currentToxicity = TOXICITY_GUIDELINES[selectedCategory]?.[selectedToxicity];
+  
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-2xl font-bold">Oncology Toxicity Management Guidelines</h2>
+          <p className="text-muted-foreground mt-1">
+            Evidence-based guidance from NCCN, ESMO, and ASCO guidelines for cancer treatment toxicities
+          </p>
+        </div>
+        <Badge variant="outline" className="text-sm">
+          Clinical Guidance Tool
+        </Badge>
+      </div>
+
+      {/* Search and Filter */}
+      <div className="flex gap-4 items-center">
+        <div className="relative flex-1">
+          <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+          <Input
+            placeholder="Search toxicities..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="pl-10"
+          />
+        </div>
+        <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+          <SelectTrigger className="w-48">
+            <SelectValue placeholder="Select category" />
+          </SelectTrigger>
+          <SelectContent>
+            {categories.map(category => (
+              <SelectItem key={category} value={category}>{category}</SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+
+      <div className="grid lg:grid-cols-4 gap-6">
+        {/* Toxicity List */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">{selectedCategory} Toxicities</CardTitle>
+          </CardHeader>
+          <CardContent>
             <div className="space-y-2">
-              <div className="flex justify-between text-sm">
-                <span>Baseline LVEF</span><span>65%</span>
-              </div>
-              <div className="flex justify-between text-sm">
-                <span>Last ECHO</span><span>62% (Normal)</span>
-              </div>
+              {toxicitiesInCategory.map(toxicity => (
+                <button
+                  key={toxicity}
+                  onClick={() => setSelectedToxicity(toxicity)}
+                  className={`w-full text-left p-3 rounded-lg border transition-colors ${
+                    selectedToxicity === toxicity 
+                      ? 'border-blue-500 bg-blue-50 dark:bg-blue-950' 
+                      : 'border-gray-200 hover:border-gray-300'
+                  }`}
+                >
+                  <p className="font-medium text-sm">{toxicity}</p>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    {TOXICITY_GUIDELINES[selectedCategory][toxicity].description}
+                  </p>
+                </button>
+              ))}
             </div>
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
 
-      <Card className="border-l-4 border-l-purple-500">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Brain className="h-5 w-5 text-purple-600" />Neurotoxicity
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-3">
-            <div className="p-3 border rounded-lg">
-              <p className="font-medium text-sm">Peripheral Neuropathy</p>
-              <div className="flex justify-between items-center mt-2">
-                <span className="text-xs">Grade</span>
-                <Badge variant="outline">2</Badge>
-              </div>
-              <p className="text-xs text-muted-foreground mt-1">
-                Moderate symptoms, interfering with function
-              </p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+        {/* Detailed Guidance */}
+        <div className="lg:col-span-3 space-y-6">
+          {currentToxicity && (
+            <>
+              {/* Grading System */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <BarChart3 className="h-5 w-5" />
+                    CTCAE Grading - {selectedToxicity}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    {Object.entries(currentToxicity.grading).map(([grade, description]) => (
+                      <div key={grade} className="p-3 border rounded-lg">
+                        <div className="flex items-center gap-2 mb-2">
+                          <Badge variant={grade.includes("4") ? "destructive" : grade.includes("3") ? "destructive" : "secondary"}>
+                            {grade}
+                          </Badge>
+                        </div>
+                        <p className="text-sm">{description}</p>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Management Guidelines */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Stethoscope className="h-5 w-5" />
+                    Clinical Management
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    {Object.entries(currentToxicity.management).map(([level, guidance]) => (
+                      <div key={level} className="p-4 border rounded-lg">
+                        <h4 className="font-semibold text-sm mb-2">{level}</h4>
+                        <p className="text-sm text-muted-foreground">{guidance}</p>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Dose Modifications */}
+              {currentToxicity.doseModification && (
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Calculator className="h-5 w-5" />
+                      Dose Modification Guidelines
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      {Object.entries(currentToxicity.doseModification).map(([grade, modification]) => (
+                        <div key={grade} className="flex items-start gap-3 p-3 bg-amber-50 border border-amber-200 rounded-lg">
+                          <AlertTriangle className="h-4 w-4 text-amber-600 mt-1" />
+                          <div>
+                            <p className="font-semibold text-sm text-amber-900">{grade}</p>
+                            <p className="text-sm text-amber-800">{modification}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+
+              {/* Monitoring Requirements */}
+              {currentToxicity.monitoring && (
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Eye className="h-5 w-5" />
+                      Monitoring Requirements
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      {Object.entries(currentToxicity.monitoring).map(([drug, schedule]) => (
+                        <div key={drug} className="p-3 border rounded-lg">
+                          <h4 className="font-semibold text-sm mb-1">{drug}</h4>
+                          <p className="text-sm text-muted-foreground">{schedule}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+
+              {/* Evidence Base */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <BookOpen className="h-5 w-5" />
+                    Evidence Base & Guidelines
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm bg-blue-50 p-3 rounded-lg border border-blue-200">
+                    <strong>Reference Guidelines:</strong> {currentToxicity.guidelines}
+                  </p>
+                </CardContent>
+              </Card>
+            </>
+          )}
+        </div>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 // ISSUE #1: Main CDU Module Component with Simplified Architecture
 export default function CDUModuleComplete() {
