@@ -21,7 +21,9 @@ import {
   FileText,
   Bell,
   User,
-  GraduationCap
+  GraduationCap,
+  NotebookPen,
+  Cog
 } from "lucide-react";
 
 interface LayoutProps {
@@ -89,6 +91,13 @@ const clinicalTools: NavItem[] = [
     href: "/export",
     icon: FileText,
     color: "green-400"
+  },
+  {
+    id: "notes",
+    name: "Notes Compiler",
+    href: "/notes",
+    icon: NotebookPen,
+    color: "emerald-400"
   }
 ];
 
@@ -244,7 +253,11 @@ function Sidebar({ className = "" }: { className?: string }) {
       {/* Bottom Actions */}
       <div className="p-4 border-t border-slate-200 space-y-2">
         <HelpSystem />
-        <Button variant="ghost" className="w-full justify-start">
+        <Button 
+          variant="ghost" 
+          onClick={() => setLocation("/settings")}
+          className="w-full justify-start"
+        >
           <Settings className="w-4 h-4 mr-3" />
           Settings
         </Button>

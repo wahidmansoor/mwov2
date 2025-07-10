@@ -15,12 +15,15 @@ import InpatientModule from "@/modules/inpatient/InpatientModule";
 import ChatAssistant from "@/modules/chat/ChatAssistant";
 import ComprehensiveClinicalTools from "@/modules/tools/ComprehensiveClinicalTools";
 import NotesExport from "@/modules/export/NotesExport";
+import NotesCompilerModule from "@/modules/notes/NotesCompilerModule";
+import SettingsModule from "@/modules/settings/SettingsModule";
 import AnalyticsModule from "@/modules/analytics/AnalyticsModule";
 import HandbookModule from "@/modules/handbook/HandbookModule";
 import MedicalOncologyView from "@/modules/handbook/MedicalOncologyView";
 import RadiationOncologyView from "@/modules/handbook/RadiationOncologyView";
 import PalliativeCareView from "@/modules/handbook/PalliativeCareView";
 import PalliativeCareModule from "@/modules/palliative/PalliativeCareModule";
+import ComprehensivePalliativeCare from "@/modules/palliative/ComprehensivePalliativeCare";
 import OncologyEducationModule from "@/modules/education/OncologyEducationModule";
 import NotFound from "@/pages/not-found";
 
@@ -67,7 +70,7 @@ function Router() {
       
       <Route path="/palliative">
         <Layout>
-          <PalliativeCareModuleMain />
+          <ComprehensivePalliativeCare />
         </Layout>
       </Route>
       
@@ -92,6 +95,18 @@ function Router() {
       <Route path="/export">
         <Layout>
           <NotesExport />
+        </Layout>
+      </Route>
+
+      <Route path="/notes">
+        <Layout>
+          <NotesCompilerModule />
+        </Layout>
+      </Route>
+
+      <Route path="/settings">
+        <Layout>
+          <SettingsModule />
         </Layout>
       </Route>
       

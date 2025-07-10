@@ -6,7 +6,30 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { HelpCircle, Search, FileText, Video, Settings, MessageSquare, ChevronRight, ArrowLeft, Star } from 'lucide-react';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { 
+  HelpCircle, 
+  Search, 
+  FileText, 
+  Video, 
+  Settings, 
+  MessageSquare, 
+  ChevronRight, 
+  ArrowLeft, 
+  Star,
+  Stethoscope,
+  Calculator,
+  Database,
+  Users,
+  Brain,
+  Shield,
+  Clock,
+  BookOpen,
+  AlertCircle,
+  CheckCircle,
+  ExternalLink,
+  Play
+} from 'lucide-react';
 
 interface HelpArticle {
   id: string;
