@@ -767,81 +767,409 @@ const ToxicityMonitor = ({ protocol }: { protocol: EnhancedProtocol }) => {
   );
 };
 
-// Enhanced Safety Monitoring Dashboard
+// Comprehensive Safety Monitoring Guidelines Database
+const SAFETY_MONITORING_GUIDELINES = {
+  "Drug-Specific": {
+    "Anthracyclines": {
+      drugs: ["Doxorubicin", "Daunorubicin", "Epirubicin", "Mitoxantrone"],
+      primaryConcern: "Cardiotoxicity",
+      cumulativeLimits: {
+        "Doxorubicin": "450 mg/m² (400 mg/m² if prior chest RT)",
+        "Daunorubicin": "300 mg/m²", 
+        "Epirubicin": "900 mg/m²",
+        "Mitoxantrone": "140 mg/m²"
+      },
+      monitoring: {
+        baseline: ["ECHO or MUGA", "ECG", "CBC", "LFTs"],
+        during: ["ECHO/MUGA every 100-150 mg/m²", "CBC before each cycle", "Clinical assessment"],
+        schedule: "LVEF assessment q3-4 cycles or at cumulative dose milestones"
+      },
+      actionLimits: {
+        "LVEF decrease >10% to <50%": "Hold therapy, cardio-oncology consult",
+        "LVEF <45%": "Discontinue anthracycline permanently",
+        "Signs of CHF": "Urgent cardiology evaluation, discontinue"
+      },
+      guidelines: "NCCN Survivorship Guidelines v1.2025, ESMO Cardio-Oncology Guidelines"
+    },
+    "Platinum Agents": {
+      drugs: ["Cisplatin", "Carboplatin", "Oxaliplatin"],
+      primaryConcern: "Nephrotoxicity, Ototoxicity, Neuropathy",
+      monitoring: {
+        baseline: ["Creatinine/BUN", "Electrolytes", "Audiometry (cisplatin)", "Neurologic exam"],
+        during: ["Weekly creatinine", "Electrolytes before each cycle", "Hearing assessment", "Neuropathy grading"],
+        schedule: "Renal function before each cycle, audiometry every 2 cycles (cisplatin)"
+      },
+      actionLimits: {
+        "Creatinine rise >1.5x baseline": "Hold until recovery, reduce dose 50%",
+        "Grade 2 ototoxicity": "Consider switching to carboplatin",
+        "Grade 3 neuropathy": "Hold until Grade ≤1, then reduce dose"
+      },
+      guidelines: "NCCN Guidelines, ASCO Platinum Neuropathy Guidelines"
+    },
+    "Immune Checkpoint Inhibitors": {
+      drugs: ["Pembrolizumab", "Nivolumab", "Atezolizumab", "Ipilimumab"],
+      primaryConcern: "Immune-related adverse events (irAEs)",
+      monitoring: {
+        baseline: ["TSH, T4", "LFTs", "Creatinine", "Cortisol", "CBC"],
+        during: ["LFTs every cycle", "TSH every 6-9 weeks", "Symptom assessment", "Skin examination"],
+        schedule: "Comprehensive toxicity assessment before each cycle"
+      },
+      actionLimits: {
+        "Grade 2 irAE": "Hold therapy, consider steroids",
+        "Grade 3-4 irAE": "Discontinue permanently, high-dose steroids",
+        "Any pneumonitis": "Hold immediately, pulmonology consult"
+      },
+      guidelines: "NCCN Management of Cancer-Related Fatigue v1.2025, ESMO irAE Guidelines"
+    },
+    "Tyrosine Kinase Inhibitors": {
+      drugs: ["Imatinib", "Erlotinib", "Gefitinib", "Sunitinib", "Sorafenib"],
+      primaryConcern: "Hepatotoxicity, Cardiotoxicity, Skin toxicity",
+      monitoring: {
+        baseline: ["LFTs", "ECHO/MUGA", "CBC", "Electrolytes"],
+        during: ["LFTs every 2 weeks x 2 months, then monthly", "BP monitoring", "Skin assessment"],
+        schedule: "Liver function every 2 weeks initially, then as clinically indicated"
+      },
+      actionLimits: {
+        "ALT/AST >5x ULN": "Hold until <2.5x ULN, then reduce dose",
+        "Grade 3 rash": "Hold until Grade ≤1, supportive care",
+        "Uncontrolled HTN": "Optimize antihypertensives, consider dose reduction"
+      },
+      guidelines: "NCCN NSCLC Guidelines v5.2025, ESMO TKI Management"
+    }
+  },
+  "Cancer-Specific": {
+    "Breast Cancer": {
+      commonRegimens: ["AC-T", "TCH", "TH", "CDK4/6 + endocrine"],
+      keyMonitoring: {
+        "Trastuzumab": "LVEF every 3 months during treatment",
+        "CDK4/6 inhibitors": "CBC every 2 weeks x 2 cycles, then monthly",
+        "Taxanes": "Neuropathy assessment each visit"
+      },
+      specialConsiderations: "Fertility preservation discussion, bone health monitoring"
+    },
+    "Lung Cancer": {
+      commonRegimens: ["Carboplatin/Paclitaxel", "Cisplatin/Etoposide", "Immunotherapy"],
+      keyMonitoring: {
+        "Platinum-based": "Renal function, ototoxicity, neuropathy",
+        "Immunotherapy": "irAE monitoring per protocol",
+        "EGFR TKIs": "Skin toxicity, hepatotoxicity, ILD screening"
+      },
+      specialConsiderations: "Pulmonary function baseline, smoking cessation"
+    },
+    "Colorectal Cancer": {
+      commonRegimens: ["FOLFOX", "FOLFIRI", "5-FU/Leucovorin"],
+      keyMonitoring: {
+        "Oxaliplatin": "Cold-induced neuropathy assessment",
+        "5-FU": "DPD deficiency screening if available",
+        "Irinotecan": "Diarrhea management, UGT1A1 genotyping"
+      },
+      specialConsiderations: "Dihydropyrimidine dehydrogenase (DPD) deficiency screening"
+    }
+  },
+  "Organ-Specific Monitoring": {
+    "Cardiac": {
+      highRiskDrugs: ["Doxorubicin", "Trastuzumab", "Sunitinib", "5-FU"],
+      monitoring: "ECHO/MUGA at baseline, during treatment, post-treatment surveillance",
+      riskFactors: "Age >65, prior chest RT, hypertension, diabetes",
+      guidelines: "ASCO Cardio-Oncology Guidelines, ESC Position Paper"
+    },
+    "Hepatic": {
+      highRiskDrugs: ["Methotrexate", "TKIs", "Checkpoint inhibitors"],
+      monitoring: "LFTs at baseline, every 2 weeks initially, then monthly",
+      actionLimits: "Hold if ALT/AST >5x ULN or bilirubin >3x ULN",
+      guidelines: "EASL-ESMO Clinical Practice Guidelines"
+    },
+    "Renal": {
+      highRiskDrugs: ["Cisplatin", "Methotrexate", "Bevacizumab"],
+      monitoring: "Creatinine, BUN, electrolytes before each cycle",
+      actionLimits: "Hold if creatinine >1.5x baseline",
+      guidelines: "KDIGO Clinical Practice Guidelines"
+    },
+    "Pulmonary": {
+      highRiskDrugs: ["Bleomycin", "Checkpoint inhibitors", "mTOR inhibitors"],
+      monitoring: "Baseline PFTs, chest imaging, symptom assessment",
+      actionLimits: "Any pneumonitis requires immediate evaluation",
+      guidelines: "ATS/ERS/JRS/ALAT Guidelines"
+    }
+  }
+};
+
+// Enhanced Safety Monitoring Clinical Guidance Dashboard
 const SafetyMonitoringDashboard = () => {
+  const [selectedCategory, setSelectedCategory] = useState("Drug-Specific");
+  const [selectedDrug, setSelectedDrug] = useState("Anthracyclines");
+  const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({});
+
+  const toggleSection = (section: string) => {
+    setExpandedSections(prev => ({
+      ...prev,
+      [section]: !prev[section]
+    }));
+  };
+
+  const categoryTabs = [
+    { id: "Drug-Specific", label: "Drug-Specific Monitoring", icon: Pill },
+    { id: "Cancer-Specific", label: "Cancer-Specific Protocols", icon: Activity },
+    { id: "Organ-Specific", label: "Organ-Specific Monitoring", icon: Heart }
+  ];
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold">Safety Monitoring Dashboard</h2>
-        <Badge variant="destructive">3 Active Alerts</Badge>
+        <div>
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+            Clinical Safety Monitoring Guidelines
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 mt-1">
+            Comprehensive NCCN, ASCO, and ESMO-based safety monitoring guidance for oncology treatments
+          </p>
+        </div>
+        <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
+          <BookOpen className="h-3 w-3 mr-1" />
+          Evidence-Based Protocols
+        </Badge>
       </div>
-      
-      <div className="grid md:grid-cols-3 gap-6">
-        <Card className="border-l-4 border-l-red-500">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <AlertTriangle className="h-5 w-5 text-red-600" />Drug Interactions
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
-              {DRUG_INTERACTIONS.map((interaction, index) => (
-                <Alert key={index} className="border-red-500 bg-red-50">
-                  <AlertTriangle className="h-4 w-4" />
-                  <AlertDescription>
-                    <div className="font-medium">{interaction.drug1} + {interaction.drug2}</div>
-                    <div className="text-xs mt-1">{interaction.management}</div>
-                  </AlertDescription>
-                </Alert>
-              ))}
+
+      <Tabs value={selectedCategory} onValueChange={setSelectedCategory} className="w-full">
+        <TabsList className="grid w-full grid-cols-3">
+          {categoryTabs.map((tab) => (
+            <TabsTrigger key={tab.id} value={tab.id} className="flex items-center gap-2">
+              <tab.icon className="h-4 w-4" />
+              {tab.label}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+
+        <TabsContent value="Drug-Specific" className="space-y-6">
+          <div className="grid lg:grid-cols-4 gap-6">
+            {/* Drug Selection Sidebar */}
+            <Card className="lg:col-span-1">
+              <CardHeader>
+                <CardTitle className="text-lg">Select Drug Class</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-2">
+                {Object.keys(SAFETY_MONITORING_GUIDELINES["Drug-Specific"]).map((drugClass) => (
+                  <Button
+                    key={drugClass}
+                    variant={selectedDrug === drugClass ? "default" : "ghost"}
+                    className="w-full justify-start text-left"
+                    onClick={() => setSelectedDrug(drugClass)}
+                  >
+                    <Pill className="h-4 w-4 mr-2" />
+                    {drugClass}
+                  </Button>
+                ))}
+              </CardContent>
+            </Card>
+
+            {/* Drug-Specific Guidelines */}
+            <div className="lg:col-span-3 space-y-4">
+              {(() => {
+                const drugData = SAFETY_MONITORING_GUIDELINES["Drug-Specific"][selectedDrug];
+                return (
+                  <>
+                    <Card className="border-l-4 border-l-blue-500">
+                      <CardHeader>
+                        <CardTitle className="flex items-center gap-2">
+                          <Shield className="h-5 w-5 text-blue-600" />
+                          {selectedDrug} Safety Monitoring
+                        </CardTitle>
+                        <CardDescription>
+                          Primary Concern: <strong>{drugData.primaryConcern}</strong>
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        <div>
+                          <h4 className="font-semibold mb-2">Drugs in Class:</h4>
+                          <div className="flex flex-wrap gap-2">
+                            {drugData.drugs.map((drug: string) => (
+                              <Badge key={drug} variant="secondary">{drug}</Badge>
+                            ))}
+                          </div>
+                        </div>
+
+                        {drugData.cumulativeLimits && (
+                          <div>
+                            <h4 className="font-semibold mb-2">Cumulative Dose Limits:</h4>
+                            <div className="space-y-2">
+                              {Object.entries(drugData.cumulativeLimits).map(([drug, limit]) => (
+                                <div key={drug} className="flex justify-between items-center p-2 bg-orange-50 rounded">
+                                  <span className="font-medium">{drug}</span>
+                                  <Badge variant="outline" className="bg-orange-100 text-orange-800">{limit}</Badge>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
+                        <div className="grid md:grid-cols-2 gap-4">
+                          <Card>
+                            <CardHeader>
+                              <CardTitle className="text-base flex items-center gap-2">
+                                <Stethoscope className="h-4 w-4" />
+                                Monitoring Schedule
+                              </CardTitle>
+                            </CardHeader>
+                            <CardContent className="space-y-3">
+                              <div>
+                                <h5 className="font-medium text-green-700">Baseline:</h5>
+                                <ul className="text-sm list-disc list-inside space-y-1">
+                                  {drugData.monitoring.baseline.map((item: string, index: number) => (
+                                    <li key={index}>{item}</li>
+                                  ))}
+                                </ul>
+                              </div>
+                              <div>
+                                <h5 className="font-medium text-blue-700">During Treatment:</h5>
+                                <ul className="text-sm list-disc list-inside space-y-1">
+                                  {drugData.monitoring.during.map((item: string, index: number) => (
+                                    <li key={index}>{item}</li>
+                                  ))}
+                                </ul>
+                              </div>
+                              <Alert className="border-blue-200 bg-blue-50">
+                                <Clock className="h-4 w-4" />
+                                <AlertDescription className="text-sm">
+                                  <strong>Schedule:</strong> {drugData.monitoring.schedule}
+                                </AlertDescription>
+                              </Alert>
+                            </CardContent>
+                          </Card>
+
+                          <Card>
+                            <CardHeader>
+                              <CardTitle className="text-base flex items-center gap-2">
+                                <AlertTriangle className="h-4 w-4 text-red-600" />
+                                Action Limits
+                              </CardTitle>
+                            </CardHeader>
+                            <CardContent className="space-y-2">
+                              {Object.entries(drugData.actionLimits).map(([condition, action]) => (
+                                <Alert key={condition} className="border-red-200 bg-red-50">
+                                  <AlertDescription className="text-sm">
+                                    <div className="font-medium text-red-800">{condition}</div>
+                                    <div className="text-red-700 mt-1">{action}</div>
+                                  </AlertDescription>
+                                </Alert>
+                              ))}
+                            </CardContent>
+                          </Card>
+                        </div>
+
+                        <Alert className="border-slate-200 bg-slate-50">
+                          <BookOpen className="h-4 w-4" />
+                          <AlertDescription className="text-sm">
+                            <strong>Evidence Base:</strong> {drugData.guidelines}
+                          </AlertDescription>
+                        </Alert>
+                      </CardContent>
+                    </Card>
+                  </>
+                );
+              })()}
             </div>
-          </CardContent>
-        </Card>
-        
-        <Card className="border-l-4 border-l-purple-500">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Heart className="h-5 w-5 text-purple-600" />Cumulative Dosing
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <div>
-                <div className="flex justify-between text-sm mb-1">
-                  <span>Doxorubicin</span><span>240/450 mg/m²</span>
-                </div>
-                <Progress value={53} className="w-full" />
-                <div className="text-xs text-muted-foreground mt-1">53% of lifetime limit</div>
-              </div>
-              <Alert className="border-orange-500 bg-orange-50">
-                <AlertTriangle className="h-4 w-4" />
-                <AlertDescription className="text-xs">Monitor cardiac function closely</AlertDescription>
-              </Alert>
-            </div>
-          </CardContent>
-        </Card>
-        
-        <Card className="border-l-4 border-l-blue-500">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Shield className="h-5 w-5 text-blue-600" />Monitoring Schedule
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
-              <div className="flex justify-between items-center text-sm">
-                <span>ECHO/MUGA</span><Badge variant="outline">Due</Badge>
-              </div>
-              <div className="flex justify-between items-center text-sm">
-                <span>CBC with diff</span><Badge className="bg-green-100 text-green-800">Current</Badge>
-              </div>
-              <div className="flex justify-between items-center text-sm">
-                <span>Creatinine</span><Badge variant="outline">Weekly</Badge>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+          </div>
+        </TabsContent>
+
+        <TabsContent value="Cancer-Specific" className="space-y-4">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {Object.entries(SAFETY_MONITORING_GUIDELINES["Cancer-Specific"]).map(([cancer, data]) => (
+              <Card key={cancer} className="border-l-4 border-l-purple-500">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Activity className="h-5 w-5 text-purple-600" />
+                    {cancer}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div>
+                    <h4 className="font-semibold mb-2">Common Regimens:</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {data.commonRegimens.map((regimen: string) => (
+                        <Badge key={regimen} variant="outline">{regimen}</Badge>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <h4 className="font-semibold mb-2">Key Monitoring Points:</h4>
+                    <div className="space-y-2">
+                      {Object.entries(data.keyMonitoring).map(([drug, monitoring]) => (
+                        <div key={drug} className="p-2 bg-purple-50 rounded">
+                          <div className="font-medium text-sm text-purple-800">{drug}</div>
+                          <div className="text-xs text-purple-700">{monitoring}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <Alert className="border-purple-200 bg-purple-50">
+                    <AlertTriangle className="h-4 w-4" />
+                    <AlertDescription className="text-sm">
+                      <strong>Special Considerations:</strong> {data.specialConsiderations}
+                    </AlertDescription>
+                  </Alert>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </TabsContent>
+
+        <TabsContent value="Organ-Specific" className="space-y-4">
+          <div className="grid md:grid-cols-2 gap-6">
+            {Object.entries(SAFETY_MONITORING_GUIDELINES["Organ-Specific"]).map(([organ, data]) => (
+              <Card key={organ} className="border-l-4 border-l-green-500">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Heart className="h-5 w-5 text-green-600" />
+                    {organ} Monitoring
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div>
+                    <h4 className="font-semibold mb-2">High-Risk Drugs:</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {data.highRiskDrugs.map((drug: string) => (
+                        <Badge key={drug} variant="destructive" className="text-xs">{drug}</Badge>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <div className="p-3 bg-green-50 rounded">
+                      <h5 className="font-medium text-green-800 mb-1">Monitoring Protocol:</h5>
+                      <p className="text-sm text-green-700">{data.monitoring}</p>
+                    </div>
+                    
+                    {data.actionLimits && (
+                      <Alert className="border-red-200 bg-red-50">
+                        <AlertTriangle className="h-4 w-4" />
+                        <AlertDescription className="text-sm">
+                          <strong>Action Limits:</strong> {data.actionLimits}
+                        </AlertDescription>
+                      </Alert>
+                    )}
+
+                    {data.riskFactors && (
+                      <div className="p-2 bg-yellow-50 rounded">
+                        <h5 className="font-medium text-yellow-800 text-sm">Risk Factors:</h5>
+                        <p className="text-xs text-yellow-700">{data.riskFactors}</p>
+                      </div>
+                    )}
+                  </div>
+
+                  <Alert className="border-slate-200 bg-slate-50">
+                    <BookOpen className="h-4 w-4" />
+                    <AlertDescription className="text-xs">
+                      <strong>Guidelines:</strong> {data.guidelines}
+                    </AlertDescription>
+                  </Alert>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 };
