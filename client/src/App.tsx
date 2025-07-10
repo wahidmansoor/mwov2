@@ -13,7 +13,7 @@ import CDUModule from "@/modules/cdu/CDUModule";
 import PalliativeCareModuleMain from "@/modules/palliative/PalliativeCareModule";
 import InpatientModule from "@/modules/inpatient/InpatientModule";
 import ChatAssistant from "@/modules/chat/ChatAssistant";
-import ToolsBar from "@/modules/tools/ToolsBar";
+import ComprehensiveClinicalTools from "@/modules/tools/ComprehensiveClinicalTools";
 import NotesExport from "@/modules/export/NotesExport";
 import AnalyticsModule from "@/modules/analytics/AnalyticsModule";
 import HandbookModule from "@/modules/handbook/HandbookModule";
@@ -85,7 +85,7 @@ function Router() {
       
       <Route path="/tools">
         <Layout>
-          <ToolsBar />
+          <ComprehensiveClinicalTools />
         </Layout>
       </Route>
       
