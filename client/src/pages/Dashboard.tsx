@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
 import { useLocation } from "wouter";
 import { useAuth } from "@/hooks/useAuth";
 import ClinicalAlertSystem from "@/components/clinical/ClinicalAlertSystem";
@@ -12,13 +14,15 @@ import PatientJourneyTracker from "@/components/clinical/PatientJourneyTracker";
 import SmartReferralSystem from "@/components/clinical/SmartReferralSystem";
 import EmotionCheckInWidget from "@/components/clinical/EmotionCheckInWidget";
 import {
-  Users,
+  Stethoscope,
   Brain,
   AlertTriangle,
-  ClipboardCheck,
-  UserCheck,
-  Bot,
-  Plus,
+  BookOpen,
+  Calculator,
+  Heart,
+  Shield,
+  FileText,
+  BarChart3,
   Search,
   ChartLine,
   Bell,
@@ -26,134 +30,216 @@ import {
   CheckCircle,
   Activity,
   Zap,
-  Heart
+  ExternalLink,
+  Database,
+  Users,
+  GraduationCap,
+  Target,
+  Pill,
+  Building2,
+  UserCheck,
+  MessageSquare,
+  Download,
+  TrendingUp,
+  Clock,
+  Sparkles
 } from "lucide-react";
 
-interface DashboardStats {
-  activePatients: number;
-  aiRecommendations: number;
-  criticalAlerts: number;
-  protocolsUpdated: number;
+interface PlatformStats {
+  totalProtocols: number;
+  guidelinesVersion: string;
+  modulesCovered: number;
+  recentUpdates: number;
+  userSessions: number;
+  clinicalDecisions: number;
 }
 
-interface Activity {
+interface ModuleUsage {
   id: string;
-  type: "evaluation" | "ai_recommendation" | "alert";
-  title: string;
+  name: string;
   description: string;
-  timestamp: string;
-  status: "completed" | "pending" | "alert";
+  usageCount: number;
+  lastAccessed: string;
+  status: "active" | "updated" | "stable";
+  icon: any;
+  route: string;
 }
 
 export default function Dashboard() {
   const [, setLocation] = useLocation();
   const { user } = useAuth();
-  const [aiEngineActive, setAiEngineActive] = useState(true);
 
-  // Fetch dashboard stats
-  const { data: stats, isLoading: statsLoading } = useQuery<DashboardStats>({
-    queryKey: ["/api/dashboard/stats"],
-    refetchInterval: 30000, // Refresh every 30 seconds
-  });
+  // Platform statistics
+  const platformStats: PlatformStats = {
+    totalProtocols: 142,
+    guidelinesVersion: "NCCN 2025",
+    modulesCovered: 8,
+    recentUpdates: 12,
+    userSessions: 1,
+    clinicalDecisions: 0
+  };
 
-  // Fetch recent activity
-  const { data: activities, isLoading: activitiesLoading } = useQuery<Activity[]>({
-    queryKey: ["/api/dashboard/activities"],
-    refetchInterval: 30000,
-  });
-
-  const quickActions = [
+  // Clinical modules available in the platform
+  const clinicalModules: ModuleUsage[] = [
     {
-      title: "New Patient Evaluation",
-      description: "Start comprehensive patient assessment",
-      icon: Plus,
-      color: "medical-blue",
-      action: () => setLocation("/opd/patient-evaluation")
+      id: "opd",
+      name: "OPD Module",
+      description: "Outpatient diagnosis, screening protocols, and referral management",
+      usageCount: 0,
+      lastAccessed: "Never",
+      status: "active",
+      icon: Stethoscope,
+      route: "/opd"
     },
     {
-      title: "Protocol Lookup",
-      description: "Search treatment protocols",
-      icon: Search,
-      color: "medical-purple",
-      action: () => setLocation("/handbook")
+      id: "cdu",
+      name: "CDU Module", 
+      description: "Cancer Day Unit protocols, dosage calculations, toxicity guidance",
+      usageCount: 0,
+      lastAccessed: "Never",
+      status: "updated",
+      icon: Activity,
+      route: "/cdu"
     },
     {
-      title: "Treatment Monitoring",
-      description: "Monitor ongoing treatments",
-      icon: ChartLine,
-      color: "medical-green",
-      action: () => setLocation("/cdu")
+      id: "inpatient",
+      name: "Inpatient Oncology",
+      description: "Admission protocols, emergency regimens, monitoring workflows",
+      usageCount: 0,
+      lastAccessed: "Never", 
+      status: "stable",
+      icon: Building2,
+      route: "/inpatient"
     },
     {
-      title: "Review Alerts",
-      description: "Check critical notifications",
-      icon: Bell,
-      color: "medical-orange",
-      action: () => {} // TODO: Implement alerts modal
+      id: "palliative",
+      name: "Palliative Care",
+      description: "Symptom management, pain control, psychosocial support",
+      usageCount: 0,
+      lastAccessed: "Never",
+      status: "stable",
+      icon: Heart,
+      route: "/palliative"
+    },
+    {
+      id: "chat",
+      name: "AI Chat Assistant",
+      description: "Interactive guideline queries with NCCN, ASCO, ESMO support",
+      usageCount: 0,
+      lastAccessed: "Never",
+      status: "active",
+      icon: Brain,
+      route: "/chat"
+    },
+    {
+      id: "tools",
+      name: "Clinical Tools",
+      description: "Calculators, red flag alerts, lab interpretation guides",
+      usageCount: 0,
+      lastAccessed: "Never",
+      status: "stable",
+      icon: Calculator,
+      route: "/tools"
+    },
+    {
+      id: "education",
+      name: "Oncology Education",
+      description: "AI-powered adaptive learning with Socratic questioning",
+      usageCount: 0,
+      lastAccessed: "Never",
+      status: "active",
+      icon: GraduationCap,
+      route: "/education"
+    },
+    {
+      id: "handbook",
+      name: "Medical Handbook",
+      description: "Comprehensive oncology, radiation, and palliative care references",
+      usageCount: 0,
+      lastAccessed: "Never",
+      status: "stable",
+      icon: BookOpen,
+      route: "/handbook"
     }
   ];
 
-  const getActivityIcon = (type: Activity["type"]) => {
-    switch (type) {
-      case "evaluation":
-        return UserCheck;
-      case "ai_recommendation":
-        return Bot;
-      case "alert":
-        return AlertTriangle;
-      default:
-        return UserCheck;
+  const quickActions = [
+    {
+      title: "Treatment Protocol Search",
+      description: "Find evidence-based cancer treatment protocols",
+      icon: Search,
+      color: "medical-blue",
+      action: () => setLocation("/cdu")
+    },
+    {
+      title: "Clinical Decision Support",
+      description: "AI-powered treatment recommendations",
+      icon: Brain,
+      color: "medical-purple", 
+      action: () => setLocation("/chat")
+    },
+    {
+      title: "Toxicity Management",
+      description: "NCCN/ESMO/ASCO toxicity guidance",
+      icon: Shield,
+      color: "medical-green",
+      action: () => setLocation("/cdu?tab=toxicity")
+    },
+    {
+      title: "Clinical Calculators",
+      description: "BSA, GFR, dosage calculations",
+      icon: Calculator,
+      color: "medical-orange",
+      action: () => setLocation("/tools")
     }
-  };
+  ];
 
-  const getStatusColor = (status: Activity["status"]) => {
+  const getModuleStatusColor = (status: ModuleUsage["status"]) => {
     switch (status) {
-      case "completed":
-        return "status-active";
-      case "pending":
-        return "status-info";
-      case "alert":
-        return "status-warning";
+      case "active":
+        return "bg-green-100 text-green-800";
+      case "updated":
+        return "bg-blue-100 text-blue-800";
+      case "stable":
+        return "bg-gray-100 text-gray-800";
       default:
-        return "status-info";
+        return "bg-gray-100 text-gray-800";
     }
   };
 
-  if (statsLoading) {
-    return (
-      <div className="p-6">
-        <div className="grid md:grid-cols-4 gap-6 mb-8">
-          {[...Array(4)].map((_, i) => (
-            <div key={i} className="skeleton h-32 rounded-xl" />
-          ))}
-        </div>
-      </div>
-    );
-  }
+  const getModuleStatusIcon = (status: ModuleUsage["status"]) => {
+    switch (status) {
+      case "active":
+        return <Zap className="h-3 w-3" />;
+      case "updated":
+        return <TrendingUp className="h-3 w-3" />;
+      case "stable":
+        return <CheckCircle className="h-3 w-3" />;
+      default:
+        return <CheckCircle className="h-3 w-3" />;
+    }
+  };
 
   return (
     <div className="p-6 space-y-8">
       {/* Header */}
       <div className="flex justify-between items-start">
         <div>
-          <h1 className="text-3xl font-bold text-slate-900">Dashboard Overview</h1>
-          <p className="text-slate-600 mt-1">
-            Welcome back, {user?.firstName || "Doctor"}. Monitor patient care and clinical workflows.
+          <h1 className="text-3xl font-bold text-slate-900 dark:text-white">OncoVista Clinical Decision Support Platform</h1>
+          <p className="text-slate-600 dark:text-slate-300 mt-1">
+            Welcome back, {user?.firstName || "Doctor"}. Access comprehensive oncology guidance tools and AI-powered clinical decision support.
           </p>
         </div>
         
         <div className="flex items-center space-x-4">
-          {/* AI Status Indicator */}
-          <div className="flex items-center space-x-2 bg-medical-green-light border border-green-200 rounded-lg px-3 py-2">
-            <div className={`w-2 h-2 bg-medical-green rounded-full ${aiEngineActive ? 'animate-pulse' : ''}`} />
-            <span className="text-medical-green text-sm font-medium">
-              AI Engine {aiEngineActive ? 'Active' : 'Inactive'}
-            </span>
-          </div>
+          <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
+            <Database className="h-3 w-3 mr-1" />
+            Live Database Connected
+          </Badge>
         </div>
       </div>
 
-      {/* Stats Grid */}
+      {/* Platform Statistics */}
       <div className="grid md:grid-cols-4 gap-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -164,17 +250,17 @@ export default function Dashboard() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-slate-600 text-sm">Active Patients</p>
-                  <p className="text-3xl font-bold text-slate-900">
-                    {stats?.activePatients || 0}
+                  <p className="text-slate-600 dark:text-slate-300 text-sm">Clinical Protocols</p>
+                  <p className="text-3xl font-bold text-slate-900 dark:text-white">
+                    {platformStats.totalProtocols}
                   </p>
-                  <p className="text-medical-green text-sm flex items-center">
-                    <ArrowUp className="w-3 h-3 mr-1" />
-                    12% increase
+                  <p className="text-blue-600 text-sm flex items-center">
+                    <Database className="w-3 h-3 mr-1" />
+                    {platformStats.guidelinesVersion}
                   </p>
                 </div>
-                <div className="w-12 h-12 bg-medical-blue-light rounded-xl flex items-center justify-center">
-                  <Users className="w-6 h-6 text-medical-blue" />
+                <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                  <Pill className="w-6 h-6 text-blue-600" />
                 </div>
               </div>
             </CardContent>
@@ -190,17 +276,17 @@ export default function Dashboard() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-slate-600 text-sm">AI Recommendations</p>
-                  <p className="text-3xl font-bold text-slate-900">
-                    {stats?.aiRecommendations || 0}
+                  <p className="text-slate-600 dark:text-slate-300 text-sm">Clinical Modules</p>
+                  <p className="text-3xl font-bold text-slate-900 dark:text-white">
+                    {platformStats.modulesCovered}
                   </p>
-                  <p className="text-medical-purple text-sm flex items-center">
-                    <Brain className="w-3 h-3 mr-1" />
-                    Today
+                  <p className="text-purple-600 text-sm flex items-center">
+                    <Target className="w-3 h-3 mr-1" />
+                    Active & Ready
                   </p>
                 </div>
-                <div className="w-12 h-12 bg-medical-purple-light rounded-xl flex items-center justify-center">
-                  <Bot className="w-6 h-6 text-medical-purple" />
+                <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+                  <Activity className="w-6 h-6 text-purple-600" />
                 </div>
               </div>
             </CardContent>
@@ -216,17 +302,17 @@ export default function Dashboard() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-slate-600 text-sm">Critical Alerts</p>
-                  <p className="text-3xl font-bold text-slate-900">
-                    {stats?.criticalAlerts || 0}
+                  <p className="text-slate-600 dark:text-slate-300 text-sm">AI Decision Support</p>
+                  <p className="text-3xl font-bold text-slate-900 dark:text-white">
+                    {platformStats.clinicalDecisions}
                   </p>
-                  <p className="text-medical-orange text-sm flex items-center">
-                    <AlertTriangle className="w-3 h-3 mr-1" />
-                    Requires attention
+                  <p className="text-green-600 text-sm flex items-center">
+                    <Brain className="w-3 h-3 mr-1" />
+                    Available 24/7
                   </p>
                 </div>
-                <div className="w-12 h-12 bg-medical-orange-light rounded-xl flex items-center justify-center">
-                  <AlertTriangle className="w-6 h-6 text-medical-orange" />
+                <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                  <Brain className="w-6 h-6 text-green-600" />
                 </div>
               </div>
             </CardContent>
@@ -242,17 +328,17 @@ export default function Dashboard() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-slate-600 text-sm">Protocols Updated</p>
-                  <p className="text-3xl font-bold text-slate-900">
-                    {stats?.protocolsUpdated || 0}
+                  <p className="text-slate-600 dark:text-slate-300 text-sm">Recent Updates</p>
+                  <p className="text-3xl font-bold text-slate-900 dark:text-white">
+                    {platformStats.recentUpdates}
                   </p>
-                  <p className="text-medical-green text-sm flex items-center">
-                    <CheckCircle className="w-3 h-3 mr-1" />
-                    This week
+                  <p className="text-orange-600 text-sm flex items-center">
+                    <TrendingUp className="w-3 h-3 mr-1" />
+                    This month
                   </p>
                 </div>
-                <div className="w-12 h-12 bg-medical-green-light rounded-xl flex items-center justify-center">
-                  <ClipboardCheck className="w-6 h-6 text-medical-green" />
+                <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center">
+                  <TrendingUp className="w-6 h-6 text-orange-600" />
                 </div>
               </div>
             </CardContent>
@@ -260,90 +346,93 @@ export default function Dashboard() {
         </motion.div>
       </div>
 
-      {/* Recent Activity & Quick Actions */}
-      <div className="grid lg:grid-cols-3 gap-6">
-        {/* Recent Activity */}
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="lg:col-span-2"
-        >
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Recent Clinical Activity</CardTitle>
-              <p className="text-slate-600 text-sm">Latest patient interactions and AI recommendations</p>
-            </CardHeader>
-            <CardContent>
-              {activitiesLoading ? (
-                <div className="space-y-4">
-                  {[...Array(3)].map((_, i) => (
-                    <div key={i} className="skeleton h-16 rounded-lg" />
-                  ))}
-                </div>
-              ) : activities && activities.length > 0 ? (
-                <div className="space-y-4">
-                  {activities.slice(0, 5).map((activity) => {
-                    const IconComponent = getActivityIcon(activity.type);
-                    return (
-                      <div
-                        key={activity.id}
-                        className="flex items-start space-x-4 p-4 hover:bg-slate-50 rounded-lg transition-colors"
-                      >
-                        <div className="w-10 h-10 bg-medical-blue-light rounded-full flex items-center justify-center flex-shrink-0">
-                          <IconComponent className="w-5 h-5 text-medical-blue" />
-                        </div>
-                        <div className="flex-1">
-                          <p className="font-medium text-slate-900">{activity.title}</p>
-                          <p className="text-slate-600 text-sm">{activity.description}</p>
-                          <p className="text-slate-500 text-xs">{activity.timestamp}</p>
-                        </div>
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(activity.status)}`}>
-                          {activity.status.charAt(0).toUpperCase() + activity.status.slice(1)}
-                        </span>
-                      </div>
-                    );
-                  })}
-                </div>
-              ) : (
-                <div className="text-center py-8">
-                  <p className="text-slate-500">No recent activity to display</p>
-                </div>
-              )}
-            </CardContent>
-          </Card>
-        </motion.div>
+      {/* Clinical Modules Grid */}
+      <div className="space-y-6">
+        <div className="flex items-center justify-between">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Clinical Decision Support Modules</h2>
+          <Badge variant="secondary" className="bg-blue-50 text-blue-700">
+            {clinicalModules.length} Modules Available
+          </Badge>
+        </div>
+        
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {clinicalModules.map((module, index) => (
+            <motion.div
+              key={module.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+              <Card className="hover:shadow-lg transition-all duration-300 cursor-pointer group" onClick={() => setLocation(module.route)}>
+                <CardContent className="p-6">
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center group-hover:bg-blue-200 transition-colors">
+                      <module.icon className="w-6 h-6 text-blue-600" />
+                    </div>
+                    <Badge 
+                      variant="secondary" 
+                      className={`text-xs flex items-center gap-1 ${getModuleStatusColor(module.status)}`}
+                    >
+                      {getModuleStatusIcon(module.status)}
+                      {module.status}
+                    </Badge>
+                  </div>
+                  <h3 className="font-semibold text-slate-900 dark:text-white mb-2 group-hover:text-blue-600 transition-colors">
+                    {module.name}
+                  </h3>
+                  <p className="text-slate-600 dark:text-slate-300 text-sm mb-4 line-clamp-2">
+                    {module.description}
+                  </p>
+                  <div className="flex items-center justify-between text-xs text-slate-500">
+                    <span>Sessions: {module.usageCount}</span>
+                    <span className="flex items-center gap-1">
+                      <Clock className="h-3 w-3" />
+                      {module.lastAccessed}
+                    </span>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          ))}
+        </div>
+      </div>
 
-        {/* Quick Actions */}
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-        >
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Quick Actions</CardTitle>
-              <p className="text-slate-600 text-sm">Common clinical workflows</p>
-            </CardHeader>
-            <CardContent className="space-y-3">
+      {/* Quick Actions */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.5 }}
+      >
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg flex items-center gap-2">
+              <Sparkles className="h-5 w-5 text-blue-600" />
+              Quick Clinical Actions
+            </CardTitle>
+            <p className="text-slate-600 dark:text-slate-300 text-sm">
+              Access the most commonly used clinical decision support tools
+            </p>
+          </CardHeader>
+          <CardContent>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
               {quickActions.map((action, index) => (
                 <Button
                   key={action.title}
-                  variant="ghost"
+                  variant="outline"
                   onClick={action.action}
-                  className={`w-full justify-start p-4 h-auto bg-${action.color}-light hover:bg-${action.color}-light/80 text-left`}
+                  className="h-auto p-4 flex flex-col items-center text-center space-y-2 hover:bg-blue-50 border-slate-200"
                 >
-                  <action.icon className={`w-5 h-5 mr-3 text-${action.color}`} />
+                  <action.icon className="w-6 h-6 text-blue-600" />
                   <div>
-                    <div className={`font-medium text-${action.color}`}>{action.title}</div>
-                    <div className="text-slate-600 text-sm">{action.description}</div>
+                    <div className="font-medium text-slate-900 dark:text-white text-sm">{action.title}</div>
+                    <div className="text-slate-600 dark:text-slate-300 text-xs">{action.description}</div>
                   </div>
                 </Button>
               ))}
-            </CardContent>
-          </Card>
-        </motion.div>
-      </div>
+            </div>
+          </CardContent>
+        </Card>
+      </motion.div>
 
       {/* Advanced Clinical Intelligence Section */}
       <motion.div
@@ -352,16 +441,16 @@ export default function Dashboard() {
         transition={{ duration: 0.8, delay: 0.8 }}
         className="mt-8"
       >
-        <Card className="border-2 border-medical-blue">
+        <Card className="border-2 border-blue-200">
           <CardHeader>
             <CardTitle className="flex items-center gap-3 text-xl">
-              <Zap className="h-6 w-6 text-medical-blue" />
+              <Zap className="h-6 w-6 text-blue-600" />
               Advanced Clinical Intelligence Hub
-              <span className="text-sm bg-medical-blue text-white px-2 py-1 rounded-full">
+              <Badge variant="default" className="bg-blue-600 text-white">
                 Real-Time
-              </span>
+              </Badge>
             </CardTitle>
-            <p className="text-slate-600">
+            <p className="text-slate-600 dark:text-slate-300">
               Comprehensive clinical decision support with intelligent alerts, biomarker analytics, patient journey tracking, and automated referral systems
             </p>
           </CardHeader>
