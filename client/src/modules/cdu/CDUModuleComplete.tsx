@@ -1117,7 +1117,7 @@ const SafetyMonitoringDashboard = () => {
 
         <TabsContent value="Organ-Specific" className="space-y-4">
           <div className="grid md:grid-cols-2 gap-6">
-            {Object.entries(SAFETY_MONITORING_GUIDELINES["Organ-Specific"]).map(([organ, data]) => (
+            {Object.entries(SAFETY_MONITORING_GUIDELINES["Organ-Specific Monitoring"]).map(([organ, data]) => (
               <Card key={organ} className="border-l-4 border-l-green-500">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
