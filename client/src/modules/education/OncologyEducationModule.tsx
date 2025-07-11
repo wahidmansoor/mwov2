@@ -342,7 +342,7 @@ const OncologyEducationModule: React.FC = () => {
                         <div className="mb-3">
                           <div className="text-sm text-gray-500 mb-1">Learning Objectives:</div>
                           <ul className="list-disc list-inside text-sm space-y-1">
-                            {topic.learningObjectives.slice(0, 2).map((objective, idx) => (
+                            {(topic.learningObjectives || []).slice(0, 2).map((objective, idx) => (
                               <li key={idx} className="text-gray-700 dark:text-gray-300">{objective}</li>
                             ))}
                           </ul>
@@ -425,7 +425,7 @@ const OncologyEducationModule: React.FC = () => {
                             Learning Outcomes:
                           </div>
                           <ul className="list-disc list-inside text-sm space-y-1">
-                            {scenario.learningOutcomes.map((outcome, idx) => (
+                            {(scenario.learningOutcomes || []).map((outcome, idx) => (
                               <li key={idx} className="text-gray-600 dark:text-gray-400">{outcome}</li>
                             ))}
                           </ul>

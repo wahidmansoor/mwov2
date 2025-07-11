@@ -159,6 +159,19 @@ export interface IStorage {
     difficultyDistribution: { [key: string]: number };
     subspecialtyDistribution: { [key: string]: number };
   }>;
+
+  // Learning progress methods
+  getLearningProgress(sessionId: string): Promise<{
+    totalTopics: number;
+    masteredTopics: number;
+    averageMastery: number;
+    weakAreas: Array<{ topicId: string; masteryLevel: number }>;
+    studyRecommendations: string[];
+  }>;
+  
+  createLearningSession(session: any): Promise<any>;
+  createLearningProgress(progress: any): Promise<any>;
+  createEducationalAiInteraction(interaction: any): Promise<any>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -794,6 +807,46 @@ export class DatabaseStorage implements IStorage {
       difficultyDistribution,
       subspecialtyDistribution
     };
+  }
+
+  async getLearningProgress(sessionId: string): Promise<{
+    totalTopics: number;
+    masteredTopics: number;
+    averageMastery: number;
+    weakAreas: Array<{ topicId: string; masteryLevel: number }>;
+    studyRecommendations: string[];
+  }> {
+    // Return mock analytics data for now since learning progress tracking isn't fully implemented
+    return {
+      totalTopics: 75,
+      masteredTopics: 23,
+      averageMastery: 0.65,
+      weakAreas: [
+        { topicId: "topic_1", masteryLevel: 0.4 },
+        { topicId: "topic_2", masteryLevel: 0.3 },
+        { topicId: "topic_3", masteryLevel: 0.5 }
+      ],
+      studyRecommendations: [
+        "Focus on tumor staging and grading principles",
+        "Review NCCN breast cancer guidelines",
+        "Practice biomarker interpretation scenarios"
+      ]
+    };
+  }
+
+  async createLearningSession(session: any): Promise<any> {
+    // Placeholder implementation for learning session creation
+    return { id: Date.now().toString(), ...session, createdAt: new Date() };
+  }
+
+  async createLearningProgress(progress: any): Promise<any> {
+    // Placeholder implementation for learning progress creation
+    return { id: Date.now().toString(), ...progress, createdAt: new Date() };
+  }
+
+  async createEducationalAiInteraction(interaction: any): Promise<any> {
+    // Placeholder implementation for AI interaction creation
+    return { id: Date.now().toString(), ...interaction, createdAt: new Date() };
   }
 
   async getDashboardStats(): Promise<{
