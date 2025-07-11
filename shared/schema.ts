@@ -330,6 +330,82 @@ export const insertBiomarkerGuidelinesSchema = createInsertSchema(biomarkerGuide
   updatedAt: true,
 });
 
+// Educational Content Tables for Learning Module
+export const educationalTopics = pgTable("educational_topics", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  title: varchar("title", { length: 500 }).notNull(),
+  description: text("description").notNull(),
+  content: jsonb("content").notNull(), // Main educational content with structured data
+  difficulty: varchar("difficulty", { length: 50 }).notNull(), // Resident, Fellow, Attending
+  subspecialty: varchar("subspecialty", { length: 100 }).notNull(), // Medical Oncology, Radiation Oncology, etc.
+  organSite: varchar("organ_site", { length: 100 }), // Breast, Lung, GI, etc.
+  topicTags: jsonb("topic_tags"), // Array of tags for categorization
+  learningObjectives: jsonb("learning_objectives").notNull(),
+  keyPoints: jsonb("key_points").notNull(),
+  clinicalApplications: jsonb("clinical_applications"),
+  evidenceReferences: jsonb("evidence_references"), // NCCN, ASCO, ESMO citations
+  estimatedReadTime: integer("estimated_read_time"), // Minutes
+  examRelevance: varchar("exam_relevance", { length: 100 }), // Board exam relevance
+  prerequisites: jsonb("prerequisites"), // Required prior knowledge
+  isActive: boolean("is_active").default(true),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const clinicalScenarios = pgTable("clinical_scenarios", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  title: varchar("title", { length: 500 }).notNull(),
+  description: text("description").notNull(),
+  patientPresentation: jsonb("patient_presentation").notNull(), // Case details without identifiers
+  clinicalContext: jsonb("clinical_context").notNull(),
+  difficulty: varchar("difficulty", { length: 50 }).notNull(),
+  subspecialty: varchar("subspecialty", { length: 100 }).notNull(),
+  organSite: varchar("organ_site", { length: 100 }),
+  decisionPoints: jsonb("decision_points").notNull(), // Key clinical decisions to be made
+  learningGoals: jsonb("learning_goals").notNull(),
+  evidenceBasis: jsonb("evidence_basis").notNull(), // Supporting guidelines/research
+  estimatedTime: integer("estimated_time"), // Minutes to complete
+  isActive: boolean("is_active").default(true),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const questionBank = pgTable("question_bank", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  scenarioId: uuid("scenario_id").references(() => clinicalScenarios.id),
+  questionText: text("question_text").notNull(),
+  questionType: varchar("question_type", { length: 50 }).notNull(), // multiple_choice, case_analysis, etc.
+  options: jsonb("options"), // Answer options for multiple choice
+  correctAnswer: text("correct_answer").notNull(),
+  rationale: text("rationale").notNull(), // Detailed explanation
+  clinicalPearls: jsonb("clinical_pearls"), // Additional teaching points
+  evidenceReferences: jsonb("evidence_references"),
+  difficulty: varchar("difficulty", { length: 50 }).notNull(),
+  subspecialty: varchar("subspecialty", { length: 100 }).notNull(),
+  organSite: varchar("organ_site", { length: 100 }),
+  isActive: boolean("is_active").default(true),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const insertEducationalTopicSchema = createInsertSchema(educationalTopics).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertClinicalScenarioSchema = createInsertSchema(clinicalScenarios).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertQuestionSchema = createInsertSchema(questionBank).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
 // Admission Criteria and Protocols
 export const admissionCriteria = pgTable("admission_criteria", {
   id: uuid("id").primaryKey().defaultRandom(),
@@ -706,3 +782,10 @@ export type AntiemeticProtocol = typeof antiemeticProtocols.$inferSelect;
 export type PainManagementProtocol = typeof painManagementProtocols.$inferSelect;
 export type DischargeCriteria = typeof dischargeCriteria.$inferSelect;
 export type FollowUpProtocol = typeof followUpProtocols.$inferSelect;
+// Educational content types
+export type EducationalTopic = typeof educationalTopics.$inferSelect;
+export type InsertEducationalTopic = z.infer<typeof insertEducationalTopicSchema>;
+export type ClinicalScenario = typeof clinicalScenarios.$inferSelect;
+export type InsertClinicalScenario = z.infer<typeof insertClinicalScenarioSchema>;
+export type Question = typeof questionBank.$inferSelect;
+export type InsertQuestion = z.infer<typeof insertQuestionSchema>;

@@ -3071,6 +3071,120 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Educational Content API endpoints for Learning Module
+  app.get("/api/educational/topics", authMiddleware, async (req: any, res) => {
+    try {
+      const { difficulty, subspecialty, organSite } = req.query;
+      const topics = await storage.getEducationalTopics({
+        difficulty: difficulty as string,
+        subspecialty: subspecialty as string,
+        organSite: organSite as string
+      });
+      res.json(topics);
+    } catch (error) {
+      console.error("Failed to get educational topics:", error);
+      res.status(500).json({ message: "Failed to get educational topics" });
+    }
+  });
+
+  app.get("/api/educational/topics/:id", authMiddleware, async (req: any, res) => {
+    try {
+      const topic = await storage.getEducationalTopic(req.params.id);
+      if (!topic) {
+        res.status(404).json({ message: "Educational topic not found" });
+        return;
+      }
+      res.json(topic);
+    } catch (error) {
+      console.error("Failed to get educational topic:", error);
+      res.status(500).json({ message: "Failed to get educational topic" });
+    }
+  });
+
+  app.post("/api/educational/topics", authMiddleware, async (req: any, res) => {
+    try {
+      const topic = await storage.createEducationalTopic(req.body);
+      res.json(topic);
+    } catch (error) {
+      console.error("Failed to create educational topic:", error);
+      res.status(500).json({ message: "Failed to create educational topic" });
+    }
+  });
+
+  app.get("/api/educational/scenarios", authMiddleware, async (req: any, res) => {
+    try {
+      const { difficulty, subspecialty, organSite } = req.query;
+      const scenarios = await storage.getClinicalScenarios({
+        difficulty: difficulty as string,
+        subspecialty: subspecialty as string,
+        organSite: organSite as string
+      });
+      res.json(scenarios);
+    } catch (error) {
+      console.error("Failed to get clinical scenarios:", error);
+      res.status(500).json({ message: "Failed to get clinical scenarios" });
+    }
+  });
+
+  app.get("/api/educational/scenarios/:id", authMiddleware, async (req: any, res) => {
+    try {
+      const scenario = await storage.getClinicalScenario(req.params.id);
+      if (!scenario) {
+        res.status(404).json({ message: "Clinical scenario not found" });
+        return;
+      }
+      res.json(scenario);
+    } catch (error) {
+      console.error("Failed to get clinical scenario:", error);
+      res.status(500).json({ message: "Failed to get clinical scenario" });
+    }
+  });
+
+  app.get("/api/educational/questions", authMiddleware, async (req: any, res) => {
+    try {
+      const { scenarioId, difficulty, subspecialty } = req.query;
+      const questions = await storage.getQuestions({
+        scenarioId: scenarioId as string,
+        difficulty: difficulty as string,
+        subspecialty: subspecialty as string
+      });
+      res.json(questions);
+    } catch (error) {
+      console.error("Failed to get questions:", error);
+      res.status(500).json({ message: "Failed to get questions" });
+    }
+  });
+
+  app.get("/api/educational/analytics", authMiddleware, async (req: any, res) => {
+    try {
+      const analytics = await storage.getEducationAnalytics();
+      res.json(analytics);
+    } catch (error) {
+      console.error("Failed to get education analytics:", error);
+      res.status(500).json({ message: "Failed to get education analytics" });
+    }
+  });
+
+  app.get("/api/dashboard/stats", authMiddleware, async (req: any, res) => {
+    try {
+      const stats = await storage.getDashboardStats();
+      res.json(stats);
+    } catch (error) {
+      console.error("Failed to get dashboard stats:", error);
+      res.status(500).json({ message: "Failed to get dashboard stats" });
+    }
+  });
+
+  app.get("/api/dashboard/activities", authMiddleware, async (req: any, res) => {
+    try {
+      const activities = await storage.getRecentActivities();
+      res.json(activities);
+    } catch (error) {
+      console.error("Failed to get recent activities:", error);
+      res.status(500).json({ message: "Failed to get recent activities" });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }

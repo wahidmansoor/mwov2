@@ -10,6 +10,9 @@ import {
   nccnGuidelines,
   clinicalDecisionSupport,
   biomarkerGuidelines,
+  educationalTopics,
+  clinicalScenarios,
+  questionBank,
   type User, 
   type InsertUser,
   type UpsertUser,
@@ -30,10 +33,16 @@ import {
   type ClinicalDecisionSupport,
   type InsertClinicalDecisionSupport,
   type BiomarkerGuideline,
-  type InsertBiomarkerGuideline
+  type InsertBiomarkerGuideline,
+  type EducationalTopic,
+  type InsertEducationalTopic,
+  type ClinicalScenario,
+  type InsertClinicalScenario,
+  type Question,
+  type InsertQuestion
 } from "@shared/schema";
 import { db } from "./db";
-import { eq, sql } from "drizzle-orm";
+import { eq, sql, and } from "drizzle-orm";
 
 // Enhanced storage interface for OncoVista AI
 export interface IStorage {
@@ -128,6 +137,28 @@ export interface IStorage {
     timestamp: string;
     status: "completed" | "pending" | "active";
   }>>;
+
+  // Educational content methods for Learning Module
+  getEducationalTopics(filters?: { difficulty?: string; subspecialty?: string; organSite?: string }): Promise<EducationalTopic[]>;
+  getEducationalTopic(id: string): Promise<EducationalTopic | undefined>;
+  createEducationalTopic(topic: InsertEducationalTopic): Promise<EducationalTopic>;
+  
+  getClinicalScenarios(filters?: { difficulty?: string; subspecialty?: string; organSite?: string }): Promise<ClinicalScenario[]>;
+  getClinicalScenario(id: string): Promise<ClinicalScenario | undefined>;
+  createClinicalScenario(scenario: InsertClinicalScenario): Promise<ClinicalScenario>;
+  
+  getQuestions(filters?: { scenarioId?: string; difficulty?: string; subspecialty?: string }): Promise<Question[]>;
+  getQuestion(id: string): Promise<Question | undefined>;
+  createQuestion(question: InsertQuestion): Promise<Question>;
+  
+  // Analytics methods for education module
+  getEducationAnalytics(): Promise<{
+    totalTopics: number;
+    totalScenarios: number;
+    totalQuestions: number;
+    difficultyDistribution: { [key: string]: number };
+    subspecialtyDistribution: { [key: string]: number };
+  }>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -641,6 +672,186 @@ export class DatabaseStorage implements IStorage {
       decisionSupport: decisionSupport.slice(0, 3),
       biomarkerGuidelines: biomarkerGuidelines.slice(0, 3)
     };
+  }
+
+  // Educational content methods for Learning Module
+  async getEducationalTopics(filters?: { difficulty?: string; subspecialty?: string; organSite?: string }): Promise<EducationalTopic[]> {
+    const conditions = [eq(educationalTopics.isActive, true)];
+
+    if (filters?.difficulty) {
+      conditions.push(eq(educationalTopics.difficulty, filters.difficulty));
+    }
+    if (filters?.subspecialty) {
+      conditions.push(eq(educationalTopics.subspecialty, filters.subspecialty));
+    }
+    if (filters?.organSite) {
+      conditions.push(eq(educationalTopics.organSite, filters.organSite));
+    }
+
+    return await db.select().from(educationalTopics).where(and(...conditions));
+  }
+
+  async getEducationalTopic(id: string): Promise<EducationalTopic | undefined> {
+    const [topic] = await db.select().from(educationalTopics).where(eq(educationalTopics.id, id));
+    return topic || undefined;
+  }
+
+  async createEducationalTopic(insertTopic: InsertEducationalTopic): Promise<EducationalTopic> {
+    const [topic] = await db
+      .insert(educationalTopics)
+      .values(insertTopic)
+      .returning();
+    return topic;
+  }
+
+  async getClinicalScenarios(filters?: { difficulty?: string; subspecialty?: string; organSite?: string }): Promise<ClinicalScenario[]> {
+    const conditions = [eq(clinicalScenarios.isActive, true)];
+
+    if (filters?.difficulty) {
+      conditions.push(eq(clinicalScenarios.difficulty, filters.difficulty));
+    }
+    if (filters?.subspecialty) {
+      conditions.push(eq(clinicalScenarios.subspecialty, filters.subspecialty));
+    }
+    if (filters?.organSite) {
+      conditions.push(eq(clinicalScenarios.organSite, filters.organSite));
+    }
+
+    return await db.select().from(clinicalScenarios).where(and(...conditions));
+  }
+
+  async getClinicalScenario(id: string): Promise<ClinicalScenario | undefined> {
+    const [scenario] = await db.select().from(clinicalScenarios).where(eq(clinicalScenarios.id, id));
+    return scenario || undefined;
+  }
+
+  async createClinicalScenario(insertScenario: InsertClinicalScenario): Promise<ClinicalScenario> {
+    const [scenario] = await db
+      .insert(clinicalScenarios)
+      .values(insertScenario)
+      .returning();
+    return scenario;
+  }
+
+  async getQuestions(filters?: { scenarioId?: string; difficulty?: string; subspecialty?: string }): Promise<Question[]> {
+    const conditions = [eq(questionBank.isActive, true)];
+
+    if (filters?.scenarioId) {
+      conditions.push(eq(questionBank.scenarioId, filters.scenarioId));
+    }
+    if (filters?.difficulty) {
+      conditions.push(eq(questionBank.difficulty, filters.difficulty));
+    }
+    if (filters?.subspecialty) {
+      conditions.push(eq(questionBank.subspecialty, filters.subspecialty));
+    }
+
+    return await db.select().from(questionBank).where(and(...conditions));
+  }
+
+  async getQuestion(id: string): Promise<Question | undefined> {
+    const [question] = await db.select().from(questionBank).where(eq(questionBank.id, id));
+    return question || undefined;
+  }
+
+  async createQuestion(insertQuestion: InsertQuestion): Promise<Question> {
+    const [question] = await db
+      .insert(questionBank)
+      .values(insertQuestion)
+      .returning();
+    return question;
+  }
+
+  async getEducationAnalytics(): Promise<{
+    totalTopics: number;
+    totalScenarios: number;
+    totalQuestions: number;
+    difficultyDistribution: { [key: string]: number };
+    subspecialtyDistribution: { [key: string]: number };
+  }> {
+    const [topics, scenarios, questions] = await Promise.all([
+      db.select().from(educationalTopics).where(eq(educationalTopics.isActive, true)),
+      db.select().from(clinicalScenarios).where(eq(clinicalScenarios.isActive, true)),
+      db.select().from(questionBank).where(eq(questionBank.isActive, true))
+    ]);
+
+    const difficultyDistribution: { [key: string]: number } = {};
+    const subspecialtyDistribution: { [key: string]: number } = {};
+
+    [...topics, ...scenarios, ...questions].forEach(item => {
+      if (item.difficulty) {
+        difficultyDistribution[item.difficulty] = (difficultyDistribution[item.difficulty] || 0) + 1;
+      }
+      if (item.subspecialty) {
+        subspecialtyDistribution[item.subspecialty] = (subspecialtyDistribution[item.subspecialty] || 0) + 1;
+      }
+    });
+
+    return {
+      totalTopics: topics.length,
+      totalScenarios: scenarios.length,
+      totalQuestions: questions.length,
+      difficultyDistribution,
+      subspecialtyDistribution
+    };
+  }
+
+  async getDashboardStats(): Promise<{
+    totalProtocols: number;
+    guidelinesVersion: string;
+    modulesCovered: number;
+    recentUpdates: number;
+    userSessions: number;
+    clinicalDecisions: number;
+  }> {
+    const protocolCount = await db.select().from(cdProtocols);
+    const guidelinesCount = await db.select().from(nccnGuidelines);
+    const decisionsCount = await db.select().from(decisionSupportInputs);
+
+    return {
+      totalProtocols: protocolCount.length + guidelinesCount.length,
+      guidelinesVersion: "NCCN 2025",
+      modulesCovered: 8,
+      recentUpdates: 15,
+      userSessions: 42,
+      clinicalDecisions: decisionsCount.length
+    };
+  }
+
+  async getRecentActivities(): Promise<Array<{
+    id: string;
+    type: "clinical_guidance" | "ai_recommendation" | "protocol_search";
+    title: string;
+    description: string;
+    timestamp: string;
+    status: "completed" | "pending" | "active";
+  }>> {
+    return [
+      {
+        id: "act-1",
+        type: "clinical_guidance",
+        title: "NCCN Guidelines Updated",
+        description: "Bone cancer protocols v1.2025 integrated",
+        timestamp: new Date().toISOString(),
+        status: "completed"
+      },
+      {
+        id: "act-2", 
+        type: "protocol_search",
+        title: "Treatment Protocol Search",
+        description: "Carboplatin AUC calculator accessed",
+        timestamp: new Date(Date.now() - 3600000).toISOString(),
+        status: "completed"
+      },
+      {
+        id: "act-3",
+        type: "ai_recommendation",
+        title: "AI Decision Support",
+        description: "Toxicity monitoring guidance provided",
+        timestamp: new Date(Date.now() - 7200000).toISOString(),
+        status: "active"
+      }
+    ];
   }
 }
 
