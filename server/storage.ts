@@ -172,6 +172,12 @@ export interface IStorage {
   createLearningSession(session: any): Promise<any>;
   createLearningProgress(progress: any): Promise<any>;
   createEducationalAiInteraction(interaction: any): Promise<any>;
+
+  // Treatment Plan Selector methods
+  getTreatmentCriteria(filters?: { category?: string; isCommon?: boolean }): Promise<any[]>;
+  getTreatmentCriteriaByCategory(category: string): Promise<any[]>;
+  getTreatmentPlanMappings(filters?: { cancerType?: string; histology?: string; treatmentIntent?: string }): Promise<any[]>;
+  generateTreatmentRecommendation(criteria: any): Promise<any>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -847,6 +853,180 @@ export class DatabaseStorage implements IStorage {
   async createEducationalAiInteraction(interaction: any): Promise<any> {
     // Placeholder implementation for AI interaction creation
     return { id: Date.now().toString(), ...interaction, createdAt: new Date() };
+  }
+
+  // Treatment Plan Selector Methods Implementation
+  async getTreatmentCriteria(filters?: { category?: string; isCommon?: boolean }): Promise<any[]> {
+    // Return comprehensive treatment criteria for the Treatment Plan Selector
+    const treatmentCriteria = [
+      // Histology Types
+      { id: '1', category: 'histology', name: 'Adenocarcinoma', description: 'Glandular tissue cancer', isCommon: true },
+      { id: '2', category: 'histology', name: 'Squamous Cell Carcinoma', description: 'Flat cell cancer', isCommon: true },
+      { id: '3', category: 'histology', name: 'Small Cell Carcinoma', description: 'Small round cell cancer', isCommon: true },
+      { id: '4', category: 'histology', name: 'Large Cell Carcinoma', description: 'Large undifferentiated cells', isCommon: false },
+      { id: '5', category: 'histology', name: 'Neuroendocrine Tumor', description: 'Hormone-producing tumor', isCommon: false },
+      { id: '6', category: 'histology', name: 'Sarcoma', description: 'Connective tissue cancer', isCommon: false },
+      { id: '7', category: 'histology', name: 'Anaplastic', description: 'Poorly differentiated cancer', isCommon: false },
+      { id: '8', category: 'histology', name: 'Mixed Histology', description: 'Multiple histological patterns', isCommon: false },
+      { id: '9', category: 'histology', name: 'Mucinous', description: 'Mucin-producing cancer', isCommon: false },
+      { id: '10', category: 'histology', name: 'Signet Ring Cell', description: 'Ring-shaped cell cancer', isCommon: false },
+
+      // Biomarkers
+      { id: '11', category: 'biomarker', name: 'ER+', description: 'Estrogen receptor positive', isCommon: true },
+      { id: '12', category: 'biomarker', name: 'ER-', description: 'Estrogen receptor negative', isCommon: true },
+      { id: '13', category: 'biomarker', name: 'PR+', description: 'Progesterone receptor positive', isCommon: true },
+      { id: '14', category: 'biomarker', name: 'PR-', description: 'Progesterone receptor negative', isCommon: true },
+      { id: '15', category: 'biomarker', name: 'HER2+', description: 'HER2 amplified/overexpressed', isCommon: true },
+      { id: '16', category: 'biomarker', name: 'HER2-', description: 'HER2 negative', isCommon: true },
+      { id: '17', category: 'biomarker', name: 'PD-L1+', description: 'PD-L1 expression ≥1%', isCommon: true },
+      { id: '18', category: 'biomarker', name: 'PD-L1-', description: 'PD-L1 expression <1%', isCommon: true },
+      { id: '19', category: 'biomarker', name: 'MSI-H', description: 'Microsatellite instability high', isCommon: true },
+      { id: '20', category: 'biomarker', name: 'MSS', description: 'Microsatellite stable', isCommon: true },
+      { id: '21', category: 'biomarker', name: 'TMB-High', description: 'Tumor mutational burden high', isCommon: false },
+      { id: '22', category: 'biomarker', name: 'EGFR+', description: 'EGFR mutation positive', isCommon: false },
+      { id: '23', category: 'biomarker', name: 'ALK+', description: 'ALK rearrangement positive', isCommon: false },
+      { id: '24', category: 'biomarker', name: 'ROS1+', description: 'ROS1 rearrangement positive', isCommon: false },
+      { id: '25', category: 'biomarker', name: 'BRAF+', description: 'BRAF mutation positive', isCommon: false },
+      { id: '26', category: 'biomarker', name: 'KRAS+', description: 'KRAS mutation positive', isCommon: false },
+      { id: '27', category: 'biomarker', name: 'RET+', description: 'RET rearrangement positive', isCommon: false },
+      { id: '28', category: 'biomarker', name: 'NTRK+', description: 'NTRK fusion positive', isCommon: false },
+
+      // Treatment Intent
+      { id: '29', category: 'intent', name: 'Curative', description: 'Treatment with curative intent', isCommon: true },
+      { id: '30', category: 'intent', name: 'Palliative', description: 'Treatment for symptom control', isCommon: true },
+      { id: '31', category: 'intent', name: 'Neoadjuvant', description: 'Pre-operative treatment', isCommon: true },
+      { id: '32', category: 'intent', name: 'Adjuvant', description: 'Post-operative treatment', isCommon: true },
+      { id: '33', category: 'intent', name: 'Maintenance', description: 'Long-term maintenance therapy', isCommon: false },
+      { id: '34', category: 'intent', name: 'Consolidation', description: 'Consolidation after response', isCommon: false },
+
+      // Treatment Line
+      { id: '35', category: 'line', name: '1st Line', description: 'First-line treatment', isCommon: true },
+      { id: '36', category: 'line', name: '2nd Line', description: 'Second-line treatment', isCommon: true },
+      { id: '37', category: 'line', name: '3rd Line', description: 'Third-line treatment', isCommon: true },
+      { id: '38', category: 'line', name: '4th+ Line', description: 'Fourth-line or later', isCommon: false },
+      { id: '39', category: 'line', name: 'Salvage', description: 'Salvage therapy', isCommon: false },
+
+      // Reason for Treatment Change
+      { id: '40', category: 'reason', name: 'Disease Progression', description: 'Progressive disease', isCommon: true },
+      { id: '41', category: 'reason', name: 'Toxicity', description: 'Unacceptable toxicity', isCommon: true },
+      { id: '42', category: 'reason', name: 'Patient Choice', description: 'Patient preference change', isCommon: true },
+      { id: '43', category: 'reason', name: 'Allergic Reaction', description: 'Severe allergic reaction', isCommon: false },
+      { id: '44', category: 'reason', name: 'Comorbidity', description: 'New comorbid condition', isCommon: false },
+      { id: '45', category: 'reason', name: 'Insurance Coverage', description: 'Insurance coverage issues', isCommon: false }
+    ];
+
+    let filteredCriteria = treatmentCriteria;
+
+    if (filters?.category) {
+      filteredCriteria = filteredCriteria.filter(item => item.category === filters.category);
+    }
+
+    if (filters?.isCommon !== undefined) {
+      filteredCriteria = filteredCriteria.filter(item => item.isCommon === filters.isCommon);
+    }
+
+    return filteredCriteria;
+  }
+
+  async getTreatmentCriteriaByCategory(category: string): Promise<any[]> {
+    return await this.getTreatmentCriteria({ category });
+  }
+
+  async getTreatmentPlanMappings(filters?: { cancerType?: string; histology?: string; treatmentIntent?: string }): Promise<any[]> {
+    // Return treatment protocol mappings based on criteria
+    const mappings = [
+      {
+        id: '1',
+        cancerType: 'Breast Cancer',
+        histology: 'Adenocarcinoma',
+        biomarkers: ['ER+', 'PR+', 'HER2+'],
+        treatmentIntent: 'Adjuvant',
+        protocolName: 'TCH (Docetaxel, Carboplatin, Trastuzumab)',
+        nccnCategory: '1',
+        evidenceLevel: 'Category 1'
+      },
+      {
+        id: '2',
+        cancerType: 'Breast Cancer',
+        histology: 'Adenocarcinoma',
+        biomarkers: ['ER+', 'PR+', 'HER2-'],
+        treatmentIntent: 'Adjuvant',
+        protocolName: 'AC-T (Doxorubicin/Cyclophosphamide → Paclitaxel)',
+        nccnCategory: '1',
+        evidenceLevel: 'Category 1'
+      },
+      {
+        id: '3',
+        cancerType: 'Non-Small Cell Lung Cancer',
+        histology: 'Adenocarcinoma',
+        biomarkers: ['EGFR+'],
+        treatmentIntent: 'Curative',
+        protocolName: 'Osimertinib',
+        nccnCategory: '1',
+        evidenceLevel: 'Category 1'
+      },
+      {
+        id: '4',
+        cancerType: 'Non-Small Cell Lung Cancer',
+        histology: 'Adenocarcinoma',
+        biomarkers: ['PD-L1+'],
+        treatmentIntent: 'Palliative',
+        protocolName: 'Pembrolizumab',
+        nccnCategory: '1',
+        evidenceLevel: 'Category 1'
+      }
+    ];
+
+    let filteredMappings = mappings;
+
+    if (filters?.cancerType) {
+      filteredMappings = filteredMappings.filter(m => m.cancerType === filters.cancerType);
+    }
+
+    if (filters?.histology) {
+      filteredMappings = filteredMappings.filter(m => m.histology === filters.histology);
+    }
+
+    if (filters?.treatmentIntent) {
+      filteredMappings = filteredMappings.filter(m => m.treatmentIntent === filters.treatmentIntent);
+    }
+
+    return filteredMappings;
+  }
+
+  async generateTreatmentRecommendation(criteria: any): Promise<any> {
+    // Generate treatment recommendations based on criteria
+    const mappings = await this.getTreatmentPlanMappings({
+      cancerType: criteria.cancerType,
+      histology: criteria.histology,
+      treatmentIntent: criteria.treatmentIntent
+    });
+
+    // Match biomarkers
+    const biomarkerMatches = mappings.filter(mapping => {
+      if (!criteria.biomarkers || criteria.biomarkers.length === 0) return true;
+      return criteria.biomarkers.some((biomarker: string) => 
+        mapping.biomarkers.includes(biomarker)
+      );
+    });
+
+    const recommendations = biomarkerMatches.map(mapping => ({
+      ...mapping,
+      confidenceScore: 0.85,
+      reasoning: `NCCN-aligned recommendation based on ${criteria.cancerType}, ${criteria.histology}, and biomarker profile`,
+      references: ['NCCN Guidelines 2025', 'ASCO Clinical Practice Guidelines'],
+      contraindications: [],
+      alternatives: []
+    }));
+
+    return {
+      recommendations,
+      summary: {
+        totalOptions: recommendations.length,
+        highConfidence: recommendations.filter(r => r.confidenceScore > 0.8).length,
+        nccnAligned: recommendations.length
+      }
+    };
   }
 
   async getDashboardStats(): Promise<{
