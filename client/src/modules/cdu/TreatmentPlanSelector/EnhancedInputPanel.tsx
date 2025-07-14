@@ -308,9 +308,9 @@ export const EnhancedInputPanel = memo<EnhancedInputPanelProps>(({
               <SelectContent>
                 <SelectItem value="all">All histologies</SelectItem>
                 {(organizedCriteria.histology || []).map((hist: any) => (
-                  <SelectItem key={hist.value} value={hist.value}>
+                  <SelectItem key={hist.id} value={hist.name}>
                     <div className="flex items-center gap-2">
-                      {hist.value}
+                      {hist.name}
                       {hist.description && (
                         <Tooltip>
                           <TooltipTrigger>
@@ -337,14 +337,14 @@ export const EnhancedInputPanel = memo<EnhancedInputPanelProps>(({
               <h4 className="text-sm font-medium text-muted-foreground mb-2">Common Biomarkers</h4>
               <div className="grid grid-cols-2 gap-2">
                 {commonBiomarkers.map((marker: any) => (
-                  <div key={marker.value} className="flex items-center space-x-2">
+                  <div key={marker.id} className="flex items-center space-x-2">
                     <Checkbox
-                      id={marker.value}
-                      checked={criteria.biomarkers.includes(marker.value)}
-                      onCheckedChange={(checked) => handleBiomarkerChange(marker.value, checked as boolean)}
+                      id={marker.name}
+                      checked={criteria.biomarkers.includes(marker.name)}
+                      onCheckedChange={(checked) => handleBiomarkerChange(marker.name, checked as boolean)}
                     />
-                    <label htmlFor={marker.value} className="text-sm cursor-pointer">
-                      {marker.value}
+                    <label htmlFor={marker.name} className="text-sm cursor-pointer">
+                      {marker.name}
                     </label>
                     {marker.description && (
                       <Tooltip>
@@ -369,14 +369,14 @@ export const EnhancedInputPanel = memo<EnhancedInputPanelProps>(({
                   <h4 className="text-sm font-medium text-muted-foreground mb-2">Advanced/Emerging Biomarkers</h4>
                   <div className="grid grid-cols-2 gap-2">
                     {rareBiomarkers.map((marker: any) => (
-                      <div key={marker.value} className="flex items-center space-x-2">
+                      <div key={marker.id} className="flex items-center space-x-2">
                         <Checkbox
-                          id={marker.value}
-                          checked={criteria.biomarkers.includes(marker.value)}
-                          onCheckedChange={(checked) => handleBiomarkerChange(marker.value, checked as boolean)}
+                          id={marker.name}
+                          checked={criteria.biomarkers.includes(marker.name)}
+                          onCheckedChange={(checked) => handleBiomarkerChange(marker.name, checked as boolean)}
                         />
-                        <label htmlFor={marker.value} className="text-sm cursor-pointer">
-                          {marker.value}
+                        <label htmlFor={marker.name} className="text-sm cursor-pointer">
+                          {marker.name}
                         </label>
                         {marker.description && (
                           <Tooltip>
@@ -421,9 +421,9 @@ export const EnhancedInputPanel = memo<EnhancedInputPanelProps>(({
               <SelectContent>
                 <SelectItem value="all">All intents</SelectItem>
                 {(organizedCriteria.intent || []).map((intent: any) => (
-                  <SelectItem key={intent.value} value={intent.value}>
+                  <SelectItem key={intent.id} value={intent.name}>
                     <div className="flex items-center gap-2">
-                      {intent.value}
+                      {intent.name}
                       {intent.description && (
                         <Tooltip>
                           <TooltipTrigger>
@@ -451,9 +451,9 @@ export const EnhancedInputPanel = memo<EnhancedInputPanelProps>(({
               <SelectContent>
                 <SelectItem value="all">All lines</SelectItem>
                 {(organizedCriteria.line || []).map((line: any) => (
-                  <SelectItem key={line.value} value={line.value}>
+                  <SelectItem key={line.id} value={line.name}>
                     <div className="flex items-center gap-2">
-                      {line.value}
+                      {line.name}
                       {line.description && (
                         <Tooltip>
                           <TooltipTrigger>
@@ -481,9 +481,9 @@ export const EnhancedInputPanel = memo<EnhancedInputPanelProps>(({
               <SelectContent>
                 <SelectItem value="all">All reasons</SelectItem>
                 {(organizedCriteria.reason || []).map((reason: any) => (
-                  <SelectItem key={reason.value} value={reason.value}>
+                  <SelectItem key={reason.id} value={reason.name}>
                     <div className="flex items-center gap-2">
-                      {reason.value}
+                      {reason.name}
                       {reason.description && (
                         <Tooltip>
                           <TooltipTrigger>
