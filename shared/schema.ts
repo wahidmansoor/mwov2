@@ -742,6 +742,59 @@ export const followUpProtocols = pgTable("follow_up_protocols", {
   isActive: boolean("is_active").default(true),
 });
 
+// Daily Oncology Facts
+export const dailyOncologyFacts = pgTable("daily_oncology_facts", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  title: varchar("title", { length: 255 }).notNull(),
+  fact: text("fact").notNull(),
+  category: varchar("category", { length: 100 }).notNull(), // treatment, diagnosis, research, prevention, etc.
+  source: varchar("source", { length: 100 }).notNull(), // NCCN, ASCO, ESMO
+  sourceReference: varchar("source_reference", { length: 255 }),
+  evidenceLevel: varchar("evidence_level", { length: 50 }),
+  tags: text("tags").array(),
+  difficulty: integer("difficulty").notNull(), // 1-5 scale
+  isActive: boolean("is_active").default(true),
+  displayDate: timestamp("display_date"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+// Daily Oncology Quiz
+export const dailyOncologyQuiz = pgTable("daily_oncology_quiz", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  question: text("question").notNull(),
+  options: jsonb("options").notNull(), // Array of answer options
+  correctAnswer: varchar("correct_answer", { length: 10 }).notNull(), // A, B, C, D
+  explanation: text("explanation").notNull(),
+  category: varchar("category", { length: 100 }).notNull(),
+  subcategory: varchar("subcategory", { length: 100 }),
+  source: varchar("source", { length: 100 }).notNull(), // NCCN, ASCO, ESMO
+  sourceReference: varchar("source_reference", { length: 255 }),
+  evidenceLevel: varchar("evidence_level", { length: 50 }),
+  difficulty: integer("difficulty").notNull().default(5), // Fixed at 5/5 difficulty
+  tags: text("tags").array(),
+  isActive: boolean("is_active").default(true),
+  displayDate: timestamp("display_date"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+// User Quiz Responses (for tracking performance)
+export const userQuizResponses = pgTable("user_quiz_responses", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  userId: varchar("user_id").references(() => users.id),
+  quizId: uuid("quiz_id").references(() => dailyOncologyQuiz.id),
+  selectedAnswer: varchar("selected_answer", { length: 10 }).notNull(),
+  isCorrect: boolean("is_correct").notNull(),
+  timeSpent: integer("time_spent"), // seconds
+  responseDate: timestamp("response_date").defaultNow(),
+});
+
+// Insert schemas
+export const insertDailyOncologyFactSchema = createInsertSchema(dailyOncologyFacts);
+export const insertDailyOncologyQuizSchema = createInsertSchema(dailyOncologyQuiz);
+export const insertUserQuizResponseSchema = createInsertSchema(userQuizResponses);
+
 // UpsertUser type for Replit Auth
 export type UpsertUser = typeof users.$inferInsert;
 
@@ -789,3 +842,10 @@ export type ClinicalScenario = typeof clinicalScenarios.$inferSelect;
 export type InsertClinicalScenario = z.infer<typeof insertClinicalScenarioSchema>;
 export type Question = typeof questionBank.$inferSelect;
 export type InsertQuestion = z.infer<typeof insertQuestionSchema>;
+// Daily feature types
+export type DailyOncologyFact = typeof dailyOncologyFacts.$inferSelect;
+export type InsertDailyOncologyFact = z.infer<typeof insertDailyOncologyFactSchema>;
+export type DailyOncologyQuiz = typeof dailyOncologyQuiz.$inferSelect;
+export type InsertDailyOncologyQuiz = z.infer<typeof insertDailyOncologyQuizSchema>;
+export type UserQuizResponse = typeof userQuizResponses.$inferSelect;
+export type InsertUserQuizResponse = z.infer<typeof insertUserQuizResponseSchema>;

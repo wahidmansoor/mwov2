@@ -10,9 +10,10 @@ import { useLocation } from "wouter";
 import { useAuth } from "@/hooks/useAuth";
 import ClinicalAlertSystem from "@/components/clinical/ClinicalAlertSystem";
 import BiomarkerTrendAnalysis from "@/components/clinical/BiomarkerTrendAnalysis";
-import PatientJourneyTracker from "@/components/clinical/PatientJourneyTracker";
 import SmartReferralSystem from "@/components/clinical/SmartReferralSystem";
 import EmotionCheckInWidget from "@/components/clinical/EmotionCheckInWidget";
+import { DailyOncologyFact } from "@/components/DailyOncologyFact";
+import { DailyOncologyQuiz } from "@/components/DailyOncologyQuiz";
 import {
   Stethoscope,
   Brain,
@@ -451,7 +452,7 @@ export default function Dashboard() {
               </Badge>
             </CardTitle>
             <p className="text-slate-600 dark:text-slate-300">
-              Comprehensive clinical decision support with intelligent alerts, biomarker analytics, patient journey tracking, and automated referral systems
+              Comprehensive clinical decision support with intelligent alerts, biomarker analytics, daily learning features, and automated referral systems
             </p>
           </CardHeader>
           <CardContent>
@@ -465,9 +466,9 @@ export default function Dashboard() {
                   <Activity className="h-4 w-4" />
                   Biomarker Trends
                 </TabsTrigger>
-                <TabsTrigger value="journey" className="flex items-center gap-2">
-                  <ChartLine className="h-4 w-4" />
-                  Patient Journey
+                <TabsTrigger value="daily-learning" className="flex items-center gap-2">
+                  <GraduationCap className="h-4 w-4" />
+                  Daily Learning
                 </TabsTrigger>
                 <TabsTrigger value="referrals" className="flex items-center gap-2">
                   <Users className="h-4 w-4" />
@@ -487,8 +488,11 @@ export default function Dashboard() {
                 <BiomarkerTrendAnalysis />
               </TabsContent>
               
-              <TabsContent value="journey" className="mt-6">
-                <PatientJourneyTracker />
+              <TabsContent value="daily-learning" className="mt-6">
+                <div className="grid gap-6 md:grid-cols-2">
+                  <DailyOncologyFact />
+                  <DailyOncologyQuiz />
+                </div>
               </TabsContent>
               
               <TabsContent value="referrals" className="mt-6">

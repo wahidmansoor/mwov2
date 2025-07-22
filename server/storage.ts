@@ -13,6 +13,9 @@ import {
   educationalTopics,
   clinicalScenarios,
   questionBank,
+  dailyOncologyFacts,
+  dailyOncologyQuiz,
+  userQuizResponses,
   type User, 
   type InsertUser,
   type UpsertUser,
@@ -39,7 +42,13 @@ import {
   type ClinicalScenario,
   type InsertClinicalScenario,
   type Question,
-  type InsertQuestion
+  type InsertQuestion,
+  type DailyOncologyFact,
+  type InsertDailyOncologyFact,
+  type DailyOncologyQuiz,
+  type InsertDailyOncologyQuiz,
+  type UserQuizResponse,
+  type InsertUserQuizResponse
 } from "@shared/schema";
 import { db } from "./db";
 import { eq, sql, and } from "drizzle-orm";
@@ -178,6 +187,28 @@ export interface IStorage {
   getTreatmentCriteriaByCategory(category: string): Promise<any[]>;
   getTreatmentPlanMappings(filters?: { cancerType?: string; histology?: string; treatmentIntent?: string }): Promise<any[]>;
   generateTreatmentRecommendation(criteria: any): Promise<any>;
+
+  // Daily Oncology Facts methods
+  getDailyOncologyFacts(filters?: { category?: string; difficulty?: number; isActive?: boolean }): Promise<DailyOncologyFact[]>;
+  getDailyOncologyFact(id: string): Promise<DailyOncologyFact | undefined>;
+  getTodaysFact(): Promise<DailyOncologyFact | undefined>;
+  createDailyOncologyFact(fact: InsertDailyOncologyFact): Promise<DailyOncologyFact>;
+  
+  // Daily Oncology Quiz methods
+  getDailyOncologyQuizzes(filters?: { category?: string; difficulty?: number; isActive?: boolean }): Promise<DailyOncologyQuiz[]>;
+  getDailyOncologyQuiz(id: string): Promise<DailyOncologyQuiz | undefined>;
+  getTodaysQuiz(): Promise<DailyOncologyQuiz | undefined>;
+  createDailyOncologyQuiz(quiz: InsertDailyOncologyQuiz): Promise<DailyOncologyQuiz>;
+  
+  // User Quiz Response methods
+  getUserQuizResponses(userId: string, filters?: { quizId?: string }): Promise<UserQuizResponse[]>;
+  createUserQuizResponse(response: InsertUserQuizResponse): Promise<UserQuizResponse>;
+  getUserQuizPerformance(userId: string): Promise<{
+    totalAnswered: number;
+    correctAnswers: number;
+    accuracy: number;
+    averageTimeSpent: number;
+  }>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -1085,6 +1116,156 @@ export class DatabaseStorage implements IStorage {
         status: "active"
       }
     ];
+  }
+
+  // Daily Oncology Facts methods implementation
+  async getDailyOncologyFacts(filters?: { category?: string; difficulty?: number; isActive?: boolean }): Promise<DailyOncologyFact[]> {
+    let query = db.select().from(dailyOncologyFacts);
+    
+    if (filters?.category) {
+      query = query.where(eq(dailyOncologyFacts.category, filters.category));
+    }
+    if (filters?.difficulty) {
+      query = query.where(eq(dailyOncologyFacts.difficulty, filters.difficulty));
+    }
+    if (filters?.isActive !== undefined) {
+      query = query.where(eq(dailyOncologyFacts.isActive, filters.isActive));
+    }
+    
+    return await query;
+  }
+
+  async getDailyOncologyFact(id: string): Promise<DailyOncologyFact | undefined> {
+    const [fact] = await db.select().from(dailyOncologyFacts).where(eq(dailyOncologyFacts.id, id));
+    return fact || undefined;
+  }
+
+  async getTodaysFact(): Promise<DailyOncologyFact | undefined> {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    const [fact] = await db
+      .select()
+      .from(dailyOncologyFacts)
+      .where(and(
+        eq(dailyOncologyFacts.isActive, true),
+        eq(dailyOncologyFacts.displayDate, today)
+      ))
+      .limit(1);
+    
+    // If no fact for today, get a random active fact
+    if (!fact) {
+      const [randomFact] = await db
+        .select()
+        .from(dailyOncologyFacts)
+        .where(eq(dailyOncologyFacts.isActive, true))
+        .orderBy(sql`RANDOM()`)
+        .limit(1);
+      return randomFact || undefined;
+    }
+    
+    return fact;
+  }
+
+  async createDailyOncologyFact(fact: InsertDailyOncologyFact): Promise<DailyOncologyFact> {
+    const [newFact] = await db.insert(dailyOncologyFacts).values(fact).returning();
+    return newFact;
+  }
+
+  // Daily Oncology Quiz methods implementation
+  async getDailyOncologyQuizzes(filters?: { category?: string; difficulty?: number; isActive?: boolean }): Promise<DailyOncologyQuiz[]> {
+    let query = db.select().from(dailyOncologyQuiz);
+    
+    if (filters?.category) {
+      query = query.where(eq(dailyOncologyQuiz.category, filters.category));
+    }
+    if (filters?.difficulty) {
+      query = query.where(eq(dailyOncologyQuiz.difficulty, filters.difficulty));
+    }
+    if (filters?.isActive !== undefined) {
+      query = query.where(eq(dailyOncologyQuiz.isActive, filters.isActive));
+    }
+    
+    return await query;
+  }
+
+  async getDailyOncologyQuiz(id: string): Promise<DailyOncologyQuiz | undefined> {
+    const [quiz] = await db.select().from(dailyOncologyQuiz).where(eq(dailyOncologyQuiz.id, id));
+    return quiz || undefined;
+  }
+
+  async getTodaysQuiz(): Promise<DailyOncologyQuiz | undefined> {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    const [quiz] = await db
+      .select()
+      .from(dailyOncologyQuiz)
+      .where(and(
+        eq(dailyOncologyQuiz.isActive, true),
+        eq(dailyOncologyQuiz.displayDate, today)
+      ))
+      .limit(1);
+    
+    // If no quiz for today, get a random active quiz
+    if (!quiz) {
+      const [randomQuiz] = await db
+        .select()
+        .from(dailyOncologyQuiz)
+        .where(eq(dailyOncologyQuiz.isActive, true))
+        .orderBy(sql`RANDOM()`)
+        .limit(1);
+      return randomQuiz || undefined;
+    }
+    
+    return quiz;
+  }
+
+  async createDailyOncologyQuiz(quiz: InsertDailyOncologyQuiz): Promise<DailyOncologyQuiz> {
+    const [newQuiz] = await db.insert(dailyOncologyQuiz).values(quiz).returning();
+    return newQuiz;
+  }
+
+  // User Quiz Response methods implementation
+  async getUserQuizResponses(userId: string, filters?: { quizId?: string }): Promise<UserQuizResponse[]> {
+    let query = db.select().from(userQuizResponses).where(eq(userQuizResponses.userId, userId));
+    
+    if (filters?.quizId) {
+      query = query.where(eq(userQuizResponses.quizId, filters.quizId));
+    }
+    
+    return await query;
+  }
+
+  async createUserQuizResponse(response: InsertUserQuizResponse): Promise<UserQuizResponse> {
+    const [newResponse] = await db.insert(userQuizResponses).values(response).returning();
+    return newResponse;
+  }
+
+  async getUserQuizPerformance(userId: string): Promise<{
+    totalAnswered: number;
+    correctAnswers: number;
+    accuracy: number;
+    averageTimeSpent: number;
+  }> {
+    const responses = await db
+      .select()
+      .from(userQuizResponses)
+      .where(eq(userQuizResponses.userId, userId));
+    
+    const totalAnswered = responses.length;
+    const correctAnswers = responses.filter(r => r.isCorrect).length;
+    const accuracy = totalAnswered > 0 ? (correctAnswers / totalAnswered) * 100 : 0;
+    const averageTimeSpent = totalAnswered > 0 
+      ? responses.reduce((sum, r) => sum + (r.timeSpent || 0), 0) / totalAnswered 
+      : 0;
+    
+    return {
+      totalAnswered,
+      correctAnswers,
+      accuracy,
+      averageTimeSpent
+    };
   }
 }
 

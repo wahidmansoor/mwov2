@@ -3185,6 +3185,94 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Daily Oncology Facts API endpoints
+  app.get("/api/daily/fact", authMiddleware, async (req: any, res) => {
+    try {
+      const fact = await storage.getTodaysFact();
+      if (fact) {
+        res.json(fact);
+      } else {
+        res.status(404).json({ message: "No fact available for today" });
+      }
+    } catch (error) {
+      console.error("Failed to get today's fact:", error);
+      res.status(500).json({ message: "Failed to get today's fact" });
+    }
+  });
+
+  app.get("/api/daily/facts", authMiddleware, async (req: any, res) => {
+    try {
+      const { category, difficulty } = req.query;
+      const facts = await storage.getDailyOncologyFacts({
+        category: category as string,
+        difficulty: difficulty ? parseInt(difficulty as string) : undefined,
+        isActive: true
+      });
+      res.json(facts);
+    } catch (error) {
+      console.error("Failed to get facts:", error);
+      res.status(500).json({ message: "Failed to get facts" });
+    }
+  });
+
+  // Daily Oncology Quiz API endpoints
+  app.get("/api/daily/quiz", authMiddleware, async (req: any, res) => {
+    try {
+      const quiz = await storage.getTodaysQuiz();
+      if (quiz) {
+        res.json(quiz);
+      } else {
+        res.status(404).json({ message: "No quiz available for today" });
+      }
+    } catch (error) {
+      console.error("Failed to get today's quiz:", error);
+      res.status(500).json({ message: "Failed to get today's quiz" });
+    }
+  });
+
+  app.post("/api/daily/quiz/submit", authMiddleware, async (req: any, res) => {
+    try {
+      const { quizId, selectedAnswer, timeSpent } = req.body;
+      const userId = req.user.claims.sub;
+      
+      // Get the quiz to check correct answer
+      const quiz = await storage.getDailyOncologyQuiz(quizId);
+      if (!quiz) {
+        return res.status(404).json({ message: "Quiz not found" });
+      }
+      
+      const isCorrect = selectedAnswer === quiz.correctAnswer;
+      
+      const response = await storage.createUserQuizResponse({
+        userId,
+        quizId,
+        selectedAnswer,
+        isCorrect,
+        timeSpent: timeSpent || null
+      });
+      
+      res.json({
+        ...response,
+        correctAnswer: quiz.correctAnswer,
+        explanation: quiz.explanation
+      });
+    } catch (error) {
+      console.error("Failed to submit quiz response:", error);
+      res.status(500).json({ message: "Failed to submit quiz response" });
+    }
+  });
+
+  app.get("/api/daily/quiz/performance", authMiddleware, async (req: any, res) => {
+    try {
+      const userId = req.user.claims.sub;
+      const performance = await storage.getUserQuizPerformance(userId);
+      res.json(performance);
+    } catch (error) {
+      console.error("Failed to get quiz performance:", error);
+      res.status(500).json({ message: "Failed to get quiz performance" });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
