@@ -8,10 +8,10 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { useLocation } from "wouter";
 import { useAuth } from "@/hooks/useAuth";
-import ClinicalAlertSystem from "@/components/clinical/ClinicalAlertSystem";
-import BiomarkerTrendAnalysis from "@/components/clinical/BiomarkerTrendAnalysis";
 import SmartReferralSystem from "@/components/clinical/SmartReferralSystem";
 import EmotionCheckInWidget from "@/components/clinical/EmotionCheckInWidget";
+import GuidelinesSearchWidget from "@/components/clinical/GuidelinesSearchWidget";
+import ClinicalCalculatorsWidget from "@/components/clinical/ClinicalCalculatorsWidget";
 import { DailyOncologyFact } from "@/components/DailyOncologyFact";
 import { DailyOncologyQuiz } from "@/components/DailyOncologyQuiz";
 import {
@@ -452,19 +452,19 @@ export default function Dashboard() {
               </Badge>
             </CardTitle>
             <p className="text-slate-600 dark:text-slate-300">
-              Comprehensive clinical decision support with intelligent alerts, biomarker analytics, daily learning features, and automated referral systems
+              Comprehensive clinical decision support with evidence-based guidelines search, clinical calculators, daily learning features, and automated referral systems
             </p>
           </CardHeader>
           <CardContent>
-            <Tabs defaultValue="alerts" className="w-full">
+            <Tabs defaultValue="guidelines" className="w-full">
               <TabsList className="grid w-full grid-cols-5">
-                <TabsTrigger value="alerts" className="flex items-center gap-2">
-                  <AlertTriangle className="h-4 w-4" />
-                  Clinical Alerts
+                <TabsTrigger value="guidelines" className="flex items-center gap-2">
+                  <BookOpen className="h-4 w-4" />
+                  Guidelines Search
                 </TabsTrigger>
-                <TabsTrigger value="biomarkers" className="flex items-center gap-2">
-                  <Activity className="h-4 w-4" />
-                  Biomarker Trends
+                <TabsTrigger value="calculators" className="flex items-center gap-2">
+                  <Calculator className="h-4 w-4" />
+                  Clinical Calculators
                 </TabsTrigger>
                 <TabsTrigger value="daily-learning" className="flex items-center gap-2">
                   <GraduationCap className="h-4 w-4" />
@@ -480,12 +480,12 @@ export default function Dashboard() {
                 </TabsTrigger>
               </TabsList>
               
-              <TabsContent value="alerts" className="mt-6">
-                <ClinicalAlertSystem />
+              <TabsContent value="guidelines" className="mt-6">
+                <GuidelinesSearchWidget />
               </TabsContent>
               
-              <TabsContent value="biomarkers" className="mt-6">
-                <BiomarkerTrendAnalysis />
+              <TabsContent value="calculators" className="mt-6">
+                <ClinicalCalculatorsWidget />
               </TabsContent>
               
               <TabsContent value="daily-learning" className="mt-6">
