@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useQuery } from "@tanstack/react-query";
 import { Brain, Activity } from "lucide-react";
@@ -376,7 +376,7 @@ function extractNCCNReferences(protocol: any): string[] {
   return Array.from(new Set(refs));
 }
 
-function calculateExpectedResponse(protocol: any, criteria: TreatmentSelectionCriteria): string {
+function calculateExpectedResponse(_protocol: any, criteria: TreatmentSelectionCriteria): string {
   // Evidence-based response rates for common scenarios
   if (criteria.biomarkers.includes("HER2+")) {
     return "70-80% objective response rate with HER2-targeted therapy";
@@ -421,19 +421,19 @@ function extractMonitoringPlan(protocol: any): string[] {
 }
 
 // Helper functions for scoring and validation
-function calculateBiomarkerAlignment(protocol: any, biomarkers: string[]): number {
+function calculateBiomarkerAlignment(_protocol: any, _biomarkers: string[]): number {
   return 0.7; // Simplified implementation
 }
 
-function checkStageAppropriateness(protocol: any, stage: string): number {
+function checkStageAppropriateness(_protocol: any, _stage: string): number {
   return 0.8; // Simplified implementation
 }
 
-function checkTreatmentLineMatch(protocol: any, treatmentLine: string): number {
+function checkTreatmentLineMatch(_protocol: any, _treatmentLine: string): number {
   return 0.75; // Simplified implementation
 }
 
-function checkContraindications(protocol: TreatmentRecommendation, criteria: TreatmentSelectionCriteria): string[] {
+function checkContraindications(_protocol: TreatmentRecommendation, criteria: TreatmentSelectionCriteria): string[] {
   const flags = [];
   
   // Check for conflicting biomarkers
@@ -456,7 +456,7 @@ function checkDrugInteractions(protocol: TreatmentRecommendation, previousTreatm
   return interactions;
 }
 
-function generateSafetyWarnings(protocol: TreatmentRecommendation, criteria: TreatmentSelectionCriteria): string[] {
+function generateSafetyWarnings(_protocol: TreatmentRecommendation, criteria: TreatmentSelectionCriteria): string[] {
   const warnings = [];
   
   if (criteria.treatmentLine === "3rd Line") {
@@ -475,7 +475,7 @@ function calculateOverallConfidence(recommendations: TreatmentRecommendation[]):
   return recommendations[0]?.aiScore || 0.5;
 }
 
-function generateClinicalAlerts(criteria: TreatmentSelectionCriteria, recommendations: TreatmentRecommendation[]): string[] {
+function generateClinicalAlerts(criteria: TreatmentSelectionCriteria, _recommendations: TreatmentRecommendation[]): string[] {
   const alerts = [];
   
   // Biomarker-specific alerts
