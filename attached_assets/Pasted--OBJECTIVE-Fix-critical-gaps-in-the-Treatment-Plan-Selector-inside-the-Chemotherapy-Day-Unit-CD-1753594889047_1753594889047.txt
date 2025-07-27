@@ -1,0 +1,113 @@
+🎯 OBJECTIVE:
+Fix critical gaps in the Treatment Plan Selector inside the Chemotherapy Day Unit (CDU) module. Currently, selecting `Adjuvant`, `Neoadjuvant`, or `Palliative` often results in **no treatment recommendation**, despite strong clinical guidelines for those scenarios. This roadmap expands the system into a **fully pan-oncology engine**, referencing authoritative international oncology guidelines (NCCN, ASCO, ESMO).
+
+---
+
+✅ CONTEXT:
+You are enhancing the `treatment_plan_mappings` and `treatment_plan_criteria` system to support:
+
+- All common **solid tumors** and **hematologic malignancies**
+- All major **treatment intents**: `Curative`, `Adjuvant`, `Neoadjuvant`, `Palliative`, `Maintenance`
+- Full mapping across: cancer type, stage, histology, biomarker profile, performance status
+
+Currently, many mappings are limited to Curative intent only, or missing altogether.
+
+---
+
+📚 REQUIREMENT: Use Online Medical Guidelines
+To populate missing mappings, **search and reference the latest treatment protocols from**:
+- ✅ **NCCN (National Comprehensive Cancer Network)**
+- ✅ **ESMO (European Society for Medical Oncology)**
+- ✅ **ASCO (American Society of Clinical Oncology)**
+
+This applies to all cancer types mentioned below. Do not rely solely on local/mocked data. Ensure mappings reflect:
+- Protocol name
+- Indicated stage
+- Intent (e.g., Adjuvant)
+- Biomarker targets (e.g., HER2+, EGFR+)
+- Confidence level or guideline tier (e.g., NCCN Category 1, ESMO Level I)
+- Citation (e.g., "NCCN NSCLC-B", "ESMO Breast 2024")
+
+---
+
+🗃️ CANCER TYPES TO COVER:
+["Breast Cancer", "NSCLC", "SCLC", "Colorectal", "Pancreatic", "Prostate", "Ovarian", "Melanoma", "Gastric", "GIST", "Bladder", "CLL", "AML", "ALL", "Multiple Myeloma", "CML", "MDS", "Hodgkin Lymphoma", "Non-Hodgkin Lymphoma"]
+
+yaml
+Copy
+Edit
+
+---
+
+🛠️ ACTION PLAN:
+
+### 1. Expand `treatment_plan_mappings` Using Guideline-Based Data
+- For each cancer type and each stage, create mappings for:
+  - `Adjuvant`
+  - `Neoadjuvant`
+  - `Curative`
+  - `Palliative`
+  - `Maintenance` (if applicable)
+
+Include columns:
+- `treatment_protocol`
+- `biomarkers` (array)
+- `required_stage` (e.g., ["II", "III"])
+- `treatment_intent`
+- `line_of_treatment`
+- `confidence_score` (e.g., 0.94)
+- `evidence_reference` (e.g., Category 1, ESMO I-A)
+- `nccn_reference` (e.g., "NSCLC-B")
+- `priority_tag` (e.g., first-line, targeted, immunotherapy)
+
+Reference NCCN/ASCO/ESMO protocols directly.
+
+---
+
+### 2. Add AI Fallback Logic (Optional, Smart Layer)
+If no exact match exists for a selected intent:
+- AI should look for equivalent matches under related intents (e.g., Adjuvant → Curative)
+- Return result with warning:
+  > “AI fallback used: Protocol inferred from ‘Curative’ intent. Confirm with current guidelines.”
+
+---
+
+### 3. Improve Matching Logic
+- Match intent strictly by default
+- Allow fallback only if `intent_fallback_allowed = true`
+- Support hierarchical matching logic (e.g., Neoadjuvant → Adjuvant → Curative)
+
+---
+
+### 4. Improve UI Feedback and Export Button Logic
+- Show “No result” alert with suggestion to try other intents
+- Disable `Export PDF`, `Share Summary`, etc. if no result
+- Show fallback explanation if AI suggests a related protocol
+- Export must include:
+  - `intent_used`
+  - `fallback_triggered` flag
+  - `guideline_reference`
+
+---
+
+### 5. QA Test Scenarios (Guideline-based)
+Build tests to validate guideline-conformant results across cancers:
+
+| Cancer            | Intent       | Stage | Biomarkers      | Expected Treatment               |
+|------------------|--------------|-------|------------------|----------------------------------|
+| Breast (HER2+)   | Adjuvant     | II    | ER+/PR+/HER2+    | AC-THP / TCHP                    |
+| NSCLC (EGFR+)    | Adjuvant     | IIIA  | EGFR Exon 19     | Osimertinib                      |
+| Ovarian          | Neoadjuvant  | III   | BRCA wt          | Carboplatin + Paclitaxel         |
+| CLL              | Palliative   | n/a   | del(17p)         | Acalabrutinib + Venetoclax       |
+| Myeloma          | Maintenance  | n/a   | High-risk cytog. | Lenalidomide                     |
+| Melanoma         | Adjuvant     | III   | BRAF V600E       | Dabrafenib + Trametinib          |
+| AML              | Curative     | I     | FLT3+            | 7+3 + Midostaurin                |
+| GIST             | Adjuvant     | III   | KIT mutation     | Imatinib 400mg daily             |
+
+---
+
+📈 EXPECTED OUTCOME:
+- AI-enhanced treatment selector returns accurate results for all supported cancer types and intents
+- Treatments are aligned with **latest international oncology guidelines**
+- Export formats are complete, clear, and structured
+- System delivers **clinical-grade decision support across pan-oncology** settings
