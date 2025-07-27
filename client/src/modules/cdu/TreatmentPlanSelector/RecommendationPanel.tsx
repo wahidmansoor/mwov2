@@ -57,6 +57,38 @@ export function RecommendationPanel({ recommendations, criteria, isLoading, erro
   }
 
   if (!recommendations || !recommendations.primary) {
+    // Enhanced no-results handling as per uploaded document requirements
+    const showNoResultsMessage = criteria.cancerType !== "all" && criteria.treatmentIntent !== "all";
+    
+    if (showNoResultsMessage) {
+      return (
+        <Card>
+          <CardContent className="py-8">
+            <Alert className="border-amber-200 bg-amber-50 mb-4">
+              <AlertTriangle className="h-4 w-4 text-amber-600" />
+              <AlertDescription className="text-amber-800">
+                <strong>No mapped treatment found for this intent.</strong><br />
+                Please try an alternate treatment intent or consult guidelines. The current criteria may need adjustment for available protocols.
+              </AlertDescription>
+            </Alert>
+            <div className="text-center">
+              <Brain className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+              <h3 className="font-medium mb-2">No Treatment Recommendations Found</h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                Current selection: {criteria.cancerType} - {criteria.treatmentIntent} - {criteria.histology || "Any histology"}
+              </p>
+              <div className="text-sm text-muted-foreground space-y-1">
+                <p><strong>Suggestions:</strong></p>
+                <p>• Try selecting "Palliative" or "Curative" treatment intent</p>
+                <p>• Broaden biomarker selection or try "All" for general protocols</p>
+                <p>• Check if this cancer type has protocols for the selected intent</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      );
+    }
+    
     return (
       <Card>
         <CardContent className="py-8">
@@ -72,10 +104,30 @@ export function RecommendationPanel({ recommendations, criteria, isLoading, erro
     );
   }
 
-  const { primary, alternatives, confidence, evidence, alerts } = recommendations;
+  const { primary, alternatives, confidence, evidence, alerts, fallbackUsed, fallbackNote, aiEnhanced } = recommendations;
 
   return (
     <div className="space-y-6">
+      {/* AI Fallback Banner - Show when fallback logic was used */}
+      {fallbackUsed && fallbackNote && (
+        <Alert className="border-blue-200 bg-blue-50">
+          <Brain className="h-4 w-4 text-blue-600" />
+          <AlertDescription className="text-blue-800">
+            <strong>AI Fallback Applied:</strong> {fallbackNote}
+          </AlertDescription>
+        </Alert>
+      )}
+      
+      {/* Enhanced AI note for low confidence or AI-enhanced results */}
+      {aiEnhanced && !fallbackUsed && (
+        <Alert className="border-purple-200 bg-purple-50">
+          <TrendingUp className="h-4 w-4 text-purple-600" />
+          <AlertDescription className="text-purple-800">
+            AI-enhanced recommendation with confidence scoring applied.
+          </AlertDescription>
+        </Alert>
+      )}
+
       {/* Primary Recommendation */}
       <Card>
         <CardHeader>

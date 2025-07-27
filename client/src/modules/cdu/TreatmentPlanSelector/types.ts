@@ -39,6 +39,11 @@ export interface RecommendationResult {
   confidence: number;
   evidence: string;
   alerts: string[];
+  // Enhanced fields for AI fallback support as per uploaded document
+  fallbackUsed?: boolean;
+  fallbackNote?: string;
+  overallConfidence?: number;
+  aiEnhanced?: boolean;
 }
 
 export interface ProtocolRule {

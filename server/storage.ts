@@ -948,35 +948,163 @@ export class DatabaseStorage implements IStorage {
     lineOfTreatment?: string;
     stage?: string;
     performanceStatus?: number;
-  }): Promise<TreatmentPlanMapping[]> {
+  }): Promise<{
+    recommendations: TreatmentPlanMapping[];
+    fallbackUsed: boolean;
+    fallbackNote?: string;
+    confidence: number;
+  }> {
     try {
       console.log('Starting generateTreatmentRecommendation with criteria:', criteria);
       
-      // Start with cancer type match
-      const conditions = [
-        eq(treatmentPlanMappings.cancerType, criteria.cancerType),
-        eq(treatmentPlanMappings.isActive, true)
-      ];
+      // Phase 1: Direct match attempt
+      const directMappings = await this.findDirectMappings(criteria);
       
-      if (criteria.histology) {
-        conditions.push(eq(treatmentPlanMappings.histology, criteria.histology));
+      if (directMappings.length > 0) {
+        console.log(`Found ${directMappings.length} direct mappings`);
+        return {
+          recommendations: directMappings,
+          fallbackUsed: false,
+          confidence: this.calculateConfidence(directMappings, false)
+        };
       }
-      if (criteria.treatmentIntent) {
-        conditions.push(eq(treatmentPlanMappings.treatmentIntent, criteria.treatmentIntent));
+      
+      // Phase 2: AI Fallback Logic (as per uploaded document requirements)
+      console.log('No direct match found. Attempting AI fallback logic...');
+      
+      const fallbackResult = await this.attemptFallbackLogic(criteria);
+      
+      if (fallbackResult.recommendations.length > 0) {
+        console.log(`Fallback successful: Found ${fallbackResult.recommendations.length} equivalent protocols`);
+        return {
+          recommendations: fallbackResult.recommendations,
+          fallbackUsed: true,
+          fallbackNote: fallbackResult.note,
+          confidence: this.calculateConfidence(fallbackResult.recommendations, true)
+        };
       }
-      if (criteria.lineOfTreatment) {
-        conditions.push(eq(treatmentPlanMappings.lineOfTreatment, criteria.lineOfTreatment));
-      }
+      
+      // Phase 3: No matches found
+      console.log('No matches found even with fallback logic');
+      return {
+        recommendations: [],
+        fallbackUsed: false,
+        confidence: 0
+      };
+      
+    } catch (error) {
+      console.error('Error in generateTreatmentRecommendation:', error);
+      throw error;
+    }
+  }
 
-      console.log('Built conditions:', conditions.length);
-
-      // Get all potential mappings
-      const allMappings = await db.select()
-        .from(treatmentPlanMappings)
-        .where(and(...conditions));
-
-      console.log(`Debug: Found ${allMappings.length} initial mappings for criteria:`, criteria);
+  private async findDirectMappings(criteria: {
+    cancerType: string;
+    histology?: string;
+    biomarkers?: string[];
+    treatmentIntent?: string;
+    lineOfTreatment?: string;
+    stage?: string;
+    performanceStatus?: number;
+  }): Promise<TreatmentPlanMapping[]> {
+    // Build exact match conditions
+    const conditions = [
+      eq(treatmentPlanMappings.cancerType, criteria.cancerType),
+      eq(treatmentPlanMappings.isActive, true)
+    ];
     
+    if (criteria.histology) {
+      conditions.push(eq(treatmentPlanMappings.histology, criteria.histology));
+    }
+    if (criteria.treatmentIntent) {
+      conditions.push(eq(treatmentPlanMappings.treatmentIntent, criteria.treatmentIntent));
+    }
+    if (criteria.lineOfTreatment) {
+      conditions.push(eq(treatmentPlanMappings.lineOfTreatment, criteria.lineOfTreatment));
+    }
+
+    const allMappings = await db.select()
+      .from(treatmentPlanMappings)
+      .where(and(...conditions));
+
+    return this.filterAndSortMappings(allMappings, criteria);
+  }
+
+  private async attemptFallbackLogic(criteria: {
+    cancerType: string;
+    histology?: string;
+    biomarkers?: string[];
+    treatmentIntent?: string;
+    lineOfTreatment?: string;
+    stage?: string;
+    performanceStatus?: number;
+  }): Promise<{
+    recommendations: TreatmentPlanMapping[];
+    note: string;
+  }> {
+    // Fallback hierarchy as per uploaded document:
+    // 1. Adjuvant <-> Curative fallback
+    // 2. Neoadjuvant <-> Curative fallback
+    
+    const fallbackIntents = this.getFallbackIntents(criteria.treatmentIntent);
+    
+    for (const fallbackIntent of fallbackIntents) {
+      const fallbackCriteria = { ...criteria, treatmentIntent: fallbackIntent };
+      const mappings = await this.findDirectMappings(fallbackCriteria);
+      
+      if (mappings.length > 0) {
+        const note = `No explicit ${criteria.treatmentIntent} match found. Showing closest equivalent protocol under ${fallbackIntent} intent (AI suggested based on similar clinical profile).`;
+        return {
+          recommendations: mappings,
+          note
+        };
+      }
+    }
+    
+    // If still no matches, try removing treatment intent entirely for general protocols
+    if (criteria.treatmentIntent && criteria.treatmentIntent !== 'all') {
+      const generalCriteria = { ...criteria };
+      delete generalCriteria.treatmentIntent;
+      
+      const generalMappings = await this.findDirectMappings(generalCriteria);
+      if (generalMappings.length > 0) {
+        const note = `No specific ${criteria.treatmentIntent} protocols found. Showing general treatment recommendations that may be adapted for this intent.`;
+        return {
+          recommendations: generalMappings.slice(0, 3), // Limit to top 3
+          note
+        };
+      }
+    }
+    
+    return {
+      recommendations: [],
+      note: 'No compatible treatment protocols found for the specified criteria.'
+    };
+  }
+
+  private getFallbackIntents(currentIntent?: string): string[] {
+    // Implement fallback hierarchy as per uploaded document
+    switch (currentIntent) {
+      case 'Adjuvant':
+        return ['Curative', 'Palliative']; // Adjuvant -> Curative -> Palliative
+      case 'Neoadjuvant':
+        return ['Curative', 'Adjuvant', 'Palliative']; // Neoadjuvant -> Curative -> Adjuvant -> Palliative
+      case 'Curative':
+        return ['Adjuvant', 'Neoadjuvant']; // Curative can fallback to specific intents
+      default:
+        return ['Curative', 'Palliative']; // Default fallback
+    }
+  }
+
+  private filterAndSortMappings(allMappings: TreatmentPlanMapping[], criteria: {
+    cancerType: string;
+    histology?: string;
+    biomarkers?: string[];
+    treatmentIntent?: string;
+    lineOfTreatment?: string;
+    stage?: string;
+    performanceStatus?: number;
+  }): TreatmentPlanMapping[] {
     // Enhanced biomarker and conflict filtering
     let filteredMappings = allMappings.filter(mapping => {
       // Check for conflicting biomarkers
@@ -988,7 +1116,7 @@ export class DatabaseStorage implements IStorage {
       }
 
       // Check stage requirements
-      if (criteria.stage && mapping.requiredStage) {
+      if (criteria.stage && criteria.stage !== 'all' && mapping.requiredStage) {
         if (!mapping.requiredStage.includes(criteria.stage)) return false;
       }
 
@@ -1027,12 +1155,18 @@ export class DatabaseStorage implements IStorage {
       return bScore - aScore;
     });
 
-      console.log(`Debug: Returning ${filteredMappings.length} filtered mappings`);
-      return filteredMappings;
-    } catch (error) {
-      console.error('Error in generateTreatmentRecommendation:', error);
-      throw error;
-    }
+    return filteredMappings;
+  }
+
+  private calculateConfidence(recommendations: TreatmentPlanMapping[], isFallback: boolean): number {
+    if (recommendations.length === 0) return 0;
+    
+    const avgConfidence = recommendations.reduce((sum, rec) => {
+      return sum + parseFloat(String(rec.confidenceScore || '0'));
+    }, 0) / recommendations.length;
+    
+    // Reduce confidence for fallback results as per uploaded document
+    return isFallback ? Math.max(0.1, avgConfidence - 0.1) : avgConfidence;
   }
 
   // Legacy method implementation - keeping for backward compatibility

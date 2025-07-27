@@ -485,7 +485,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return;
       }
 
-      const rawRecommendations = await storage.generateTreatmentRecommendation({
+      // Call enhanced recommendation method with AI fallback logic
+      const result = await storage.generateTreatmentRecommendation({
         cancerType,
         histology,
         biomarkers: biomarkers || [],
@@ -495,14 +496,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
         performanceStatus
       });
 
-      console.log('Raw recommendations type:', typeof rawRecommendations, 'Length:', rawRecommendations?.length);
-      console.log('Raw recommendations sample:', JSON.stringify(rawRecommendations?.slice(0, 2), null, 2));
+      console.log('Enhanced recommendation result:', {
+        recommendationCount: result.recommendations.length,
+        fallbackUsed: result.fallbackUsed,
+        confidence: result.confidence
+      });
 
-      // Ensure rawRecommendations is an array - handle case where undefined is returned
-      const recommendationsArray = Array.isArray(rawRecommendations) ? rawRecommendations : [];
-      
-      // Transform recommendations into structured format
-      const recommendations = recommendationsArray.map(rec => ({
+      // Transform recommendations into structured format for frontend
+      const recommendations = result.recommendations.map(rec => ({
         id: rec.id,
         treatmentProtocol: rec.treatmentProtocol,
         evidenceReference: rec.evidenceReference,
@@ -517,7 +518,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
           ? `${rec.performanceStatusMin}-${rec.performanceStatusMax}` 
           : null,
         reasoning: `NCCN ${rec.evidenceReference} recommendation for ${cancerType}` + 
-                  (rec.biomarkers?.length ? ` with ${rec.biomarkers.join(', ')} biomarkers` : ''),
+                  (rec.biomarkers?.length ? ` with ${rec.biomarkers.join(', ')} biomarkers` : '') +
+                  (result.fallbackUsed ? ' (AI fallback applied)' : ''),
         alternatives: [],
         contraindications: rec.conflictingBiomarkers || []
       }));
@@ -533,7 +535,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
           totalOptions,
           highConfidence,
           nccnAligned
-        }
+        },
+        // Include AI fallback information as per uploaded document requirements
+        fallbackUsed: result.fallbackUsed,
+        fallbackNote: result.fallbackNote,
+        overallConfidence: result.confidence,
+        aiEnhanced: result.fallbackUsed || result.confidence < 1.0
       };
       
       res.json(response);
