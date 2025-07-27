@@ -308,9 +308,9 @@ export const EnhancedInputPanel = memo<EnhancedInputPanelProps>(({
               <SelectContent>
                 <SelectItem value="all">All histologies</SelectItem>
                 {(organizedCriteria.histology || []).map((hist: any) => (
-                  <SelectItem key={hist.id} value={hist.name}>
+                  <SelectItem key={hist.id} value={hist.value}>
                     <div className="flex items-center gap-2">
-                      {hist.name}
+                      {hist.value}
                       {hist.description && (
                         <Tooltip>
                           <TooltipTrigger>
@@ -339,12 +339,12 @@ export const EnhancedInputPanel = memo<EnhancedInputPanelProps>(({
                 {commonBiomarkers.map((marker: any) => (
                   <div key={marker.id} className="flex items-center space-x-2">
                     <Checkbox
-                      id={marker.name}
-                      checked={criteria.biomarkers.includes(marker.name)}
-                      onCheckedChange={(checked) => handleBiomarkerChange(marker.name, checked as boolean)}
+                      id={marker.value}
+                      checked={criteria.biomarkers.includes(marker.value)}
+                      onCheckedChange={(checked) => handleBiomarkerChange(marker.value, checked as boolean)}
                     />
-                    <label htmlFor={marker.name} className="text-sm cursor-pointer">
-                      {marker.name}
+                    <label htmlFor={marker.value} className="text-sm cursor-pointer">
+                      {marker.value}
                     </label>
                     {marker.description && (
                       <Tooltip>
@@ -371,12 +371,12 @@ export const EnhancedInputPanel = memo<EnhancedInputPanelProps>(({
                     {rareBiomarkers.map((marker: any) => (
                       <div key={marker.id} className="flex items-center space-x-2">
                         <Checkbox
-                          id={marker.name}
-                          checked={criteria.biomarkers.includes(marker.name)}
-                          onCheckedChange={(checked) => handleBiomarkerChange(marker.name, checked as boolean)}
+                          id={marker.value}
+                          checked={criteria.biomarkers.includes(marker.value)}
+                          onCheckedChange={(checked) => handleBiomarkerChange(marker.value, checked as boolean)}
                         />
-                        <label htmlFor={marker.name} className="text-sm cursor-pointer">
-                          {marker.name}
+                        <label htmlFor={marker.value} className="text-sm cursor-pointer">
+                          {marker.value}
                         </label>
                         {marker.description && (
                           <Tooltip>
@@ -421,9 +421,9 @@ export const EnhancedInputPanel = memo<EnhancedInputPanelProps>(({
               <SelectContent>
                 <SelectItem value="all">All intents</SelectItem>
                 {(organizedCriteria.intent || []).map((intent: any) => (
-                  <SelectItem key={intent.id} value={intent.name}>
+                  <SelectItem key={intent.id} value={intent.value}>
                     <div className="flex items-center gap-2">
-                      {intent.name}
+                      {intent.value}
                       {intent.description && (
                         <Tooltip>
                           <TooltipTrigger>
