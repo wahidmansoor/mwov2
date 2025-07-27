@@ -1,0 +1,135 @@
+🎯 OBJECTIVE:
+Fix a critical logic gap in the Treatment Plan Selector inside the Chemotherapy Day Unit (CDU) module: Currently, selecting `Adjuvant` or `Neoadjuvant` intent results in **no treatment recommendation**, even for common scenarios where evidence-based treatments are well-established (e.g., ER+/PR+ Stage II breast cancer). This must be resolved to meet NCCN/ESMO/ASCO clinical guidance standards.
+
+---
+
+✅ CONTEXT:
+- The platform uses `treatment_plan_mappings` to serve treatment recommendations based on structured criteria (cancer_type, stage, biomarkers, intent, etc.).
+- However, mappings are currently sparse or incomplete for treatment_intent = `Adjuvant` or `Neoadjuvant`.
+- Clinical users are confused when selecting `Adjuvant` produces no result, even though the same case returns a protocol if `Curative` is chosen.
+
+---
+
+🧠 CLINICAL REALITY:
+- **Curative** is not interchangeable with **Adjuvant** or **Neoadjuvant**. These are:
+  - Distinct **clinical intents**
+  - Often tied to **specific protocols**
+  - Required for **NCCN, ESMO, ASCO**-compliant logic
+
+Example: For Stage II ER+/PR+ HER2- breast cancer:
+- `Adjuvant` → AC-T is standard
+- `Neoadjuvant` → AC-T or AC followed by weekly Taxol
+- `Curative` is **too ambiguous** for precise clinical alignment
+
+---
+
+🚨 PROBLEM STATEMENT:
+1. Missing mappings for `Adjuvant` and `Neoadjuvant` in `treatment_plan_mappings`
+2. UI/UX gives no feedback when no result is returned
+3. No AI fallback logic to infer equivalent protocol when explicit mapping is absent
+
+---
+
+🛠️ ACTION PLAN:
+
+### 1. 🗃️ Mapping Database Expansion
+- Clone existing `Curative` mappings to generate complete rows for `Adjuvant` and `Neoadjuvant` where applicable
+- Insert rows with:
+  - Same protocol, biomarkers, stage, histology
+  - Changed `treatment_intent` field
+
+#### Example SQL:
+```sql
+INSERT INTO treatment_plan_mappings (
+  cancer_type, histology, biomarkers, treatment_intent,
+  line_of_treatment, treatment_protocol, evidence_reference,
+  nccn_reference, conflicting_biomarkers, required_stage,
+  confidence_score, is_active, toxicity_level, priority_tag
+)
+SELECT
+  cancer_type, histology, biomarkers, 'Adjuvant',
+  line_of_treatment, treatment_protocol, evidence_reference,
+  nccn_reference, conflicting_biomarkers, required_stage,
+  confidence_score, is_active, toxicity_level, priority_tag
+FROM treatment_plan_mappings
+WHERE treatment_intent = 'Curative'
+  AND cancer_type = 'Breast Cancer'
+  AND treatment_protocol = 'FEC-D';
+Repeat for "Neoadjuvant" and other common regimens.
+
+2. 🧠 AI Fallback Logic (Optional but Ideal)
+Implement AI logic that:
+
+If no direct match for Adjuvant, checks if an identical match exists under Curative intent
+
+Returns that with a note:
+
+“No explicit Adjuvant match found. Showing closest equivalent protocol under Curative intent (confidence: 93%).”
+
+Applies only when biomarker + stage + histology match exactly
+
+3. 📦 Treatment Matching Logic Improvements
+Update selector backend logic:
+
+Match treatment_intent strictly by default
+
+Fallback to hierarchical matching (Adjuvant <→ Curative) only when no direct mapping is found and fallback_enabled = true
+
+4. 🖥️ UI/UX Feedback Enhancements
+When no treatment is found:
+
+Show inline message:
+
+“No mapped treatment found for this intent. Please try an alternate treatment intent or consult guidelines.”
+
+If fallback logic is used, show a banner or AI note:
+
+“AI suggested equivalent protocol based on similar clinical profile (intent substituted from 'Curative').”
+
+Keep Generate PDF, Share Summary, Print View buttons disabled unless result is shown
+
+5. ✅ Regression & QA Test Scenarios
+Create 10 automated tests to verify:
+
+Adjuvant/Neoadjuvant returns correct treatment if explicitly mapped
+
+Curative fallback returns a result if fallback is enabled
+
+No treatment = visible alert
+
+Buttons (Generate PDF, etc.) activate only when treatment is found
+
+Exported content reflects AI fallback flag where applicable
+
+📈 EXPECTED OUTCOME:
+
+All treatment intents now return valid results if clinically applicable
+
+Curative mappings are no longer misused as a default
+
+UI experience is improved with helpful fallback messaging and validation
+
+System remains aligned with NCCN, ASCO, ESMO-style decision support
+
+🧪 CLINICAL TEST CASES TO VALIDATE:
+
+Breast Cancer, Stage II, ER+/PR+, HER2-, Adjuvant → AC-T ✅
+
+Breast Cancer, Stage III, ER-/PR-/HER2-, Neoadjuvant → AC-T ✅
+
+Colon Cancer, Stage III, Adjuvant → FOLFOX ✅
+
+Ovarian Cancer, Stage III, Neoadjuvant → Carboplatin + Paclitaxel ✅
+
+NSCLC, Stage IIIA, Neoadjuvant → Cisplatin + RT ± IO ✅
+
+📌 Final Notes:
+Ensure AI-generated fallback results are:
+
+Clearly labeled
+
+Exportable
+
+Traceable to source NCCN reference
+
+This will make the platform clinically robust, fail-safe, and user-trustworthy.
