@@ -790,10 +790,48 @@ export const userQuizResponses = pgTable("user_quiz_responses", {
   responseDate: timestamp("response_date").defaultNow(),
 });
 
+// Treatment Plan Selector Tables (CDU Module)
+export const treatmentPlanCriteria = pgTable("treatment_plan_criteria", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  category: varchar("category", { length: 50 }).notNull(), // histology, biomarker, intent, line, reason
+  value: varchar("value", { length: 255 }).notNull(),
+  description: text("description"),
+  isCommon: boolean("is_common").default(true), // Common vs advanced/rare
+  sortOrder: integer("sort_order").default(1),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const treatmentPlanMappings = pgTable("treatment_plan_mappings", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  cancerType: varchar("cancer_type", { length: 100 }).notNull(),
+  histology: varchar("histology", { length: 100 }),
+  biomarkers: text("biomarkers").array(), // Array of biomarker strings
+  treatmentIntent: varchar("treatment_intent", { length: 100 }),
+  lineOfTreatment: varchar("line_of_treatment", { length: 100 }),
+  treatmentProtocol: text("treatment_protocol").notNull(),
+  evidenceReference: varchar("evidence_reference", { length: 50 }), // Category 1, 2A, 2B
+  nccnReference: varchar("nccn_reference", { length: 100 }),
+  requiredStage: text("required_stage").array(), // Array of applicable stages
+  confidenceScore: varchar("confidence_score", { length: 10 }),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
 // Insert schemas
 export const insertDailyOncologyFactSchema = createInsertSchema(dailyOncologyFacts);
 export const insertDailyOncologyQuizSchema = createInsertSchema(dailyOncologyQuiz);
 export const insertUserQuizResponseSchema = createInsertSchema(userQuizResponses);
+export const insertTreatmentPlanCriteriaSchema = createInsertSchema(treatmentPlanCriteria).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+export const insertTreatmentPlanMappingsSchema = createInsertSchema(treatmentPlanMappings).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
 
 // UpsertUser type for Replit Auth
 export type UpsertUser = typeof users.$inferInsert;
@@ -849,3 +887,8 @@ export type DailyOncologyQuiz = typeof dailyOncologyQuiz.$inferSelect;
 export type InsertDailyOncologyQuiz = z.infer<typeof insertDailyOncologyQuizSchema>;
 export type UserQuizResponse = typeof userQuizResponses.$inferSelect;
 export type InsertUserQuizResponse = z.infer<typeof insertUserQuizResponseSchema>;
+// Treatment Plan Selector types
+export type TreatmentPlanCriteria = typeof treatmentPlanCriteria.$inferSelect;
+export type InsertTreatmentPlanCriteria = z.infer<typeof insertTreatmentPlanCriteriaSchema>;
+export type TreatmentPlanMapping = typeof treatmentPlanMappings.$inferSelect;
+export type InsertTreatmentPlanMapping = z.infer<typeof insertTreatmentPlanMappingsSchema>;

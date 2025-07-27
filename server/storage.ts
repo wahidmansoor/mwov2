@@ -16,6 +16,8 @@ import {
   dailyOncologyFacts,
   dailyOncologyQuiz,
   userQuizResponses,
+  treatmentPlanCriteria,
+  treatmentPlanMappings,
   type User, 
   type InsertUser,
   type UpsertUser,
@@ -48,7 +50,11 @@ import {
   type DailyOncologyQuiz,
   type InsertDailyOncologyQuiz,
   type UserQuizResponse,
-  type InsertUserQuizResponse
+  type InsertUserQuizResponse,
+  type TreatmentPlanCriteria,
+  type InsertTreatmentPlanCriteria,
+  type TreatmentPlanMapping,
+  type InsertTreatmentPlanMapping
 } from "@shared/schema";
 import { db } from "./db";
 import { eq, sql, and } from "drizzle-orm";
@@ -183,10 +189,16 @@ export interface IStorage {
   createEducationalAiInteraction(interaction: any): Promise<any>;
 
   // Treatment Plan Selector methods
-  getTreatmentCriteria(filters?: { category?: string; isCommon?: boolean }): Promise<any[]>;
-  getTreatmentCriteriaByCategory(category: string): Promise<any[]>;
-  getTreatmentPlanMappings(filters?: { cancerType?: string; histology?: string; treatmentIntent?: string }): Promise<any[]>;
-  generateTreatmentRecommendation(criteria: any): Promise<any>;
+  getTreatmentCriteria(filters?: { category?: string; isCommon?: boolean }): Promise<TreatmentPlanCriteria[]>;
+  getTreatmentCriteriaByCategory(category: string): Promise<TreatmentPlanCriteria[]>;
+  getTreatmentPlanMappings(filters?: { cancerType?: string; histology?: string; treatmentIntent?: string }): Promise<TreatmentPlanMapping[]>;
+  generateTreatmentRecommendation(criteria: {
+    cancerType: string;
+    histology?: string;
+    biomarkers?: string[];
+    treatmentIntent?: string;
+    lineOfTreatment?: string;
+  }): Promise<TreatmentPlanMapping[]>;
 
   // Daily Oncology Facts methods
   getDailyOncologyFacts(filters?: { category?: string; difficulty?: number; isActive?: boolean }): Promise<DailyOncologyFact[]>;
@@ -887,7 +899,86 @@ export class DatabaseStorage implements IStorage {
   }
 
   // Treatment Plan Selector Methods Implementation
-  async getTreatmentCriteria(filters?: { category?: string; isCommon?: boolean }): Promise<any[]> {
+  async getTreatmentCriteria(filters?: { category?: string; isCommon?: boolean }): Promise<TreatmentPlanCriteria[]> {
+    const conditions = [];
+    
+    if (filters?.category) {
+      conditions.push(eq(treatmentPlanCriteria.category, filters.category));
+    }
+    if (filters?.isCommon !== undefined) {
+      conditions.push(eq(treatmentPlanCriteria.isCommon, filters.isCommon));
+    }
+
+    return await db.select()
+      .from(treatmentPlanCriteria)
+      .where(conditions.length > 0 ? and(...conditions) : undefined)
+      .orderBy(treatmentPlanCriteria.sortOrder, treatmentPlanCriteria.value);
+  }
+
+  async getTreatmentCriteriaByCategory(category: string): Promise<TreatmentPlanCriteria[]> {
+    return await db.select()
+      .from(treatmentPlanCriteria)
+      .where(eq(treatmentPlanCriteria.category, category))
+      .orderBy(treatmentPlanCriteria.sortOrder, treatmentPlanCriteria.value);
+  }
+
+  async getTreatmentPlanMappings(filters?: { cancerType?: string; histology?: string; treatmentIntent?: string }): Promise<TreatmentPlanMapping[]> {
+    const conditions = [];
+    
+    if (filters?.cancerType) {
+      conditions.push(eq(treatmentPlanMappings.cancerType, filters.cancerType));
+    }
+    if (filters?.histology) {
+      conditions.push(eq(treatmentPlanMappings.histology, filters.histology));
+    }
+    if (filters?.treatmentIntent) {
+      conditions.push(eq(treatmentPlanMappings.treatmentIntent, filters.treatmentIntent));
+    }
+
+    return await db.select()
+      .from(treatmentPlanMappings)
+      .where(conditions.length > 0 ? and(...conditions) : undefined);
+  }
+
+  async generateTreatmentRecommendation(criteria: {
+    cancerType: string;
+    histology?: string;
+    biomarkers?: string[];
+    treatmentIntent?: string;
+    lineOfTreatment?: string;
+  }): Promise<TreatmentPlanMapping[]> {
+    const conditions = [eq(treatmentPlanMappings.cancerType, criteria.cancerType)];
+    
+    if (criteria.histology) {
+      conditions.push(eq(treatmentPlanMappings.histology, criteria.histology));
+    }
+    if (criteria.treatmentIntent) {
+      conditions.push(eq(treatmentPlanMappings.treatmentIntent, criteria.treatmentIntent));
+    }
+    if (criteria.lineOfTreatment) {
+      conditions.push(eq(treatmentPlanMappings.lineOfTreatment, criteria.lineOfTreatment));
+    }
+
+    // Get all matching mappings
+    const mappings = await db.select()
+      .from(treatmentPlanMappings)
+      .where(and(...conditions));
+
+    // Filter by biomarkers if provided
+    if (criteria.biomarkers && criteria.biomarkers.length > 0) {
+      return mappings.filter(mapping => {
+        if (!mapping.biomarkers) return false;
+        return criteria.biomarkers!.some(biomarker => 
+          mapping.biomarkers.includes(biomarker)
+        );
+      });
+    }
+
+    return mappings;
+  }
+
+  // Legacy method implementation - keeping for backward compatibility
+  async _getLegacyTreatmentCriteria(filters?: { category?: string; isCommon?: boolean }): Promise<any[]> {
     // Return comprehensive treatment criteria for the Treatment Plan Selector
     const treatmentCriteria = [
       // Histology Types
