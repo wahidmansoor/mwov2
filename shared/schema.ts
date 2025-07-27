@@ -792,14 +792,15 @@ export const userQuizResponses = pgTable("user_quiz_responses", {
 
 // Treatment Plan Selector Tables (CDU Module)
 export const treatmentPlanCriteria = pgTable("treatment_plan_criteria", {
-  id: uuid("id").primaryKey().defaultRandom(),
-  category: varchar("category", { length: 50 }).notNull(), // histology, biomarker, intent, line, reason
-  value: varchar("value", { length: 255 }).notNull(),
+  id: serial("id").primaryKey(), // Changed to match actual DB structure
+  category: text("category").notNull(), // histology, biomarker, intent, line, reason
+  value: text("value").notNull(),
   description: text("description"),
   isCommon: boolean("is_common").default(true), // Common vs advanced/rare
   sortOrder: integer("sort_order").default(1),
+  isActive: boolean("is_active").default(true), // Added to match actual DB
   createdAt: timestamp("created_at").defaultNow(),
-  updatedAt: timestamp("updated_at").defaultNow(),
+  // Note: updatedAt column doesn't exist in actual database
 });
 
 export const treatmentPlanMappings = pgTable("treatment_plan_mappings", {
@@ -825,7 +826,7 @@ export const insertUserQuizResponseSchema = createInsertSchema(userQuizResponses
 export const insertTreatmentPlanCriteriaSchema = createInsertSchema(treatmentPlanCriteria).omit({
   id: true,
   createdAt: true,
-  updatedAt: true,
+  isActive: true,
 });
 export const insertTreatmentPlanMappingsSchema = createInsertSchema(treatmentPlanMappings).omit({
   id: true,
