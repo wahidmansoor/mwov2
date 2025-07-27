@@ -12,7 +12,6 @@ import { TreatmentSelectionCriteria } from "./types";
 interface EnhancedInputPanelProps {
   criteria: TreatmentSelectionCriteria;
   onCriteriaChange: (updates: Partial<TreatmentSelectionCriteria>) => void;
-  isLoading: boolean;
 }
 
 const CANCER_TYPES = [
@@ -76,8 +75,7 @@ const STAGES = ["0", "I", "IA", "IB", "II", "IIA", "IIB", "III", "IIIA", "IIIB",
 
 export const EnhancedInputPanel = memo<EnhancedInputPanelProps>(({ 
   criteria, 
-  onCriteriaChange, 
-  isLoading 
+  onCriteriaChange 
 }) => {
   // Fetch dynamic treatment criteria from database
   const { data: treatmentCriteria, isLoading: criteriaLoading } = useQuery({
@@ -114,7 +112,7 @@ export const EnhancedInputPanel = memo<EnhancedInputPanelProps>(({
 
   // Biomarker conflict detection
   const biomarkerConflicts = React.useMemo(() => {
-    const conflicts = [];
+    const conflicts: string[] = [];
     const selected = criteria.biomarkers;
     
     // Check for conflicting pairs

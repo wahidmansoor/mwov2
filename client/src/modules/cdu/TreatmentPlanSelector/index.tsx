@@ -74,7 +74,6 @@ export default function TreatmentPlanSelector() {
         <EnhancedInputPanel 
           criteria={criteria}
           onCriteriaChange={updateCriteria}
-          isLoading={isLoading}
         />
         
         <RecommendationPanel 
