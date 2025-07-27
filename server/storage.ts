@@ -946,35 +946,93 @@ export class DatabaseStorage implements IStorage {
     biomarkers?: string[];
     treatmentIntent?: string;
     lineOfTreatment?: string;
+    stage?: string;
+    performanceStatus?: number;
   }): Promise<TreatmentPlanMapping[]> {
-    const conditions = [eq(treatmentPlanMappings.cancerType, criteria.cancerType)];
+    try {
+      console.log('Starting generateTreatmentRecommendation with criteria:', criteria);
+      
+      // Start with cancer type match
+      const conditions = [
+        eq(treatmentPlanMappings.cancerType, criteria.cancerType),
+        eq(treatmentPlanMappings.isActive, true)
+      ];
+      
+      if (criteria.histology) {
+        conditions.push(eq(treatmentPlanMappings.histology, criteria.histology));
+      }
+      if (criteria.treatmentIntent) {
+        conditions.push(eq(treatmentPlanMappings.treatmentIntent, criteria.treatmentIntent));
+      }
+      if (criteria.lineOfTreatment) {
+        conditions.push(eq(treatmentPlanMappings.lineOfTreatment, criteria.lineOfTreatment));
+      }
+
+      console.log('Built conditions:', conditions.length);
+
+      // Get all potential mappings
+      const allMappings = await db.select()
+        .from(treatmentPlanMappings)
+        .where(and(...conditions));
+
+      console.log(`Debug: Found ${allMappings.length} initial mappings for criteria:`, criteria);
     
-    if (criteria.histology) {
-      conditions.push(eq(treatmentPlanMappings.histology, criteria.histology));
-    }
-    if (criteria.treatmentIntent) {
-      conditions.push(eq(treatmentPlanMappings.treatmentIntent, criteria.treatmentIntent));
-    }
-    if (criteria.lineOfTreatment) {
-      conditions.push(eq(treatmentPlanMappings.lineOfTreatment, criteria.lineOfTreatment));
-    }
-
-    // Get all matching mappings
-    const mappings = await db.select()
-      .from(treatmentPlanMappings)
-      .where(and(...conditions));
-
-    // Filter by biomarkers if provided
-    if (criteria.biomarkers && criteria.biomarkers.length > 0) {
-      return mappings.filter(mapping => {
-        if (!mapping.biomarkers) return false;
-        return criteria.biomarkers!.some(biomarker => 
-          mapping.biomarkers.includes(biomarker)
+    // Enhanced biomarker and conflict filtering
+    let filteredMappings = allMappings.filter(mapping => {
+      // Check for conflicting biomarkers
+      if (mapping.conflictingBiomarkers && criteria.biomarkers) {
+        const hasConflict = criteria.biomarkers.some(biomarker => 
+          mapping.conflictingBiomarkers?.includes(biomarker)
         );
-      });
-    }
+        if (hasConflict) return false;
+      }
 
-    return mappings;
+      // Check stage requirements
+      if (criteria.stage && mapping.requiredStage) {
+        if (!mapping.requiredStage.includes(criteria.stage)) return false;
+      }
+
+      // Check performance status requirements
+      if (criteria.performanceStatus !== undefined && 
+          mapping.performanceStatusMin !== null && 
+          mapping.performanceStatusMax !== null) {
+        if (criteria.performanceStatus < mapping.performanceStatusMin || 
+            criteria.performanceStatus > mapping.performanceStatusMax) return false;
+      }
+
+      // Biomarker matching - require at least one biomarker match if mapping has biomarkers
+      if (mapping.biomarkers && mapping.biomarkers.length > 0) {
+        if (!criteria.biomarkers || criteria.biomarkers.length === 0) return false;
+        return criteria.biomarkers.some(biomarker => 
+          mapping.biomarkers?.includes(biomarker)
+        );
+      }
+
+      // If mapping has no biomarkers, it's a general protocol
+      return true;
+    });
+
+    // Sort by confidence score and priority
+    filteredMappings.sort((a, b) => {
+      // First by priority (First-line > Preferred > Alternative)
+      const priorityOrder = { 'First-line': 1, 'Preferred': 2, 'Alternative': 3, 'Last-resort': 4 };
+      const aPriority = priorityOrder[a.priorityTag as keyof typeof priorityOrder] || 5;
+      const bPriority = priorityOrder[b.priorityTag as keyof typeof priorityOrder] || 5;
+      
+      if (aPriority !== bPriority) return aPriority - bPriority;
+      
+      // Then by confidence score (higher is better)
+      const aScore = parseFloat(String(a.confidenceScore || '0'));
+      const bScore = parseFloat(String(b.confidenceScore || '0'));
+      return bScore - aScore;
+    });
+
+      console.log(`Debug: Returning ${filteredMappings.length} filtered mappings`);
+      return filteredMappings;
+    } catch (error) {
+      console.error('Error in generateTreatmentRecommendation:', error);
+      throw error;
+    }
   }
 
   // Legacy method implementation - keeping for backward compatibility
@@ -1116,40 +1174,7 @@ export class DatabaseStorage implements IStorage {
     return filteredMappings;
   }
 
-  async generateTreatmentRecommendation(criteria: any): Promise<any> {
-    // Generate treatment recommendations based on criteria
-    const mappings = await this.getTreatmentPlanMappings({
-      cancerType: criteria.cancerType,
-      histology: criteria.histology,
-      treatmentIntent: criteria.treatmentIntent
-    });
-
-    // Match biomarkers
-    const biomarkerMatches = mappings.filter(mapping => {
-      if (!criteria.biomarkers || criteria.biomarkers.length === 0) return true;
-      return criteria.biomarkers.some((biomarker: string) => 
-        mapping.biomarkers.includes(biomarker)
-      );
-    });
-
-    const recommendations = biomarkerMatches.map(mapping => ({
-      ...mapping,
-      confidenceScore: 0.85,
-      reasoning: `NCCN-aligned recommendation based on ${criteria.cancerType}, ${criteria.histology}, and biomarker profile`,
-      references: ['NCCN Guidelines 2025', 'ASCO Clinical Practice Guidelines'],
-      contraindications: [],
-      alternatives: []
-    }));
-
-    return {
-      recommendations,
-      summary: {
-        totalOptions: recommendations.length,
-        highConfidence: recommendations.filter(r => r.confidenceScore > 0.8).length,
-        nccnAligned: recommendations.length
-      }
-    };
-  }
+  // Legacy method removed - using enhanced database-driven version above
 
   async getDashboardStats(): Promise<{
     totalProtocols: number;

@@ -478,23 +478,65 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.post("/api/generate-recommendation", authMiddleware, async (req: any, res) => {
     try {
-      const { cancerType, histology, biomarkers, treatmentIntent, lineOfTreatment, stage } = req.body;
+      const { cancerType, histology, biomarkers, treatmentIntent, lineOfTreatment, stage, performanceStatus } = req.body;
       
       if (!cancerType) {
         res.status(400).json({ message: "Cancer type is required" });
         return;
       }
 
-      const recommendations = await storage.generateTreatmentRecommendation({
+      const rawRecommendations = await storage.generateTreatmentRecommendation({
         cancerType,
         histology,
         biomarkers: biomarkers || [],
         treatmentIntent,
         lineOfTreatment,
-        stage
+        stage,
+        performanceStatus
       });
+
+      console.log('Raw recommendations type:', typeof rawRecommendations, 'Length:', rawRecommendations?.length);
+      console.log('Raw recommendations sample:', JSON.stringify(rawRecommendations?.slice(0, 2), null, 2));
+
+      // Ensure rawRecommendations is an array - handle case where undefined is returned
+      const recommendationsArray = Array.isArray(rawRecommendations) ? rawRecommendations : [];
       
-      res.json(recommendations);
+      // Transform recommendations into structured format
+      const recommendations = recommendationsArray.map(rec => ({
+        id: rec.id,
+        treatmentProtocol: rec.treatmentProtocol,
+        evidenceReference: rec.evidenceReference,
+        nccnReference: rec.nccnReference,
+        confidenceScore: parseFloat(String(rec.confidenceScore || '0')),
+        toxicityLevel: rec.toxicityLevel || 'Unknown',
+        priorityTag: rec.priorityTag || 'Standard',
+        biomarkers: rec.biomarkers || [],
+        conflictingBiomarkers: rec.conflictingBiomarkers || [],
+        requiredStage: rec.requiredStage || [],
+        performanceStatusRange: rec.performanceStatusMin !== null && rec.performanceStatusMax !== null 
+          ? `${rec.performanceStatusMin}-${rec.performanceStatusMax}` 
+          : null,
+        reasoning: `NCCN ${rec.evidenceReference} recommendation for ${cancerType}` + 
+                  (rec.biomarkers?.length ? ` with ${rec.biomarkers.join(', ')} biomarkers` : ''),
+        alternatives: [],
+        contraindications: rec.conflictingBiomarkers || []
+      }));
+
+      // Generate summary statistics
+      const totalOptions = recommendations.length;
+      const highConfidence = recommendations.filter(r => r.confidenceScore >= 0.9).length;
+      const nccnAligned = recommendations.filter(r => r.evidenceReference?.includes('Category 1')).length;
+
+      const response = {
+        recommendations,
+        summary: {
+          totalOptions,
+          highConfidence,
+          nccnAligned
+        }
+      };
+      
+      res.json(response);
     } catch (error) {
       console.error("Failed to generate treatment recommendation:", error);
       res.status(500).json({ message: "Failed to generate treatment recommendation" });

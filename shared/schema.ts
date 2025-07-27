@@ -790,31 +790,42 @@ export const userQuizResponses = pgTable("user_quiz_responses", {
   responseDate: timestamp("response_date").defaultNow(),
 });
 
-// Treatment Plan Selector Tables (CDU Module)
+// Treatment Plan Selector Tables (CDU Module) - Enhanced for Pan-Cancer Support
 export const treatmentPlanCriteria = pgTable("treatment_plan_criteria", {
-  id: serial("id").primaryKey(), // Changed to match actual DB structure
-  category: text("category").notNull(), // histology, biomarker, intent, line, reason
+  id: serial("id").primaryKey(),
+  category: text("category").notNull(), // histology, biomarker, intent, line, reason, pdl1_status, genomic_alteration, previous_regimen, performance_status, resistance_mutation, molecular_subtype
   value: text("value").notNull(),
   description: text("description"),
+  cancerSpecific: text("cancer_specific").array(), // Which cancer types this applies to
+  clinicalContext: text("clinical_context"), // Additional context for complex criteria
+  cutoffValue: text("cutoff_value"), // For PD-L1 percentages, biomarker thresholds
   isCommon: boolean("is_common").default(true), // Common vs advanced/rare
   sortOrder: integer("sort_order").default(1),
-  isActive: boolean("is_active").default(true), // Added to match actual DB
+  parentCategory: text("parent_category"), // For hierarchical grouping
+  evidenceLevel: text("evidence_level"), // FDA-approved, NCCN Category 1, 2A, 2B
+  isActive: boolean("is_active").default(true),
   createdAt: timestamp("created_at").defaultNow(),
-  // Note: updatedAt column doesn't exist in actual database
 });
 
 export const treatmentPlanMappings = pgTable("treatment_plan_mappings", {
-  id: uuid("id").primaryKey().defaultRandom(),
-  cancerType: varchar("cancer_type", { length: 100 }).notNull(),
-  histology: varchar("histology", { length: 100 }),
+  id: serial("id").primaryKey(), // Changed to match actual DB structure
+  cancerType: text("cancer_type").notNull(),
+  histology: text("histology"),
   biomarkers: text("biomarkers").array(), // Array of biomarker strings
-  treatmentIntent: varchar("treatment_intent", { length: 100 }),
-  lineOfTreatment: varchar("line_of_treatment", { length: 100 }),
+  treatmentIntent: text("treatment_intent"),
+  lineOfTreatment: text("line_of_treatment"),
   treatmentProtocol: text("treatment_protocol").notNull(),
-  evidenceReference: varchar("evidence_reference", { length: 50 }), // Category 1, 2A, 2B
-  nccnReference: varchar("nccn_reference", { length: 100 }),
+  evidenceReference: text("evidence_reference"), // Category 1, 2A, 2B
+  nccnReference: text("nccn_reference"),
+  conflictingBiomarkers: text("conflicting_biomarkers").array(), // Mutual exclusions
   requiredStage: text("required_stage").array(), // Array of applicable stages
-  confidenceScore: varchar("confidence_score", { length: 10 }),
+  confidenceScore: decimal("confidence_score", { precision: 3, scale: 2 }), // 0.00-1.00
+  requiresCombinationMatch: boolean("requires_combination_match").default(false),
+  toxicityLevel: text("toxicity_level"), // Low, Moderate, High, Severe
+  priorityTag: text("priority_tag"), // First-line, Preferred, Alternative, Last-resort
+  performanceStatusMin: integer("performance_status_min"), // ECOG 0-4
+  performanceStatusMax: integer("performance_status_max"), // ECOG 0-4
+  isActive: boolean("is_active").default(true),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });
@@ -832,6 +843,7 @@ export const insertTreatmentPlanMappingsSchema = createInsertSchema(treatmentPla
   id: true,
   createdAt: true,
   updatedAt: true,
+  isActive: true,
 });
 
 // UpsertUser type for Replit Auth

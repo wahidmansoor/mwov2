@@ -1,0 +1,79 @@
+
+You are an expert full-stack AI developer and oncology systems engineer working on the OncoVista AI platform inside Replit. Your task is to **scale the Treatment Plan Selector** feature into a **pan-oncology, evidence-based decision engine** modeled on NCCN, ESMO, and ASCO treatment pathways.
+
+📦 MODULE: client/src/modules/cdu/TreatmentPlanSelector  
+📊 DATABASE TABLES:  
+- `treatment_plan_criteria`: defines structured filters for cancer-specific criteria  
+- `treatment_plan_mappings`: contains matched treatment recommendations  
+
+---
+
+🎯 GOAL:  
+Upgrade the Treatment Plan Selector to support **all major solid tumors and hematologic malignancies**, enabling dynamic, evidence-driven matching based on combinations of:
+
+- Cancer type and histology
+- Stage
+- Biomarkers (e.g., EGFR, ALK, PD-L1, BRAF, NTRK, KRAS, etc.)
+- Resistance mutations
+- Genomic alterations
+- Line of therapy (1st line, 2nd line, Maintenance)
+- Performance status
+- Treatment intent (Curative vs Palliative)
+
+---
+
+🛠️ ACTION PLAN:
+
+1. ✅ **Schema Review**  
+   - Ensure `treatment_plan_mappings` supports full matching logic:
+     - `biomarkers` (array), `conflicting_biomarkers`, `required_stage`, `cancer_type`, `histology`, `treatment_intent`
+     - Add: `requires_combination_match`, `toxicity_level`, `priority_tag`
+   - Confirm `treatment_plan_criteria` can support rich filtering taxonomy:
+     - Add categories: `"PD-L1 status"`, `"genomic_alteration"`, `"previous_regimen"`, `"performance_status"`
+
+2. 📚 **Seed 150+ Criteria**  
+   - Populate `treatment_plan_criteria` with NCCN-style filters:
+     - Top cancers: NSCLC, SCLC, Breast (HR+/HER2-/TNBC), CRC, Pancreatic, Prostate, Ovarian, Melanoma, CLL, AML, Myeloma
+     - Include PD-L1 cutoffs (`<1%`, `1–49%`, `≥50%`), EGFR/KRAS/BRAF status, BRCA, TMB, MSI-H, etc.
+
+3. 🔁 **Insert 50+ Treatment Mappings**  
+   - Include:
+     - Common matches (e.g., Stage IV NSCLC, EGFR+ → Osimertinib)
+     - Conflict filters (e.g., exclude EGFR tx if KRAS+)
+     - Rare/targeted (e.g., GIST + KIT exon 11 mutation → Imatinib)
+   - Fields:
+     - `biomarkers`, `conflicting_biomarkers`, `required_stage`
+     - `treatment_protocol`, `evidence_reference`, `nccn_reference`
+     - `toxicity_level`, `priority_tag`
+
+4. 🔍 **Smart Indexing for Performance**  
+   - SQL:
+     ```sql
+     CREATE INDEX idx_mapping_combination ON treatment_plan_mappings (cancer_type, histology, treatment_intent);
+     CREATE INDEX idx_mapping_biomarkers ON treatment_plan_mappings USING GIN (biomarkers);
+     ```
+
+5. 🧠 **Matching Engine Enhancements**  
+   - AI-assisted scoring:
+     - Full matches → boost by 2x
+     - Partial biomarker matches → lower score
+   - Support for `requires_combination_match`
+   - Filter out mappings with `conflicting_biomarkers`
+
+6. 🧪 **Front-End Selector UX**  
+   - In CDU UI, ensure dynamic loading of criteria for at least 5 cancer types
+   - Filter by line, biomarker, stage, PD-L1 level, intent
+
+7. 🔧 **Future-Proof Schema + API**  
+   - Output JSON templates to add protocols (for GCP, clinical trials, etc.)
+   - Enable plug-ins for:
+     - N-of-1 decision support
+     - Real-time trial matching
+     - Pediatric oncology
+     - CAR-T or cell therapy regimens
+
+---
+
+📈 OUTCOME:  
+You will have transformed the Treatment Plan Selector into a **pan-cancer, AI-powered clinical decision engine**, fully aligned with NCCN/ESMO/ASCO standards — capable of dynamic filtering across real-world genomic, clinical, and therapeutic contexts.
+
