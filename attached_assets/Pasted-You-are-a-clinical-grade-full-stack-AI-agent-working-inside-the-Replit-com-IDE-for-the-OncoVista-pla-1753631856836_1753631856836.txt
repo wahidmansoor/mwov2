@@ -1,0 +1,105 @@
+You are a clinical-grade full-stack AI agent working inside the Replit.com IDE for the OncoVista platform. Your task is to permanently and intelligently fix the Treatment Plan Selector system so that:
+
+✅ Users **never face "No Treatment Recommendations Found"** unless no protocol truly exists  
+✅ It supports **all cancer types, histologies, biomarkers, intents, lines, and reasons**  
+✅ It allows **smart fallback**, **partial matches**, and **explanatory messages** when exact data is missing
+
+---
+
+🔧 1. DATABASE TASKS
+
+▶ treatment_plan_criteria:
+- Expand categories to include: `cancer_type`, `genomic_alteration`, `resistance_marker`, `PD-L1 status`, `performance_status`, `TMB`, etc.
+- Insert 250+ diverse rows (solid & hematologic tumors)
+
+▶ treatment_plan_mappings:
+- Seed 100+ mappings for:
+  - Breast, NSCLC, SCLC, Colorectal, Prostate, Pancreas, Ovarian, Melanoma
+  - Include common and rare biomarker combinations
+  - Support 1st/2nd line, adjuvant, neoadjuvant, palliative
+  - Fields: `biomarkers`, `required_stage`, `conflicting_biomarkers`, `confidence_score`, `evidence_reference`, `nccn_reference`, `toxicity_level`, `priority_tag`
+
+▶ Index optimization:
+```sql
+CREATE INDEX idx_mapping_combo ON treatment_plan_mappings (cancer_type, histology, treatment_intent);
+CREATE INDEX idx_mapping_biomarkers ON treatment_plan_mappings USING GIN (biomarkers);
+CREATE INDEX idx_mapping_stage ON treatment_plan_mappings USING GIN (required_stage);
+🧠 2. API & LOGIC FIX
+
+Update /api/generate-recommendation to:
+
+Support:
+
+Exact match ✅
+
+Partial match fallback ✅
+
+Subset matching of biomarkers ✅
+
+Stage-independent fallback if required_stage missing
+
+Intent fallback if "All" or "General" is set
+
+New logic:
+
+ts
+Copy
+Edit
+// Pseudo-algorithm
+MATCH IF:
+- cancerType = exact
+- histology = exact OR null
+- treatmentIntent = exact OR "General"
+- selectedBiomarkers ⊆ mapping.biomarkers OR overlap ≥ 1
+- requiredStage includes user.stage OR is null
+THEN:
+- Rank by confidenceScore + biomarkerMatchScore
+- Return top 3 matches with reasons
+ELSE:
+- Return fallback protocols marked as general
+Return this JSON structure:
+
+json
+Copy
+Edit
+{
+  "matchType": "exact" | "partial" | "fallback",
+  "matchedProtocol": "AC-TH",
+  "confidenceScore": 0.97,
+  "explanation": "Best match based on ER+/HER2+, Stage II, Adjuvant intent"
+}
+🧩 3. FRONTEND PATCH (TreatmentPlanSelector UI)
+
+If matchType = fallback, show a yellow badge: "Fallback Recommendation"
+
+If no match at all:
+
+Show a Smart Suggestion Panel:
+
+“Try changing intent to ‘Palliative’ or selecting fewer biomarkers.”
+“You can also select ‘All lines’ to include general protocols.”
+
+Provide a clickable button: Show General Protocols
+
+📊 4. Export Smartness
+
+Enable Export only when matchType != null
+
+Include protocol explanation in PDF/MD output
+
+Tag fallback vs exact match in exports
+
+💡 5. Future-Proofing
+
+Add applicability_score, toxicity_flag, and trial_option columns to mappings
+
+Allow AI expansion using OpenAI or OpenRouter to auto-suggest new mappings when no match is found
+
+✅ END RESULT:
+The Treatment Plan Selector becomes:
+
+Smart, always responsive
+
+Clinically accurate and complete
+
+Never silent — always explains its logic

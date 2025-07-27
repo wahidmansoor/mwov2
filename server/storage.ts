@@ -1105,7 +1105,7 @@ export class DatabaseStorage implements IStorage {
     stage?: string;
     performanceStatus?: number;
   }): TreatmentPlanMapping[] {
-    // Enhanced biomarker and conflict filtering
+    // Enhanced biomarker and conflict filtering with partial matching
     let filteredMappings = allMappings.filter(mapping => {
       // Check for conflicting biomarkers
       if (mapping.conflictingBiomarkers && criteria.biomarkers) {
@@ -1115,9 +1115,13 @@ export class DatabaseStorage implements IStorage {
         if (hasConflict) return false;
       }
 
-      // Check stage requirements
+      // Enhanced stage requirements with fallback
       if (criteria.stage && criteria.stage !== 'all' && mapping.requiredStage) {
-        if (!mapping.requiredStage.includes(criteria.stage)) return false;
+        if (!mapping.requiredStage.includes(criteria.stage) && 
+            !mapping.requiredStage.includes('all') && 
+            !mapping.requiredStage.includes('IV')) { // Stage IV protocols often apply broadly
+          return false;
+        }
       }
 
       // Check performance status requirements
