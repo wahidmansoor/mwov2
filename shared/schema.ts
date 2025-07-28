@@ -905,3 +905,302 @@ export type TreatmentPlanCriteria = typeof treatmentPlanCriteria.$inferSelect;
 export type InsertTreatmentPlanCriteria = z.infer<typeof insertTreatmentPlanCriteriaSchema>;
 export type TreatmentPlanMapping = typeof treatmentPlanMappings.$inferSelect;
 export type InsertTreatmentPlanMapping = z.infer<typeof insertTreatmentPlanMappingsSchema>;
+
+// =====================================================
+// ENHANCED PALLIATIVE CARE TABLES
+// =====================================================
+
+// Validated Symptom Assessments (ESAS-R, IPOS, etc.)
+export const validatedSymptomAssessments = pgTable("validated_symptom_assessments", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  sessionId: varchar("session_id", { length: 255 }).notNull(),
+  userId: uuid("user_id").references(() => users.id),
+  assessmentType: varchar("assessment_type", { length: 100 }).notNull(),
+  assessmentData: jsonb("assessment_data").notNull(),
+  totalScore: decimal("total_score", { precision: 5, scale: 2 }),
+  severityLevel: varchar("severity_level", { length: 50 }),
+  clinicalInterpretation: text("clinical_interpretation"),
+  aiAnalysis: jsonb("ai_analysis"),
+  recommendedInterventions: jsonb("recommended_interventions"),
+  followUpRequired: boolean("follow_up_required").default(false),
+  nextAssessmentDate: timestamp("next_assessment_date"),
+  nccnReference: varchar("nccn_reference", { length: 100 }),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+  isActive: boolean("is_active").default(true),
+});
+
+// Pain Phenotypes Assessment
+export const painPhenotypes = pgTable("pain_phenotypes", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  sessionId: varchar("session_id", { length: 255 }).notNull(),
+  userId: uuid("user_id").references(() => users.id),
+  painType: varchar("pain_type", { length: 100 }).notNull(),
+  painMechanism: varchar("pain_mechanism", { length: 100 }),
+  painLocation: jsonb("pain_location").notNull(),
+  painQuality: jsonb("pain_quality"),
+  painPattern: varchar("pain_pattern", { length: 100 }),
+  painIntensityCurrent: integer("pain_intensity_current"),
+  painIntensityWorst: integer("pain_intensity_worst"),
+  painIntensityAverage: integer("pain_intensity_average"),
+  painImpactFunction: jsonb("pain_impact_function"),
+  painImpactMood: jsonb("pain_impact_mood"),
+  triggeringFactors: jsonb("triggering_factors"),
+  relievingFactors: jsonb("relieving_factors"),
+  currentMedications: jsonb("current_medications"),
+  previousTreatments: jsonb("previous_treatments"),
+  comorbidities: jsonb("comorbidities"),
+  assessmentToolsUsed: jsonb("assessment_tools_used"),
+  aiPhenotypePrediction: jsonb("ai_phenotype_prediction"),
+  recommendedApproach: jsonb("recommended_approach"),
+  specialistReferralNeeded: boolean("specialist_referral_needed").default(false),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+  isActive: boolean("is_active").default(true),
+});
+
+// Communication Logs (SPIKES, Goals of Care)
+export const communicationLogs = pgTable("communication_logs", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  sessionId: varchar("session_id", { length: 255 }).notNull(),
+  userId: uuid("user_id").references(() => users.id),
+  communicationType: varchar("communication_type", { length: 100 }).notNull(),
+  conversationFramework: varchar("conversation_framework", { length: 100 }),
+  participants: jsonb("participants"),
+  conversationContext: jsonb("conversation_context"),
+  communicationSteps: jsonb("communication_steps"),
+  patientUnderstanding: jsonb("patient_understanding"),
+  emotionalResponses: jsonb("emotional_responses"),
+  questionsConcerns: jsonb("questions_concerns"),
+  decisionsMade: jsonb("decisions_made"),
+  followUpPlanned: jsonb("follow_up_planned"),
+  goalsIdentified: jsonb("goals_identified"),
+  advanceDirectivesDiscussed: boolean("advance_directives_discussed").default(false),
+  codeStatusDiscussed: boolean("code_status_discussed").default(false),
+  culturalConsiderations: jsonb("cultural_considerations"),
+  communicationBarriers: jsonb("communication_barriers"),
+  interpreterUsed: boolean("interpreter_used").default(false),
+  satisfactionRating: integer("satisfaction_rating"),
+  aiCommunicationInsights: jsonb("ai_communication_insights"),
+  improvementRecommendations: jsonb("improvement_recommendations"),
+  nccnReference: varchar("nccn_reference", { length: 100 }),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+  isActive: boolean("is_active").default(true),
+});
+
+// Spiritual Assessments (FICA, HOPE)
+export const spiritualAssessments = pgTable("spiritual_assessments", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  sessionId: varchar("session_id", { length: 255 }).notNull(),
+  userId: uuid("user_id").references(() => users.id),
+  assessmentType: varchar("assessment_type", { length: 100 }).notNull(),
+  faithTradition: varchar("faith_tradition", { length: 100 }),
+  faithImportanceRating: integer("faith_importance_rating"),
+  spiritualCommunity: varchar("spiritual_community", { length: 255 }),
+  spiritualPractices: jsonb("spiritual_practices"),
+  spiritualSupportSources: jsonb("spiritual_support_sources"),
+  spiritualConcerns: jsonb("spiritual_concerns"),
+  meaningMaking: jsonb("meaning_making"),
+  hopeSources: jsonb("hope_sources"),
+  forgivenessIssues: jsonb("forgiveness_issues"),
+  endOfLifeBeliefs: jsonb("end_of_life_beliefs"),
+  ritualPreferences: jsonb("ritual_preferences"),
+  chaplaincyReferralNeeded: boolean("chaplaincy_referral_needed").default(false),
+  chaplaincyReferralMade: boolean("chaplaincy_referral_made").default(false),
+  spiritualCarePlan: jsonb("spiritual_care_plan"),
+  culturalConsiderations: jsonb("cultural_considerations"),
+  familySpiritualNeeds: jsonb("family_spiritual_needs"),
+  aiSpiritualInsights: jsonb("ai_spiritual_insights"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+  isActive: boolean("is_active").default(true),
+});
+
+// Oncological Emergencies
+export const oncologicalEmergencies = pgTable("oncological_emergencies", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  sessionId: varchar("session_id", { length: 255 }).notNull(),
+  userId: uuid("user_id").references(() => users.id),
+  emergencyType: varchar("emergency_type", { length: 100 }).notNull(),
+  presentationSymptoms: jsonb("presentation_symptoms").notNull(),
+  severityLevel: varchar("severity_level", { length: 50 }).notNull(),
+  timeToRecognition: varchar("time_to_recognition", { length: 100 }),
+  diagnosticWorkup: jsonb("diagnostic_workup"),
+  nccnProtocolFollowed: varchar("nccn_protocol_followed", { length: 100 }),
+  immediateInterventions: jsonb("immediate_interventions"),
+  responseToTreatment: jsonb("response_to_treatment"),
+  complications: jsonb("complications"),
+  specialistConsultations: jsonb("specialist_consultations"),
+  imagingStudies: jsonb("imaging_studies"),
+  laboratoryValues: jsonb("laboratory_values"),
+  monitoringParameters: jsonb("monitoring_parameters"),
+  familyNotification: boolean("family_notification").default(false),
+  familyCommunicationLog: jsonb("family_communication_log"),
+  dischargePlanning: jsonb("discharge_planning"),
+  qualityMetrics: jsonb("quality_metrics"),
+  lessonsLearned: jsonb("lessons_learned"),
+  aiEmergencyAnalysis: jsonb("ai_emergency_analysis"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+  isActive: boolean("is_active").default(true),
+});
+
+// Quality Metrics Dashboard
+export const palliativeQualityMetrics = pgTable("palliative_quality_metrics", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  sessionId: varchar("session_id", { length: 255 }),
+  userId: uuid("user_id").references(() => users.id),
+  metricCategory: varchar("metric_category", { length: 100 }).notNull(),
+  metricName: varchar("metric_name", { length: 255 }).notNull(),
+  metricValue: decimal("metric_value", { precision: 10, scale: 3 }),
+  metricUnit: varchar("metric_unit", { length: 50 }),
+  targetValue: decimal("target_value", { precision: 10, scale: 3 }),
+  performanceLevel: varchar("performance_level", { length: 50 }),
+  measurementPeriodStart: timestamp("measurement_period_start"),
+  measurementPeriodEnd: timestamp("measurement_period_end"),
+  patientPopulation: varchar("patient_population", { length: 255 }),
+  nccnQualityIndicator: varchar("nccn_quality_indicator", { length: 100 }),
+  dataSource: varchar("data_source", { length: 100 }),
+  calculationMethod: text("calculation_method"),
+  statisticalSignificance: decimal("statistical_significance", { precision: 5, scale: 3 }),
+  confidenceInterval: jsonb("confidence_interval"),
+  trendDirection: varchar("trend_direction", { length: 50 }),
+  benchmarkComparison: jsonb("benchmark_comparison"),
+  actionItems: jsonb("action_items"),
+  responsibleTeam: jsonb("responsible_team"),
+  improvementTimeline: jsonb("improvement_timeline"),
+  aiQualityInsights: jsonb("ai_quality_insights"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+  isActive: boolean("is_active").default(true),
+});
+
+// Caregiver Assessments (Zarit Burden Interview)
+export const caregiverAssessments = pgTable("caregiver_assessments", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  sessionId: varchar("session_id", { length: 255 }).notNull(),
+  userId: uuid("user_id").references(() => users.id),
+  caregiverRelationship: varchar("caregiver_relationship", { length: 100 }),
+  assessmentType: varchar("assessment_type", { length: 100 }).notNull(),
+  burdenScore: integer("burden_score"),
+  strainLevel: varchar("strain_level", { length: 50 }),
+  physicalHealthImpact: jsonb("physical_health_impact"),
+  emotionalHealthImpact: jsonb("emotional_health_impact"),
+  socialImpact: jsonb("social_impact"),
+  financialImpact: jsonb("financial_impact"),
+  workImpact: jsonb("work_impact"),
+  supportSystems: jsonb("support_systems"),
+  copingStrategies: jsonb("coping_strategies"),
+  educationalNeeds: jsonb("educational_needs"),
+  respiteCareNeeds: boolean("respite_care_needs").default(false),
+  professionalSupportNeeded: jsonb("professional_support_needed"),
+  supportGroupInterest: boolean("support_group_interest").default(false),
+  aiCaregiverInsights: jsonb("ai_caregiver_insights"),
+  interventionPlan: jsonb("intervention_plan"),
+  followUpSchedule: jsonb("follow_up_schedule"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+  isActive: boolean("is_active").default(true),
+});
+
+// Enhanced Psychosocial Assessments
+export const enhancedPsychosocialAssessments = pgTable("enhanced_psychosocial_assessments", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  sessionId: varchar("session_id", { length: 255 }).notNull(),
+  userId: uuid("user_id").references(() => users.id),
+  assessmentType: varchar("assessment_type", { length: 100 }).notNull(),
+  depressionScore: integer("depression_score"),
+  anxietyScore: integer("anxiety_score"),
+  distressLevel: integer("distress_level"),
+  suicideRiskLevel: varchar("suicide_risk_level", { length: 50 }),
+  copingStrategies: jsonb("coping_strategies"),
+  socialSupportNetwork: jsonb("social_support_network"),
+  financialConcerns: jsonb("financial_concerns"),
+  workConcerns: jsonb("work_concerns"),
+  insuranceIssues: jsonb("insurance_issues"),
+  transportationBarriers: jsonb("transportation_barriers"),
+  childcareEldercareNeeds: jsonb("childcare_eldercare_needs"),
+  housingStability: jsonb("housing_stability"),
+  substanceUseHistory: jsonb("substance_use_history"),
+  traumaHistory: jsonb("trauma_history"),
+  mentalHealthHistory: jsonb("mental_health_history"),
+  culturalFactors: jsonb("cultural_factors"),
+  bodyImageConcerns: jsonb("body_image_concerns"),
+  sexualityIntimacyConcerns: jsonb("sexuality_intimacy_concerns"),
+  existentialConcerns: jsonb("existential_concerns"),
+  aiPsychosocialInsights: jsonb("ai_psychosocial_insights"),
+  interventionRecommendations: jsonb("intervention_recommendations"),
+  referralNeeds: jsonb("referral_needs"),
+  safetyPlanning: jsonb("safety_planning"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+  isActive: boolean("is_active").default(true),
+});
+
+// Insert schemas for new tables
+export const insertValidatedSymptomAssessmentSchema = createInsertSchema(validatedSymptomAssessments).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertPainPhenotypeSchema = createInsertSchema(painPhenotypes).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertCommunicationLogSchema = createInsertSchema(communicationLogs).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertSpiritualAssessmentSchema = createInsertSchema(spiritualAssessments).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertOncologicalEmergencySchema = createInsertSchema(oncologicalEmergencies).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertPalliativeQualityMetricSchema = createInsertSchema(palliativeQualityMetrics).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertCaregiverAssessmentSchema = createInsertSchema(caregiverAssessments).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertEnhancedPsychosocialAssessmentSchema = createInsertSchema(enhancedPsychosocialAssessments).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+// Enhanced Palliative Care types
+export type ValidatedSymptomAssessment = typeof validatedSymptomAssessments.$inferSelect;
+export type InsertValidatedSymptomAssessment = z.infer<typeof insertValidatedSymptomAssessmentSchema>;
+export type PainPhenotype = typeof painPhenotypes.$inferSelect;
+export type InsertPainPhenotype = z.infer<typeof insertPainPhenotypeSchema>;
+export type CommunicationLog = typeof communicationLogs.$inferSelect;
+export type InsertCommunicationLog = z.infer<typeof insertCommunicationLogSchema>;
+export type SpiritualAssessment = typeof spiritualAssessments.$inferSelect;
+export type InsertSpiritualAssessment = z.infer<typeof insertSpiritualAssessmentSchema>;
+export type OncologicalEmergency = typeof oncologicalEmergencies.$inferSelect;
+export type InsertOncologicalEmergency = z.infer<typeof insertOncologicalEmergencySchema>;
+export type PalliativeQualityMetric = typeof palliativeQualityMetrics.$inferSelect;
+export type InsertPalliativeQualityMetric = z.infer<typeof insertPalliativeQualityMetricSchema>;
+export type CaregiverAssessment = typeof caregiverAssessments.$inferSelect;
+export type InsertCaregiverAssessment = z.infer<typeof insertCaregiverAssessmentSchema>;
+export type EnhancedPsychosocialAssessment = typeof enhancedPsychosocialAssessments.$inferSelect;
+export type InsertEnhancedPsychosocialAssessment = z.infer<typeof insertEnhancedPsychosocialAssessmentSchema>;

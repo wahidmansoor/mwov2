@@ -1,0 +1,97 @@
+Transform the **OncoVista Palliative Care Module** into a world-class, AI-powered clinical decision support system — aligning with NCCN 2025 guidelines, modern pain management strategies, and communication excellence protocols. The goal is to move from a current functional capacity of 15% to >95%, addressing 847 identified gaps across clinical, technical, and UX dimensions.
+
+---
+
+🧠 CONTEXT:
+The current module includes basic tabs like Symptom Control, Pain Management, Psychosocial Support, and Advanced Directives. However, it lacks:
+- AI decision support
+- NCCN guideline integration
+- Validated symptom instruments (ESAS, IPOS)
+- Emergency management protocols
+- Spiritual care and cultural frameworks
+- Functional interdisciplinary care coordination
+
+We now want to:
+1. Fix all LSP errors in components like `ComprehensivePalliativeCare.tsx`, `SymptomControl.tsx`, and `PainManagement.tsx`
+2. Modularize the structure under `/modules/palliative-care/` with folders per domain (pain-management, spiritual-care, emergency-care, etc.)
+3. Expand our database with the following new tables:
+   - `validatedSymptomAssessments`
+   - `painPhenotypes`
+   - `communicationLogs`
+   - `spiritualAssessments`
+   - `oncEmergencies`
+   - `qualityMetrics`
+4. Add new API endpoints for:
+   - AI-powered assessment (`/ai/symptom-score`)
+   - Pain phenotype capture (`/assessment/pain-type`)
+   - SPIKES/goals of care logs (`/communication/goals`)
+   - Emergency response logging (`/emergency/response-event`)
+5. Integrate validated clinical tools:
+   - ESAS-r, IPOS, PHQ-9, GAD-7, Zarit, FICA, HOPE
+6. Implement communication frameworks:
+   - SPIKES protocol
+   - VitalTalk modules
+   - Prognostic communication assistant
+7. Build an Emergency Management dashboard:
+   - Includes protocols for spinal cord compression, SVCS, malignant hypercalcemia, massive hemorrhage
+8. Build a real-time **Quality Metrics Dashboard** tracking:
+   - NCCN compliance, caregiver burden, PROMs, and symptom control over time
+9. Integrate OpenRouter (Claude/Mixtral or OpenAI) to:
+   - Cluster symptoms
+   - Predict symptom trajectory
+   - Generate intervention suggestions
+   - Personalize pain management plans
+
+---
+
+🛠️ TASKS:
+
+1. 🔧 Fix all LSP errors and refactor all files to strict TypeScript compliance
+2. 🗂️ Refactor component structure using this convention:
+/modules/palliative-care/
+├── pain-management/
+├── symptom-control/
+├── communication/
+├── spiritual-care/
+├── emergency-care/
+└── quality-metrics/
+
+yaml
+Copy
+Edit
+3. 📦 Expand the database schema (PostgreSQL / Supabase) with the tables listed above.
+4. ⚙️ Scaffold all listed API endpoints using Node.js + Express + Supabase queries.
+5. 💡 Add reusable clinical form components with Tailwind + ShadCN:
+- Sliders, validated scales (PHQ-9, IPOS), and symptom-trend graphs
+6. 🤖 Create integration layer for AI decision support:
+- Call `https://api.openrouter.ai` or other backend AI agent for prompt-based clustering and prediction
+7. 💬 Implement SPIKES UI wizard (step-based) and embed family meeting scheduling tool
+8. 📈 Build metrics dashboard using Recharts or Chart.js + Supabase aggregation queries
+9. 🧪 Add unit + integration tests using Jest + React Testing Library for:
+- Symptom input
+- Communication wizards
+- Emergency protocol selection
+10. 🧘 Implement dark mode + accessibility for all pages
+11. 🔐 Add role-based access if not yet done (MD, RN, Family Proxy, Admin)
+
+---
+
+🧩 SPECIAL NOTES:
+- Prioritize **clinical safety**: All AI suggestions must be labeled with disclaimer `for educational decision support only`.
+- Ensure internationalization-ready text (i18n) for future regional adaptation.
+- Make all modules print-ready using `@media print` styles and Tailwind classes.
+
+---
+
+
+
+---
+
+💬 OUTPUT:
+Give me:
+1. All modified React components using Tailwind and ShadCN
+2. Full SQL migration file for schema expansion
+3. All new Express route files (one per API)
+4. Example AI prompt schema
+5. Sample JSON mock data for emergency protocols
+6. Visual preview or mockup of the emergency dashboard and communication wizard
