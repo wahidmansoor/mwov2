@@ -1042,10 +1042,9 @@ export class DatabaseStorage implements IStorage {
     recommendations: TreatmentPlanMapping[];
     note: string;
   }> {
-    // Fallback hierarchy as per uploaded document:
-    // 1. Adjuvant <-> Curative fallback
-    // 2. Neoadjuvant <-> Curative fallback
+    console.log('Starting enhanced AI fallback logic...');
     
+    // Phase 1: Treatment Intent Fallback (Original logic enhanced)
     const fallbackIntents = this.getFallbackIntents(criteria.treatmentIntent);
     
     for (const fallbackIntent of fallbackIntents) {
@@ -1060,39 +1059,274 @@ export class DatabaseStorage implements IStorage {
         };
       }
     }
-    
-    // If still no matches, try removing treatment intent entirely for general protocols
+
+    // Phase 2: Biomarker Similarity Matching
+    if (criteria.biomarkers && criteria.biomarkers.length > 0) {
+      const similarBiomarkerResults = await this.findSimilarBiomarkerProtocols(criteria);
+      if (similarBiomarkerResults.recommendations.length > 0) {
+        return similarBiomarkerResults;
+      }
+    }
+
+    // Phase 3: Cross-Cancer Type Matching (for molecularly similar cancers)
+    const crossCancerResults = await this.findCrossCancerProtocols(criteria);
+    if (crossCancerResults.recommendations.length > 0) {
+      return crossCancerResults;
+    }
+
+    // Phase 4: Histology-Based Fallback
+    if (criteria.histology && criteria.histology !== 'all') {
+      const histologyResults = await this.findHistologyBasedProtocols(criteria);
+      if (histologyResults.recommendations.length > 0) {
+        return histologyResults;
+      }
+    }
+
+    // Phase 5: Line of Treatment Flexibility
+    if (criteria.lineOfTreatment && criteria.lineOfTreatment !== 'all') {
+      const lineResults = await this.findAlternativeLineProtocols(criteria);
+      if (lineResults.recommendations.length > 0) {
+        return lineResults;
+      }
+    }
+
+    // Phase 6: General Protocol Fallback (Enhanced)
     if (criteria.treatmentIntent && criteria.treatmentIntent !== 'all') {
       const generalCriteria = { ...criteria };
       delete generalCriteria.treatmentIntent;
       
       const generalMappings = await this.findDirectMappings(generalCriteria);
       if (generalMappings.length > 0) {
-        const note = `No specific ${criteria.treatmentIntent} protocols found. Showing general treatment recommendations that may be adapted for this intent.`;
+        const note = `No specific protocols found for ${criteria.treatmentIntent}. Showing general treatment recommendations that may be adapted. Please consult multidisciplinary team for optimal approach.`;
         return {
-          recommendations: generalMappings.slice(0, 3), // Limit to top 3
+          recommendations: generalMappings.slice(0, 3),
+          note
+        };
+      }
+    }
+
+    // Phase 7: Last Resort - Cancer Type Only Match
+    const basicCriteria = { cancerType: criteria.cancerType };
+    const basicMappings = await this.findDirectMappings(basicCriteria);
+    if (basicMappings.length > 0) {
+      const note = `Limited protocol matches found. Showing general ${criteria.cancerType} treatment options. Strongly recommend multidisciplinary oncology consultation for personalized treatment planning.`;
+      return {
+        recommendations: basicMappings.slice(0, 2),
+        note
+      };
+    }
+    
+    return {
+      recommendations: [],
+      note: 'No compatible treatment protocols found for the specified criteria. Please consult with oncology specialist for off-protocol or clinical trial options.'
+    };
+  }
+
+  private getFallbackIntents(currentIntent?: string): string[] {
+    // Enhanced fallback hierarchy with comprehensive pan-oncology approach
+    switch (currentIntent) {
+      case 'Adjuvant':
+        return ['Curative', 'Maintenance', 'Palliative'];
+      case 'Neoadjuvant':
+        return ['Curative', 'Adjuvant', 'Palliative'];
+      case 'Curative':
+        return ['Adjuvant', 'Neoadjuvant', 'Maintenance'];
+      case 'Palliative':
+        return ['Maintenance', 'Curative'];
+      case 'Maintenance':
+        return ['Palliative', 'Adjuvant'];
+      default:
+        return ['Curative', 'Palliative', 'Maintenance'];
+    }
+  }
+
+  // Phase 2: Biomarker Similarity Matching
+  private async findSimilarBiomarkerProtocols(criteria: {
+    cancerType: string;
+    histology?: string;
+    biomarkers?: string[];
+    treatmentIntent?: string;
+    lineOfTreatment?: string;
+    stage?: string;
+    performanceStatus?: number;
+  }): Promise<{
+    recommendations: TreatmentPlanMapping[];
+    note: string;
+  }> {
+    const similarBiomarkers = this.getBiomarkerSimilarities(criteria.biomarkers || []);
+    
+    for (const biomarkerGroup of similarBiomarkers) {
+      const modifiedCriteria = { ...criteria, biomarkers: biomarkerGroup };
+      const mappings = await this.findDirectMappings(modifiedCriteria);
+      
+      if (mappings.length > 0) {
+        const note = `No exact biomarker match found. Showing protocols for molecularly similar profile (${biomarkerGroup.join(', ')}). Consider molecular tumor board consultation.`;
+        return {
+          recommendations: mappings.slice(0, 2),
           note
         };
       }
     }
     
-    return {
-      recommendations: [],
-      note: 'No compatible treatment protocols found for the specified criteria.'
-    };
+    return { recommendations: [], note: '' };
   }
 
-  private getFallbackIntents(currentIntent?: string): string[] {
-    // Implement fallback hierarchy as per uploaded document
-    switch (currentIntent) {
-      case 'Adjuvant':
-        return ['Curative', 'Palliative']; // Adjuvant -> Curative -> Palliative
-      case 'Neoadjuvant':
-        return ['Curative', 'Adjuvant', 'Palliative']; // Neoadjuvant -> Curative -> Adjuvant -> Palliative
-      case 'Curative':
-        return ['Adjuvant', 'Neoadjuvant']; // Curative can fallback to specific intents
+  // Phase 3: Cross-Cancer Type Matching
+  private async findCrossCancerProtocols(criteria: {
+    cancerType: string;
+    histology?: string;
+    biomarkers?: string[];
+    treatmentIntent?: string;
+    lineOfTreatment?: string;
+    stage?: string;
+    performanceStatus?: number;
+  }): Promise<{
+    recommendations: TreatmentPlanMapping[];
+    note: string;
+  }> {
+    const similarCancerTypes = this.getCancerTypeSimilarities(criteria.cancerType);
+    
+    for (const similarCancer of similarCancerTypes) {
+      const modifiedCriteria = { ...criteria, cancerType: similarCancer };
+      const mappings = await this.findDirectMappings(modifiedCriteria);
+      
+      if (mappings.length > 0) {
+        const note = `Limited ${criteria.cancerType} protocols available. Showing ${similarCancer} protocols with similar molecular characteristics. Requires multidisciplinary review for cross-tumor efficacy.`;
+        return {
+          recommendations: mappings.slice(0, 2),
+          note
+        };
+      }
+    }
+    
+    return { recommendations: [], note: '' };
+  }
+
+  // Phase 4: Histology-Based Fallback
+  private async findHistologyBasedProtocols(criteria: {
+    cancerType: string;
+    histology?: string;
+    biomarkers?: string[];
+    treatmentIntent?: string;
+    lineOfTreatment?: string;
+    stage?: string;
+    performanceStatus?: number;
+  }): Promise<{
+    recommendations: TreatmentPlanMapping[];
+    note: string;
+  }> {
+    // Remove histology requirement for broader matching
+    const broadCriteria = { ...criteria };
+    delete broadCriteria.histology;
+    
+    const mappings = await this.findDirectMappings(broadCriteria);
+    if (mappings.length > 0) {
+      const note = `No protocols found for ${criteria.histology} histology. Showing general ${criteria.cancerType} protocols that may be applicable.`;
+      return {
+        recommendations: mappings.slice(0, 3),
+        note
+      };
+    }
+    
+    return { recommendations: [], note: '' };
+  }
+
+  // Phase 5: Line of Treatment Flexibility
+  private async findAlternativeLineProtocols(criteria: {
+    cancerType: string;
+    histology?: string;
+    biomarkers?: string[];
+    treatmentIntent?: string;
+    lineOfTreatment?: string;
+    stage?: string;
+    performanceStatus?: number;
+  }): Promise<{
+    recommendations: TreatmentPlanMapping[];
+    note: string;
+  }> {
+    const alternativeLines = this.getAlternativeLines(criteria.lineOfTreatment || '');
+    
+    for (const line of alternativeLines) {
+      const modifiedCriteria = { ...criteria, lineOfTreatment: line };
+      const mappings = await this.findDirectMappings(modifiedCriteria);
+      
+      if (mappings.length > 0) {
+        const note = `No ${criteria.lineOfTreatment} protocols found. Showing ${line} protocols that may be adapted based on patient status and prior treatments.`;
+        return {
+          recommendations: mappings.slice(0, 2),
+          note
+        };
+      }
+    }
+    
+    return { recommendations: [], note: '' };
+  }
+
+  // Helper: Biomarker Similarity Groups
+  private getBiomarkerSimilarities(biomarkers: string[]): string[][] {
+    const similarities: { [key: string]: string[] } = {
+      'ER+': ['PR+', 'ER+/PR+'],
+      'PR+': ['ER+', 'ER+/PR+'],
+      'HER2+': ['HER2-neu+', 'ERBB2+'],
+      'EGFR Exon 19': ['EGFR Exon 21 L858R', 'EGFR+'],
+      'EGFR Exon 21 L858R': ['EGFR Exon 19', 'EGFR+'],
+      'ALK+': ['ROS1+', 'RET+'],
+      'ROS1+': ['ALK+', 'RET+'],
+      'BRAF V600E': ['BRAF V600K', 'BRAF+'],
+      'MSI-H': ['dMMR', 'TMB-High'],
+      'dMMR': ['MSI-H', 'TMB-High'],
+      'BRCA1 Mutation': ['BRCA2 Mutation', 'HRD+'],
+      'BRCA2 Mutation': ['BRCA1 Mutation', 'HRD+'],
+      'PD-L1 ≥50%': ['PD-L1 ≥1%', 'PD-L1+'],
+      'PD-L1 ≥1%': ['PD-L1 ≥50%', 'PD-L1+'],
+      'FLT3+': ['NPM1+', 'IDH1/2+'],
+      'NPM1+': ['FLT3+', 'CEBPα+']
+    };
+
+    const result: string[][] = [];
+    for (const biomarker of biomarkers) {
+      if (similarities[biomarker]) {
+        result.push(similarities[biomarker]);
+      }
+    }
+    
+    return result;
+  }
+
+  // Helper: Cancer Type Similarities
+  private getCancerTypeSimilarities(cancerType: string): string[] {
+    const similarities: { [key: string]: string[] } = {
+      'NSCLC': ['Lung Adenocarcinoma', 'Squamous Cell Lung'],
+      'Breast Cancer': ['Ovarian', 'Endometrial'],
+      'Colorectal': ['Gastric', 'Pancreatic'],
+      'Ovarian': ['Breast Cancer', 'Endometrial', 'Fallopian Tube'],
+      'Pancreatic': ['Gastric', 'Biliary'],
+      'Gastric': ['Colorectal', 'Esophageal'],
+      'Melanoma': ['Uveal Melanoma', 'Sarcoma'],
+      'AML': ['ALL', 'MDS'],
+      'CLL': ['Mantle Cell Lymphoma', 'Follicular Lymphoma'],
+      'Multiple Myeloma': ['Waldenstrom', 'Amyloidosis'],
+      'GIST': ['Sarcoma', 'Renal Cell'],
+      'Prostate': ['Bladder', 'Kidney'],
+      'Bladder': ['Urothelial', 'Kidney']
+    };
+
+    return similarities[cancerType] || [];
+  }
+
+  // Helper: Alternative Treatment Lines
+  private getAlternativeLines(currentLine: string): string[] {
+    switch (currentLine) {
+      case '1st Line':
+        return ['2nd Line', '3rd Line'];
+      case '2nd Line':
+        return ['1st Line', '3rd Line'];
+      case '3rd Line':
+        return ['2nd Line', 'Salvage'];
+      case 'Salvage':
+        return ['3rd Line', '2nd Line'];
       default:
-        return ['Curative', 'Palliative']; // Default fallback
+        return ['1st Line', '2nd Line'];
     }
   }
 

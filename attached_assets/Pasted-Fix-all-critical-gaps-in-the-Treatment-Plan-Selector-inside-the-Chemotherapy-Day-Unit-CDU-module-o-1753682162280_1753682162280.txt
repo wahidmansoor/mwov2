@@ -1,0 +1,122 @@
+Fix all critical gaps in the Treatment Plan Selector inside the Chemotherapy Day Unit (CDU) module of the OncoVista app. Currently, choosing `Adjuvant`, `Neoadjuvant`, or `Palliative` intent often results in “No Recommendation Found” due to missing database mappings.
+
+Your mission is to expand the Treatment Plan Selector into a **pan-oncology clinical engine**, guided by the latest treatment standards from **NCCN**, **ASCO**, and **ESMO**.
+
+---
+
+✅ CONTEXT:
+The system uses two core tables:
+
+- `treatment_plan_mappings` (protocols matched to cancer types, biomarkers, intent, etc.)
+- `treatment_plan_criteria` (available selection filters)
+
+Current limitations:
+- Many cancer types are covered under only `Curative` intent.
+- Others are missing biomarker combinations or later-line mappings.
+- Export tools and AI fallback logic do not handle missing recommendations gracefully.
+
+---
+
+📚 REQUIREMENT: Use Authoritative Guidelines
+For each cancer type listed below, populate new treatment mappings directly from:
+- ✅ NCCN (2024–2025)
+- ✅ ESMO Guidelines (Level I or II)
+- ✅ ASCO Recommendations
+
+Every mapping entry must include:
+- `cancer_type`
+- `histology`
+- `biomarkers` (array)
+- `treatment_intent` (e.g., Adjuvant, Palliative)
+- `line_of_treatment`
+- `treatment_protocol`
+- `required_stage` (array)
+- `confidence_score` (e.g., 0.95)
+- `evidence_reference` (e.g., Category 1, ESMO Level I)
+- `nccn_reference` (e.g., "NSCLC-B")
+- `priority_tag` (e.g., "targeted", "IO", "chemo")
+- Timestamps: `created_at`, `updated_at`
+
+---
+
+🗂️ CANCER TYPES TO COVER (required):
+["Breast Cancer", "NSCLC", "SCLC", "Colorectal", "Pancreatic", "Prostate", "Ovarian", "Melanoma", "Gastric", "GIST", "Bladder", "CLL", "AML", "ALL", "Multiple Myeloma", "CML", "MDS", "Hodgkin Lymphoma", "Non-Hodgkin Lymphoma"]
+
+---
+
+🛠️ ACTION PLAN:
+
+### 1. EXPAND `treatment_plan_mappings`
+For each cancer type above, generate at least **3 mappings** across different intents:
+- `Adjuvant`, `Neoadjuvant`, `Curative`, `Palliative`, `Maintenance`
+- Include multiple **histology types**, **biomarker combinations**, and **lines of therapy**
+
+Ensure each protocol entry has a realistic `confidence_score` and references its **guideline citation**.
+
+---
+
+### 2. AUGMENT `treatment_plan_criteria`
+Add any **missing biomarkers** needed to support the mappings above:
+- Examples: `HER2+`, `EGFR Exon 19`, `BRCA1 Mutation`, `PD-L1 ≥1%`, `del(17p)`, `FLT3+`
+- Structure each insert as:
+```json
+{
+  "category": "biomarker",
+  "value": "EGFR Exon 19",
+  "description": "EGFR activating mutation (NSCLC)",
+  "is_common": true,
+  "sort_order": 10,
+  "is_active": true
+}
+3. ADD SMART AI FALLBACKS (Optional Enhancement)
+If no exact match is found:
+
+Use fallback rules:
+
+If Adjuvant has no result → suggest Curative protocol
+
+If 2nd Line fails → suggest 1st Line
+
+Return result with fallback flag:
+
+json
+Copy
+Edit
+{
+  "fallback_triggered": true,
+  "fallback_source": "Curative",
+  "confidence_score": 0.82
+}
+4. FRONTEND + EXPORT IMPROVEMENTS
+If fallback result is shown, display a banner:
+
+“AI fallback used: Based on ‘Curative’ protocol”
+
+Export functions (PDF, Share, Print) should include:
+
+intent_used
+
+fallback_triggered
+
+guideline_reference
+
+5. QA SCENARIOS TO COVER
+Cancer	Intent	Stage	Biomarkers	Expected Treatment
+Breast (HER2+)	Adjuvant	II	ER+/PR+/HER2+	AC-THP / TCHP
+NSCLC (EGFR+)	Adjuvant	IIIA	EGFR Exon 19	Osimertinib
+Ovarian	Neoadjuvant	III	BRCA wt	Carboplatin + Paclitaxel
+CLL	Palliative	n/a	del(17p)	Acalabrutinib + Venetoclax
+Myeloma	Maintenance	n/a	High-risk cytogen.	Lenalidomide
+Melanoma	Adjuvant	III	BRAF V600E	Dabrafenib + Trametinib
+AML	Curative	I	FLT3+	7+3 + Midostaurin
+GIST	Adjuvant	III	KIT mutation	Imatinib 400mg daily
+
+📈 EXPECTED OUTCOME:
+
+Full treatment recommendations returned across all major cancer types and intents
+
+System behaves clinically like a multidisciplinary oncology board assistant
+
+Protocols are evidence-based, up to date, and export-ready
+
+No dead ends or blank results in the selector for covered cancers
