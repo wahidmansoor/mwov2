@@ -449,9 +449,9 @@ export const EnhancedInputPanel = memo<EnhancedInputPanelProps>(({
               <SelectContent>
                 <SelectItem value="all">All lines</SelectItem>
                 {(organizedCriteria.line || []).map((line: any) => (
-                  <SelectItem key={line.id} value={line.name}>
+                  <SelectItem key={line.id} value={line.value}>
                     <div className="flex items-center gap-2">
-                      {line.name}
+                      {line.value}
                       {line.description && (
                         <Tooltip>
                           <TooltipTrigger>
@@ -479,9 +479,9 @@ export const EnhancedInputPanel = memo<EnhancedInputPanelProps>(({
               <SelectContent>
                 <SelectItem value="all">All reasons</SelectItem>
                 {(organizedCriteria.reason || []).map((reason: any) => (
-                  <SelectItem key={reason.id} value={reason.name}>
+                  <SelectItem key={reason.id} value={reason.value}>
                     <div className="flex items-center gap-2">
-                      {reason.name}
+                      {reason.value}
                       {reason.description && (
                         <Tooltip>
                           <TooltipTrigger>

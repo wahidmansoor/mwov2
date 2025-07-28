@@ -1,0 +1,74 @@
+Fix and complete treatment mappings for Colon Cancer and ensure all supported cancer types have full mappings across intents (Curative, Adjuvant, Neoadjuvant, Palliative, Maintenance) based on NCCN, ASCO, and ESMO guidelines.
+
+📍 CONTEXT:
+This app’s treatment_plan_selector fails to show results for many valid combinations (e.g., Colon Cancer + Curative + MSI-H).
+The mappings in the tables treatment_plan_mappings and treatment_plan_criteria are incomplete or biased toward Curative only.
+
+✅ TASKS TO COMPLETE:
+
+1️⃣ Fix & Insert Full Colon Cancer Mappings
+Ensure the following combinations are inserted in treatment_plan_mappings, with appropriate matching in treatment_plan_criteria.
+Use these real-world validated guideline scenarios:
+
+Cancer Type	Stage	Histology	Biomarkers	Intent	Line	Protocol	Guideline Reference
+Colon	III	AdenoCA	MSI-H	Curative	All	FOLFOX ± Nivolumab	NCCN Colon-ADJ 2024
+Colon	II	AdenoCA	dMMR	Adjuvant	All	Observation / Capecitabine	NCCN Colon-ADJ 2024
+Colon	IV	AdenoCA	KRAS Wild-Type	Palliative	1st-line	FOLFIRI + Cetuximab/Panitumumab	NCCN Colon-MET 2024
+Colon	III	AdenoCA	None	Neoadjuvant	All	FOLFOX → Surgery	NCCN Rectal 2024
+Colon	IV	AdenoCA	KRAS Mutated	Maintenance	Post-Ind	5-FU/Leucovorin ± Bevacizumab	ESMO 2023 / NCCN Maint.
+
+Also insert evidence_reference, confidence_score, nccn_reference, and priority_tag as applicable.
+
+2️⃣ Validate & Fill Mapping for ALL Cancer Types
+Loop through these cancer types and ensure that each has at least one protocol mapped for:
+
+Curative
+
+Adjuvant
+
+Neoadjuvant
+
+Palliative
+
+Maintenance (if applicable)
+
+json
+Copy
+Edit
+[
+  "Breast Cancer", "NSCLC", "SCLC", "Colorectal", "Pancreatic", "Prostate", "Ovarian", "Melanoma",
+  "Gastric", "GIST", "Bladder", "Hepatocellular Carcinoma", "RCC", "CLL", "AML", "ALL",
+  "Multiple Myeloma", "CML", "MDS", "Hodgkin Lymphoma", "Non-Hodgkin Lymphoma"
+]
+For each cancer type:
+
+If any treatment intent is missing, search latest NCCN/ESMO/ASCO recommendations and auto-fill mappings.
+
+Add proper protocol_name, intent, stage, histology, biomarkers, line_of_treatment, and priority_tag.
+
+Use AI fallback if strict match is not found but annotate intent_fallback_used = true.
+
+📤 EXPORT + TESTING:
+
+After update, show summary:
+
+Total protocols per cancer
+
+Any missing intent combinations
+
+Confidence level and references
+
+Enable full export of these updated mappings as SQL INSERT commands and JSON if required.
+
+🧠 NOTES:
+
+Use AI + online scraping to extract and validate from NCCN/ESMO/ASCO guidelines.
+
+Prioritize Category 1, ESMO I-A, or ASCO strong recommendations.
+
+Normalize biomarker field (e.g., convert “KRAS WT” → KRAS Wild-Type)
+
+Ensure compatibility with the existing frontend filter selectors.
+
+🎯 FINAL GOAL:
+Ensure that no cancer type or intent combination returns empty unless truly unsupported in guidelines. Make the CDU treatment plan engine pan-oncology ready, stable, and exportable.
