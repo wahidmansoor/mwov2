@@ -27,14 +27,14 @@ interface MarkdownViewerProps {
   specialty: string;
 }
 
-// Import React components for Chapter 1 sections
-import IntroductionToOncology from "../content/chapter1/Introduction";
-import CancerBiology from "../content/chapter1/CancerBiology";
-import HallmarksOfCancer from "../content/chapter1/HallmarksOfCancer";
-import TumorMicroenvironment from "../content/chapter1/TumorMicroenvironment";
-import Carcinogenesis from "../content/chapter1/Carcinogenesis";
-import GeneticEpigeneticMechanisms from "../content/chapter1/GeneticEpigeneticMechanisms";
-import EnvironmentalLifestyleFactors from "../content/chapter1/EnvironmentalLifestyleFactors";
+// Import React components for Oncology Chapter 1 sections
+import IntroductionToOncology from "../content/oncology-chapter1/Introduction";
+import CancerBiology from "../content/oncology-chapter1/CancerBiology";
+import HallmarksOfCancer from "../content/oncology-chapter1/HallmarksOfCancer";
+import TumorMicroenvironment from "../content/oncology-chapter1/TumorMicroenvironment";
+import Carcinogenesis from "../content/oncology-chapter1/Carcinogenesis";
+import GeneticEpigeneticMechanisms from "../content/oncology-chapter1/GeneticEpigeneticMechanisms";
+import EnvironmentalLifestyleFactors from "../content/oncology-chapter1/EnvironmentalLifestyleFactors";
 
 // Import radiation oncology components
 import RadiationOncologyIntroduction from '../content/radiation-chapter1/Introduction';

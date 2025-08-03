@@ -158,10 +158,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // OPD Module Risk Calculation endpoints
-  app.post('/api/opd/risk-assessment', authMiddleware, async (req, res) => {
-    const { calculateRiskAssessment } = await import('./api/riskCalculation');
-    return calculateRiskAssessment(req, res);
-  });
+  app.post('/api/opd/risk-assessment', 
+    authMiddleware,
+    rbacMiddleware(['oncologist', 'radiation_oncologist', 'admin']),
+    async (req, res) => {
+      const { riskCalculationHandler } = await import('./api/riskCalculation');
+      return riskCalculationHandler[2](req, res); // Call the actual handler after auth & rbac
+    });
 
   app.get('/api/opd/cache-stats', authMiddleware, async (req, res) => {
     const { getCacheStats } = await import('./api/riskCalculation');
@@ -169,7 +172,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // AI analysis routes
-  app.post("/api/ai/analyze-patient", authMiddleware, rbacMiddleware(["use_ai_recommendations"]), async (req: any, res) => {
+  app.post("/api/ai/analyze-patient", 
+    authMiddleware,
+    rbacMiddleware(["use_ai_recommendations"]),
+    async (req: any, res) => {
     try {
       const startTime = Date.now();
       

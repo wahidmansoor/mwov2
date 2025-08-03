@@ -5,7 +5,10 @@
 
 import { Request, Response } from 'express';
 import { z } from 'zod';
+import { authMiddleware } from '../middleware/auth';
+import { rbac } from '../middleware/rbac';
 import { cacheService } from '../services/cacheService';
+import { auditLog } from '../services/auditService';
 
 // Validation schemas
 const PatientProfileSchema = z.object({
@@ -15,8 +18,50 @@ const PatientProfileSchema = z.object({
     race: z.string().optional(),
     ethnicity: z.string().optional()
   }),
-  familyHistory: z.object({
-    firstDegreeRelatives: z.array(z.object({
+  familyHistory: z.object({// Audit logging function
+async function logRiskCalculationAttempt(userId: string, success: boolean, details: string) {
+  await db.insert(auditLog).values({
+    userId,
+    action: 'RISK_CALCULATION',
+    success,
+    details,
+    timestamp: new Date()
+  });
+}
+
+// Secure route handler with authentication and role-based access control
+export const riskCalculationHandler = [
+  authMiddleware,
+  rbac(['oncologist', 'radiation_oncologist', 'admin']),
+  async function calculateRiskAssessment(req: Request, res: Response) {
+    try {
+      // Audit the request
+      await auditLog.record({
+        userId: req.userId!,
+        action: 'risk_calculation_attempt',
+        resource: 'patient_risk',
+        details: `Cancer type: ${req.body?.cancerType}`
+      });
+    const result = RiskCalculationRequestSchema.safeParse(req.body);
+    if (!result.success) {
+      await logRiskCalculationAttempt(req.userId!, false, 'Input validation failed');
+      return res.status(400).json({
+        success: false,
+        error: 'Invalid input data',
+        details: result.error.flatten()
+      });
+    }
+
+    const { patientProfile, cancerType, forceRecalculation } = result.data;
+
+    // Sanitize any free text inputs
+    const sanitizedProfile = sanitizePatientProfile(patientProfile);
+
+    // Log calculation attempt
+    await logRiskCalculationAttempt(req.userId!, true, `Calculating risk for cancer type: ${cancerType}`);
+
+    // Check cache first unless force recalculation is requested
+    if (!forceRecalculation) {…}irstDegreeRelatives: z.array(z.object({
       relation: z.string(),
       cancerType: z.string(),
       ageAtDiagnosis: z.number()
@@ -525,9 +570,23 @@ class ServerRiskCalculationEngine {
 
 const riskEngine = new ServerRiskCalculationEngine();
 
-export async function calculateRiskAssessment(req: Request, res: Response) {
-  try {
-    const { patientProfile, cancerType, forceRecalculation } = RiskCalculationRequestSchema.parse(req.body);
+// Apply middleware and export route handler
+export const riskCalculationHandler = [
+  authMiddleware,
+  rbac(["oncologist", "admin"]),
+  async function calculateRiskAssessment(req: Request, res: Response) {
+    try {
+      const parseResult = RiskCalculationRequestSchema.safeParse(req.body);
+      
+      if (!parseResult.success) {
+        return res.status(400).json({
+          success: false,
+          error: 'Invalid input data',
+          details: parseResult.error.flatten()
+        });
+      }
+
+      const { patientProfile, cancerType, forceRecalculation } = parseResult.data;
 
     // Check cache first unless force recalculation is requested
     if (!forceRecalculation) {
@@ -563,6 +622,17 @@ export async function calculateRiskAssessment(req: Request, res: Response) {
     // Cache the result
     await cacheService.cacheRiskAssessment(patientProfile, cancerType, result);
 
+    // Log successful calculation
+    await db.insert(auditLog).values({
+      userId: req.userId!,
+      action: 'RISK_CALCULATION',
+      targetType: 'PATIENT_RISK',
+      targetId: patientProfile.id || 'anonymous',
+      details: `Calculated ${cancerType} cancer risk assessment`,
+      success: true,
+      timestamp: new Date()
+    });
+
     res.json({
       success: true,
       data: { ...result, fromCache: false }
@@ -570,9 +640,31 @@ export async function calculateRiskAssessment(req: Request, res: Response) {
 
   } catch (error) {
     console.error('Risk calculation error:', error);
+    
+    // Log the error
+    await db.insert(auditLog).values({
+      userId: req.userId!,
+      action: 'RISK_CALCULATION',
+      targetType: 'PATIENT_RISK',
+      targetId: req.body?.patientProfile?.id || 'anonymous',
+      details: `Error: ${error instanceof Error ? error.message : 'Unknown error'}`,
+      success: false,
+      timestamp: new Date()
+    });
+
+    // Send appropriate error response
+    if (error instanceof z.ZodError) {
+      return res.status(400).json({
+        success: false,
+        error: 'Invalid input data',
+        details: error.flatten()
+      });
+    }
+
     res.status(500).json({
       success: false,
-      error: error instanceof z.ZodError ? 'Invalid input data' : 'Risk calculation failed'
+      error: 'Risk calculation failed',
+      message: process.env.NODE_ENV === 'development' ? error.message : undefined
     });
   }
 }
