@@ -58,6 +58,14 @@ import CommunicationSkills from '../content/palliative-chapter3/CommunicationSki
 import ImmobilizationSimulation from '../content/radiation-chapter2/ImmobilizationSimulation';
 import BeamGeometryDosimetry from '../content/radiation-chapter3/BeamGeometryDosimetry';
 import SupportiveCare from '../content/oncology-chapter5/SupportiveCare';
+import OrganSpecificOncology from '../content/oncology-chapter6/OrganSpecificOncology';
+import SymptomAssessment from '../content/palliative-chapter4/SymptomAssessment';
+import PsychosocialCare from '../content/palliative-chapter5/PsychosocialCare';
+import SpiritualCare from '../content/palliative-chapter6/SpiritualCare';
+import EthicsDecisionMaking from '../content/palliative-chapter7/EthicsDecisionMaking';
+import QualityImprovement from '../content/palliative-chapter8/QualityImprovement';
+import TreatmentPlanning from '../content/radiation-chapter4/TreatmentPlanning';
+import ClinicalApplications from '../content/radiation-chapter5/ClinicalApplications';
 
 // Generate comprehensive educational content based on the chapter selection and specialty
 const generateChapterContent = (chapter: SelectedChapter, specialty: string): React.ReactNode => {
@@ -113,6 +121,11 @@ const generateChapterContent = (chapter: SelectedChapter, specialty: string): Re
     if (title.includes('Chapter 5') || title.includes('Supportive Care')) {
       return <SupportiveCare />;
     }
+    
+    // Chapter 6: Organ-Specific Oncology
+    if (title.includes('Chapter 6') || title.includes('Organ-Specific') || title.includes('Organ System')) {
+      return <OrganSpecificOncology />;
+    }
   }
 
   // Radiation Oncology Content with React Components
@@ -142,6 +155,16 @@ const generateChapterContent = (chapter: SelectedChapter, specialty: string): Re
     if (title.includes('Chapter 3') || title.includes('Beam Geometry') || title.includes('Dosimetry')) {
       return <BeamGeometryDosimetry />;
     }
+    
+    // Chapter 4: Treatment Planning
+    if (title.includes('Chapter 4') || title.includes('Treatment Planning') || title.includes('Advanced Planning')) {
+      return <TreatmentPlanning />;
+    }
+    
+    // Chapter 5: Clinical Applications
+    if (title.includes('Chapter 5') || title.includes('Clinical Applications') || title.includes('Site-Specific')) {
+      return <ClinicalApplications />;
+    }
   }
 
   // Palliative Care Content with React Components
@@ -170,6 +193,31 @@ const generateChapterContent = (chapter: SelectedChapter, specialty: string): Re
     // Chapter 3: Communication in Palliative Care
     if (title.includes('Chapter 3') || title.includes('Communication')) {
       return <CommunicationSkills />;
+    }
+    
+    // Chapter 4: Symptom Assessment
+    if (title.includes('Chapter 4') || title.includes('Symptom Assessment') || title.includes('Assessment Tools')) {
+      return <SymptomAssessment />;
+    }
+    
+    // Chapter 5: Psychosocial Care
+    if (title.includes('Chapter 5') || title.includes('Psychosocial') || title.includes('Mental Health')) {
+      return <PsychosocialCare />;
+    }
+    
+    // Chapter 6: Spiritual Care
+    if (title.includes('Chapter 6') || title.includes('Spiritual Care') || title.includes('Meaning-Making')) {
+      return <SpiritualCare />;
+    }
+    
+    // Chapter 7: Ethics and Decision-Making
+    if (title.includes('Chapter 7') || title.includes('Ethics') || title.includes('Decision-Making')) {
+      return <EthicsDecisionMaking />;
+    }
+    
+    // Chapter 8: Quality Improvement
+    if (title.includes('Chapter 8') || title.includes('Quality Improvement') || title.includes('Program Development')) {
+      return <QualityImprovement />;
     }
   }
 
