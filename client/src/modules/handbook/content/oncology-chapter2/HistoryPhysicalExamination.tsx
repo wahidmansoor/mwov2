@@ -1,10 +1,19 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Stethoscope, User, Clock, AlertTriangle } from "lucide-react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Stethoscope,
+  FileText,
+  UserCircle,
+  AlertTriangle,
+  BookOpen,
+} from "lucide-react";
 
-export default function HistoryPhysicalExamination() {
+const HistoryPhysicalExamination = () => {
   return (
-    <div className="max-w-4xl mx-auto p-6 space-y-8">
+    <div className="max-w-6xl mx-auto p-6 space-y-10">
+      {/* Section Header */}
       <div className="text-center border-b pb-6">
         <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-2">
           2.1 History and Physical Examination
@@ -14,68 +23,296 @@ export default function HistoryPhysicalExamination() {
         </p>
       </div>
 
-      <Card className="border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-950/50">
+      {/* Intro Card */}
+      <Card className="border-l-4 border-l-indigo-500">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <Stethoscope className="h-5 w-5 text-green-600 dark:text-green-400" />
-            Clinical Assessment Framework
+            <Stethoscope className="h-5 w-5 text-indigo-600" />
+            Clinical Assessment in Oncology
           </CardTitle>
+          <div className="flex gap-2 mt-2">
+            <Badge variant="outline">Clinical Assessment</Badge>
+            <Badge variant="outline">Early Detection</Badge>
+            <Badge variant="outline">Oncologic Evaluation</Badge>
+          </div>
         </CardHeader>
         <CardContent>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="space-y-4">
-              <h3 className="font-semibold text-gray-900 dark:text-gray-100 flex items-center gap-2">
-                <User className="h-4 w-4" />
-                History Taking Components
-              </h3>
-              <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
-                <li>• <strong>Chief Complaint:</strong> Primary symptoms and duration</li>
-                <li>• <strong>Present Illness:</strong> Detailed symptom characterization</li>
-                <li>• <strong>Past Medical History:</strong> Previous cancers, treatments</li>
-                <li>• <strong>Family History:</strong> Hereditary cancer syndromes</li>
-                <li>• <strong>Social History:</strong> Tobacco, alcohol, occupational exposures</li>
-                <li>• <strong>Medications:</strong> Current and recent treatments</li>
-                <li>• <strong>Review of Systems:</strong> Constitutional symptoms</li>
-              </ul>
-            </div>
-            
-            <div className="space-y-4">
-              <h3 className="font-semibold text-gray-900 dark:text-gray-100 flex items-center gap-2">
-                <Clock className="h-4 w-4" />
-                Physical Examination
-              </h3>
-              <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
-                <li>• <strong>General Appearance:</strong> Performance status, cachexia</li>
-                <li>• <strong>Vital Signs:</strong> Weight loss, fever patterns</li>
-                <li>• <strong>Lymph Nodes:</strong> Comprehensive nodal examination</li>
-                <li>• <strong>Primary Site:</strong> Focused examination of suspected primary</li>
-                <li>• <strong>Abdomen:</strong> Hepatosplenomegaly, masses</li>
-                <li>• <strong>Neurologic:</strong> Focal deficits, paraneoplastic signs</li>
-                <li>• <strong>Skin:</strong> Metastatic deposits, paraneoplastic dermatoses</li>
-              </ul>
-            </div>
-          </div>
+          <p className="text-sm leading-relaxed text-gray-700 dark:text-gray-300">
+            A thorough clinical assessment is the cornerstone of cancer
+            detection and management. The history and physical exam together
+            inform differential diagnosis, staging, and the urgency of further
+            investigations. Careful attention to constitutional symptoms, risk
+            exposures, and functional status is essential for early cancer
+            recognition and personalized treatment planning.
+          </p>
         </CardContent>
       </Card>
 
-      <div className="bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
-        <div className="flex items-start gap-3">
-          <AlertTriangle className="h-5 w-5 text-blue-600 dark:text-blue-400 mt-0.5" />
-          <div>
-            <h4 className="font-medium text-blue-800 dark:text-blue-200 mb-2">
-              Red Flag Symptoms Requiring Urgent Evaluation
-            </h4>
-            <ul className="text-sm text-blue-700 dark:text-blue-300 space-y-1">
-              <li>• Unexplained weight loss &gt;10% in 6 months</li>
-              <li>• New neurological symptoms</li>
-              <li>• Persistent pain without obvious cause</li>
-              <li>• Changes in bowel or bladder habits</li>
-              <li>• Persistent cough or hoarseness</li>
-              <li>• Unusual bleeding or discharge</li>
-            </ul>
-          </div>
-        </div>
-      </div>
+      {/* Tabs */}
+      <Tabs defaultValue="overview" className="w-full">
+        <TabsList className="grid w-full grid-cols-3">
+          <TabsTrigger value="overview">Overview</TabsTrigger>
+          <TabsTrigger value="history">History</TabsTrigger>
+          <TabsTrigger value="physical">Physical Exam</TabsTrigger>
+        </TabsList>
+
+        {/* OVERVIEW */}
+        <TabsContent value="overview" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <FileText className="h-5 w-5 text-blue-600" />
+                Clinical Significance
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="text-sm space-y-2">
+              <ul className="list-disc list-inside">
+                <li>Detects red flag symptoms suggestive of malignancy.</li>
+                <li>Provides baseline data for staging and prognosis.</li>
+                <li>Guides the need and urgency for imaging or biopsy.</li>
+                <li>
+                  Supports patient-centered care through individualized risk
+                  assessment.
+                </li>
+                <li>
+                  Detects signs of advanced disease (e.g., lymphadenopathy,
+                  cachexia).
+                </li>
+                <li>
+                  Reveals treatment-limiting comorbidities or performance
+                  deficits.
+                </li>
+                <li>
+                  Facilitates early referral to oncology or palliative care when
+                  necessary.
+                </li>
+                <li>
+                  Improves diagnostic efficiency and reduces unnecessary
+                  testing.
+                </li>
+              </ul>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* HISTORY */}
+        <TabsContent value="history" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <UserCircle className="h-5 w-5 text-purple-600" />
+                Comprehensive History
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="grid md:grid-cols-2 gap-6 text-sm">
+              {/* Key Elements */}
+              <Card className="bg-purple-50 dark:bg-purple-950/20">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm">
+                    Symptom Characterization
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ul className="list-disc list-inside space-y-1">
+                    <li>
+                      <strong>Onset & Duration:</strong> Sudden vs insidious,
+                      progressive course
+                    </li>
+                    <li>
+                      <strong>Location:</strong> Pain or mass—localized or
+                      diffuse
+                    </li>
+                    <li>
+                      <strong>Constitutional Symptoms:</strong> Weight loss,
+                      fever, night sweats
+                    </li>
+                    <li>
+                      <strong>Bleeding:</strong> Hematuria, hematochezia,
+                      postmenopausal bleeding
+                    </li>
+                    <li>
+                      <strong>Neurologic:</strong> Headache, seizures, sensory
+                      changes
+                    </li>
+                    <li>
+                      <strong>Prior Malignancy:</strong> Type, treatment,
+                      recurrence interval
+                    </li>
+                    <li>
+                      <strong>Medication History:</strong> Immunosuppressants,
+                      chemotherapeutics
+                    </li>
+                    <li>
+                      <strong>Functional Impact:</strong> Daily activity
+                      limitation, fatigue
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
+
+              {/* Risk Factors */}
+              <Card className="bg-blue-50 dark:bg-blue-950/20">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm">Risk Stratification</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ul className="list-disc list-inside space-y-1">
+                    <li>
+                      <strong>Family History:</strong> Cancers in first- or
+                      second-degree relatives
+                    </li>
+                    <li>
+                      <strong>Genetic Syndromes:</strong> BRCA1/2, Lynch, FAP,
+                      Li-Fraumeni
+                    </li>
+                    <li>
+                      <strong>Tobacco Use:</strong> Duration, pack-years,
+                      cessation status
+                    </li>
+                    <li>
+                      <strong>Alcohol Consumption:</strong> Quantity, frequency,
+                      duration
+                    </li>
+                    <li>
+                      <strong>Reproductive Factors:</strong> Nulliparity, late
+                      menopause, HRT
+                    </li>
+                    <li>
+                      <strong>Environmental Exposures:</strong> Radiation,
+                      asbestos, arsenic
+                    </li>
+                    <li>
+                      <strong>Infections:</strong> HPV, HBV, HIV, EBV, H.
+                      pylori, schistosomiasis
+                    </li>
+                    <li>
+                      <strong>Occupational:</strong> Industry, solvents, dyes,
+                      pesticides
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* PHYSICAL EXAM */}
+        <TabsContent value="physical" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <BookOpen className="h-5 w-5 text-green-600" />
+                Detailed Physical Examination
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="grid md:grid-cols-2 gap-6 text-sm">
+              {/* Systematic Exam */}
+              <Card className="bg-green-50 dark:bg-green-950/20">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm">General & Systemic</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ul className="list-disc list-inside space-y-1">
+                    <li>
+                      <strong>General Appearance:</strong> Cachexia, pallor,
+                      distress
+                    </li>
+                    <li>
+                      <strong>Vital Signs:</strong> Weight loss, temperature,
+                      HR, BP
+                    </li>
+                    <li>
+                      <strong>Skin:</strong> Nodules, pigmentation, dermatoses
+                    </li>
+                    <li>
+                      <strong>Lymph Nodes:</strong> Cervical, axillary,
+                      inguinal—size, consistency
+                    </li>
+                    <li>
+                      <strong>Oral Cavity:</strong> Ulcers, leukoplakia, dental
+                      health
+                    </li>
+                    <li>
+                      <strong>Breast Exam:</strong> Masses, discharge,
+                      retraction, peau d'orange
+                    </li>
+                    <li>
+                      <strong>Abdominal Palpation:</strong> Masses,
+                      hepatosplenomegaly, ascites
+                    </li>
+                    <li>
+                      <strong>Liver & Spleen:</strong> Edge, tenderness, span
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
+
+              {/* Targeted Exam */}
+              <Card className="bg-yellow-50 dark:bg-yellow-950/20">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm">Focused Assessments</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ul className="list-disc list-inside space-y-1">
+                    <li>
+                      <strong>Pelvic Exam:</strong> Cervical abnormalities,
+                      masses, discharge
+                    </li>
+                    <li>
+                      <strong>Rectal Exam:</strong> Masses, bleeding, prostate
+                      nodules
+                    </li>
+                    <li>
+                      <strong>Neurologic Exam:</strong> CN deficits,
+                      motor/sensory loss, ataxia
+                    </li>
+                    <li>
+                      <strong>MSK Exam:</strong> Bone pain, swelling, deformity,
+                      tenderness
+                    </li>
+                    <li>
+                      <strong>Thoracic Exam:</strong> Chest wall, breath sounds,
+                      effusions
+                    </li>
+                    <li>
+                      <strong>Extremities:</strong> Clubbing, edema, DVT signs
+                    </li>
+                    <li>
+                      <strong>Back & Spine:</strong> Vertebral tenderness,
+                      step-offs
+                    </li>
+                    <li>
+                      <strong>Dermatologic:</strong> Suspicious moles, rashes
+                      (e.g., dermatomyositis)
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
+            </CardContent>
+          </Card>
+
+          {/* Alert */}
+          <Alert>
+            <AlertTriangle className="h-4 w-4 text-red-600" />
+            <AlertDescription>
+              <strong>Red Flags:</strong> Any of the following warrant expedited
+              cancer workup:
+              <ul className="list-disc list-inside mt-2 space-y-1">
+                <li>Unexplained weight loss (&gt;10% in 6 months)</li>
+                <li>Persistent localized pain, especially nocturnal</li>
+                <li>Chronic cough, hoarseness, or hemoptysis</li>
+                <li>Rectal bleeding, melena, or hematemesis</li>
+                <li>Postmenopausal or intermenstrual bleeding</li>
+                <li>Palpable mass or abnormal lymph node</li>
+                <li>New neurologic deficit or seizure</li>
+                <li>Persistent fatigue or night sweats</li>
+              </ul>
+            </AlertDescription>
+          </Alert>
+        </TabsContent>
+      </Tabs>
     </div>
   );
-}
+};
+
+export default HistoryPhysicalExamination;
