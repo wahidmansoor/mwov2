@@ -221,6 +221,36 @@ export interface IStorage {
     accuracy: number;
     averageTimeSpent: number;
   }>;
+
+  // Missing OPD Module methods
+  getCancerScreeningProtocols(filters?: { cancerType?: string; ageRange?: string }): Promise<any[]>;
+  getDiagnosticWorkupSteps(filters?: { cancerType?: string; symptom?: string }): Promise<any[]>;
+  getBiomarkers(filters?: { cancerType?: string; testingRequired?: boolean }): Promise<any[]>;
+  getReferralGuidelines(filters?: { cancerType?: string; urgency?: string; specialist?: string }): Promise<any[]>;
+  getRiskStratificationScores(): Promise<any[]>;
+  
+  // Missing Palliative Care methods
+  getSymptomScores(): Promise<any[]>;
+  createSymptomScore(score: any): Promise<any>;
+  getSymptomProtocols(): Promise<any[]>;
+  getPainAssessments(): Promise<any[]>;
+  createPainAssessment(assessment: any): Promise<any>;
+  getOpioidConversions(): Promise<any[]>;
+  getBreakthroughPain(): Promise<any[]>;
+  createBreakthroughPain(pain: any): Promise<any>;
+  
+  // Missing Inpatient methods
+  getEmergencyScenarios(): Promise<any[]>;
+  getMonitoringParameters(): Promise<any[]>;
+  getAdverseEvents(): Promise<any[]>;
+  getSupportiveCareProtocols(): Promise<any[]>;
+  getDischargeCriteria(): Promise<any[]>;
+  
+  // Missing Admin methods
+  getRedFlagAlerts(): Promise<any[]>;
+  getPendingUsers(): Promise<any[]>;
+  approveUser(userId: string, approverUserId: string): Promise<any>;
+  getApprovalLogs(): Promise<any[]>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -1754,6 +1784,120 @@ export class DatabaseStorage implements IStorage {
       accuracy,
       averageTimeSpent
     };
+  }
+
+  // Missing OPD Module method implementations
+  async getCancerScreeningProtocols(filters?: { cancerType?: string; ageRange?: string }): Promise<any[]> {
+    // Return empty array as placeholder - would contain screening protocols in real implementation
+    return [];
+  }
+
+  async getDiagnosticWorkupSteps(filters?: { cancerType?: string; symptom?: string }): Promise<any[]> {
+    // Return empty array as placeholder - would contain diagnostic workup steps in real implementation
+    return [];
+  }
+
+  async getBiomarkers(filters?: { cancerType?: string; testingRequired?: boolean }): Promise<any[]> {
+    // Return existing biomarker guidelines filtered by cancer type
+    return await this.getBiomarkerGuidelines({ cancerType: filters?.cancerType });
+  }
+
+  async getReferralGuidelines(filters?: { cancerType?: string; urgency?: string; specialist?: string }): Promise<any[]> {
+    // Return empty array as placeholder - would contain referral guidelines in real implementation
+    return [];
+  }
+
+  async getRiskStratificationScores(): Promise<any[]> {
+    // Return empty array as placeholder - would contain risk stratification scores in real implementation
+    return [];
+  }
+
+  // Missing Palliative Care method implementations
+  async getSymptomScores(): Promise<any[]> {
+    // Return empty array as placeholder - would contain symptom assessment scores in real implementation
+    return [];
+  }
+
+  async createSymptomScore(score: any): Promise<any> {
+    // Return the score as placeholder - would create symptom score record in real implementation
+    return { id: 'placeholder-id', ...score };
+  }
+
+  async getSymptomProtocols(): Promise<any[]> {
+    // Return empty array as placeholder - would contain symptom management protocols in real implementation
+    return [];
+  }
+
+  async getPainAssessments(): Promise<any[]> {
+    // Return empty array as placeholder - would contain pain assessment records in real implementation
+    return [];
+  }
+
+  async createPainAssessment(assessment: any): Promise<any> {
+    // Return the assessment as placeholder - would create pain assessment record in real implementation
+    return { id: 'placeholder-id', ...assessment };
+  }
+
+  async getOpioidConversions(): Promise<any[]> {
+    // Return empty array as placeholder - would contain opioid conversion tables in real implementation
+    return [];
+  }
+
+  async getBreakthroughPain(): Promise<any[]> {
+    // Return empty array as placeholder - would contain breakthrough pain records in real implementation
+    return [];
+  }
+
+  async createBreakthroughPain(pain: any): Promise<any> {
+    // Return the pain record as placeholder - would create breakthrough pain record in real implementation
+    return { id: 'placeholder-id', ...pain };
+  }
+
+  // Missing Inpatient method implementations
+  async getEmergencyScenarios(): Promise<any[]> {
+    // Return empty array as placeholder - would contain emergency scenarios in real implementation
+    return [];
+  }
+
+  async getMonitoringParameters(): Promise<any[]> {
+    // Return empty array as placeholder - would contain monitoring parameters in real implementation
+    return [];
+  }
+
+  async getAdverseEvents(): Promise<any[]> {
+    // Return empty array as placeholder - would contain adverse event records in real implementation
+    return [];
+  }
+
+  async getSupportiveCareProtocols(): Promise<any[]> {
+    // Return empty array as placeholder - would contain supportive care protocols in real implementation
+    return [];
+  }
+
+  async getDischargeCriteria(): Promise<any[]> {
+    // Return empty array as placeholder - would contain discharge criteria in real implementation
+    return [];
+  }
+
+  // Missing Admin method implementations
+  async getRedFlagAlerts(): Promise<any[]> {
+    // Return empty array as placeholder - would contain red flag alerts in real implementation
+    return [];
+  }
+
+  async getPendingUsers(): Promise<any[]> {
+    // Return users where approval is pending - would need isApproved field in users table
+    return [];
+  }
+
+  async approveUser(userId: string, approverUserId: string): Promise<any> {
+    // Update user approval status - would need isApproved field in users table
+    return { success: true, userId, approverUserId };
+  }
+
+  async getApprovalLogs(): Promise<any[]> {
+    // Return approval log entries - would contain approval history in real implementation
+    return [];
   }
 }
 

@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Activity, Heart, Lungs, Brain } from "lucide-react";
+import { Activity, Heart, Airplay, Brain } from "lucide-react";
 
 export default function DiseaseSpecificPalliativeIntroduction() {
   return (
@@ -58,7 +58,7 @@ export default function DiseaseSpecificPalliativeIntroduction() {
                 </div>
                 
                 <div className="border rounded-lg p-3 flex items-center gap-3">
-                  <Lungs className="h-5 w-5 text-blue-600" />
+                  <Airplay className="h-5 w-5 text-blue-600" />
                   <div>
                     <div className="font-medium text-sm">Chronic Lung Disease</div>
                     <div className="text-xs text-gray-600 dark:text-gray-400">COPD, ILD, respiratory distress</div>

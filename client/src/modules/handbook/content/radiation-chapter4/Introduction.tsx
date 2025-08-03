@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Activity, Shield, Users, TrendingUp } from "lucide-react";
+import { Activity, Shield, TrendingUp } from "lucide-react";
 
 export default function ClinicalRadiationOncologyIntroduction() {
   return (
