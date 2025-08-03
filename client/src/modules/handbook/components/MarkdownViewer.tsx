@@ -48,6 +48,17 @@ import DefinitionScope from '../content/palliative-chapter1/DefinitionScope';
 import PalliativeHistoryEvolution from '../content/palliative-chapter1/HistoryEvolution';
 import ModelsOfCare from '../content/palliative-chapter1/ModelsOfCare';
 
+// Import enhanced chapter 2+ components
+import SystemicTherapiesOverview from '../content/oncology-chapter2/SystemicTherapiesOverview';
+import TumorMarkersLaboratory from '../content/oncology-chapter2/TumorMarkersLaboratory';
+import OrganSystemOncology from '../content/oncology-chapter3/OrganSystemOncology';
+import PrecisionMedicine from '../content/oncology-chapter4/PrecisionMedicine';
+import PainManagement from '../content/palliative-chapter2/PainManagement';
+import CommunicationSkills from '../content/palliative-chapter3/CommunicationSkills';
+import ImmobilizationSimulation from '../content/radiation-chapter2/ImmobilizationSimulation';
+import BeamGeometryDosimetry from '../content/radiation-chapter3/BeamGeometryDosimetry';
+import SupportiveCare from '../content/oncology-chapter5/SupportiveCare';
+
 // Generate comprehensive educational content based on the chapter selection and specialty
 const generateChapterContent = (chapter: SelectedChapter, specialty: string): React.ReactNode => {
   const { title, level, id } = chapter;
@@ -76,6 +87,32 @@ const generateChapterContent = (chapter: SelectedChapter, specialty: string): Re
     if (title.includes('1.2.2 Environmental and Lifestyle Risk Factors')) {
       return <EnvironmentalLifestyleFactors />;
     }
+    
+    // Chapter 2: Diagnostic Workup and Staging
+    if (title.includes('Chapter 2') || title.includes('Diagnostic Workup')) {
+      return <SystemicTherapiesOverview />;
+    }
+    if (title.includes('2.1 Systemic Therapies') || title.includes('Systemic Therapies Overview')) {
+      return <SystemicTherapiesOverview />;
+    }
+    if (title.includes('2.4 Tumor Markers') || title.includes('Laboratory Studies')) {
+      return <TumorMarkersLaboratory />;
+    }
+    
+    // Chapter 3: Organ System Oncology  
+    if (title.includes('Chapter 3') || title.includes('Organ System')) {
+      return <OrganSystemOncology />;
+    }
+    
+    // Chapter 4: Precision Medicine
+    if (title.includes('Chapter 4') || title.includes('Precision Medicine')) {
+      return <PrecisionMedicine />;
+    }
+    
+    // Chapter 5: Supportive Care
+    if (title.includes('Chapter 5') || title.includes('Supportive Care')) {
+      return <SupportiveCare />;
+    }
   }
 
   // Radiation Oncology Content with React Components
@@ -92,6 +129,19 @@ const generateChapterContent = (chapter: SelectedChapter, specialty: string): Re
     if (title.includes('1.3 Radiation Biology')) {
       return <RadiationBiology />;
     }
+    
+    // Chapter 2: Radiation Treatment Planning
+    if (title.includes('Chapter 2') || title.includes('Treatment Planning')) {
+      return <ImmobilizationSimulation />;
+    }
+    if (title.includes('2.1 Patient Immobilization') || title.includes('CT Simulation')) {
+      return <ImmobilizationSimulation />;
+    }
+    
+    // Chapter 3: Beam Geometry and Dosimetry
+    if (title.includes('Chapter 3') || title.includes('Beam Geometry') || title.includes('Dosimetry')) {
+      return <BeamGeometryDosimetry />;
+    }
   }
 
   // Palliative Care Content with React Components
@@ -107,6 +157,19 @@ const generateChapterContent = (chapter: SelectedChapter, specialty: string): Re
     }
     if (title.includes('1.3 Models of Palliative Care Delivery')) {
       return <ModelsOfCare />;
+    }
+    
+    // Chapter 2: Symptom Management
+    if (title.includes('Chapter 2') || title.includes('Symptom Management')) {
+      return <PainManagement />;
+    }
+    if (title.includes('2.1 Comprehensive Pain Management') || title.includes('Pain Management')) {
+      return <PainManagement />;
+    }
+    
+    // Chapter 3: Communication in Palliative Care
+    if (title.includes('Chapter 3') || title.includes('Communication')) {
+      return <CommunicationSkills />;
     }
   }
 
