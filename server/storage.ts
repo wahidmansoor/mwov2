@@ -18,6 +18,9 @@ import {
   userQuizResponses,
   treatmentPlanCriteria,
   treatmentPlanMappings,
+  drugInteractions,
+  comorbidityAssessment,
+  performanceStatusCriteria,
   type User, 
   type InsertUser,
   type UpsertUser,
@@ -54,10 +57,16 @@ import {
   type TreatmentPlanCriteria,
   type InsertTreatmentPlanCriteria,
   type TreatmentPlanMapping,
-  type InsertTreatmentPlanMapping
+  type InsertTreatmentPlanMapping,
+  type DrugInteraction,
+  type InsertDrugInteraction,
+  type ComorbidityAssessment,
+  type InsertComorbidityAssessment,
+  type PerformanceStatusCriteria,
+  type InsertPerformanceStatusCriteria
 } from "@shared/schema";
 import { db } from "./db";
-import { eq, sql, and } from "drizzle-orm";
+import { eq, sql, and, or, ilike } from "drizzle-orm";
 
 // Enhanced storage interface for OncoVista AI
 export interface IStorage {
@@ -188,7 +197,7 @@ export interface IStorage {
   createLearningProgress(progress: any): Promise<any>;
   createEducationalAiInteraction(interaction: any): Promise<any>;
 
-  // Treatment Plan Selector methods
+  // Treatment Plan Selector methods - ENHANCED
   getTreatmentCriteria(filters?: { category?: string; isCommon?: boolean }): Promise<TreatmentPlanCriteria[]>;
   getTreatmentCriteriaByCategory(category: string): Promise<TreatmentPlanCriteria[]>;
   getTreatmentPlanMappings(filters?: { cancerType?: string; histology?: string; treatmentIntent?: string }): Promise<TreatmentPlanMapping[]>;
@@ -198,7 +207,43 @@ export interface IStorage {
     biomarkers?: string[];
     treatmentIntent?: string;
     lineOfTreatment?: string;
-  }): Promise<TreatmentPlanMapping[]>;
+    stage?: string;
+    performanceStatus?: number;
+  }): Promise<{
+    recommendations: TreatmentPlanMapping[];
+    confidence: number;
+    fallbackUsed: boolean;
+    fallbackNote?: string;
+    totalOptions: number;
+    alternatives: TreatmentPlanMapping[];
+  }>;
+  
+  // Drug interaction checking
+  getDrugInteractions(drug1: string, drug2: string): Promise<any[]>;
+  checkDrugInteractions(drugList: string[]): Promise<{
+    interactions: any[];
+    majorInteractions: any[];
+    contraindications: any[];
+    warnings: string[];
+  }>;
+  
+  // Comorbidity assessment
+  getComorbidityAssessments(filters?: { category?: string; severity?: string }): Promise<any[]>;
+  assessComorbidityImpact(comorbidities: string[], proposedTreatment: string): Promise<{
+    contraindications: string[];
+    doseAdjustments: any[];
+    monitoringRequirements: string[];
+    riskFactors: string[];
+  }>;
+  
+  // Performance status evaluation
+  getPerformanceStatusCriteria(scaleType?: string): Promise<any[]>;
+  evaluatePerformanceStatus(score: number, scaleType: string): Promise<{
+    eligibleTreatments: string[];
+    treatmentLimitations: string[];
+    monitoringRequirements: string[];
+    prognosticFactors: string[];
+  }>;
 
   // Daily Oncology Facts methods
   getDailyOncologyFacts(filters?: { category?: string; difficulty?: number; isActive?: boolean }): Promise<DailyOncologyFact[]>;
@@ -1898,6 +1943,341 @@ export class DatabaseStorage implements IStorage {
   async getApprovalLogs(): Promise<any[]> {
     // Return approval log entries - would contain approval history in real implementation
     return [];
+  }
+
+  // NEW ENHANCED TREATMENT PLAN SELECTOR METHODS
+
+  // Enhanced drug interaction checking
+  async getDrugInteractions(drug1: string, drug2: string): Promise<DrugInteraction[]> {
+    return await this.db
+      .select()
+      .from(drugInteractions)
+      .where(
+        or(
+          and(eq(drugInteractions.drug1, drug1), eq(drugInteractions.drug2, drug2)),
+          and(eq(drugInteractions.drug1, drug2), eq(drugInteractions.drug2, drug1))
+        )
+      );
+  }
+
+  async checkDrugInteractions(drugList: string[]): Promise<{
+    interactions: DrugInteraction[];
+    majorInteractions: DrugInteraction[];
+    contraindications: DrugInteraction[];
+    warnings: string[];
+  }> {
+    const interactions: DrugInteraction[] = [];
+    
+    // Check all pairwise interactions
+    for (let i = 0; i < drugList.length; i++) {
+      for (let j = i + 1; j < drugList.length; j++) {
+        const pairInteractions = await this.getDrugInteractions(drugList[i], drugList[j]);
+        interactions.push(...pairInteractions);
+      }
+    }
+    
+    const majorInteractions = interactions.filter(i => i.severity === 'major' || i.severity === 'contraindicated');
+    const contraindications = interactions.filter(i => i.severity === 'contraindicated');
+    
+    const warnings: string[] = [];
+    if (contraindications.length > 0) {
+      warnings.push(`CONTRAINDICATED: ${contraindications.length} severe drug interactions detected`);
+    }
+    if (majorInteractions.length > 0) {
+      warnings.push(`MAJOR: ${majorInteractions.length} major drug interactions require monitoring`);
+    }
+    
+    return {
+      interactions,
+      majorInteractions,
+      contraindications,
+      warnings
+    };
+  }
+
+  // Comorbidity assessment
+  async getComorbidityAssessments(filters?: { category?: string; severity?: string }): Promise<ComorbidityAssessment[]> {
+    let query = this.db.select().from(comorbidityAssessment);
+    
+    if (filters?.category) {
+      query = query.where(eq(comorbidityAssessment.category, filters.category));
+    }
+    if (filters?.severity) {
+      query = query.where(eq(comorbidityAssessment.severity, filters.severity));
+    }
+    
+    return await query;
+  }
+
+  async assessComorbidityImpact(comorbidities: string[], proposedTreatment: string): Promise<{
+    contraindications: string[];
+    doseAdjustments: any[];
+    monitoringRequirements: string[];
+    riskFactors: string[];
+  }> {
+    const assessments = await Promise.all(
+      comorbidities.map(comorbidity => 
+        this.db
+          .select()
+          .from(comorbidityAssessment)
+          .where(ilike(comorbidityAssessment.comorbidityName, `%${comorbidity}%`))
+      )
+    );
+    
+    const flatAssessments = assessments.flat();
+    
+    const contraindications: string[] = [];
+    const doseAdjustments: any[] = [];
+    const monitoringRequirements: string[] = [];
+    const riskFactors: string[] = [];
+    
+    flatAssessments.forEach(assessment => {
+      if (assessment.contraindicatedDrugs && 
+          Array.isArray(assessment.contraindicatedDrugs) && 
+          assessment.contraindicatedDrugs.includes(proposedTreatment)) {
+        contraindications.push(`${assessment.comorbidityName}: ${assessment.treatmentImpact}`);
+      }
+      
+      if (assessment.dosageAdjustments) {
+        doseAdjustments.push({
+          comorbidity: assessment.comorbidityName,
+          adjustments: assessment.dosageAdjustments
+        });
+      }
+      
+      if (assessment.monitoringRequirements && Array.isArray(assessment.monitoringRequirements)) {
+        monitoringRequirements.push(...assessment.monitoringRequirements);
+      }
+      
+      if (assessment.specialConsiderations) {
+        riskFactors.push(`${assessment.comorbidityName}: ${assessment.specialConsiderations}`);
+      }
+    });
+    
+    return {
+      contraindications,
+      doseAdjustments,
+      monitoringRequirements: [...new Set(monitoringRequirements)],
+      riskFactors
+    };
+  }
+
+  // Performance status evaluation
+  async getPerformanceStatusCriteria(scaleType?: string): Promise<PerformanceStatusCriteria[]> {
+    let query = this.db.select().from(performanceStatusCriteria);
+    
+    if (scaleType) {
+      query = query.where(eq(performanceStatusCriteria.scaleType, scaleType));
+    }
+    
+    return await query.orderBy(performanceStatusCriteria.scaleValue);
+  }
+
+  async evaluatePerformanceStatus(score: number, scaleType: string): Promise<{
+    eligibleTreatments: string[];
+    treatmentLimitations: string[];
+    monitoringRequirements: string[];
+    prognosticFactors: string[];
+  }> {
+    const criteria = await this.db
+      .select()
+      .from(performanceStatusCriteria)
+      .where(
+        and(
+          eq(performanceStatusCriteria.scaleType, scaleType),
+          eq(performanceStatusCriteria.scaleValue, score)
+        )
+      );
+    
+    if (criteria.length === 0) {
+      return {
+        eligibleTreatments: [],
+        treatmentLimitations: [`No specific guidance available for ${scaleType} score ${score}`],
+        monitoringRequirements: [],
+        prognosticFactors: []
+      };
+    }
+    
+    const criterion = criteria[0];
+    
+    return {
+      eligibleTreatments: Array.isArray(criterion.treatmentEligibility) ? criterion.treatmentEligibility : [],
+      treatmentLimitations: [criterion.description || ''],
+      monitoringRequirements: [criterion.assessmentGuidelines || ''],
+      prognosticFactors: [criterion.prognosticSignificance || '']
+    };
+  }
+
+  // Helper method for performance status filtering
+  private isPerformanceStatusEligible(mapping: TreatmentPlanMapping, performanceStatus: number): boolean {
+    if (mapping.performanceStatusMin !== null && performanceStatus < mapping.performanceStatusMin) {
+      return false;
+    }
+    if (mapping.performanceStatusMax !== null && performanceStatus > mapping.performanceStatusMax) {
+      return false;
+    }
+    return true;
+  }
+
+  // Enhanced direct mappings method with clinical validation
+  private async findDirectMappingsEnhanced(criteria: {
+    cancerType: string;
+    histology?: string;
+    biomarkers?: string[];
+    treatmentIntent?: string;
+    lineOfTreatment?: string;
+    stage?: string;
+    performanceStatus?: number;
+  }): Promise<TreatmentPlanMapping[]> {
+    const conditions = [
+      eq(treatmentPlanMappings.cancerType, criteria.cancerType),
+      eq(treatmentPlanMappings.isActive, true)
+    ];
+    
+    if (criteria.histology) {
+      conditions.push(eq(treatmentPlanMappings.histology, criteria.histology));
+    }
+    if (criteria.treatmentIntent) {
+      conditions.push(eq(treatmentPlanMappings.treatmentIntent, criteria.treatmentIntent));
+    }
+    if (criteria.lineOfTreatment) {
+      conditions.push(eq(treatmentPlanMappings.lineOfTreatment, criteria.lineOfTreatment));
+    }
+
+    let allMappings = await this.db.select()
+      .from(treatmentPlanMappings)
+      .where(and(...conditions));
+
+    // Enhanced biomarker matching logic
+    if (criteria.biomarkers && criteria.biomarkers.length > 0) {
+      allMappings = allMappings.filter(mapping => {
+        if (!mapping.biomarkers || !Array.isArray(mapping.biomarkers)) return false;
+        
+        // Check if treatment requires combination match
+        if (mapping.requiresCombinationMatch) {
+          return mapping.biomarkers.every(reqBiomarker => 
+            criteria.biomarkers!.includes(reqBiomarker)
+          );
+        } else {
+          // At least one biomarker must match
+          return mapping.biomarkers.some(reqBiomarker => 
+            criteria.biomarkers!.includes(reqBiomarker)
+          );
+        }
+      });
+    }
+
+    // Stage filtering
+    if (criteria.stage) {
+      allMappings = allMappings.filter(mapping => {
+        if (!mapping.requiredStage || !Array.isArray(mapping.requiredStage)) return true;
+        return mapping.requiredStage.includes(criteria.stage!);
+      });
+    }
+
+    return this.filterAndSortMappings(allMappings, criteria);
+  }
+
+  // Enhanced biomarker similarity matching
+  private async findSimilarBiomarkerProtocolsEnhanced(criteria: {
+    cancerType: string;
+    histology?: string;
+    biomarkers?: string[];
+    treatmentIntent?: string;
+    lineOfTreatment?: string;
+    stage?: string;
+    performanceStatus?: number;
+  }): Promise<{
+    recommendations: TreatmentPlanMapping[];
+    confidence: number;
+    fallbackUsed: boolean;
+    fallbackNote?: string;
+    totalOptions: number;
+    alternatives: TreatmentPlanMapping[];
+  }> {
+    const similarBiomarkers = this.getBiomarkerSimilarities(criteria.biomarkers || []);
+    
+    for (const biomarkerGroup of similarBiomarkers) {
+      const modifiedCriteria = { ...criteria, biomarkers: biomarkerGroup };
+      const mappings = await this.findDirectMappingsEnhanced(modifiedCriteria);
+      
+      if (mappings.length > 0) {
+        const filteredMappings = criteria.performanceStatus !== undefined 
+          ? mappings.filter(mapping => this.isPerformanceStatusEligible(mapping, criteria.performanceStatus!))
+          : mappings;
+        
+        if (filteredMappings.length > 0) {
+          return {
+            recommendations: filteredMappings.slice(0, 2),
+            confidence: 0.65,
+            fallbackUsed: true,
+            fallbackNote: `No exact biomarker match found. Showing protocols for molecularly similar profile (${biomarkerGroup.join(', ')}). Consider molecular tumor board consultation.`,
+            totalOptions: filteredMappings.length,
+            alternatives: filteredMappings.slice(2, 5)
+          };
+        }
+      }
+    }
+    
+    return {
+      recommendations: [],
+      confidence: 0.0,
+      fallbackUsed: true,
+      fallbackNote: 'No similar biomarker profiles found',
+      totalOptions: 0,
+      alternatives: []
+    };
+  }
+
+  // Enhanced cross-cancer matching
+  private async findCrossCancerProtocolsEnhanced(criteria: {
+    cancerType: string;
+    histology?: string;
+    biomarkers?: string[];
+    treatmentIntent?: string;
+    lineOfTreatment?: string;
+    stage?: string;
+    performanceStatus?: number;
+  }): Promise<{
+    recommendations: TreatmentPlanMapping[];
+    confidence: number;
+    fallbackUsed: boolean;
+    fallbackNote?: string;
+    totalOptions: number;
+    alternatives: TreatmentPlanMapping[];
+  }> {
+    const similarCancerTypes = this.getCancerTypeSimilarities(criteria.cancerType);
+    
+    for (const similarCancer of similarCancerTypes) {
+      const modifiedCriteria = { ...criteria, cancerType: similarCancer };
+      const mappings = await this.findDirectMappingsEnhanced(modifiedCriteria);
+      
+      if (mappings.length > 0) {
+        const filteredMappings = criteria.performanceStatus !== undefined 
+          ? mappings.filter(mapping => this.isPerformanceStatusEligible(mapping, criteria.performanceStatus!))
+          : mappings;
+        
+        if (filteredMappings.length > 0) {
+          return {
+            recommendations: filteredMappings.slice(0, 2),
+            confidence: 0.50,
+            fallbackUsed: true,
+            fallbackNote: `Limited ${criteria.cancerType} protocols available. Showing ${similarCancer} protocols with similar molecular characteristics. Requires multidisciplinary review for cross-tumor efficacy.`,
+            totalOptions: filteredMappings.length,
+            alternatives: filteredMappings.slice(2, 4)
+          };
+        }
+      }
+    }
+    
+    return {
+      recommendations: [],
+      confidence: 0.0,
+      fallbackUsed: true,
+      fallbackNote: 'No cross-cancer protocols found',
+      totalOptions: 0,
+      alternatives: []
+    };
   }
 }
 

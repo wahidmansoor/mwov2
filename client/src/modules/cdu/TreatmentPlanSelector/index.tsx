@@ -18,7 +18,13 @@ export default function TreatmentPlanSelector() {
     treatmentIntent: "all",
     treatmentLine: "all",
     previousTreatments: [],
-    changeReason: "all"
+    changeReason: "all",
+    // Enhanced clinical decision support defaults
+    performanceStatus: undefined,
+    performanceStatusScale: undefined,
+    comorbidities: [],
+    currentMedications: [],
+    organFunction: undefined
   });
 
   // Enhanced API call to generate treatment recommendations with AI fallback
@@ -37,7 +43,12 @@ export default function TreatmentPlanSelector() {
           treatmentIntent: criteria.treatmentIntent !== "all" ? criteria.treatmentIntent : undefined,
           lineOfTreatment: criteria.treatmentLine !== "all" ? criteria.treatmentLine : undefined,
           stage: criteria.stage !== "all" ? criteria.stage : undefined,
-          performanceStatus: 1 // Default PS
+          // Enhanced clinical decision support fields
+          performanceStatus: criteria.performanceStatus,
+          performanceStatusScale: criteria.performanceStatusScale,
+          comorbidities: criteria.comorbidities,
+          currentMedications: criteria.currentMedications,
+          organFunction: criteria.organFunction
         })
       });
       

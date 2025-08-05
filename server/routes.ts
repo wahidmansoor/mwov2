@@ -482,6 +482,95 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // ENHANCED CLINICAL DECISION SUPPORT API ENDPOINTS
+
+  // Drug Interaction Checking
+  app.post("/api/drug-interactions/check", authMiddleware, async (req: any, res) => {
+    try {
+      const { drugList } = req.body;
+      
+      if (!Array.isArray(drugList) || drugList.length < 2) {
+        return res.status(400).json({ message: "At least two drugs required for interaction checking" });
+      }
+      
+      const results = await storage.checkDrugInteractions(drugList);
+      res.json(results);
+    } catch (error) {
+      console.error("Failed to check drug interactions:", error);
+      res.status(500).json({ message: "Failed to check drug interactions" });
+    }
+  });
+
+  app.get("/api/drug-interactions/:drug1/:drug2", authMiddleware, async (req: any, res) => {
+    try {
+      const { drug1, drug2 } = req.params;
+      const interactions = await storage.getDrugInteractions(drug1, drug2);
+      res.json(interactions);
+    } catch (error) {
+      console.error("Failed to get drug interactions:", error);
+      res.status(500).json({ message: "Failed to get drug interactions" });
+    }
+  });
+
+  // Comorbidity Assessment
+  app.get("/api/comorbidity-assessments", authMiddleware, async (req: any, res) => {
+    try {
+      const { category, severity } = req.query;
+      const assessments = await storage.getComorbidityAssessments({
+        category: category as string,
+        severity: severity as string
+      });
+      res.json(assessments);
+    } catch (error) {
+      console.error("Failed to get comorbidity assessments:", error);
+      res.status(500).json({ message: "Failed to get comorbidity assessments" });
+    }
+  });
+
+  app.post("/api/comorbidity-assessments/impact", authMiddleware, async (req: any, res) => {
+    try {
+      const { comorbidities, proposedTreatment } = req.body;
+      
+      if (!Array.isArray(comorbidities) || !proposedTreatment) {
+        return res.status(400).json({ message: "Comorbidities array and proposed treatment required" });
+      }
+      
+      const impact = await storage.assessComorbidityImpact(comorbidities, proposedTreatment);
+      res.json(impact);
+    } catch (error) {
+      console.error("Failed to assess comorbidity impact:", error);
+      res.status(500).json({ message: "Failed to assess comorbidity impact" });
+    }
+  });
+
+  // Performance Status Evaluation
+  app.get("/api/performance-status/criteria", authMiddleware, async (req: any, res) => {
+    try {
+      const { scaleType } = req.query;
+      const criteria = await storage.getPerformanceStatusCriteria(scaleType as string);
+      res.json(criteria);
+    } catch (error) {
+      console.error("Failed to get performance status criteria:", error);
+      res.status(500).json({ message: "Failed to get performance status criteria" });
+    }
+  });
+
+  app.post("/api/performance-status/evaluate", authMiddleware, async (req: any, res) => {
+    try {
+      const { score, scaleType } = req.body;
+      
+      if (typeof score !== 'number' || !scaleType) {
+        return res.status(400).json({ message: "Score (number) and scale type required" });
+      }
+      
+      const evaluation = await storage.evaluatePerformanceStatus(score, scaleType);
+      res.json(evaluation);
+    } catch (error) {
+      console.error("Failed to evaluate performance status:", error);
+      res.status(500).json({ message: "Failed to evaluate performance status" });
+    }
+  });
+
   app.post("/api/generate-recommendation", authMiddleware, async (req: any, res) => {
     try {
       const { cancerType, histology, biomarkers, treatmentIntent, lineOfTreatment, stage, performanceStatus } = req.body;

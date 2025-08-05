@@ -7,7 +7,14 @@ import { Separator } from "@/components/ui/separator";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { AlertTriangle, Info, Loader2, HelpCircle } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
-import { TreatmentSelectionCriteria } from "./types";
+import { 
+  TreatmentSelectionCriteria, 
+  PERFORMANCE_STATUS_SCALES, 
+  ECOG_SCORES, 
+  KARNOFSKY_SCORES,
+  COMMON_COMORBIDITIES,
+  COMMON_MEDICATIONS 
+} from "./types";
 
 interface EnhancedInputPanelProps {
   criteria: TreatmentSelectionCriteria;
@@ -498,6 +505,138 @@ export const EnhancedInputPanel = memo<EnhancedInputPanelProps>(({
               </SelectContent>
             </Select>
           </div>
+
+          <Separator className="my-6" />
+
+          {/* ENHANCED CLINICAL DECISION SUPPORT SECTION */}
+          <div className="space-y-6">
+            <div>
+              <h3 className="text-lg font-semibold mb-4 text-primary">Clinical Assessment</h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                Enhanced clinical context for comprehensive treatment recommendations
+              </p>
+            </div>
+
+            {/* Performance Status */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="text-sm font-medium mb-2 block">Performance Status Scale</label>
+                <Select 
+                  value={criteria.performanceStatusScale || ""} 
+                  onValueChange={(value) => onCriteriaChange({ 
+                    performanceStatusScale: value,
+                    performanceStatus: undefined // Reset score when scale changes
+                  })}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select scale" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {PERFORMANCE_STATUS_SCALES.map(scale => (
+                      <SelectItem key={scale} value={scale}>{scale}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
+                <label className="text-sm font-medium mb-2 block">Performance Status Score</label>
+                <Select 
+                  value={criteria.performanceStatus?.toString() || ""} 
+                  onValueChange={(value) => onCriteriaChange({ performanceStatus: parseInt(value) })}
+                  disabled={!criteria.performanceStatusScale}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select score" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {criteria.performanceStatusScale === "ECOG" && 
+                      ECOG_SCORES.map(score => (
+                        <SelectItem key={score.value} value={score.value.toString()}>
+                          {score.label}
+                        </SelectItem>
+                      ))
+                    }
+                    {criteria.performanceStatusScale === "Karnofsky" && 
+                      KARNOFSKY_SCORES.map(score => (
+                        <SelectItem key={score.value} value={score.value.toString()}>
+                          {score.label}
+                        </SelectItem>
+                      ))
+                    }
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
+            {/* Comorbidities */}
+            <div>
+              <label className="text-sm font-medium mb-2 block">Comorbidities</label>
+              <p className="text-xs text-muted-foreground mb-3">
+                Select relevant comorbidities for drug interaction and dose adjustment assessment
+              </p>
+              <div className="grid grid-cols-2 gap-2 max-h-48 overflow-y-auto border rounded-md p-3">
+                {COMMON_COMORBIDITIES.map((comorbidity) => (
+                  <div key={comorbidity} className="flex items-center space-x-2">
+                    <Checkbox
+                      id={`comorbidity-${comorbidity}`}
+                      checked={criteria.comorbidities?.includes(comorbidity) || false}
+                      onCheckedChange={(checked) => {
+                        const currentComorbidities = criteria.comorbidities || [];
+                        if (checked) {
+                          onCriteriaChange({ 
+                            comorbidities: [...currentComorbidities, comorbidity] 
+                          });
+                        } else {
+                          onCriteriaChange({ 
+                            comorbidities: currentComorbidities.filter(c => c !== comorbidity) 
+                          });
+                        }
+                      }}
+                    />
+                    <label htmlFor={`comorbidity-${comorbidity}`} className="text-sm cursor-pointer">
+                      {comorbidity}
+                    </label>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Current Medications */}
+            <div>
+              <label className="text-sm font-medium mb-2 block">Current Medications</label>
+              <p className="text-xs text-muted-foreground mb-3">
+                Select current medications for comprehensive drug interaction analysis
+              </p>
+              <div className="grid grid-cols-2 gap-2 max-h-48 overflow-y-auto border rounded-md p-3">
+                {COMMON_MEDICATIONS.map((medication) => (
+                  <div key={medication} className="flex items-center space-x-2">
+                    <Checkbox
+                      id={`medication-${medication}`}
+                      checked={criteria.currentMedications?.includes(medication) || false}
+                      onCheckedChange={(checked) => {
+                        const currentMedications = criteria.currentMedications || [];
+                        if (checked) {
+                          onCriteriaChange({ 
+                            currentMedications: [...currentMedications, medication] 
+                          });
+                        } else {
+                          onCriteriaChange({ 
+                            currentMedications: currentMedications.filter(m => m !== medication) 
+                          });
+                        }
+                      }}
+                    />
+                    <label htmlFor={`medication-${medication}`} className="text-sm cursor-pointer">
+                      {medication}
+                    </label>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <Separator className="my-6" />
 
           {/* Selection Summary */}
           {criteria.biomarkers.length > 0 && (

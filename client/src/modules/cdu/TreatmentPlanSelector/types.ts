@@ -9,7 +9,17 @@ export const treatmentSelectionCriteriaSchema = z.object({
   treatmentIntent: z.string(),
   treatmentLine: z.string(),
   previousTreatments: z.array(z.string()),
-  changeReason: z.string()
+  changeReason: z.string(),
+  // Enhanced clinical decision support fields
+  performanceStatus: z.number().optional(),
+  performanceStatusScale: z.string().optional(),
+  comorbidities: z.array(z.string()).optional(),
+  currentMedications: z.array(z.string()).optional(),
+  organFunction: z.object({
+    renal: z.number().optional(),
+    hepatic: z.string().optional(),
+    cardiac: z.number().optional()
+  }).optional()
 });
 
 export type TreatmentSelectionCriteria = z.infer<typeof treatmentSelectionCriteriaSchema>;
@@ -25,12 +35,41 @@ export interface TreatmentRecommendation {
   biomarkerMatch: number;
   personalizedReasoning: string;
   safetyFlags: string[];
-  drugInteractions: string[];
+  drugInteractions: DrugInteractionResult[];
   clinicalWarnings: string[];
   evidenceLevel: string;
   nccnReferences: string[];
   expectedResponse?: string;
   monitoringPlan?: string[];
+  // Enhanced clinical decision support fields
+  comorbidityImpact?: ComorbidityImpactResult;
+  performanceStatusGuidance?: PerformanceStatusResult;
+  contraindications?: string[];
+  doseAdjustments?: any[];
+  monitoringRequirements?: string[];
+}
+
+export interface DrugInteractionResult {
+  drug1: string;
+  drug2: string;
+  severity: string;
+  mechanism: string;
+  clinicalEffect: string;
+  recommendation: string;
+}
+
+export interface ComorbidityImpactResult {
+  contraindications: string[];
+  doseAdjustments: any[];
+  monitoringRequirements: string[];
+  riskFactors: string[];
+}
+
+export interface PerformanceStatusResult {
+  eligibleTreatments: string[];
+  treatmentLimitations: string[];
+  monitoringRequirements: string[];
+  prognosticFactors: string[];
 }
 
 export interface RecommendationResult {
@@ -106,3 +145,40 @@ export const TREATMENT_INTENTS = ["Curative", "Palliative", "Adjuvant", "Neoadju
 export const TREATMENT_LINES = ["1st Line", "2nd Line", "3rd Line", "Adjuvant", "Neoadjuvant", "Maintenance"];
 export const PREVIOUS_TREATMENTS = ["Surgery", "Chemotherapy", "Radiation", "Immunotherapy", "Targeted Therapy", "Hormone Therapy"];
 export const CHANGE_REASONS = ["Disease Progression", "Toxicity/Intolerance", "Resistance", "Completion of Treatment", "Patient Preference"];
+
+// Enhanced clinical decision support constants
+export const PERFORMANCE_STATUS_SCALES = ["ECOG", "Karnofsky"];
+export const ECOG_SCORES = [
+  { value: 0, label: "0 - Fully active, no restrictions" },
+  { value: 1, label: "1 - Restricted strenuous activity, ambulatory" },
+  { value: 2, label: "2 - Ambulatory >50% of time, self-care" },
+  { value: 3, label: "3 - Self-care limited, bedridden >50% of time" },
+  { value: 4, label: "4 - Completely disabled, bedridden" }
+];
+
+export const KARNOFSKY_SCORES = [
+  { value: 100, label: "100% - Normal, no complaints" },
+  { value: 90, label: "90% - Minor symptoms, normal activity" },
+  { value: 80, label: "80% - Normal activity with effort" },
+  { value: 70, label: "70% - Cares for self, unable to work" },
+  { value: 60, label: "60% - Requires occasional assistance" },
+  { value: 50, label: "50% - Requires considerable assistance" },
+  { value: 40, label: "40% - Disabled, requires special care" },
+  { value: 30, label: "30% - Severely disabled" },
+  { value: 20, label: "20% - Very sick, hospitalization necessary" },
+  { value: 10, label: "10% - Moribund" }
+];
+
+export const COMMON_COMORBIDITIES = [
+  "Diabetes Mellitus", "Hypertension", "Coronary Artery Disease", "Heart Failure",
+  "Chronic Kidney Disease", "Liver Disease", "COPD", "Asthma", "Stroke/CVA",
+  "Peripheral Vascular Disease", "Arthritis", "Depression", "Anxiety", "Obesity",
+  "Osteoporosis", "Thyroid Disease", "Previous Cancer", "Autoimmune Disease"
+];
+
+export const COMMON_MEDICATIONS = [
+  "Metformin", "Insulin", "Lisinopril", "Metoprolol", "Amlodipine", "Atorvastatin",
+  "Aspirin", "Warfarin", "Clopidogrel", "Prednisone", "Levothyroxine", "Furosemide",
+  "Albuterol", "Omeprazole", "Methotrexate", "Hydroxychloroquine", "Digoxin",
+  "Phenytoin", "Carbamazepine", "Valproic Acid", "Lithium", "Cyclosporine"
+];

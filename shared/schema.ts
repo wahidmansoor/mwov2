@@ -246,6 +246,8 @@ export const insertOncologyMedicationSchema = createInsertSchema(oncologyMedicat
   updatedAt: true,
 });
 
+
+
 // NCCN Guidelines comprehensive database
 export const nccnGuidelines = pgTable("nccn_guidelines", {
   id: uuid("id").primaryKey().defaultRandom(),
@@ -328,6 +330,106 @@ export const insertBiomarkerGuidelinesSchema = createInsertSchema(biomarkerGuide
   id: true,
   createdAt: true,
   updatedAt: true,
+});
+
+// Treatment Plan Criteria - ENHANCED for NCCN/ASCO/ESMO alignment
+export const treatmentPlanCriteria = pgTable("treatment_plan_criteria", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  category: varchar("category", { length: 100 }).notNull(), // cancer_type, biomarker, stage, etc.
+  value: varchar("value", { length: 255 }).notNull(),
+  description: text("description"),
+  isCommon: boolean("is_common").default(true), // Common vs rare selections
+  sortOrder: integer("sort_order").default(0),
+  isActive: boolean("is_active").default(true),
+  createdAt: timestamp("created_at").defaultNow(),
+  // ENHANCED FIELDS for clinical decision support
+  cancerSpecific: varchar("cancer_specific", { length: 100 }), // Which cancers this applies to
+  clinicalContext: text("clinical_context"), // When this criterion applies
+  cutoffValue: decimal("cutoff_value", { precision: 10, scale: 2 }), // For quantitative biomarkers
+  parentCategory: varchar("parent_category", { length: 100 }), // Hierarchical relationships
+  evidenceLevel: varchar("evidence_level", { length: 50 }), // NCCN Category level
+});
+
+// Treatment Plan Mappings - ENHANCED clinical decision engine
+export const treatmentPlanMappings = pgTable("treatment_plan_mappings", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  cancerType: varchar("cancer_type", { length: 100 }).notNull(),
+  histology: varchar("histology", { length: 100 }),
+  biomarkers: jsonb("biomarkers"), // Array of required biomarkers
+  treatmentIntent: varchar("treatment_intent", { length: 50 }).notNull(),
+  lineOfTreatment: varchar("line_of_treatment", { length: 50 }),
+  treatmentProtocol: text("treatment_protocol").notNull(),
+  evidenceReference: varchar("evidence_reference", { length: 100 }),
+  nccnReference: varchar("nccn_reference", { length: 100 }),
+  conflictingBiomarkers: jsonb("conflicting_biomarkers"), // Biomarkers that contraindicate this treatment
+  requiredStage: jsonb("required_stage"), // Array of applicable stages
+  confidenceScore: decimal("confidence_score", { precision: 3, scale: 2 }).default("1.00"),
+  isActive: boolean("is_active").default(true),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+  // NEW ENHANCED FIELDS for comprehensive clinical decision support
+  requiresCombinationMatch: boolean("requires_combination_match").default(false), // All biomarkers must match
+  toxicityLevel: varchar("toxicity_level", { length: 50 }), // Low, Moderate, High
+  priorityTag: varchar("priority_tag", { length: 50 }), // Preferred, Alternative, Last-line
+  performanceStatusMin: integer("performance_status_min"), // Min ECOG required
+  performanceStatusMax: integer("performance_status_max"), // Max ECOG allowed
+  comorbidityExclusions: jsonb("comorbidity_exclusions"), // Contraindicated comorbidities
+  requiredLabValues: jsonb("required_lab_values"), // Required lab thresholds
+  drugInteractions: jsonb("drug_interactions"), // Known drug interactions
+  monitoringRequirements: jsonb("monitoring_requirements"), // Required monitoring
+  doseModifications: jsonb("dose_modifications"), // Dose adjustment guidelines
+  specialConsiderations: text("special_considerations"), // Special patient populations
+  alternativeOptions: jsonb("alternative_options"), // Alternative treatment options
+  costTier: varchar("cost_tier", { length: 50 }), // Cost considerations
+  availabilityStatus: varchar("availability_status", { length: 50 }), // Drug availability
+});
+
+// Drug Interaction Database - NEW
+export const drugInteractions = pgTable("drug_interactions", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  drug1: varchar("drug1", { length: 255 }).notNull(),
+  drug2: varchar("drug2", { length: 255 }).notNull(),
+  interactionType: varchar("interaction_type", { length: 100 }).notNull(), // major, moderate, minor
+  mechanism: text("mechanism"),
+  clinicalEffect: text("clinical_effect"),
+  management: text("management"),
+  evidenceLevel: varchar("evidence_level", { length: 50 }),
+  severity: varchar("severity", { length: 50 }), // contraindicated, major, moderate, minor
+  onset: varchar("onset", { length: 50 }), // rapid, delayed
+  documentation: varchar("documentation", { length: 50 }), // established, probable, suspected
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+// Comorbidity Assessment - NEW
+export const comorbidityAssessment = pgTable("comorbidity_assessment", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  comorbidityName: varchar("comorbidity_name", { length: 255 }).notNull(),
+  category: varchar("category", { length: 100 }).notNull(), // cardiovascular, renal, hepatic, etc.
+  severity: varchar("severity", { length: 50 }), // mild, moderate, severe
+  treatmentImpact: text("treatment_impact"),
+  contraindicatedDrugs: jsonb("contraindicated_drugs"),
+  dosageAdjustments: jsonb("dosage_adjustments"),
+  monitoringRequirements: jsonb("monitoring_requirements"),
+  specialConsiderations: text("special_considerations"),
+  nccnReference: varchar("nccn_reference", { length: 100 }),
+  evidenceLevel: varchar("evidence_level", { length: 50 }),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+// Performance Status Assessment - NEW
+export const performanceStatusCriteria = pgTable("performance_status_criteria", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  scaleType: varchar("scale_type", { length: 50 }).notNull(), // ECOG, Karnofsky
+  scaleValue: integer("scale_value").notNull(),
+  description: text("description").notNull(),
+  functionalCapacity: text("functional_capacity"),
+  treatmentEligibility: jsonb("treatment_eligibility"), // Which treatments are appropriate
+  prognosticSignificance: text("prognostic_significance"),
+  assessmentGuidelines: text("assessment_guidelines"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
 });
 
 // Educational Content Tables for Learning Module
@@ -790,61 +892,10 @@ export const userQuizResponses = pgTable("user_quiz_responses", {
   responseDate: timestamp("response_date").defaultNow(),
 });
 
-// Treatment Plan Selector Tables (CDU Module) - Enhanced for Pan-Cancer Support
-export const treatmentPlanCriteria = pgTable("treatment_plan_criteria", {
-  id: serial("id").primaryKey(),
-  category: text("category").notNull(), // histology, biomarker, intent, line, reason, pdl1_status, genomic_alteration, previous_regimen, performance_status, resistance_mutation, molecular_subtype
-  value: text("value").notNull(),
-  description: text("description"),
-  cancerSpecific: text("cancer_specific").array(), // Which cancer types this applies to
-  clinicalContext: text("clinical_context"), // Additional context for complex criteria
-  cutoffValue: text("cutoff_value"), // For PD-L1 percentages, biomarker thresholds
-  isCommon: boolean("is_common").default(true), // Common vs advanced/rare
-  sortOrder: integer("sort_order").default(1),
-  parentCategory: text("parent_category"), // For hierarchical grouping
-  evidenceLevel: text("evidence_level"), // FDA-approved, NCCN Category 1, 2A, 2B
-  isActive: boolean("is_active").default(true),
-  createdAt: timestamp("created_at").defaultNow(),
-});
-
-export const treatmentPlanMappings = pgTable("treatment_plan_mappings", {
-  id: serial("id").primaryKey(), // Changed to match actual DB structure
-  cancerType: text("cancer_type").notNull(),
-  histology: text("histology"),
-  biomarkers: text("biomarkers").array(), // Array of biomarker strings
-  treatmentIntent: text("treatment_intent"),
-  lineOfTreatment: text("line_of_treatment"),
-  treatmentProtocol: text("treatment_protocol").notNull(),
-  evidenceReference: text("evidence_reference"), // Category 1, 2A, 2B
-  nccnReference: text("nccn_reference"),
-  conflictingBiomarkers: text("conflicting_biomarkers").array(), // Mutual exclusions
-  requiredStage: text("required_stage").array(), // Array of applicable stages
-  confidenceScore: decimal("confidence_score", { precision: 3, scale: 2 }), // 0.00-1.00
-  requiresCombinationMatch: boolean("requires_combination_match").default(false),
-  toxicityLevel: text("toxicity_level"), // Low, Moderate, High, Severe
-  priorityTag: text("priority_tag"), // First-line, Preferred, Alternative, Last-resort
-  performanceStatusMin: integer("performance_status_min"), // ECOG 0-4
-  performanceStatusMax: integer("performance_status_max"), // ECOG 0-4
-  isActive: boolean("is_active").default(true),
-  createdAt: timestamp("created_at").defaultNow(),
-  updatedAt: timestamp("updated_at").defaultNow(),
-});
-
-// Insert schemas
+// Insert schemas for daily features
 export const insertDailyOncologyFactSchema = createInsertSchema(dailyOncologyFacts);
 export const insertDailyOncologyQuizSchema = createInsertSchema(dailyOncologyQuiz);
 export const insertUserQuizResponseSchema = createInsertSchema(userQuizResponses);
-export const insertTreatmentPlanCriteriaSchema = createInsertSchema(treatmentPlanCriteria).omit({
-  id: true,
-  createdAt: true,
-  isActive: true,
-});
-export const insertTreatmentPlanMappingsSchema = createInsertSchema(treatmentPlanMappings).omit({
-  id: true,
-  createdAt: true,
-  updatedAt: true,
-  isActive: true,
-});
 
 // UpsertUser type for Replit Auth
 export type UpsertUser = typeof users.$inferInsert;
@@ -900,11 +951,47 @@ export type DailyOncologyQuiz = typeof dailyOncologyQuiz.$inferSelect;
 export type InsertDailyOncologyQuiz = z.infer<typeof insertDailyOncologyQuizSchema>;
 export type UserQuizResponse = typeof userQuizResponses.$inferSelect;
 export type InsertUserQuizResponse = z.infer<typeof insertUserQuizResponseSchema>;
+// Insert schemas for Treatment Plan Selector - ENHANCED
+export const insertTreatmentPlanCriteriaSchema = createInsertSchema(treatmentPlanCriteria).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertTreatmentPlanMappingSchema = createInsertSchema(treatmentPlanMappings).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertDrugInteractionSchema = createInsertSchema(drugInteractions).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertComorbidityAssessmentSchema = createInsertSchema(comorbidityAssessment).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertPerformanceStatusCriteriaSchema = createInsertSchema(performanceStatusCriteria).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
 // Treatment Plan Selector types
 export type TreatmentPlanCriteria = typeof treatmentPlanCriteria.$inferSelect;
 export type InsertTreatmentPlanCriteria = z.infer<typeof insertTreatmentPlanCriteriaSchema>;
 export type TreatmentPlanMapping = typeof treatmentPlanMappings.$inferSelect;
-export type InsertTreatmentPlanMapping = z.infer<typeof insertTreatmentPlanMappingsSchema>;
+export type InsertTreatmentPlanMapping = z.infer<typeof insertTreatmentPlanMappingSchema>;
+export type DrugInteraction = typeof drugInteractions.$inferSelect;
+export type InsertDrugInteraction = z.infer<typeof insertDrugInteractionSchema>;
+export type ComorbidityAssessment = typeof comorbidityAssessment.$inferSelect;
+export type InsertComorbidityAssessment = z.infer<typeof insertComorbidityAssessmentSchema>;
+export type PerformanceStatusCriteria = typeof performanceStatusCriteria.$inferSelect;
+export type InsertPerformanceStatusCriteria = z.infer<typeof insertPerformanceStatusCriteriaSchema>;
 
 // =====================================================
 // ENHANCED PALLIATIVE CARE TABLES

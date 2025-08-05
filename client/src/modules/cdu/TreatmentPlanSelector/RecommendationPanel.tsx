@@ -16,7 +16,7 @@ import {
   Activity,
   TrendingUp
 } from "lucide-react";
-import { TreatmentSelectionCriteria, RecommendationResult } from "./types";
+import { TreatmentSelectionCriteria, RecommendationResult, TreatmentRecommendation, DrugInteractionResult, ComorbidityImpactResult, PerformanceStatusResult } from "./types";
 
 interface RecommendationPanelProps {
   recommendations: RecommendationResult | null;
@@ -300,6 +300,147 @@ export function RecommendationPanel({ recommendations, criteria, isLoading, erro
             </div>
           </AlertDescription>
         </Alert>
+      )}
+
+      {/* ENHANCED CLINICAL DECISION SUPPORT SECTIONS */}
+      
+      {/* Drug Interactions Display */}
+      {recommendations.primary.drugInteractions && recommendations.primary.drugInteractions.length > 0 && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <AlertTriangle className="h-5 w-5 text-amber-600" />
+              Drug Interactions
+            </CardTitle>
+            <CardDescription>
+              Potential interactions with current medications
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            {recommendations.primary.drugInteractions.map((interaction: DrugInteractionResult, index: number) => (
+              <div key={index} className={`p-3 rounded-lg border ${
+                interaction.severity === 'High' ? 'border-red-200 bg-red-50' :
+                interaction.severity === 'Moderate' ? 'border-amber-200 bg-amber-50' :
+                'border-blue-200 bg-blue-50'
+              }`}>
+                <div className="flex justify-between items-start mb-2">
+                  <div className="font-medium">{interaction.drug1} + {interaction.drug2}</div>
+                  <Badge variant={
+                    interaction.severity === 'High' ? 'destructive' :
+                    interaction.severity === 'Moderate' ? 'secondary' : 'default'
+                  }>
+                    {interaction.severity}
+                  </Badge>
+                </div>
+                <p className="text-sm text-muted-foreground mb-2">{interaction.clinicalEffect}</p>
+                <div className="text-sm">
+                  <strong>Mechanism:</strong> {interaction.mechanism}
+                </div>
+                <div className="text-sm mt-1">
+                  <strong>Recommendation:</strong> {interaction.recommendation}
+                </div>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Comorbidity Impact Display */}
+      {recommendations.primary.comorbidityImpact && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Shield className="h-5 w-5 text-green-600" />
+              Comorbidity Assessment
+            </CardTitle>
+            <CardDescription>
+              Impact of comorbidities on treatment selection
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {recommendations.primary.comorbidityImpact.contraindications.length > 0 && (
+              <div>
+                <h4 className="font-medium text-red-600 mb-2">Contraindications</h4>
+                <div className="space-y-1">
+                  {recommendations.primary.comorbidityImpact.contraindications.map((contra: string, index: number) => (
+                    <div key={index} className="text-sm p-2 bg-red-50 border border-red-200 rounded">
+                      {contra}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+            
+            {recommendations.primary.comorbidityImpact.doseAdjustments.length > 0 && (
+              <div>
+                <h4 className="font-medium text-amber-600 mb-2">Dose Adjustments Required</h4>
+                <div className="space-y-1">
+                  {recommendations.primary.comorbidityImpact.doseAdjustments.map((adjustment: any, index: number) => (
+                    <div key={index} className="text-sm p-2 bg-amber-50 border border-amber-200 rounded">
+                      <strong>{adjustment.drug}:</strong> {adjustment.adjustment} ({adjustment.reason})
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {recommendations.primary.comorbidityImpact.monitoringRequirements.length > 0 && (
+              <div>
+                <h4 className="font-medium text-blue-600 mb-2">Enhanced Monitoring</h4>
+                <div className="space-y-1">
+                  {recommendations.primary.comorbidityImpact.monitoringRequirements.map((req: string, index: number) => (
+                    <div key={index} className="text-sm p-2 bg-blue-50 border border-blue-200 rounded">
+                      {req}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Performance Status Guidance Display */}
+      {recommendations.primary.performanceStatusGuidance && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Activity className="h-5 w-5 text-purple-600" />
+              Performance Status Guidance
+            </CardTitle>
+            <CardDescription>
+              Treatment eligibility based on performance status
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {recommendations.primary.performanceStatusGuidance.eligibleTreatments.length > 0 && (
+              <div>
+                <h4 className="font-medium text-green-600 mb-2">Eligible Treatments</h4>
+                <div className="grid grid-cols-1 gap-2">
+                  {recommendations.primary.performanceStatusGuidance.eligibleTreatments.map((treatment: string, index: number) => (
+                    <div key={index} className="text-sm p-2 bg-green-50 border border-green-200 rounded flex items-center gap-2">
+                      <CheckCircle className="h-4 w-4 text-green-600" />
+                      {treatment}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {recommendations.primary.performanceStatusGuidance.treatmentLimitations.length > 0 && (
+              <div>
+                <h4 className="font-medium text-amber-600 mb-2">Treatment Limitations</h4>
+                <div className="space-y-1">
+                  {recommendations.primary.performanceStatusGuidance.treatmentLimitations.map((limitation: string, index: number) => (
+                    <div key={index} className="text-sm p-2 bg-amber-50 border border-amber-200 rounded">
+                      {limitation}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </CardContent>
+        </Card>
       )}
 
       {/* Action Buttons */}
