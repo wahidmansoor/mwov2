@@ -66,7 +66,6 @@ import EthicsDecisionMaking from '../content/palliative-chapter7/EthicsDecisionM
 import QualityImprovement from '../content/palliative-chapter8/QualityImprovement';
 import TreatmentPlanning from '../content/radiation-chapter4/TreatmentPlanning';
 import ClinicalApplications from '../content/radiation-chapter5/ClinicalApplications';
-import ComprehensiveCancerTypes from '../content/oncology-chapter6/ComprehensiveCancerTypes';
 
 // Generate comprehensive educational content based on the chapter selection and specialty
 const generateChapterContent = (chapter: SelectedChapter, specialty: string): React.ReactNode => {
@@ -126,11 +125,6 @@ const generateChapterContent = (chapter: SelectedChapter, specialty: string): Re
     // Chapter 6: Organ-Specific Oncology
     if (title.includes('Chapter 6') || title.includes('Organ-Specific') || title.includes('Organ System')) {
       return <OrganSpecificOncology />;
-    }
-    
-    // Comprehensive Cancer Types (NCCN/ASCO/ESMO 2024-2025)
-    if (title.includes('Comprehensive') || title.includes('All Cancer Types') || title.includes('NCCN') || title.includes('ASCO') || title.includes('ESMO')) {
-      return <ComprehensiveCancerTypes />;
     }
   }
 
