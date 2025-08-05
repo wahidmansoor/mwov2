@@ -9,7 +9,8 @@ export const treatmentSelectionCriteriaSchema = z.object({
   treatmentIntent: z.string(),
   treatmentLine: z.string(),
   previousTreatments: z.array(z.string()),
-  changeReason: z.string()
+  changeReason: z.string(),
+  performanceStatus: z.number().min(0).max(4).optional() // ECOG Performance Status 0-4
 });
 
 export type TreatmentSelectionCriteria = z.infer<typeof treatmentSelectionCriteriaSchema>;
@@ -106,3 +107,65 @@ export const TREATMENT_INTENTS = ["Curative", "Palliative", "Adjuvant", "Neoadju
 export const TREATMENT_LINES = ["1st Line", "2nd Line", "3rd Line", "Adjuvant", "Neoadjuvant", "Maintenance"];
 export const PREVIOUS_TREATMENTS = ["Surgery", "Chemotherapy", "Radiation", "Immunotherapy", "Targeted Therapy", "Hormone Therapy"];
 export const CHANGE_REASONS = ["Disease Progression", "Toxicity/Intolerance", "Resistance", "Completion of Treatment", "Patient Preference"];
+
+// Enhanced biomarker interaction types
+export interface BiomarkerInteraction {
+  biomarker1: string;
+  biomarker2: string;
+  interactionType: 'exclusive' | 'synergistic' | 'antagonistic' | 'sequential';
+  clinicalSignificance: string;
+  evidenceLevel: string;
+}
+
+export interface ResistanceMutation {
+  primaryBiomarker: string;
+  resistanceMutation: string;
+  mechanism: string;
+  timeToResistance: string;
+  nextLineOptions: string[];
+}
+
+// Enhanced recommendation result with audit trail
+export interface EnhancedRecommendationResult extends RecommendationResult {
+  recommendationId: string;
+  sessionId: string;
+  requestTimestamp: string;
+  source: 'api' | 'cache' | 'fallback' | 'offline';
+  responseTimeMs: number;
+  biomarkerInteractions: BiomarkerInteraction[];
+  resistancePatterns: ResistanceMutation[];
+  drugInteractions: DrugInteraction[];
+  evidenceRecency: number; // months since publication
+  guidelineVersion: string;
+}
+
+export interface DrugInteraction {
+  drug1: string;
+  drug2: string;
+  severity: 'minor' | 'moderate' | 'major' | 'contraindicated';
+  mechanism: string;
+  management: string;
+}
+
+// Performance Status specific types
+export interface PerformanceStatusFilter {
+  minPS: number;
+  maxPS: number;
+  functionalRequirements: string[];
+  doseModifications: string[];
+}
+
+// Audit trail types
+export interface DecisionAuditEntry {
+  id: string;
+  sessionId: string;
+  timestamp: string;
+  criteria: TreatmentSelectionCriteria;
+  recommendation: RecommendationResult | null;
+  source: string;
+  confidence: number;
+  fallbackUsed: boolean;
+  errorDetails?: string;
+  userAgent: string;
+  responseTime: number;
+}

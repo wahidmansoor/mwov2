@@ -790,6 +790,96 @@ export const userQuizResponses = pgTable("user_quiz_responses", {
   responseDate: timestamp("response_date").defaultNow(),
 });
 
+// Clinical Audit Trail System
+export const clinicalDecisionAuditLog = pgTable("clinical_decision_audit_log", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  sessionId: varchar("session_id", { length: 255 }).notNull(),
+  userId: uuid("user_id").references(() => users.id),
+  requestTimestamp: timestamp("request_timestamp").defaultNow(),
+  criteria: jsonb("criteria").notNull(), // Complete selection criteria
+  apiResponse: jsonb("api_response"), // API response (if successful)
+  fallbackUsed: boolean("fallback_used").default(false),
+  recommendationSource: varchar("recommendation_source", { length: 50 }), // api, cache, fallback, error
+  confidenceScore: decimal("confidence_score", { precision: 3, scale: 2 }),
+  decisionRationale: text("decision_rationale"),
+  errorDetails: jsonb("error_details"), // Error information if applicable
+  userAgent: text("user_agent"),
+  ipAddress: varchar("ip_address", { length: 45 }),
+  responseTimeMs: integer("response_time_ms"),
+  cacheHit: boolean("cache_hit").default(false),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+// Drug Interaction Matrix for Complex Biomarker Analysis
+export const drugInteractionMatrix = pgTable("drug_interaction_matrix", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  drug1: varchar("drug1", { length: 200 }).notNull(),
+  drug2: varchar("drug2", { length: 200 }).notNull(),
+  interactionType: varchar("interaction_type", { length: 50 }).notNull(), // major, moderate, minor, contraindicated
+  mechanism: text("mechanism").notNull(),
+  clinicalSignificance: text("clinical_significance").notNull(),
+  management: text("management"),
+  evidenceLevel: varchar("evidence_level", { length: 50 }),
+  severity: integer("severity").notNull(), // 1-5 scale
+  frequency: varchar("frequency", { length: 50 }), // rare, uncommon, common
+  isActive: boolean("is_active").default(true),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+// Biomarker Resistance Patterns
+export const biomarkerResistancePatterns = pgTable("biomarker_resistance_patterns", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  cancerType: varchar("cancer_type", { length: 100 }).notNull(),
+  primaryBiomarker: varchar("primary_biomarker", { length: 100 }).notNull(),
+  resistanceMutation: varchar("resistance_mutation", { length: 100 }).notNull(),
+  resistanceMechanism: text("resistance_mechanism").notNull(),
+  timeToResistance: varchar("time_to_resistance", { length: 100 }), // median months
+  alternativeTargets: text("alternative_targets").array(),
+  nextLineOptions: jsonb("next_line_options").notNull(),
+  biomarkerEvolution: jsonb("biomarker_evolution"), // temporal changes
+  evidenceLevel: varchar("evidence_level", { length: 50 }),
+  nccnReference: varchar("nccn_reference", { length: 50 }),
+  isActive: boolean("is_active").default(true),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+// Treatment Outcomes Data for Evidence Integration
+export const treatmentOutcomesData = pgTable("treatment_outcomes_data", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  protocolName: varchar("protocol_name", { length: 255 }).notNull(),
+  cancerType: varchar("cancer_type", { length: 100 }).notNull(),
+  stage: varchar("stage", { length: 20 }),
+  biomarkerProfile: jsonb("biomarker_profile"),
+  responseRate: decimal("response_rate", { precision: 5, scale: 2 }), // percentage
+  progressionFreeSurvival: decimal("progression_free_survival", { precision: 5, scale: 2 }), // months
+  overallSurvival: decimal("overall_survival", { precision: 5, scale: 2 }), // months
+  toxicityProfile: jsonb("toxicity_profile"),
+  studyType: varchar("study_type", { length: 50 }), // phase_i, phase_ii, phase_iii, real_world
+  publicationDate: timestamp("publication_date"),
+  evidenceStrength: varchar("evidence_strength", { length: 50 }),
+  sampleSize: integer("sample_size"),
+  followUpMonths: decimal("follow_up_months", { precision: 4, scale: 1 }),
+  isActive: boolean("is_active").default(true),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+// Protocol Cache for Offline Functionality
+export const protocolCache = pgTable("protocol_cache", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  cacheKey: varchar("cache_key", { length: 255 }).notNull().unique(),
+  cancerType: varchar("cancer_type", { length: 100 }).notNull(),
+  protocolData: jsonb("protocol_data").notNull(),
+  lastUpdated: timestamp("last_updated").defaultNow(),
+  expiresAt: timestamp("expires_at").notNull(),
+  version: varchar("version", { length: 50 }).default("1.0"),
+  isActive: boolean("is_active").default(true),
+  hitCount: integer("hit_count").default(0),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
 // Treatment Plan Selector Tables (CDU Module) - Enhanced for Pan-Cancer Support
 export const treatmentPlanCriteria = pgTable("treatment_plan_criteria", {
   id: serial("id").primaryKey(),
@@ -844,6 +934,31 @@ export const insertTreatmentPlanMappingsSchema = createInsertSchema(treatmentPla
   createdAt: true,
   updatedAt: true,
   isActive: true,
+});
+
+// Enhanced schema exports
+export const insertClinicalDecisionAuditLogSchema = createInsertSchema(clinicalDecisionAuditLog).omit({
+  id: true,
+  createdAt: true,
+});
+export const insertDrugInteractionMatrixSchema = createInsertSchema(drugInteractionMatrix).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+export const insertBiomarkerResistancePatternsSchema = createInsertSchema(biomarkerResistancePatterns).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+export const insertTreatmentOutcomesDataSchema = createInsertSchema(treatmentOutcomesData).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+export const insertProtocolCacheSchema = createInsertSchema(protocolCache).omit({
+  id: true,
+  createdAt: true,
 });
 
 // UpsertUser type for Replit Auth
@@ -905,6 +1020,17 @@ export type TreatmentPlanCriteria = typeof treatmentPlanCriteria.$inferSelect;
 export type InsertTreatmentPlanCriteria = z.infer<typeof insertTreatmentPlanCriteriaSchema>;
 export type TreatmentPlanMapping = typeof treatmentPlanMappings.$inferSelect;
 export type InsertTreatmentPlanMapping = z.infer<typeof insertTreatmentPlanMappingsSchema>;
+// Enhanced audit and resilience types
+export type ClinicalDecisionAuditLog = typeof clinicalDecisionAuditLog.$inferSelect;
+export type InsertClinicalDecisionAuditLog = z.infer<typeof insertClinicalDecisionAuditLogSchema>;
+export type DrugInteractionMatrix = typeof drugInteractionMatrix.$inferSelect;
+export type InsertDrugInteractionMatrix = z.infer<typeof insertDrugInteractionMatrixSchema>;
+export type BiomarkerResistancePattern = typeof biomarkerResistancePatterns.$inferSelect;
+export type InsertBiomarkerResistancePattern = z.infer<typeof insertBiomarkerResistancePatternsSchema>;
+export type TreatmentOutcomesData = typeof treatmentOutcomesData.$inferSelect;
+export type InsertTreatmentOutcomesData = z.infer<typeof insertTreatmentOutcomesDataSchema>;
+export type ProtocolCache = typeof protocolCache.$inferSelect;
+export type InsertProtocolCache = z.infer<typeof insertProtocolCacheSchema>;
 
 // =====================================================
 // ENHANCED PALLIATIVE CARE TABLES
