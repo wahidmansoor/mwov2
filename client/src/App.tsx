@@ -10,7 +10,7 @@ import Dashboard from "@/pages/Dashboard";
 import Layout from "@/components/layout/Layout";
 import OPDModuleEnhanced from "@/modules/opd/OPDModuleEnhanced";
 import CDUModule from "@/modules/cdu/CDUModule";
-import PalliativeCareModuleMain from "@/modules/palliative/PalliativeCareModule";
+
 import InpatientModule from "@/modules/inpatient/InpatientModule";
 import ChatAssistant from "@/modules/chat/ChatAssistant";
 import ComprehensiveClinicalTools from "@/modules/tools/ComprehensiveClinicalTools";
@@ -22,7 +22,7 @@ import HandbookModule from "@/modules/handbook/HandbookModule";
 import MedicalOncologyView from "@/modules/handbook/MedicalOncologyView";
 import RadiationOncologyView from "@/modules/handbook/RadiationOncologyView";
 import PalliativeCareView from "@/modules/handbook/PalliativeCareView";
-import PalliativeCareModule from "@/modules/palliative/PalliativeCareModule";
+
 import ComprehensivePalliativeCare from "@/modules/palliative/ComprehensivePalliativeCare";
 import OncologyEducationModule from "@/modules/education/OncologyEducationModule";
 import NotFound from "@/pages/not-found";

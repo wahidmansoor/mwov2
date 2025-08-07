@@ -8,6 +8,7 @@ OncoVista AI is a medical-grade oncology platform providing AI-powered clinical 
 - **Focus**: Clinical decision support only - no EHR features
 - **Data Policy**: Educational/demo purposes only, no real patient data
 - **Module Structure**: Tab-based layouts with modular cards and color-coded alerts
+- **Documentation**: Comprehensive PRD created for product strategy and development roadmap
 
 ## System Architecture
 OncoVista AI is built with a modern web stack: React 18 + TypeScript + Vite for the frontend, utilizing Tailwind CSS and ShadCN UI for a professional medical-grade interface with responsive design. Icons are provided by Lucide React. The backend is powered by Express.js + TypeScript, connected to a PostgreSQL database via Drizzle ORM. State management is handled by Zustand, and data fetching by TanStack React Query.
