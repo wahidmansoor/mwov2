@@ -6,9 +6,9 @@
 import { Request, Response } from 'express';
 import { z } from 'zod';
 import { authMiddleware } from '../middleware/auth';
-import { rbac } from '../middleware/rbac';
-import { cacheService } from '../services/cacheService';
-import { auditLog } from '../services/auditService';
+import { rbacMiddleware } from '../middleware/rbac';
+import { db } from '../db';
+import { auditLog } from '@shared/schema';
 
 // Validation schemas
 const PatientProfileSchema = z.object({
@@ -18,50 +18,8 @@ const PatientProfileSchema = z.object({
     race: z.string().optional(),
     ethnicity: z.string().optional()
   }),
-  familyHistory: z.object({// Audit logging function
-async function logRiskCalculationAttempt(userId: string, success: boolean, details: string) {
-  await db.insert(auditLog).values({
-    userId,
-    action: 'RISK_CALCULATION',
-    success,
-    details,
-    timestamp: new Date()
-  });
-}
-
-// Secure route handler with authentication and role-based access control
-export const riskCalculationHandler = [
-  authMiddleware,
-  rbac(['oncologist', 'radiation_oncologist', 'admin']),
-  async function calculateRiskAssessment(req: Request, res: Response) {
-    try {
-      // Audit the request
-      await auditLog.record({
-        userId: req.userId!,
-        action: 'risk_calculation_attempt',
-        resource: 'patient_risk',
-        details: `Cancer type: ${req.body?.cancerType}`
-      });
-    const result = RiskCalculationRequestSchema.safeParse(req.body);
-    if (!result.success) {
-      await logRiskCalculationAttempt(req.userId!, false, 'Input validation failed');
-      return res.status(400).json({
-        success: false,
-        error: 'Invalid input data',
-        details: result.error.flatten()
-      });
-    }
-
-    const { patientProfile, cancerType, forceRecalculation } = result.data;
-
-    // Sanitize any free text inputs
-    const sanitizedProfile = sanitizePatientProfile(patientProfile);
-
-    // Log calculation attempt
-    await logRiskCalculationAttempt(req.userId!, true, `Calculating risk for cancer type: ${cancerType}`);
-
-    // Check cache first unless force recalculation is requested
-    if (!forceRecalculation) {…}irstDegreeRelatives: z.array(z.object({
+  familyHistory: z.object({
+    firstDegreeRelatives: z.array(z.object({
       relation: z.string(),
       cancerType: z.string(),
       ageAtDiagnosis: z.number()
@@ -570,10 +528,10 @@ class ServerRiskCalculationEngine {
 
 const riskEngine = new ServerRiskCalculationEngine();
 
-// Apply middleware and export route handler
+// Apply middleware and export route handler  
 export const riskCalculationHandler = [
   authMiddleware,
-  rbac(["oncologist", "admin"]),
+  rbacMiddleware(['use_ai_recommendations', 'view_patient_data']),
   async function calculateRiskAssessment(req: Request, res: Response) {
     try {
       const parseResult = RiskCalculationRequestSchema.safeParse(req.body);
@@ -588,16 +546,8 @@ export const riskCalculationHandler = [
 
       const { patientProfile, cancerType, forceRecalculation } = parseResult.data;
 
-    // Check cache first unless force recalculation is requested
-    if (!forceRecalculation) {
-      const cachedResult = await cacheService.getCachedRiskAssessment(patientProfile, cancerType);
-      if (cachedResult) {
-        return res.json({
-          success: true,
-          data: { ...cachedResult, fromCache: true }
-        });
-      }
-    }
+    // TODO: Add caching functionality when cache service is implemented
+    // For now, proceed with calculation
 
     // Calculate risk assessment
     let result: RiskAssessmentResult;
@@ -618,9 +568,6 @@ export const riskCalculationHandler = [
           error: `Unsupported cancer type: ${cancerType}`
         });
     }
-
-    // Cache the result
-    await cacheService.cacheRiskAssessment(patientProfile, cancerType, result);
 
     // Log successful calculation
     await db.insert(auditLog).values({
@@ -667,11 +614,17 @@ export const riskCalculationHandler = [
       message: process.env.NODE_ENV === 'development' ? error.message : undefined
     });
   }
-}
+}];
 
 export async function getCacheStats(req: Request, res: Response) {
   try {
-    const stats = cacheService.getStats();
+    // TODO: Implement cache service and return actual cache statistics
+    const stats = {
+      hitRate: 0,
+      totalRequests: 0,
+      cacheSize: 0,
+      lastClearTime: new Date().toISOString()
+    };
     res.json({
       success: true,
       data: stats
