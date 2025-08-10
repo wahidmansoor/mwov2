@@ -43,7 +43,7 @@ import {
   Download,
   TrendingUp,
   Clock,
-  Sparkles
+  Sparkles,
 } from "lucide-react";
 
 interface PlatformStats {
@@ -77,7 +77,7 @@ export default function Dashboard() {
     modulesCovered: 8,
     recentUpdates: 12,
     userSessions: 1,
-    clinicalDecisions: 0
+    clinicalDecisions: 0,
   };
 
   // Clinical modules available in the platform
@@ -85,32 +85,35 @@ export default function Dashboard() {
     {
       id: "opd",
       name: "OPD Module",
-      description: "Outpatient diagnosis, screening protocols, and referral management",
+      description:
+        "Outpatient diagnosis, screening protocols, and referral management",
       usageCount: 0,
       lastAccessed: "Never",
       status: "active",
       icon: Stethoscope,
-      route: "/opd"
+      route: "/opd",
     },
     {
       id: "cdu",
-      name: "CDU Module", 
-      description: "Cancer Day Unit protocols, dosage calculations, toxicity guidance",
+      name: "CDU Module",
+      description:
+        "Cancer Day Unit protocols, dosage calculations, toxicity guidance",
       usageCount: 0,
       lastAccessed: "Never",
       status: "updated",
       icon: Activity,
-      route: "/cdu"
+      route: "/cdu",
     },
     {
       id: "inpatient",
       name: "Inpatient Oncology",
-      description: "Admission protocols, emergency regimens, monitoring workflows",
+      description:
+        "Admission protocols, emergency regimens, monitoring workflows",
       usageCount: 0,
-      lastAccessed: "Never", 
+      lastAccessed: "Never",
       status: "stable",
       icon: Building2,
-      route: "/inpatient"
+      route: "/inpatient",
     },
     {
       id: "palliative",
@@ -120,17 +123,18 @@ export default function Dashboard() {
       lastAccessed: "Never",
       status: "stable",
       icon: Heart,
-      route: "/palliative"
+      route: "/palliative",
     },
     {
       id: "chat",
       name: "AI Chat Assistant",
-      description: "Interactive guideline queries with NCCN, ASCO, ESMO support",
+      description:
+        "Interactive guideline queries with NCCN, ASCO, ESMO support",
       usageCount: 0,
       lastAccessed: "Never",
       status: "active",
       icon: Brain,
-      route: "/chat"
+      route: "/chat",
     },
     {
       id: "tools",
@@ -140,7 +144,7 @@ export default function Dashboard() {
       lastAccessed: "Never",
       status: "stable",
       icon: Calculator,
-      route: "/tools"
+      route: "/tools",
     },
     {
       id: "education",
@@ -150,18 +154,19 @@ export default function Dashboard() {
       lastAccessed: "Never",
       status: "active",
       icon: GraduationCap,
-      route: "/education"
+      route: "/education",
     },
     {
       id: "handbook",
       name: "Medical Handbook",
-      description: "Comprehensive oncology, radiation, and palliative care references",
+      description:
+        "Comprehensive oncology, radiation, and palliative care references",
       usageCount: 0,
       lastAccessed: "Never",
       status: "stable",
       icon: BookOpen,
-      route: "/handbook"
-    }
+      route: "/handbook",
+    },
   ];
 
   const quickActions = [
@@ -170,29 +175,29 @@ export default function Dashboard() {
       description: "Find evidence-based cancer treatment protocols",
       icon: Search,
       color: "medical-blue",
-      action: () => setLocation("/cdu")
+      action: () => setLocation("/cdu"),
     },
     {
       title: "Clinical Decision Support",
       description: "AI-powered treatment recommendations",
       icon: Brain,
-      color: "medical-purple", 
-      action: () => setLocation("/chat")
+      color: "medical-purple",
+      action: () => setLocation("/chat"),
     },
     {
       title: "Toxicity Management",
       description: "NCCN/ESMO/ASCO toxicity guidance",
       icon: Shield,
       color: "medical-green",
-      action: () => setLocation("/cdu?tab=toxicity")
+      action: () => setLocation("/cdu?tab=toxicity"),
     },
     {
       title: "Clinical Calculators",
       description: "BSA, GFR, dosage calculations",
       icon: Calculator,
       color: "medical-orange",
-      action: () => setLocation("/tools")
-    }
+      action: () => setLocation("/tools"),
+    },
   ];
 
   const getModuleStatusColor = (status: ModuleUsage["status"]) => {
@@ -226,14 +231,20 @@ export default function Dashboard() {
       {/* Header */}
       <div className="flex justify-between items-start">
         <div>
-          <h1 className="text-3xl font-bold text-slate-900 dark:text-white">OncoVista Clinical Decision Support Platform</h1>
+          <h1 className="text-3xl font-bold text-slate-900 dark:text-white">
+            OncoVista Clinical Decision Support Platform
+          </h1>
           <p className="text-slate-600 dark:text-slate-300 mt-1">
-            Welcome back, {user?.firstName || "Doctor"}. Access comprehensive oncology guidance tools and AI-powered clinical decision support.
+            Welcome back, {user?.firstName || "Doctor"}. Access comprehensive
+            oncology guidance tools and AI-powered clinical decision support.
           </p>
         </div>
-        
+
         <div className="flex items-center space-x-4">
-          <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
+          <Badge
+            variant="outline"
+            className="bg-green-50 text-green-700 border-green-200"
+          >
             <Database className="h-3 w-3 mr-1" />
             Live Database Connected
           </Badge>
@@ -251,7 +262,9 @@ export default function Dashboard() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-slate-600 dark:text-slate-300 text-sm">Clinical Protocols</p>
+                  <p className="text-slate-600 dark:text-slate-300 text-sm">
+                    Clinical Protocols
+                  </p>
                   <p className="text-3xl font-bold text-slate-900 dark:text-white">
                     {platformStats.totalProtocols}
                   </p>
@@ -277,7 +290,9 @@ export default function Dashboard() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-slate-600 dark:text-slate-300 text-sm">Clinical Modules</p>
+                  <p className="text-slate-600 dark:text-slate-300 text-sm">
+                    Clinical Modules
+                  </p>
                   <p className="text-3xl font-bold text-slate-900 dark:text-white">
                     {platformStats.modulesCovered}
                   </p>
@@ -303,7 +318,9 @@ export default function Dashboard() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-slate-600 dark:text-slate-300 text-sm">AI Decision Support</p>
+                  <p className="text-slate-600 dark:text-slate-300 text-sm">
+                    AI Decision Support
+                  </p>
                   <p className="text-3xl font-bold text-slate-900 dark:text-white">
                     {platformStats.clinicalDecisions}
                   </p>
@@ -329,7 +346,9 @@ export default function Dashboard() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-slate-600 dark:text-slate-300 text-sm">Recent Updates</p>
+                  <p className="text-slate-600 dark:text-slate-300 text-sm">
+                    Recent Updates
+                  </p>
                   <p className="text-3xl font-bold text-slate-900 dark:text-white">
                     {platformStats.recentUpdates}
                   </p>
@@ -350,12 +369,14 @@ export default function Dashboard() {
       {/* Clinical Modules Grid */}
       <div className="space-y-6">
         <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Clinical Decision Support Modules</h2>
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+            Clinical Decision Support Modules
+          </h2>
           <Badge variant="secondary" className="bg-blue-50 text-blue-700">
             {clinicalModules.length} Modules Available
           </Badge>
         </div>
-        
+
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {clinicalModules.map((module, index) => (
             <motion.div
@@ -364,14 +385,17 @@ export default function Dashboard() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <Card className="hover:shadow-lg transition-all duration-300 cursor-pointer group" onClick={() => setLocation(module.route)}>
+              <Card
+                className="hover:shadow-lg transition-all duration-300 cursor-pointer group"
+                onClick={() => setLocation(module.route)}
+              >
                 <CardContent className="p-6">
                   <div className="flex items-start justify-between mb-4">
                     <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center group-hover:bg-blue-200 transition-colors">
                       <module.icon className="w-6 h-6 text-blue-600" />
                     </div>
-                    <Badge 
-                      variant="secondary" 
+                    <Badge
+                      variant="secondary"
                       className={`text-xs flex items-center gap-1 ${getModuleStatusColor(module.status)}`}
                     >
                       {getModuleStatusIcon(module.status)}
@@ -425,8 +449,12 @@ export default function Dashboard() {
                 >
                   <action.icon className="w-6 h-6 text-blue-600" />
                   <div>
-                    <div className="font-medium text-slate-900 dark:text-white text-sm">{action.title}</div>
-                    <div className="text-slate-600 dark:text-slate-300 text-xs">{action.description}</div>
+                    <div className="font-medium text-slate-900 dark:text-white text-sm">
+                      {action.title}
+                    </div>
+                    <div className="text-slate-600 dark:text-slate-300 text-xs">
+                      {action.description}
+                    </div>
                   </div>
                 </Button>
               ))}
@@ -452,53 +480,70 @@ export default function Dashboard() {
               </Badge>
             </CardTitle>
             <p className="text-slate-600 dark:text-slate-300">
-              Comprehensive clinical decision support with evidence-based guidelines search, clinical calculators, daily learning features, and automated referral systems
+              Comprehensive clinical decision support with evidence-based
+              guidelines search, clinical calculators, daily learning features,
+              and automated referral systems
             </p>
           </CardHeader>
           <CardContent>
             <Tabs defaultValue="guidelines" className="w-full">
               <TabsList className="grid w-full grid-cols-5">
-                <TabsTrigger value="guidelines" className="flex items-center gap-2">
+                <TabsTrigger
+                  value="guidelines"
+                  className="flex items-center gap-2"
+                >
                   <BookOpen className="h-4 w-4" />
                   Guidelines Search
                 </TabsTrigger>
-                <TabsTrigger value="calculators" className="flex items-center gap-2">
+                <TabsTrigger
+                  value="calculators"
+                  className="flex items-center gap-2"
+                >
                   <Calculator className="h-4 w-4" />
                   Clinical Calculators
                 </TabsTrigger>
-                <TabsTrigger value="daily-learning" className="flex items-center gap-2">
+                <TabsTrigger
+                  value="daily-learning"
+                  className="flex items-center gap-2"
+                >
                   <GraduationCap className="h-4 w-4" />
                   Daily Learning
                 </TabsTrigger>
-                <TabsTrigger value="referrals" className="flex items-center gap-2">
+                <TabsTrigger
+                  value="referrals"
+                  className="flex items-center gap-2"
+                >
                   <Users className="h-4 w-4" />
                   Smart Referrals
                 </TabsTrigger>
-                <TabsTrigger value="wellness" className="flex items-center gap-2">
+                <TabsTrigger
+                  value="wellness"
+                  className="flex items-center gap-2"
+                >
                   <Heart className="h-4 w-4" />
                   Wellness Check
                 </TabsTrigger>
               </TabsList>
-              
+
               <TabsContent value="guidelines" className="mt-6">
                 <GuidelinesSearchWidget />
               </TabsContent>
-              
+
               <TabsContent value="calculators" className="mt-6">
                 <ClinicalCalculatorsWidget />
               </TabsContent>
-              
+
               <TabsContent value="daily-learning" className="mt-6">
                 <div className="grid gap-6 md:grid-cols-2">
                   <DailyOncologyFact />
                   <DailyOncologyQuiz />
                 </div>
               </TabsContent>
-              
+
               <TabsContent value="referrals" className="mt-6">
                 <SmartReferralSystem />
               </TabsContent>
-              
+
               <TabsContent value="wellness" className="mt-6">
                 <EmotionCheckInWidget />
               </TabsContent>
