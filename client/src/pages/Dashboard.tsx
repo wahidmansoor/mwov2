@@ -1,11 +1,7 @@
-import { useState, useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
 import { useLocation } from "wouter";
 import { useAuth } from "@/hooks/useAuth";
 import SmartReferralSystem from "@/components/clinical/SmartReferralSystem";
@@ -15,36 +11,23 @@ import ClinicalCalculatorsWidget from "@/components/clinical/ClinicalCalculators
 import { DailyOncologyFact } from "@/components/DailyOncologyFact";
 import { DailyOncologyQuiz } from "@/components/DailyOncologyQuiz";
 import {
-  Stethoscope,
   Brain,
-  AlertTriangle,
-  BookOpen,
   Calculator,
-  Heart,
   Shield,
-  FileText,
-  BarChart3,
   Search,
-  ChartLine,
-  Bell,
-  ArrowUp,
-  CheckCircle,
-  Activity,
-  Zap,
-  ExternalLink,
   Database,
-  Users,
-  GraduationCap,
   Target,
   Pill,
-  Building2,
-  UserCheck,
-  MessageSquare,
-  Download,
   TrendingUp,
-  Clock,
   Sparkles,
+  Activity,
+  Zap,
+  BookOpen,
+  GraduationCap,
+  Users,
+  Heart,
 } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 interface PlatformStats {
   totalProtocols: number;
@@ -55,16 +38,7 @@ interface PlatformStats {
   clinicalDecisions: number;
 }
 
-interface ModuleUsage {
-  id: string;
-  name: string;
-  description: string;
-  usageCount: number;
-  lastAccessed: string;
-  status: "active" | "updated" | "stable";
-  icon: any;
-  route: string;
-}
+
 
 export default function Dashboard() {
   const [, setLocation] = useLocation();
@@ -80,94 +54,7 @@ export default function Dashboard() {
     clinicalDecisions: 0,
   };
 
-  // Clinical modules available in the platform
-  const clinicalModules: ModuleUsage[] = [
-    {
-      id: "opd",
-      name: "OPD Module",
-      description:
-        "Outpatient diagnosis, screening protocols, and referral management",
-      usageCount: 0,
-      lastAccessed: "Never",
-      status: "active",
-      icon: Stethoscope,
-      route: "/opd",
-    },
-    {
-      id: "cdu",
-      name: "CDU Module",
-      description:
-        "Cancer Day Unit protocols, dosage calculations, toxicity guidance",
-      usageCount: 0,
-      lastAccessed: "Never",
-      status: "updated",
-      icon: Activity,
-      route: "/cdu",
-    },
-    {
-      id: "inpatient",
-      name: "Inpatient Oncology",
-      description:
-        "Admission protocols, emergency regimens, monitoring workflows",
-      usageCount: 0,
-      lastAccessed: "Never",
-      status: "stable",
-      icon: Building2,
-      route: "/inpatient",
-    },
-    {
-      id: "palliative",
-      name: "Palliative Care",
-      description: "Symptom management, pain control, psychosocial support",
-      usageCount: 0,
-      lastAccessed: "Never",
-      status: "stable",
-      icon: Heart,
-      route: "/palliative",
-    },
-    {
-      id: "chat",
-      name: "AI Chat Assistant",
-      description:
-        "Interactive guideline queries with NCCN, ASCO, ESMO support",
-      usageCount: 0,
-      lastAccessed: "Never",
-      status: "active",
-      icon: Brain,
-      route: "/chat",
-    },
-    {
-      id: "tools",
-      name: "Clinical Tools",
-      description: "Calculators, red flag alerts, lab interpretation guides",
-      usageCount: 0,
-      lastAccessed: "Never",
-      status: "stable",
-      icon: Calculator,
-      route: "/tools",
-    },
-    {
-      id: "education",
-      name: "Oncology Education",
-      description: "AI-powered adaptive learning with Socratic questioning",
-      usageCount: 0,
-      lastAccessed: "Never",
-      status: "active",
-      icon: GraduationCap,
-      route: "/education",
-    },
-    {
-      id: "handbook",
-      name: "Medical Handbook",
-      description:
-        "Comprehensive oncology, radiation, and palliative care references",
-      usageCount: 0,
-      lastAccessed: "Never",
-      status: "stable",
-      icon: BookOpen,
-      route: "/handbook",
-    },
-  ];
+
 
   const quickActions = [
     {
@@ -200,31 +87,7 @@ export default function Dashboard() {
     },
   ];
 
-  const getModuleStatusColor = (status: ModuleUsage["status"]) => {
-    switch (status) {
-      case "active":
-        return "bg-green-100 text-green-800";
-      case "updated":
-        return "bg-blue-100 text-blue-800";
-      case "stable":
-        return "bg-gray-100 text-gray-800";
-      default:
-        return "bg-gray-100 text-gray-800";
-    }
-  };
 
-  const getModuleStatusIcon = (status: ModuleUsage["status"]) => {
-    switch (status) {
-      case "active":
-        return <Zap className="h-3 w-3" />;
-      case "updated":
-        return <TrendingUp className="h-3 w-3" />;
-      case "stable":
-        return <CheckCircle className="h-3 w-3" />;
-      default:
-        return <CheckCircle className="h-3 w-3" />;
-    }
-  };
 
   return (
     <div className="p-6 space-y-8">
@@ -366,61 +229,7 @@ export default function Dashboard() {
         </motion.div>
       </div>
 
-      {/* Clinical Modules Grid */}
-      <div className="space-y-6">
-        <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
-            Clinical Decision Support Modules
-          </h2>
-          <Badge variant="secondary" className="bg-blue-50 text-blue-700">
-            {clinicalModules.length} Modules Available
-          </Badge>
-        </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {clinicalModules.map((module, index) => (
-            <motion.div
-              key={module.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-            >
-              <Card
-                className="hover:shadow-lg transition-all duration-300 cursor-pointer group"
-                onClick={() => setLocation(module.route)}
-              >
-                <CardContent className="p-6">
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center group-hover:bg-blue-200 transition-colors">
-                      <module.icon className="w-6 h-6 text-blue-600" />
-                    </div>
-                    <Badge
-                      variant="secondary"
-                      className={`text-xs flex items-center gap-1 ${getModuleStatusColor(module.status)}`}
-                    >
-                      {getModuleStatusIcon(module.status)}
-                      {module.status}
-                    </Badge>
-                  </div>
-                  <h3 className="font-semibold text-slate-900 dark:text-white mb-2 group-hover:text-blue-600 transition-colors">
-                    {module.name}
-                  </h3>
-                  <p className="text-slate-600 dark:text-slate-300 text-sm mb-4 line-clamp-2">
-                    {module.description}
-                  </p>
-                  <div className="flex items-center justify-between text-xs text-slate-500">
-                    <span>Sessions: {module.usageCount}</span>
-                    <span className="flex items-center gap-1">
-                      <Clock className="h-3 w-3" />
-                      {module.lastAccessed}
-                    </span>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
-        </div>
-      </div>
 
       {/* Quick Actions */}
       <motion.div
@@ -440,7 +249,7 @@ export default function Dashboard() {
           </CardHeader>
           <CardContent>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-              {quickActions.map((action, index) => (
+              {quickActions.map((action, _index) => (
                 <Button
                   key={action.title}
                   variant="outline"
