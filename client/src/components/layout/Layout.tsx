@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import Logo from "@/components/common/Logo";
 import { useAuth } from "@/hooks/useAuth";
 import { usePermissions } from "@/hooks/usePermissions";
@@ -23,7 +25,10 @@ import {
   User,
   GraduationCap,
   NotebookPen,
-  Cog
+  Cog,
+  Clock,
+  Sun,
+  Moon
 } from "lucide-react";
 
 interface LayoutProps {
@@ -270,30 +275,163 @@ function Sidebar({ className = "" }: { className?: string }) {
   );
 }
 
-function Header() {
-  const { user } = useAuth();
+function GlobalTopNavigation() {
+  const { user, logout } = useAuth();
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  // Update time every minute
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 60000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const formatTime = (date: Date) => {
+    return date.toLocaleTimeString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true
+    });
+  };
+
+  const formatDate = (date: Date) => {
+    return date.toLocaleDateString('en-US', {
+      weekday: 'short',
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric'
+    });
+  };
+
+  const getGreeting = () => {
+    const hour = currentTime.getHours();
+    if (hour < 12) return 'Good morning';
+    if (hour < 18) return 'Good afternoon';
+    return 'Good evening';
+  };
+
+  const getUserInitials = (firstName?: string, lastName?: string) => {
+    if (!firstName && !lastName) return 'U';
+    return `${firstName?.[0] || ''}${lastName?.[0] || ''}`.toUpperCase();
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
+  };
 
   return (
-    <header className="bg-white border-b border-slate-200 px-6 py-4 lg:hidden">
-      <div className="flex justify-between items-center">
-        <Logo />
-        
-        <div className="flex items-center space-x-4">
-          <HelpSystem />
-          <Button variant="ghost" size="sm">
-            <Bell className="w-4 h-4" />
-          </Button>
-          
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="sm">
-                <Menu className="w-4 h-4" />
+    <header className="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-40">
+      <div className="px-4 lg:px-6 py-3">
+        <div className="flex items-center justify-between">
+          {/* Left Section - Logo and Welcome */}
+          <div className="flex items-center space-x-6">
+            <div className="flex items-center space-x-3">
+              <Logo />
+              
+              {/* Mobile Menu Button */}
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Button variant="ghost" size="sm" className="lg:hidden">
+                    <Menu className="w-4 h-4" />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="left" className="p-0 w-64">
+                  <Sidebar />
+                </SheetContent>
+              </Sheet>
+            </div>
+
+            {/* Welcome Message - Hidden on mobile */}
+            {user && (
+              <div className="hidden md:block">
+                <h1 className="text-lg font-semibold text-slate-900">
+                  {getGreeting()}, Dr. {user.firstName || 'User'}
+                </h1>
+                <p className="text-sm text-slate-600">
+                  OncoVista AI Clinical Decision Support Platform
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* Right Section - Time, Notifications, User Menu */}
+          <div className="flex items-center space-x-4">
+            {/* Date and Time */}
+            <div className="hidden sm:flex items-center space-x-3 text-sm text-slate-600">
+              <div className="flex items-center space-x-1">
+                <Clock className="w-4 h-4" />
+                <span>{formatTime(currentTime)}</span>
+              </div>
+              <div className="hidden md:block">
+                <span>{formatDate(currentTime)}</span>
+              </div>
+            </div>
+
+            {/* Help System */}
+            <HelpSystem />
+
+            {/* Notifications */}
+            <Button variant="ghost" size="sm" className="relative">
+              <Bell className="w-4 h-4" />
+              {/* Notification badge */}
+              <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+            </Button>
+
+            {/* User Menu */}
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="flex items-center space-x-2 hover:bg-slate-100">
+                    <Avatar className="w-8 h-8">
+                      <AvatarImage src={user.profileImageUrl || undefined} />
+                      <AvatarFallback className="bg-blue-100 text-blue-700 text-sm">
+                        {getUserInitials(user.firstName, user.lastName)}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="hidden sm:block text-left">
+                      <div className="text-sm font-medium text-slate-900">
+                        {user.firstName} {user.lastName}
+                      </div>
+                      <div className="text-xs text-slate-500 capitalize">
+                        {user.role}
+                      </div>
+                    </div>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56">
+                  <div className="px-2 py-1.5">
+                    <p className="text-sm font-medium">{user.firstName} {user.lastName}</p>
+                    <p className="text-xs text-slate-500">{user.email}</p>
+                    <p className="text-xs text-slate-500 capitalize mt-1">Role: {user.role}</p>
+                  </div>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>
+                    <User className="w-4 h-4 mr-2" />
+                    Profile Settings
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Settings className="w-4 h-4 mr-2" />
+                    Preferences
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={handleLogout} className="text-red-600">
+                    <LogOut className="w-4 h-4 mr-2" />
+                    Sign Out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Button variant="default" size="sm">
+                Sign In
               </Button>
-            </SheetTrigger>
-            <SheetContent side="left" className="p-0 w-64">
-              <Sidebar />
-            </SheetContent>
-          </Sheet>
+            )}
+          </div>
         </div>
       </div>
     </header>
@@ -302,21 +440,24 @@ function Header() {
 
 export default function Layout({ children }: LayoutProps) {
   return (
-    <div className="min-h-screen bg-slate-50 flex">
-      {/* Desktop Sidebar */}
-      <div className="hidden lg:block w-64 fixed inset-y-0 left-0 z-50">
-        <Sidebar />
-      </div>
+    <div className="min-h-screen bg-slate-50 flex flex-col">
+      {/* Global Top Navigation */}
+      <GlobalTopNavigation />
+      
+      {/* Main Layout */}
+      <div className="flex flex-1">
+        {/* Desktop Sidebar */}
+        <div className="hidden lg:block w-64 fixed inset-y-0 left-0 top-20 z-40">
+          <Sidebar />
+        </div>
 
-      {/* Main Content */}
-      <div className="flex-1 lg:ml-64">
-        {/* Mobile Header */}
-        <Header />
-        
-        {/* Page Content */}
-        <main className="min-h-screen">
-          {children}
-        </main>
+        {/* Main Content */}
+        <div className="flex-1 lg:ml-64">
+          {/* Page Content */}
+          <main className="min-h-screen">
+            {children}
+          </main>
+        </div>
       </div>
     </div>
   );
