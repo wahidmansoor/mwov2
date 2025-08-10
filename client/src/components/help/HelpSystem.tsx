@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogTrigger } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
@@ -234,6 +234,9 @@ export default function HelpSystem() {
               </Button>
               <div>
                 <DialogTitle>{selectedArticle.title}</DialogTitle>
+                <DialogDescription>
+                  {selectedArticle.category} help article - {selectedArticle.difficulty} level
+                </DialogDescription>
                 <div className="flex items-center gap-2 mt-1">
                   <Badge className={getDifficultyColor(selectedArticle.difficulty)}>
                     {selectedArticle.difficulty}
@@ -286,6 +289,9 @@ export default function HelpSystem() {
       <DialogContent className="modal-responsive max-w-6xl">
         <DialogHeader>
           <DialogTitle className="text-responsive-xl">OncoVista AI Help Center</DialogTitle>
+          <DialogDescription>
+            Access comprehensive help articles, tutorials, and support for all OncoVista AI features and clinical modules.
+          </DialogDescription>
           <div className="flex items-center gap-2 mt-2">
             <Search className="w-4 h-4 text-muted-foreground" />
             <Input

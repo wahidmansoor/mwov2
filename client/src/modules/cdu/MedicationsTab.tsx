@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogTrigger } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -66,6 +66,9 @@ const MedicationDetailDialog = ({ medication }: { medication: OncologyMedication
         <Pill className="h-5 w-5" />
         {medication.name} {medication.brandNames?.[0] && `(${medication.brandNames[0]})`}
       </DialogTitle>
+      <DialogDescription>
+        {medication.summary || `Detailed information about ${medication.name}, including dosing, side effects, monitoring requirements, and clinical guidance.`}
+      </DialogDescription>
     </DialogHeader>
     <ScrollArea className="max-h-[75vh]">
       <div className="space-y-6 p-4">
