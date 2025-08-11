@@ -154,30 +154,9 @@ function Sidebar({ className = "" }: { className?: string }) {
 
   return (
     <div className={`flex flex-col h-full bg-white border-r border-slate-200 ${className}`}>
-      {/* Logo Section */}
-      <div className="p-6 border-b border-slate-200">
-        <Logo showSubtitle />
-      </div>
-
-      {/* User Profile */}
-      <div className="p-4 border-b border-slate-200">
-        <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 gradient-medical-primary rounded-full flex items-center justify-center">
-            <User className="w-5 h-5 text-white" />
-          </div>
-          <div className="flex-1 min-w-0">
-            <p className="font-medium text-slate-900 truncate">
-              {user ? `${user.firstName} ${user.lastName}` : "Loading..."}
-            </p>
-            <p className="text-xs text-slate-500 truncate">
-              {user?.role?.replace(/_/g, " ").replace(/\b\w/g, (l: string) => l.toUpperCase()) || "Loading..."}
-            </p>
-          </div>
-        </div>
-      </div>
 
       {/* Navigation */}
-      <nav className="flex-1 p-4 overflow-y-auto">
+      <nav className="flex-1 p-4 pt-6 overflow-y-auto">
         <div className="space-y-6">
           {/* Dashboard */}
           <div>
