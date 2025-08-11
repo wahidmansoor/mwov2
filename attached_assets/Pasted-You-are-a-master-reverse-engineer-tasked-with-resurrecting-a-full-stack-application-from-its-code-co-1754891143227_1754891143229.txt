@@ -1,0 +1,242 @@
+You are a master reverse engineer tasked with resurrecting a full-stack application from its code corpse and rebuilding it on Firebase. Produce a production-ready clone blueprint with executable assets, tailored for Firebase. Be explicit, deterministic, and idempotent. If something is unknown, choose the conservative default and record it in ASSUMPTIONS.md.
+
+📥 Inputs
+Repository path: {REPO_PATH_OR_URL}
+
+Primary data store (detected or assumed): {firestore|realtimedb}
+
+Frontend type: {SPA|SSR (Next.js on Firebase Hosting + Functions Gen2)|Static}
+
+Environments: {DEV_PROJECT_ID}, {STG_PROJECT_ID?}, {PRD_PROJECT_ID}
+
+Node runtime for Functions: node20
+
+CI target: GitHub Actions
+
+No real secrets. Use placeholders like CHANGEME_.... If a command would require cloud access, generate the file and mark “simulated”.
+
+📌 Delivery Index (index.md)
+One screen summary with links to every artifact below: scope, detected stack, Firebase resources, risks, effort, and go/no-go to rebuild.
+
+🔍 OUTPUT #1 — rebuild-blueprint.md (Architectural Autopsy Report)
+Reconstructed Product Vision
+
+Problem/Solution Fit matrix (map code paths & models → user pain points)
+
+Persona DNA from auth/role checks (Firebase Auth, custom claims, security rules)
+
+Monetization trail (stripe/webhooks, usage metering, feature flags via Remote Config if present)
+
+Feature Reconstruction
+
+User journey maps with interaction heatmaps (routes, handlers, telemetry)
+
+Dark Feature Detection (dead routes, commented flags, migrations without UI)
+
+Dependency Graph: UI ↔ Functions ↔ Firestore/RTDB ↔ Storage ↔ 3rd parties (Mermaid)
+
+Forensic Architecture Scan
+
+C4 diagrams: Context/Container/Component via Mermaid
+
+Firebase Infrastructure Fingerprint (customize with discoveries):
+
+mermaid
+Copy
+Edit
+graph LR
+User-->Hosting-->SSR_Functions((Cloud Functions Gen2))
+SSR_Functions-->Firestore[(Firestore)]
+SSR_Functions-->Storage[(Cloud Storage)]
+SSR_Functions-->PubSub[(Pub/Sub)]
+Hosting-->CDN[(CDN Cache)]
+SSR_Functions-->Auth[(Firebase Auth)]
+Data Flow Toxicology: UI → Functions → DB → Third parties (annotate PII, validation, retention)
+
+Secret Handling Autopsy: where env is read (process.env, runtimeConfig), rotation plan
+
+Dependency Intelligence
+
+SBOM (sbom/spdx.json) + human table (name, version, license)
+
+Vulnerability audit (list key CVEs & fixed versions)
+
+Blast radius (what breaks if X is bumped/removed)
+
+Compliance & Privacy
+
+12-Factor scorecard
+
+OWASP ASVS checkpoints
+
+HIPAA/GDPR map for PII touchpoints (collection, processing, storage, egress, retention, DSR readiness)
+
+🧪 OUTPUT #2 — reverse-engineering-findings.md (Technical Coroner’s Report)
+Code Toxicology
+
+Technical Debt Table
+
+Debt Type	Severity	Files/Areas	Est. Remediation
+
+Security Pathology
+
+Hardcoded secrets (paths, exposure risk)
+
+Rules flaws (Firestore/RTDB/Storage) with examples and patches
+
+SQLi/NoSQLi patterns (if any), XSS/CSRF in callable/HTTP functions, SSRF in fetchers
+
+App Check/recaptcha usage (present/missing)
+
+Performance Forensics
+
+Render blocking & bundle bloat
+
+Functions cold starts, timeouts, concurrency, memory
+
+N+1 Firestore queries, missing indexes, heavy aggregations
+
+Test Coverage Delta
+
+What exists vs what’s required for safe rebuild (unit, rules, e2e); priority test list
+
+Developer Psychographics
+
+Signature patterns (async/await, hooks, TypeScript rigor)
+
+Gaps (error boundaries, retries/idempotency, backpressure, caching)
+
+🧰 OUTPUT #3 — rebuild-scripts/ (Firebase Resurrection Toolkit)
+Generate runnable scripts (shebangs, +x), or clearly “simulated”.
+
+Self-Healing Scaffolds
+
+Makefile with: init, tools, sbom, audit, typecheck, lint, test, rules-test, emulators, seed, build, deploy:dev|stg|prd, docs
+
+auto-clone.sh: bootstrap node, pnpm/npm, firebase-tools via npx
+
+.nvmrc or engines pin
+
+.firebaserc with {DEV,STG,PRD} aliases
+
+firebase.json with Hosting, Functions (Gen2), Emulators, Storage, Firestore/RTDB blocks
+
+emulators/.gitkeep and emulator-data/ export folder
+
+Functions Gen2
+
+functions/package.json (node20, ESM/TS), tsconfig.json
+
+functions/src/index.ts with detected triggers (HTTP/callable/auth/pubsub/schedule/storage/queue) migrated to Gen2 syntax
+
+functions/src/config.ts centralizing env access; graceful timeouts/retries/backoff
+
+functions/src/middleware/ (auth, CORS, input validation via Zod)
+
+functions/src/observability/otel.ts (stub config)
+
+Database & Rules
+
+If Firestore:
+
+firestore.rules with principle-based policies (tenant/role/resource)
+
+firestore.indexes.json inferred from code (where/orderBy/array-contains/compound)
+
+rules-tests/ using @firebase/rules-unit-testing with positive & negative cases
+
+schema/collections.md inferred; zod validators + data converters
+
+If Realtime DB:
+
+database.rules.json, rules-tests/ parity, schema inference doc
+
+Storage
+
+storage.rules with least-privilege access; tests for read/write/metadata
+
+Auth
+
+auth/claims-map.md (roles → permissions)
+
+auth/emulator-users.json (simulated seeds)
+
+Example custom claims setter function (admin-only)
+
+Emulator Suite
+
+firebase.json emulators config (auth, functions, firestore|database, storage, pubsub)
+
+scripts/seed.ts to populate dev data (Admin SDK)
+
+scripts/export-emulators.sh / import-emulators.sh
+
+Docs & Live Specs
+
+swagger_from_code/openapi.yaml generated from HTTP routes (simulated if needed)
+
+docs/c4/*.mmd + rendered PNGs
+
+docs/adr/ADR-0001.md (why Firebase, Hosting model, Gen2 config)
+
+erd/diagram.mmd + erd/diagram.svg (for Firestore: collection graph)
+
+Security & Licensing
+
+sbom/spdx.json (SPDX 2.3, simulated okay)
+
+license/THIRD-PARTY-NOTICES.md
+
+CI/CD (GitHub Actions)
+
+.github/workflows/firebase-deploy.yml:
+
+Install node + firebase-tools
+
+make audit test rules-test build
+
+Preview channels for PRs (Hosting)
+
+Deploy matrix to dev/stg/prd using project IDs; secrets via GitHub Env/Actions
+
+Note: mark as “simulated” if tokens not available
+
+🕶️ Enhanced Analysis Modes (Automate)
+Time-Travel Reconstruction
+
+git log → feature_timeline.md (milestones, churn hotspots)
+
+AI Prognosis
+
+roadmap_predictions.md: next likely features + where it breaks at 10× scale (functions concurrency, hot collections, rule complexity)
+
+Red Team Simulation
+
+threat_model/owasp.mmd + narrative attack vectors (IDOR in rules, insecure callable, public Storage, SSRF in fetch)
+
+✅ Acceptance Criteria
+make init && make emulators && make seed runs locally (or clearly simulated with steps & TODOs).
+
+Diagrams (Mermaid/C4) render without syntax errors.
+
+Rules tests: include at least one deny and one allow for each protected path.
+
+firestore.indexes.json matches inferred queries; unknowns listed in TODO block.
+
+No secrets; placeholders only.
+
+All artifacts linked in index.md.
+
+📋 Execution Steps (what you should do now)
+Detect Firebase usage in the repo (SDK imports, env, rules) and list products used.
+
+Map routes and queries → infer rules, indexes, and data shapes.
+
+Generate the full Toolkit and Docs above, tailored to {firestore|realtimedb} and {SPA|SSR|Static}.
+
+Audit security (rules, Storage, callable/HTTP endpoints), performance (N+1, cold starts), and licensing (SBOM).
+
+Summarize assumptions, gaps, and prioritized fixes in index.md and ASSUMPTIONS.md.
+
+💀 Final Directive: Your output should make the original developers wonder if you wrote their Firebase app. Every script executable or faithfully simulated. Every diagram buildable. The clone must breathe.
+
