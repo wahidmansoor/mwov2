@@ -14,7 +14,7 @@ import CDUModule from "@/modules/cdu/CDUModule";
 import InpatientModule from "@/modules/inpatient/InpatientModule";
 import ChatAssistant from "@/modules/chat/ChatAssistant";
 import ComprehensiveClinicalTools from "@/modules/tools/ComprehensiveClinicalTools";
-import NotesExport from "@/modules/export/NotesExport";
+
 import NotesCompilerModule from "@/modules/notes/NotesCompilerModule";
 import SettingsModule from "@/modules/settings/SettingsModule";
 import AnalyticsModule from "@/modules/analytics/AnalyticsModule";
@@ -92,11 +92,7 @@ function Router() {
         </Layout>
       </Route>
       
-      <Route path="/export">
-        <Layout>
-          <NotesExport />
-        </Layout>
-      </Route>
+
 
       <Route path="/notes">
         <Layout>

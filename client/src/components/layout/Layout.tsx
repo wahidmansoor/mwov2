@@ -91,15 +91,8 @@ const clinicalTools: NavItem[] = [
     color: "purple-400"
   },
   {
-    id: "export",
-    name: "Notes Export",
-    href: "/export",
-    icon: FileText,
-    color: "green-400"
-  },
-  {
     id: "notes",
-    name: "Notes Compiler",
+    name: "Clinical Notes",
     href: "/notes",
     icon: NotebookPen,
     color: "emerald-400"
