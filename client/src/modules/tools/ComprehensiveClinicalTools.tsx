@@ -60,6 +60,18 @@ const CLINICAL_TOOL_CATEGORIES = [
     description: "Lab interpretation, reference ranges, critical values"
   },
   {
+    id: "electrolytes",
+    name: "Electrolyte Corrections",
+    icon: FlaskConical,
+    description: "Sodium, potassium, calcium, magnesium correction calculators"
+  },
+  {
+    id: "supportive",
+    name: "Supportive Care",
+    icon: Shield,
+    description: "Antiemetics, growth factors, premedication protocols"
+  },
+  {
     id: "emergency",
     name: "Emergency Protocols",
     icon: Zap,
@@ -905,6 +917,471 @@ const PredictiveModels = () => {
   );
 };
 
+// Electrolyte Corrections
+const ElectrolyteCorrections = () => {
+  const [sodiumCurrent, setSodiumCurrent] = useState("");
+  const [sodiumTarget, setSodiumTarget] = useState("");
+  const [sodiumWeight, setSodiumWeight] = useState("");
+  const [sodiumResult, setSodiumResult] = useState("");
+  
+  const [potassiumCurrent, setPotassiumCurrent] = useState("");
+  const [potassiumTarget, setPotassiumTarget] = useState("");
+  const [potassiumWeight, setPotassiumWeight] = useState("");
+  const [potassiumResult, setPotassiumResult] = useState("");
+  
+  const [calciumCurrent, setCalciumCurrent] = useState("");
+  const [calciumAlbumin, setCalciumAlbumin] = useState("");
+  const [calciumCorrected, setCalciumCorrected] = useState("");
+  
+  const [magnesiumCurrent, setMagnesiumCurrent] = useState("");
+  const [magnesiumTarget, setMagnesiumTarget] = useState("");
+  const [magnesiumResult, setMagnesiumResult] = useState("");
+
+  const calculateSodiumCorrection = () => {
+    const current = parseFloat(sodiumCurrent);
+    const target = parseFloat(sodiumTarget);
+    const weight = parseFloat(sodiumWeight);
+    
+    if (current && target && weight) {
+      const deficit = target - current;
+      const tbw = weight * 0.6; // Total body water
+      const sodiumNeeded = deficit * tbw;
+      setSodiumResult(`${sodiumNeeded.toFixed(0)} mEq of sodium needed. 
+        Use 3% NaCl (513 mEq/L): ${(sodiumNeeded / 513 * 1000).toFixed(0)} mL
+        Correct slowly: max 8-10 mEq/L in 24h`);
+    }
+  };
+
+  const calculatePotassiumCorrection = () => {
+    const current = parseFloat(potassiumCurrent);
+    const target = parseFloat(potassiumTarget);
+    const weight = parseFloat(potassiumWeight);
+    
+    if (current && target && weight) {
+      const deficit = target - current;
+      const potassiumNeeded = deficit * weight * 0.4; // Approximate distribution
+      setPotassiumResult(`${potassiumNeeded.toFixed(0)} mEq of potassium needed.
+        IV: Max 10 mEq/hr via central line, 40 mEq/L peripheral
+        PO: KCl 20-40 mEq TID. Monitor ECG if severe.`);
+    }
+  };
+
+  const calculateCorrectedCalcium = () => {
+    const calcium = parseFloat(calciumCurrent);
+    const albumin = parseFloat(calciumAlbumin);
+    
+    if (calcium && albumin) {
+      const corrected = calcium + 0.8 * (4.0 - albumin);
+      setCalciumCorrected(`Corrected Calcium: ${corrected.toFixed(1)} mg/dL
+        Normal range: 8.5-10.5 mg/dL
+        Formula: Ca + 0.8 × (4.0 - Albumin)`);
+    }
+  };
+
+  const calculateMagnesiumCorrection = () => {
+    const current = parseFloat(magnesiumCurrent);
+    const target = parseFloat(magnesiumTarget);
+    
+    if (current && target) {
+      const deficit = target - current;
+      const magnesiumNeeded = deficit * 24; // Rough estimate
+      setMagnesiumResult(`${magnesiumNeeded.toFixed(0)} mEq of magnesium needed.
+        IV: MgSO4 1-2g (8-16 mEq) q6h × 3-4 doses
+        PO: Mg oxide 400mg BID-TID. Check after 24-48h.`);
+    }
+  };
+
+  return (
+    <div className="space-y-6">
+      <div className="grid md:grid-cols-2 gap-6">
+        {/* Sodium Correction */}
+        <Card className="border-l-4 border-l-blue-500">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Droplets className="h-5 w-5 text-blue-600" />
+              Sodium Correction
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div className="grid grid-cols-3 gap-3">
+                <div>
+                  <label className="text-sm font-medium">Current Na+ (mEq/L)</label>
+                  <Input 
+                    value={sodiumCurrent}
+                    onChange={(e) => setSodiumCurrent(e.target.value)}
+                    placeholder="120"
+                    type="number"
+                  />
+                </div>
+                <div>
+                  <label className="text-sm font-medium">Target Na+ (mEq/L)</label>
+                  <Input 
+                    value={sodiumTarget}
+                    onChange={(e) => setSodiumTarget(e.target.value)}
+                    placeholder="135"
+                    type="number"
+                  />
+                </div>
+                <div>
+                  <label className="text-sm font-medium">Weight (kg)</label>
+                  <Input 
+                    value={sodiumWeight}
+                    onChange={(e) => setSodiumWeight(e.target.value)}
+                    placeholder="70"
+                    type="number"
+                  />
+                </div>
+              </div>
+              <Button onClick={calculateSodiumCorrection} className="w-full">
+                Calculate Sodium Correction
+              </Button>
+              {sodiumResult && (
+                <Alert className="bg-blue-50 border-blue-200">
+                  <Droplets className="h-4 w-4 text-blue-600" />
+                  <AlertDescription className="text-blue-800">
+                    <pre className="whitespace-pre-wrap text-xs">{sodiumResult}</pre>
+                  </AlertDescription>
+                </Alert>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Potassium Correction */}
+        <Card className="border-l-4 border-l-green-500">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Zap className="h-5 w-5 text-green-600" />
+              Potassium Correction
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div className="grid grid-cols-3 gap-3">
+                <div>
+                  <label className="text-sm font-medium">Current K+ (mEq/L)</label>
+                  <Input 
+                    value={potassiumCurrent}
+                    onChange={(e) => setPotassiumCurrent(e.target.value)}
+                    placeholder="2.8"
+                    type="number"
+                    step="0.1"
+                  />
+                </div>
+                <div>
+                  <label className="text-sm font-medium">Target K+ (mEq/L)</label>
+                  <Input 
+                    value={potassiumTarget}
+                    onChange={(e) => setPotassiumTarget(e.target.value)}
+                    placeholder="4.0"
+                    type="number"
+                    step="0.1"
+                  />
+                </div>
+                <div>
+                  <label className="text-sm font-medium">Weight (kg)</label>
+                  <Input 
+                    value={potassiumWeight}
+                    onChange={(e) => setPotassiumWeight(e.target.value)}
+                    placeholder="70"
+                    type="number"
+                  />
+                </div>
+              </div>
+              <Button onClick={calculatePotassiumCorrection} className="w-full">
+                Calculate Potassium Correction
+              </Button>
+              {potassiumResult && (
+                <Alert className="bg-green-50 border-green-200">
+                  <Zap className="h-4 w-4 text-green-600" />
+                  <AlertDescription className="text-green-800">
+                    <pre className="whitespace-pre-wrap text-xs">{potassiumResult}</pre>
+                  </AlertDescription>
+                </Alert>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Corrected Calcium */}
+        <Card className="border-l-4 border-l-purple-500">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <TestTube className="h-5 w-5 text-purple-600" />
+              Corrected Calcium
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="text-sm font-medium">Total Calcium (mg/dL)</label>
+                  <Input 
+                    value={calciumCurrent}
+                    onChange={(e) => setCalciumCurrent(e.target.value)}
+                    placeholder="7.5"
+                    type="number"
+                    step="0.1"
+                  />
+                </div>
+                <div>
+                  <label className="text-sm font-medium">Albumin (g/dL)</label>
+                  <Input 
+                    value={calciumAlbumin}
+                    onChange={(e) => setCalciumAlbumin(e.target.value)}
+                    placeholder="2.8"
+                    type="number"
+                    step="0.1"
+                  />
+                </div>
+              </div>
+              <Button onClick={calculateCorrectedCalcium} className="w-full">
+                Calculate Corrected Calcium
+              </Button>
+              {calciumCorrected && (
+                <Alert className="bg-purple-50 border-purple-200">
+                  <TestTube className="h-4 w-4 text-purple-600" />
+                  <AlertDescription className="text-purple-800">
+                    <pre className="whitespace-pre-wrap text-xs">{calciumCorrected}</pre>
+                  </AlertDescription>
+                </Alert>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Magnesium Correction */}
+        <Card className="border-l-4 border-l-orange-500">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <FlaskConical className="h-5 w-5 text-orange-600" />
+              Magnesium Correction
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="text-sm font-medium">Current Mg++ (mg/dL)</label>
+                  <Input 
+                    value={magnesiumCurrent}
+                    onChange={(e) => setMagnesiumCurrent(e.target.value)}
+                    placeholder="1.2"
+                    type="number"
+                    step="0.1"
+                  />
+                </div>
+                <div>
+                  <label className="text-sm font-medium">Target Mg++ (mg/dL)</label>
+                  <Input 
+                    value={magnesiumTarget}
+                    onChange={(e) => setMagnesiumTarget(e.target.value)}
+                    placeholder="1.8"
+                    type="number"
+                    step="0.1"
+                  />
+                </div>
+              </div>
+              <Button onClick={calculateMagnesiumCorrection} className="w-full">
+                Calculate Magnesium Correction
+              </Button>
+              {magnesiumResult && (
+                <Alert className="bg-orange-50 border-orange-200">
+                  <FlaskConical className="h-4 w-4 text-orange-600" />
+                  <AlertDescription className="text-orange-800">
+                    <pre className="whitespace-pre-wrap text-xs">{magnesiumResult}</pre>
+                  </AlertDescription>
+                </Alert>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+      
+      {/* Additional Critical Electrolyte Info */}
+      <Card className="border-l-4 border-l-red-500">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <AlertTriangle className="h-5 w-5 text-red-600" />
+            Critical Electrolyte Values & Actions
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid md:grid-cols-2 gap-4">
+            <div className="space-y-3">
+              <div className="p-3 bg-red-50 border-l-4 border-red-400 rounded">
+                <h4 className="font-semibold text-red-800">Severe Hyponatremia (&lt;120 mEq/L)</h4>
+                <p className="text-sm text-red-700">Seizures, coma risk. 3% NaCl 1-2 mL/kg/h. Max 8 mEq/L/24h correction.</p>
+              </div>
+              <div className="p-3 bg-orange-50 border-l-4 border-orange-400 rounded">
+                <h4 className="font-semibold text-orange-800">Severe Hypokalemia (&lt;2.5 mEq/L)</h4>
+                <p className="text-sm text-orange-700">Cardiac arrhythmia risk. Monitor ECG. Central line for high-rate infusion.</p>
+              </div>
+            </div>
+            <div className="space-y-3">
+              <div className="p-3 bg-purple-50 border-l-4 border-purple-400 rounded">
+                <h4 className="font-semibold text-purple-800">Severe Hypocalcemia (&lt;7.0 mg/dL)</h4>
+                <p className="text-sm text-purple-700">Tetany, seizures. IV calcium gluconate 1-2g q6h. Check Mg++ too.</p>
+              </div>
+              <div className="p-3 bg-blue-50 border-l-4 border-blue-400 rounded">
+                <h4 className="font-semibold text-blue-800">Severe Hypomagnesemia (&lt;1.2 mg/dL)</h4>
+                <p className="text-sm text-blue-700">Refractory K+/Ca++ deficiency. Replace Mg++ first. Monitor closely.</p>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+};
+
+// Supportive Care Tools
+const SupportiveCare = () => {
+  const [patientWeight, setPatientWeight] = useState("");
+  const [emetogenicRisk, setEmetogenicRisk] = useState("");
+  const [patientAge, setPatientAge] = useState("");
+  const [renal, setRenal] = useState("");
+  
+  const antiemeticProtocols = {
+    high: {
+      name: "High Emetogenic Risk",
+      examples: "Cisplatin, AC, high-dose cyclophosphamide",
+      regimen: [
+        "Day 1: Ondansetron 8mg IV + Dexamethasone 12mg IV + Aprepitant 125mg PO",
+        "Day 2-3: Aprepitant 80mg PO daily + Dexamethasone 8mg PO daily",
+        "Breakthrough: Metoclopramide 10mg q6h PRN"
+      ]
+    },
+    moderate: {
+      name: "Moderate Emetogenic Risk", 
+      examples: "Oxaliplatin, Carboplatin, Doxorubicin",
+      regimen: [
+        "Day 1: Ondansetron 8mg IV + Dexamethasone 12mg IV",
+        "Optional: Aprepitant 125mg PO on day 1",
+        "Breakthrough: Prochlorperazine 10mg q6h PRN"
+      ]
+    },
+    low: {
+      name: "Low Emetogenic Risk",
+      examples: "Weekly Taxanes, Gemcitabine, 5-FU",
+      regimen: [
+        "Day 1: Ondansetron 8mg IV or Dexamethasone 8mg IV",
+        "Breakthrough: Metoclopramide 10mg q6h PRN",
+        "Consider antihistamines for delayed nausea"
+      ]
+    }
+  };
+
+  return (
+    <div className="space-y-6">
+      <div className="grid md:grid-cols-2 gap-6">
+        {/* Antiemetic Calculator */}
+        <Card className="border-l-4 border-l-green-500">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Pill className="h-5 w-5 text-green-600" />
+              Antiemetic Protocol Calculator
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="text-sm font-medium">Weight (kg)</label>
+                  <Input 
+                    value={patientWeight}
+                    onChange={(e) => setPatientWeight(e.target.value)}
+                    placeholder="70"
+                    type="number"
+                  />
+                </div>
+                <div>
+                  <label className="text-sm font-medium">Age (years)</label>
+                  <Input 
+                    value={patientAge}
+                    onChange={(e) => setPatientAge(e.target.value)}
+                    placeholder="65"
+                    type="number"
+                  />
+                </div>
+              </div>
+              <div>
+                <label className="text-sm font-medium">Emetogenic Risk</label>
+                <Select value={emetogenicRisk} onValueChange={setEmetogenicRisk}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select risk level" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="high">High Risk</SelectItem>
+                    <SelectItem value="moderate">Moderate Risk</SelectItem>
+                    <SelectItem value="low">Low Risk</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              
+              {emetogenicRisk && (
+                <div className="space-y-3">
+                  <Alert className="bg-green-50 border-green-200">
+                    <Pill className="h-4 w-4 text-green-600" />
+                    <AlertDescription className="text-green-800">
+                      <strong>{antiemeticProtocols[emetogenicRisk as keyof typeof antiemeticProtocols].name}</strong><br/>
+                      <small>{antiemeticProtocols[emetogenicRisk as keyof typeof antiemeticProtocols].examples}</small>
+                    </AlertDescription>
+                  </Alert>
+                  <div className="space-y-2">
+                    {antiemeticProtocols[emetogenicRisk as keyof typeof antiemeticProtocols].regimen.map((item, index) => (
+                      <div key={index} className="p-2 bg-gray-50 rounded text-sm">
+                        {item}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Growth Factor Guidelines */}
+        <Card className="border-l-4 border-l-blue-500">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Activity className="h-5 w-5 text-blue-600" />
+              Growth Factor Guidelines
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <Alert className="bg-blue-50 border-blue-200">
+                <Activity className="h-4 w-4 text-blue-600" />
+                <AlertDescription className="text-blue-800">
+                  <strong>Primary Prophylaxis Indications</strong><br/>
+                  Febrile neutropenia risk ≥20% based on regimen
+                </AlertDescription>
+              </Alert>
+              
+              <div className="space-y-3">
+                <div className="p-3 bg-green-50 rounded">
+                  <h4 className="font-medium text-green-800">Filgrastim (Neupogen)</h4>
+                  <p className="text-sm text-green-700">5 mcg/kg daily SC starting 24-72h post-chemo × 10-14 days</p>
+                </div>
+                <div className="p-3 bg-blue-50 rounded">
+                  <h4 className="font-medium text-blue-800">Pegfilgrastim (Neulasta)</h4>
+                  <p className="text-sm text-blue-700">6mg SC once per cycle, 24-72h post-chemo</p>
+                </div>
+                <div className="p-3 bg-purple-50 rounded">
+                  <h4 className="font-medium text-purple-800">Secondary Prophylaxis</h4>
+                  <p className="text-sm text-purple-700">After febrile neutropenia episode with same regimen</p>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
+};
+
 // Laboratory Tools
 const LaboratoryTools = () => {
   const [selectedLab, setSelectedLab] = useState("");
@@ -1336,6 +1813,10 @@ export default function ComprehensiveClinicalTools() {
         return <PredictiveModels />;
       case "labs":
         return <LaboratoryTools />;
+      case "electrolytes":
+        return <ElectrolyteCorrections />;
+      case "supportive":
+        return <SupportiveCare />;
       case "emergency":
         return <EmergencyProtocols />;
       default:
@@ -1359,7 +1840,7 @@ export default function ComprehensiveClinicalTools() {
       </div>
 
       <Tabs value={selectedCategory} onValueChange={setSelectedCategory} className="space-y-4">
-        <TabsList className="grid w-full grid-cols-4 lg:grid-cols-8">
+        <TabsList className="grid w-full grid-cols-5 lg:grid-cols-10">
           {CLINICAL_TOOL_CATEGORIES.map((category) => {
             const IconComponent = category.icon;
             return (
