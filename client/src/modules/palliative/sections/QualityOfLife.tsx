@@ -2,719 +2,562 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Slider } from "@/components/ui/slider";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Progress } from "@/components/ui/progress";
 import { 
   Heart, 
   Activity, 
   Brain, 
-  Users, 
   Target,
   CheckCircle,
-  TrendingUp,
-  Clock,
   Stethoscope,
-  MessageSquare,
-  AlertTriangle
+  BarChart3,
+  Save,
+  FileText,
+  Info,
+  Scale,
+  Zap
 } from "lucide-react";
 
+// Authentic ESAS-r (Edmonton Symptom Assessment System - Revised)
+const ESAS_SYMPTOMS = [
+  { id: 'pain', label: 'Pain', description: 'Physical discomfort or suffering' },
+  { id: 'fatigue', label: 'Tiredness', description: 'Lack of energy or feeling worn out' },
+  { id: 'nausea', label: 'Nausea', description: 'Feeling sick to your stomach' },
+  { id: 'depression', label: 'Depression', description: 'Feeling sad or down' },
+  { id: 'anxiety', label: 'Anxiety', description: 'Feeling nervous or worried' },
+  { id: 'drowsiness', label: 'Drowsiness', description: 'Feeling sleepy or less alert' },
+  { id: 'appetite', label: 'Appetite', description: 'Desire to eat (0=normal, 10=no appetite)' },
+  { id: 'wellbeing', label: 'Wellbeing', description: 'How you feel overall' },
+  { id: 'dyspnea', label: 'Shortness of Breath', description: 'Difficulty breathing' }
+];
+
+// Authentic IPOS (Integrated Palliative care Outcome Scale) - Available for future implementation
+// const IPOS_ITEMS = [
+//   { domain: 'physical', item: 'Pain', scale: 'severity', timeframe: '3 days' },
+//   { domain: 'physical', item: 'Shortness of breath', scale: 'severity', timeframe: '3 days' },
+//   { domain: 'physical', item: 'Weakness or lack of energy', scale: 'severity', timeframe: '3 days' },
+//   { domain: 'physical', item: 'Nausea', scale: 'severity', timeframe: '3 days' },
+//   { domain: 'physical', item: 'Vomiting', scale: 'severity', timeframe: '3 days' },
+//   { domain: 'physical', item: 'Poor appetite', scale: 'severity', timeframe: '3 days' },
+//   { domain: 'physical', item: 'Constipation', scale: 'severity', timeframe: '3 days' },
+//   { domain: 'physical', item: 'Sore or dry mouth', scale: 'severity', timeframe: '3 days' },
+//   { domain: 'physical', item: 'Drowsiness', scale: 'severity', timeframe: '3 days' },
+//   { domain: 'physical', item: 'Poor mobility', scale: 'severity', timeframe: '3 days' },
+//   { domain: 'emotional', item: 'Patient anxiety or worry', scale: 'severity', timeframe: '3 days' },
+//   { domain: 'emotional', item: 'Family anxiety or worry', scale: 'severity', timeframe: '3 days' },
+//   { domain: 'emotional', item: 'Depression', scale: 'severity', timeframe: '3 days' },
+//   { domain: 'communication', item: 'Patient feeling at peace', scale: 'agreement', timeframe: '3 days' },
+//   { domain: 'communication', item: 'Share feelings with family/friends', scale: 'agreement', timeframe: '3 days' },
+//   { domain: 'practical', item: 'Information needs met', scale: 'agreement', timeframe: '3 days' },
+//   { domain: 'practical', item: 'Practical problems addressed', scale: 'agreement', timeframe: '3 days' }
+// ];
+
+// Palliative Performance Scale (PPS) - authentic clinical tool
+const PPS_LEVELS = [
+  { score: 100, ambulation: 'Full', activity: 'Normal', evidence: 'None', selfcare: 'Complete', intake: 'Normal', consciousness: 'Full' },
+  { score: 90, ambulation: 'Full', activity: 'Normal', evidence: 'Some', selfcare: 'Complete', intake: 'Normal', consciousness: 'Full' },
+  { score: 80, ambulation: 'Full', activity: 'Normal', evidence: 'Some', selfcare: 'Complete', intake: 'Normal/Reduced', consciousness: 'Full' },
+  { score: 70, ambulation: 'Reduced', activity: 'Unable', evidence: 'Some', selfcare: 'Complete', intake: 'Normal/Reduced', consciousness: 'Full' },
+  { score: 60, ambulation: 'Reduced', activity: 'Unable', evidence: 'Significant', selfcare: 'Occasional assistance', intake: 'Normal/Reduced', consciousness: 'Full/Confusion' },
+  { score: 50, ambulation: 'Mainly sit/lie', activity: 'Unable', evidence: 'Significant', selfcare: 'Considerable assistance', intake: 'Normal/Reduced', consciousness: 'Full/Confusion' },
+  { score: 40, ambulation: 'Mainly in bed', activity: 'Unable', evidence: 'Significant', selfcare: 'Mainly assistance', intake: 'Normal/Reduced', consciousness: 'Full/Drowsy/Confusion' },
+  { score: 30, ambulation: 'Totally bed bound', activity: 'Unable', evidence: 'Significant', selfcare: 'Total care', intake: 'Reduced', consciousness: 'Full/Drowsy/Confusion' },
+  { score: 20, ambulation: 'Totally bed bound', activity: 'Unable', evidence: 'Significant', selfcare: 'Total care', intake: 'Minimal sips', consciousness: 'Full/Drowsy/Confusion' },
+  { score: 10, ambulation: 'Totally bed bound', activity: 'Unable', evidence: 'Significant', selfcare: 'Total care', intake: 'Mouth care only', consciousness: 'Drowsy/Coma' },
+  { score: 0, ambulation: 'Death', activity: '-', evidence: '-', selfcare: '-', intake: '-', consciousness: '-' }
+];
+
+// Quality indicators based on research
+const QUALITY_INDICATORS = [
+  {
+    category: "Symptom Management",
+    indicators: [
+      { metric: "Pain assessment frequency", target: "≥ Every 24 hours", rationale: "WHO guidelines for cancer pain" },
+      { metric: "Pain score ≤4/10 achievement", target: "≥ 80% of assessments", rationale: "Clinically meaningful pain relief" },
+      { metric: "Breakthrough pain episodes", target: "≤ 2 per day", rationale: "Optimal opioid titration" },
+      { metric: "ESAS total distress score", target: "≤ 40/80 points", rationale: "Multi-symptom burden reduction" }
+    ]
+  },
+  {
+    category: "Functional Status",
+    indicators: [
+      { metric: "PPS documentation", target: "100% initial assessments", rationale: "Prognostic accuracy and care planning" },
+      { metric: "Functional decline rate", target: "Monitor weekly changes", rationale: "Early intervention opportunities" },
+      { metric: "Independence in ADLs", target: "Maximize within limits", rationale: "Quality of life preservation" }
+    ]
+  },
+  {
+    category: "Psychosocial Care",
+    indicators: [
+      { metric: "Spiritual assessment completion", target: "≥ 95% within 5 days", rationale: "Joint Commission standards" },
+      { metric: "Family meeting frequency", target: "≥ Every 2 weeks", rationale: "Communication and support needs" },
+      { metric: "Depression screening (PHQ-2)", target: "≥ Every visit", rationale: "High prevalence in palliative populations" }
+    ]
+  },
+  {
+    category: "Communication",
+    indicators: [
+      { metric: "Goals of care documentation", target: "100% of patients", rationale: "Patient-centered decision making" },
+      { metric: "Advance directive discussion", target: "Within 7 days admission", rationale: "Legal and ethical requirements" },
+      { metric: "Family satisfaction scores", target: "≥ 8/10 rating", rationale: "Care quality perception" }
+    ]
+  }
+];
+
 export default function QualityOfLife() {
-  const [activeTab, setActiveTab] = useState("dimensions");
+  const [activeTab, setActiveTab] = useState("assessment");
+  const [esasScores, setEsasScores] = useState<Record<string, number>>(
+    ESAS_SYMPTOMS.reduce((acc, symptom) => ({ ...acc, [symptom.id]: 0 }), {})
+  );
+  // Future IPOS implementation
+  // const [iposScores, setIposScores] = useState<Record<string, number>>({});
+  const [selectedPPS, setSelectedPPS] = useState<number>(70);
+  const [patientName, setPatientName] = useState("");
+  const [assessmentDate, setAssessmentDate] = useState(new Date().toISOString().split('T')[0]);
 
-  const qolDimensions = [
-    {
-      name: "Physical Domain",
-      icon: Activity,
-      description: "Management of physical symptoms that impact daily functioning",
-      color: "bg-red-50 border-red-200 dark:bg-red-900/20 dark:border-red-800",
-      symptoms: ["Pain", "Dyspnea", "Fatigue", "Nausea", "Anorexia", "Insomnia", "Constipation", "Weakness", "Bowel obstruction"],
-      interventions: [
-        "NCCN pain management protocols with morphine 5-15mg PO q4h for severe pain",
-        "Octreotide 150-300 mcg SC TID for malignant bowel obstruction",
-        "Prophylactic senna 8.6mg BID with all opioid regimens",
-        "5-HT3 antagonists (ondansetron 4-8mg q8h) for chemotherapy-induced nausea",
-        "Methylphenidate 5-10mg BID for cancer-related fatigue",
-        "Dexamethasone 4-8mg daily for appetite stimulation"
-      ],
-      assessment: ["Numeric rating scales (0-10)", "Edmonton Symptom Assessment Scale", "Memorial Symptom Assessment Scale"]
-    },
-    {
-      name: "Psychological Domain",
-      icon: Brain,
-      description: "Addressing emotional and mental health aspects of illness",
-      color: "bg-blue-50 border-blue-200 dark:bg-blue-900/20 dark:border-blue-800",
-      symptoms: ["Depression", "Anxiety", "Demoralization", "Anticipatory grief", "Fear", "Hopelessness"],
-      interventions: [
-        "Cognitive Behavioral Therapy (CBT) for anxiety and depression",
-        "SSRIs: Sertraline 25-50mg daily, escitalopram 10-20mg daily",
-        "Mirtazapine 15-30mg HS for appetite/sleep issues",
-        "Psychostimulants (methylphenidate 5-10mg BID) for rapid effect",
-        "Dignity therapy for existential concerns"
-      ],
-      assessment: ["PHQ-9 for depression", "GAD-7 for anxiety", "Distress Thermometer", "Demoralization Scale"]
-    },
-    {
-      name: "Social Domain",
-      icon: Users,
-      description: "Addressing relationships, support systems, and social functioning",
-      color: "bg-green-50 border-green-200 dark:bg-green-900/20 dark:border-green-800",
-      symptoms: ["Family conflicts", "Caregiver burden", "Social isolation", "Financial strain", "Role changes"],
-      interventions: [
-        "Family meetings and mediation services",
-        "Caregiver support programs and respite care",
-        "Social services navigation and financial counseling",
-        "Peer support groups and volunteer programs",
-        "Community resource connection"
-      ],
-      assessment: ["Social Support Questionnaire", "Family Assessment Device", "Zarit Burden Interview"]
-    },
-    {
-      name: "Functional Domain",
-      icon: Target,
-      description: "Maintaining independence and capabilities in daily activities",
-      color: "bg-purple-50 border-purple-200 dark:bg-purple-900/20 dark:border-purple-800",
-      symptoms: ["Mobility limitations", "ADL dependence", "Reduced independence", "Physical decline"],
-      interventions: [
-        "Occupational therapy for adaptive strategies",
-        "Physical therapy for mobility preservation",
-        "Adaptive devices and home modifications",
-        "Energy conservation techniques",
-        "Realistic goal-setting and expectations"
-      ],
-      assessment: ["Karnofsky Performance Scale", "ECOG Performance Status", "Palliative Performance Scale", "Barthel Index"]
-    },
-    {
-      name: "Spiritual Domain",
-      icon: Heart,
-      description: "Addressing existential concerns, meaning, and transcendence",
-      color: "bg-orange-50 border-orange-200 dark:bg-orange-900/20 dark:border-orange-800",
-      symptoms: ["Loss of purpose", "Existential distress", "Spiritual crisis", "Hopelessness", "Meaninglessness"],
-      interventions: [
-        "Chaplaincy services and spiritual counseling",
-        "Dignity therapy and life review processes",
-        "Meaning-centered psychotherapy",
-        "Rituals and practices aligned with beliefs",
-        "Legacy work and generativity projects"
-      ],
-      assessment: ["FICA spiritual assessment", "HOPE spiritual history", "Spiritual Pain Assessment Scale"]
-    }
-  ];
+  const calculateESASTotalDistress = () => {
+    return Object.values(esasScores).reduce((sum, score) => sum + score, 0);
+  };
 
-  const assessmentTools = [
-    { 
-      tool: "Numeric Rating Scale (NRS)", 
-      purpose: "Symptom intensity measurement (0-10 scale)", 
-      notes: "For pain, breathlessness, nausea, fatigue",
-      frequency: "Every visit for active symptoms",
-      interpretation: "0-3: Mild, 4-6: Moderate, 7-10: Severe"
-    },
-    { 
-      tool: "Visual Analog Scale (VAS)", 
-      purpose: "Subjective quality of life measure", 
-      notes: "0-100mm scale; sensitive to change over time",
-      frequency: "Weekly to monthly assessments",
-      interpretation: "Higher scores indicate better quality of life"
-    },
-    { 
-      tool: "Palliative Performance Scale (PPS)", 
-      purpose: "Functional capacity and prognosis", 
-      notes: "0-100% scale; guides hospice eligibility",
-      frequency: "Monthly or with functional changes",
-      interpretation: "≤50% often indicates weeks-months prognosis"
-    },
-    { 
-      tool: "Karnofsky Performance Scale", 
-      purpose: "Independence and functional status", 
-      notes: "0-100 scale; predicts prognosis in cancer",
-      frequency: "At diagnosis and major changes",
-      interpretation: "≤50 indicates significant functional decline"
-    },
-    { 
-      tool: "ECOG Performance Status", 
-      purpose: "Ambulatory status (0-4 scale)", 
-      notes: "Commonly used in oncology settings",
-      frequency: "At each oncology visit",
-      interpretation: "0: Fully active, 4: Completely disabled"
-    },
-    { 
-      tool: "FACIT-Pal", 
-      purpose: "Multidimensional QoL in palliative care", 
-      notes: "46-item validated questionnaire",
-      frequency: "Baseline and every 2-4 weeks",
-      interpretation: "Higher scores indicate better QoL"
-    },
-    { 
-      tool: "IPOS (Integrated Palliative Outcome Scale)", 
-      purpose: "Comprehensive symptom and psychosocial assessment", 
-      notes: "17-item clinically validated tool",
-      frequency: "Weekly in palliative care settings",
-      interpretation: "Lower scores indicate better outcomes"
-    }
-  ];
+  const getESASSeverityLevel = (score: number) => {
+    if (score <= 3) return { level: "Mild", color: "text-green-600", bg: "bg-green-50" };
+    if (score <= 6) return { level: "Moderate", color: "text-yellow-600", bg: "bg-yellow-50" };
+    return { level: "Severe", color: "text-red-600", bg: "bg-red-50" };
+  };
 
-  const interdisciplinaryTeam = [
-    { 
-      role: "Physician", 
-      responsibilities: "Symptom management, goals of care discussions, prognosis communication",
-      frequency: "Weekly initially, then as needed",
-      expertise: "Medical decision-making, complex symptom management"
-    },
-    { 
-      role: "Nurse", 
-      responsibilities: "Direct care, symptom monitoring, patient/family education",
-      frequency: "Daily to multiple times per week",
-      expertise: "Hands-on care, medication administration, comfort measures"
-    },
-    { 
-      role: "Social Worker", 
-      responsibilities: "Psychosocial assessment, resource coordination, counseling",
-      frequency: "Weekly initially, then bi-weekly",
-      expertise: "Family dynamics, community resources, crisis intervention"
-    },
-    { 
-      role: "Chaplain", 
-      responsibilities: "Spiritual assessment, existential support, ritual facilitation",
-      frequency: "As requested or weekly if spiritual distress",
-      expertise: "Spiritual care, meaning-making, grief support"
-    },
-    { 
-      role: "Psychologist/Psychiatrist", 
-      responsibilities: "Mental health assessment, therapy, medication management",
-      frequency: "Weekly therapy, monthly medication review",
-      expertise: "Depression, anxiety, complicated grief, psychotherapy"
-    },
-    { 
-      role: "Physical Therapist", 
-      responsibilities: "Mobility preservation, fall prevention, adaptive strategies",
-      frequency: "2-3x weekly initially, then maintenance",
-      expertise: "Movement, mobility, physical function optimization"
-    },
-    { 
-      role: "Occupational Therapist", 
-      responsibilities: "ADL support, environmental adaptations, energy conservation",
-      frequency: "Weekly initially, then as needed",
-      expertise: "Daily living skills, adaptive equipment, home safety"
-    }
-  ];
+  const getPPSPrognosis = (score: number) => {
+    if (score >= 70) return { prognosis: "Months to years", color: "text-green-600" };
+    if (score >= 50) return { prognosis: "Weeks to months", color: "text-yellow-600" };
+    if (score >= 30) return { prognosis: "Days to weeks", color: "text-orange-600" };
+    return { prognosis: "Hours to days", color: "text-red-600" };
+  };
 
-  const communicationFrameworks = [
-    {
-      name: "Ask-Tell-Ask",
-      description: "Patient-centered approach to information sharing",
-      steps: [
-        "Ask: Assess understanding and permission to discuss",
-        "Tell: Provide information in clear, compassionate terms",
-        "Ask: Check understanding and address emotions"
-      ],
-      example: "What do you understand about your condition? → I'd like to share some information about what we're seeing → What questions do you have about this?"
-    },
-    {
-      name: "SPIKES Protocol",
-      description: "Structured approach for delivering serious news",
-      steps: [
-        "Setting: Private environment with adequate time",
-        "Perception: Assess patient's understanding",
-        "Invitation: Ask how much information is desired",
-        "Knowledge: Deliver information clearly and compassionately",
-        "Emotions: Acknowledge and respond to emotions",
-        "Strategy/Summary: Develop care plan together"
-      ],
-      example: "Used for prognostic discussions and treatment changes"
-    }
-  ];
+  const renderESASAssessment = () => (
+    <div className="space-y-6">
+      <Alert>
+        <Info className="h-4 w-4" />
+        <AlertDescription>
+          ESAS-r: Rate each symptom intensity over the past 24 hours. 0 = no symptom, 10 = worst possible.
+          Used in 30+ countries with validated translations.
+        </AlertDescription>
+      </Alert>
 
-  const improvementStrategies = [
-    {
-      category: "Symptom-Specific Protocols",
-      strategies: [
-        {
-          symptom: "Pain Management",
-          approach: "WHO analgesic ladder with regular reassessment every 24-48 hours",
-          goal: "Pain score ≤4/10 with functional improvement"
-        },
-        {
-          symptom: "Dyspnea Relief", 
-          approach: "Low-dose opioids (morphine 2.5-5mg PO q4h), fan therapy, positioning",
-          goal: "Improved comfort and reduced anxiety"
-        },
-        {
-          symptom: "Nausea Control",
-          approach: "Mechanism-targeted antiemetics: ondansetron, metoclopramide, haloperidol",
-          goal: "Ability to maintain oral intake and medications"
-        },
-        {
-          symptom: "Fatigue Management",
-          approach: "Energy conservation, activity pacing, methylphenidate if appropriate",
-          goal: "Preservation of meaningful activities"
-        }
-      ]
-    },
-    {
-      category: "Psychosocial Interventions",
-      strategies: [
-        {
-          intervention: "Individual Counseling",
-          approach: "CBT, supportive therapy, or dignity therapy based on needs",
-          frequency: "Weekly sessions, 45-60 minutes"
-        },
-        {
-          intervention: "Family Meetings",
-          approach: "Structured discussions about goals, concerns, and care planning",
-          frequency: "Bi-weekly or as needed for conflicts"
-        },
-        {
-          intervention: "Support Groups",
-          approach: "Peer-led or professionally facilitated groups",
-          frequency: "Weekly participation, ongoing availability"
-        },
-        {
-          intervention: "Respite Care",
-          approach: "Planned breaks for primary caregivers",
-          frequency: "4-8 hours weekly, more as needed"
-        }
-      ]
-    },
-    {
-      category: "Functional Optimization",
-      strategies: [
-        {
-          domain: "Mobility",
-          approach: "PT assessment, assistive devices, fall prevention",
-          goal: "Safe mobility within functional limits"
-        },
-        {
-          domain: "Self-Care",
-          approach: "OT evaluation, adaptive equipment, energy conservation",
-          goal: "Maximum independence in meaningful activities"
-        },
-        {
-          domain: "Cognitive",
-          approach: "Assessment, environmental modifications, support systems",
-          goal: "Optimal cognitive function and safety"
-        }
-      ]
-    }
-  ];
+      <div className="grid gap-4">
+        {ESAS_SYMPTOMS.map((symptom) => {
+          const severity = getESASSeverityLevel(esasScores[symptom.id]);
+          return (
+            <Card key={symptom.id} className="p-4">
+              <div className="flex justify-between items-center mb-3">
+                <div>
+                  <Label className="text-base font-medium">{symptom.label}</Label>
+                  <p className="text-sm text-gray-500">{symptom.description}</p>
+                </div>
+                <div className={`px-3 py-1 rounded-full text-sm font-medium ${severity.bg} ${severity.color}`}>
+                  {esasScores[symptom.id]}/10 - {severity.level}
+                </div>
+              </div>
+              
+              <div className="space-y-2">
+                <Slider
+                  value={[esasScores[symptom.id]]}
+                  onValueChange={(value) => setEsasScores(prev => ({ ...prev, [symptom.id]: value[0] }))}
+                  max={10}
+                  step={1}
+                  className="w-full"
+                />
+                <div className="flex justify-between text-xs text-gray-500">
+                  <span>0 - No {symptom.label.toLowerCase()}</span>
+                  <span>10 - Worst possible</span>
+                </div>
+              </div>
+            </Card>
+          );
+        })}
+      </div>
+
+      <Card className="bg-blue-50 dark:bg-blue-900/20">
+        <CardContent className="pt-6">
+          <div className="text-center">
+            <h3 className="text-lg font-semibold mb-2">ESAS Total Distress Score</h3>
+            <div className="text-3xl font-bold text-blue-600 mb-2">
+              {calculateESASTotalDistress()}/80
+            </div>
+            <Progress value={(calculateESASTotalDistress() / 80) * 100} className="w-full max-w-md mx-auto mb-3" />
+            <p className="text-sm text-gray-600 dark:text-gray-300">
+              Research threshold: ≥40 indicates high symptom burden requiring intensive intervention
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+
+  const renderPPSAssessment = () => {
+    const selectedLevel = PPS_LEVELS.find(level => level.score === selectedPPS);
+    const prognosis = getPPSPrognosis(selectedPPS);
+    
+    return (
+      <div className="space-y-6">
+        <Alert>
+          <Scale className="h-4 w-4" />
+          <AlertDescription>
+            Palliative Performance Scale: Observer-rated functional assessment correlating with prognosis.
+            Validated for hospice eligibility (≤50%) and care planning.
+          </AlertDescription>
+        </Alert>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Activity className="h-5 w-5" />
+              Current PPS Assessment
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div>
+              <Label>PPS Score: {selectedPPS}%</Label>
+              <Slider
+                value={[selectedPPS]}
+                onValueChange={(value) => setSelectedPPS(value[0])}
+                min={0}
+                max={100}
+                step={10}
+                className="w-full mt-2"
+              />
+            </div>
+
+            {selectedLevel && (
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                <div>
+                  <strong>Ambulation:</strong> {selectedLevel.ambulation}
+                </div>
+                <div>
+                  <strong>Activity:</strong> {selectedLevel.activity}
+                </div>
+                <div>
+                  <strong>Evidence of Disease:</strong> {selectedLevel.evidence}
+                </div>
+                <div>
+                  <strong>Self-care:</strong> {selectedLevel.selfcare}
+                </div>
+                <div>
+                  <strong>Intake:</strong> {selectedLevel.intake}
+                </div>
+                <div>
+                  <strong>Consciousness:</strong> {selectedLevel.consciousness}
+                </div>
+              </div>
+            )}
+
+            <div className={`p-4 rounded-lg border-l-4 ${prognosis.color === 'text-green-600' ? 'border-green-400 bg-green-50' : 
+              prognosis.color === 'text-yellow-600' ? 'border-yellow-400 bg-yellow-50' : 
+              prognosis.color === 'text-orange-600' ? 'border-orange-400 bg-orange-50' : 'border-red-400 bg-red-50'}`}>
+              <h4 className="font-semibold mb-1">Prognostic Indication</h4>
+              <p className={`${prognosis.color} font-medium`}>
+                Typical survival: {prognosis.prognosis}
+              </p>
+              <p className="text-sm text-gray-600 mt-2">
+                Note: PPS is one factor in prognostic assessment. Consider disease trajectory, comorbidities, and clinical judgment.
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  };
+
+  const renderQualityIndicators = () => (
+    <div className="space-y-6">
+      <Alert>
+        <BarChart3 className="h-4 w-4" />
+        <AlertDescription>
+          Evidence-based quality metrics from AAHPM "Measuring What Matters" initiative and CMS Quality Reporting Program.
+        </AlertDescription>
+      </Alert>
+
+      {QUALITY_INDICATORS.map((category, index) => (
+        <Card key={index}>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Target className="h-5 w-5 text-blue-600" />
+              {category.category}
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="overflow-x-auto">
+              <table className="w-full border-collapse">
+                <thead>
+                  <tr className="border-b">
+                    <th className="text-left p-3 font-semibold">Quality Metric</th>
+                    <th className="text-left p-3 font-semibold">Target</th>
+                    <th className="text-left p-3 font-semibold">Evidence Base</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {category.indicators.map((indicator, i) => (
+                    <tr key={i} className="border-b hover:bg-gray-50 dark:hover:bg-gray-800">
+                      <td className="p-3 font-medium">{indicator.metric}</td>
+                      <td className="p-3">
+                        <Badge variant="outline" className="bg-green-50 text-green-700">
+                          {indicator.target}
+                        </Badge>
+                      </td>
+                      <td className="p-3 text-sm text-gray-600">{indicator.rationale}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </CardContent>
+        </Card>
+      ))}
+    </div>
+  );
+
+  const renderInterventionProtocols = () => (
+    <div className="space-y-6">
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Zap className="h-5 w-5 text-purple-600" />
+            Evidence-Based Intervention Algorithms
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Accordion type="multiple" className="w-full">
+            <AccordionItem value="pain-protocol">
+              <AccordionTrigger>
+                <div className="flex items-center gap-2">
+                  <Activity className="h-4 w-4 text-red-500" />
+                  Pain Management Protocol (WHO Guidelines)
+                </div>
+              </AccordionTrigger>
+              <AccordionContent>
+                <div className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="p-4 border rounded-lg">
+                      <h4 className="font-semibold text-green-600 mb-2">Step 1: Mild Pain (1-3/10)</h4>
+                      <ul className="text-sm space-y-1">
+                        <li>• Paracetamol 1g QID</li>
+                        <li>• NSAIDs if appropriate</li>
+                        <li>• Non-pharmacologic measures</li>
+                      </ul>
+                    </div>
+                    <div className="p-4 border rounded-lg">
+                      <h4 className="font-semibold text-yellow-600 mb-2">Step 2: Moderate Pain (4-6/10)</h4>
+                      <ul className="text-sm space-y-1">
+                        <li>• Tramadol 50-100mg QID</li>
+                        <li>• Codeine 30-60mg QID</li>
+                        <li>• Continue Step 1 medications</li>
+                      </ul>
+                    </div>
+                    <div className="p-4 border rounded-lg">
+                      <h4 className="font-semibold text-red-600 mb-2">Step 3: Severe Pain (7-10/10)</h4>
+                      <ul className="text-sm space-y-1">
+                        <li>• Morphine 5-15mg PO q4h</li>
+                        <li>• Oxycodone 5-10mg PO q4h</li>
+                        <li>• Fentanyl patch consideration</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <Alert>
+                    <CheckCircle className="h-4 w-4" />
+                    <AlertDescription>
+                      <strong>Breakthrough pain:</strong> 10-15% of regular dose q1h PRN. Reassess total daily requirements every 24-48h.
+                    </AlertDescription>
+                  </Alert>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="fatigue-protocol">
+              <AccordionTrigger>
+                <div className="flex items-center gap-2">
+                  <Brain className="h-4 w-4 text-blue-500" />
+                  Cancer-Related Fatigue Management
+                </div>
+              </AccordionTrigger>
+              <AccordionContent>
+                <div className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="p-4 border rounded-lg">
+                      <h4 className="font-semibold mb-3">Pharmacologic Interventions</h4>
+                      <ul className="text-sm space-y-2">
+                        <li><strong>Methylphenidate:</strong> 5-10mg BID (morning/noon)</li>
+                        <li><strong>Modafinil:</strong> 100-200mg daily (morning)</li>
+                        <li><strong>Dexamphetamine:</strong> 2.5-5mg BID</li>
+                        <li><strong>American ginseng:</strong> 2000mg daily</li>
+                      </ul>
+                    </div>
+                    <div className="p-4 border rounded-lg">
+                      <h4 className="font-semibold mb-3">Non-Pharmacologic Approaches</h4>
+                      <ul className="text-sm space-y-2">
+                        <li>• Structured exercise programs</li>
+                        <li>• Energy conservation techniques</li>
+                        <li>• Sleep hygiene optimization</li>
+                        <li>• Cognitive behavioral therapy</li>
+                        <li>• Mindfulness-based interventions</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="depression-protocol">
+              <AccordionTrigger>
+                <div className="flex items-center gap-2">
+                  <Heart className="h-4 w-4 text-purple-500" />
+                  Depression & Anxiety Management
+                </div>
+              </AccordionTrigger>
+              <AccordionContent>
+                <div className="space-y-4">
+                  <div className="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
+                    <h4 className="font-semibold mb-2">Screening Tools</h4>
+                    <ul className="text-sm space-y-1">
+                      <li>• <strong>PHQ-2:</strong> Initial screen (≥3 positive)</li>
+                      <li>• <strong>PHQ-9:</strong> Full assessment if PHQ-2 positive</li>
+                      <li>• <strong>GAD-7:</strong> Anxiety severity (≥10 moderate-severe)</li>
+                      <li>• <strong>Distress Thermometer:</strong> ≥4 requires intervention</li>
+                    </ul>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="p-4 border rounded-lg">
+                      <h4 className="font-semibold mb-3">First-Line Medications</h4>
+                      <ul className="text-sm space-y-2">
+                        <li><strong>Sertraline:</strong> 25-50mg daily → 100-200mg</li>
+                        <li><strong>Escitalopram:</strong> 10mg daily → 20mg</li>
+                        <li><strong>Citalopram:</strong> 20mg daily → 40mg</li>
+                        <li><strong>Mirtazapine:</strong> 15mg HS (appetite/sleep)</li>
+                      </ul>
+                    </div>
+                    <div className="p-4 border rounded-lg">
+                      <h4 className="font-semibold mb-3">Rapid-Acting Options</h4>
+                      <ul className="text-sm space-y-2">
+                        <li><strong>Methylphenidate:</strong> 5-10mg BID</li>
+                        <li><strong>Ketamine:</strong> 0.5mg/kg IV (specialist use)</li>
+                        <li><strong>Benzodiazepines:</strong> Short-term anxiety</li>
+                        <li><strong>Dignity therapy:</strong> 3-4 sessions</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        </CardContent>
+      </Card>
+    </div>
+  );
 
   return (
     <div className="space-y-6">
-      {/* Header Overview */}
+      {/* Header */}
       <Card className="border-l-4 border-l-green-500">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Heart className="h-5 w-5 text-green-600" />
-            Quality of Life Assessment & Improvement
+            Quality of Life Assessment & Management
           </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-            Quality of life in palliative care encompasses physical, psychological, social, functional, and spiritual dimensions. 
-            Systematic assessment and targeted interventions optimize comfort, function, and meaning throughout the illness trajectory.
+          <p className="text-gray-600 dark:text-gray-300">
+            Evidence-based assessment tools and intervention protocols from international palliative care organizations.
           </p>
+        </CardHeader>
+      </Card>
+
+      {/* Patient Information */}
+      <Card>
+        <CardContent className="pt-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <Label htmlFor="patient-name">Patient Name/ID</Label>
+              <Input
+                id="patient-name"
+                value={patientName}
+                onChange={(e) => setPatientName(e.target.value)}
+                placeholder="Enter patient identifier"
+              />
+            </div>
+            <div>
+              <Label htmlFor="assessment-date">Assessment Date</Label>
+              <Input
+                id="assessment-date"
+                type="date"
+                value={assessmentDate}
+                onChange={(e) => setAssessmentDate(e.target.value)}
+              />
+            </div>
+            <div className="flex items-end">
+              <Button className="w-full">
+                <Save className="h-4 w-4 mr-2" />
+                Save Assessment
+              </Button>
+            </div>
+          </div>
         </CardContent>
       </Card>
 
-      {/* Main Content Tabs */}
+      {/* Main Assessment Tabs */}
       <Card>
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <div className="border-b bg-gray-50 dark:bg-gray-800/50 rounded-t-lg">
             <TabsList className="grid w-full grid-cols-4 bg-transparent h-auto p-2">
-              <TabsTrigger value="dimensions" className="flex items-center gap-2 p-3">
-                <Target className="h-4 w-4" />
-                QoL Dimensions
-              </TabsTrigger>
               <TabsTrigger value="assessment" className="flex items-center gap-2 p-3">
                 <Stethoscope className="h-4 w-4" />
-                Assessment Tools
+                ESAS-r
               </TabsTrigger>
-              <TabsTrigger value="team" className="flex items-center gap-2 p-3">
-                <Users className="h-4 w-4" />
-                Team Approach
+              <TabsTrigger value="functional" className="flex items-center gap-2 p-3">
+                <Activity className="h-4 w-4" />
+                PPS/Functional
               </TabsTrigger>
-              <TabsTrigger value="strategies" className="flex items-center gap-2 p-3">
-                <TrendingUp className="h-4 w-4" />
-                Improvement Strategies
+              <TabsTrigger value="quality" className="flex items-center gap-2 p-3">
+                <BarChart3 className="h-4 w-4" />
+                Quality Metrics
+              </TabsTrigger>
+              <TabsTrigger value="interventions" className="flex items-center gap-2 p-3">
+                <Zap className="h-4 w-4" />
+                Interventions
               </TabsTrigger>
             </TabsList>
           </div>
 
           <CardContent className="p-6">
-            <TabsContent value="dimensions" className="mt-0">
-              <div className="space-y-6">
-                <div className="mb-6">
-                  <h3 className="text-xl font-semibold mb-3 flex items-center gap-2">
-                    <Target className="h-5 w-5 text-blue-600" />
-                    Holistic Dimensions of Quality of Life
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-400">
-                    Quality of life assessment requires evaluation across multiple interconnected domains to provide comprehensive care.
-                  </p>
-                </div>
-
-                <Accordion type="multiple" className="w-full">
-                  {qolDimensions.map((dimension, index) => (
-                    <AccordionItem key={index} value={`dimension-${index}`}>
-                      <AccordionTrigger className="text-left">
-                        <div className="flex items-center gap-3">
-                          <div className={`p-2 rounded-lg ${dimension.color}`}>
-                            <dimension.icon className="h-5 w-5" />
-                          </div>
-                          <div>
-                            <p className="font-medium text-lg">{dimension.name}</p>
-                            <p className="text-sm text-gray-500 font-normal">{dimension.description}</p>
-                          </div>
-                        </div>
-                      </AccordionTrigger>
-                      <AccordionContent>
-                        <div className="grid md:grid-cols-3 gap-6 p-4">
-                          <div>
-                            <h4 className="font-medium mb-3 flex items-center gap-2">
-                              <AlertTriangle className="h-4 w-4 text-amber-500" />
-                              Common Issues:
-                            </h4>
-                            <div className="space-y-2">
-                              {dimension.symptoms.map((symptom, i) => (
-                                <Badge key={i} variant="secondary" className="mr-1 mb-1">
-                                  {symptom}
-                                </Badge>
-                              ))}
-                            </div>
-                          </div>
-                          <div>
-                            <h4 className="font-medium mb-3 flex items-center gap-2">
-                              <CheckCircle className="h-4 w-4 text-green-500" />
-                              Interventions:
-                            </h4>
-                            <ul className="space-y-2">
-                              {dimension.interventions.map((intervention, i) => (
-                                <li key={i} className="flex items-start gap-2 text-sm">
-                                  <div className="w-1 h-1 bg-green-500 rounded-full mt-2 flex-shrink-0" />
-                                  {intervention}
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                          <div>
-                            <h4 className="font-medium mb-3 flex items-center gap-2">
-                              <Stethoscope className="h-4 w-4 text-blue-500" />
-                              Assessment Tools:
-                            </h4>
-                            <ul className="space-y-1">
-                              {dimension.assessment.map((tool, i) => (
-                                <li key={i} className="text-sm text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-900/20 px-2 py-1 rounded">
-                                  {tool}
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        </div>
-                      </AccordionContent>
-                    </AccordionItem>
-                  ))}
-                </Accordion>
-              </div>
-            </TabsContent>
-
             <TabsContent value="assessment" className="mt-0">
-              <div className="space-y-6">
-                <div className="mb-6">
-                  <h3 className="text-xl font-semibold mb-3 flex items-center gap-2">
-                    <Stethoscope className="h-5 w-5 text-purple-600" />
-                    Quality of Life Assessment Tools
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-400">
-                    Standardized tools for systematic evaluation of quality of life domains and treatment outcomes.
-                  </p>
-                </div>
-
-                <div className="overflow-x-auto">
-                  <table className="w-full border-collapse border border-gray-200 dark:border-gray-700">
-                    <thead>
-                      <tr className="bg-gray-50 dark:bg-gray-800">
-                        <th className="text-left p-4 border-b font-semibold">Assessment Tool</th>
-                        <th className="text-left p-4 border-b font-semibold">Purpose</th>
-                        <th className="text-left p-4 border-b font-semibold">Frequency</th>
-                        <th className="text-left p-4 border-b font-semibold">Interpretation</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {assessmentTools.map((tool, index) => (
-                        <tr key={index} className="border-b hover:bg-gray-50 dark:hover:bg-gray-800">
-                          <td className="p-4 font-medium">{tool.tool}</td>
-                          <td className="p-4">
-                            <div>
-                              <p className="font-medium">{tool.purpose}</p>
-                              <p className="text-sm text-gray-600 dark:text-gray-400">{tool.notes}</p>
-                            </div>
-                          </td>
-                          <td className="p-4 text-sm">{tool.frequency}</td>
-                          <td className="p-4 text-sm">{tool.interpretation}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Clock className="h-5 w-5 text-green-600" />
-                      Implementation Guidelines
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div>
-                        <h4 className="font-medium mb-3">Best Practices:</h4>
-                        <ul className="space-y-2">
-                          <li className="flex items-start gap-2">
-                            <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                            <span className="text-sm">Integrate assessments into routine clinical visits</span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                            <span className="text-sm">Use scores to guide treatment intensification</span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                            <span className="text-sm">Track trends over time rather than single measurements</span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                            <span className="text-sm">Share results with interdisciplinary team</span>
-                          </li>
-                        </ul>
-                      </div>
-                      <div>
-                        <h4 className="font-medium mb-3">Documentation:</h4>
-                        <ul className="space-y-2">
-                          <li className="flex items-start gap-2">
-                            <Target className="h-4 w-4 text-blue-500 mt-0.5 flex-shrink-0" />
-                            <span className="text-sm">Record baseline scores at initial assessment</span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <Target className="h-4 w-4 text-blue-500 mt-0.5 flex-shrink-0" />
-                            <span className="text-sm">Note clinically significant changes (≥1 point NRS)</span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <Target className="h-4 w-4 text-blue-500 mt-0.5 flex-shrink-0" />
-                            <span className="text-sm">Link assessment results to treatment modifications</span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <Target className="h-4 w-4 text-blue-500 mt-0.5 flex-shrink-0" />
-                            <span className="text-sm">Include patient-reported outcomes in care plans</span>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
+              {renderESASAssessment()}
             </TabsContent>
 
-            <TabsContent value="team" className="mt-0">
-              <div className="space-y-6">
-                <div className="mb-6">
-                  <h3 className="text-xl font-semibold mb-3 flex items-center gap-2">
-                    <Users className="h-5 w-5 text-green-600" />
-                    Interdisciplinary Team Approach
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-400">
-                    Coordinated care across disciplines to address all aspects of quality of life and patient experience.
-                  </p>
-                </div>
-
-                <div className="overflow-x-auto">
-                  <table className="w-full border-collapse border border-gray-200 dark:border-gray-700">
-                    <thead>
-                      <tr className="bg-gray-50 dark:bg-gray-800">
-                        <th className="text-left p-4 border-b font-semibold">Team Member</th>
-                        <th className="text-left p-4 border-b font-semibold">Key Responsibilities</th>
-                        <th className="text-left p-4 border-b font-semibold">Typical Frequency</th>
-                        <th className="text-left p-4 border-b font-semibold">Expertise Focus</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {interdisciplinaryTeam.map((member, index) => (
-                        <tr key={index} className="border-b hover:bg-gray-50 dark:hover:bg-gray-800">
-                          <td className="p-4 font-medium">{member.role}</td>
-                          <td className="p-4">{member.responsibilities}</td>
-                          <td className="p-4 text-sm">{member.frequency}</td>
-                          <td className="p-4 text-sm">{member.expertise}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-6">
-                  <Card>
-                    <CardHeader>
-                      <CardTitle className="text-lg">Communication Frameworks</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-4">
-                        {communicationFrameworks.map((framework, index) => (
-                          <div key={index} className="border rounded-lg p-4">
-                            <h4 className="font-medium text-base mb-2">{framework.name}</h4>
-                            <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
-                              {framework.description}
-                            </p>
-                            <div className="space-y-2">
-                              {framework.steps.map((step, i) => (
-                                <div key={i} className="text-sm p-2 bg-gray-50 dark:bg-gray-800 rounded">
-                                  {step}
-                                </div>
-                              ))}
-                            </div>
-                            <div className="mt-3 p-2 bg-blue-50 dark:bg-blue-900/20 rounded text-xs italic">
-                              {framework.example}
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
-
-                  <Card>
-                    <CardHeader>
-                      <CardTitle className="text-lg">Team Coordination</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-4">
-                        <div>
-                          <h4 className="font-medium mb-2">Regular Meetings:</h4>
-                          <ul className="space-y-2">
-                            <li className="flex items-start gap-2">
-                              <MessageSquare className="h-4 w-4 text-blue-500 mt-0.5 flex-shrink-0" />
-                              <span className="text-sm">Weekly interdisciplinary team meetings</span>
-                            </li>
-                            <li className="flex items-start gap-2">
-                              <MessageSquare className="h-4 w-4 text-blue-500 mt-0.5 flex-shrink-0" />
-                              <span className="text-sm">Bi-weekly case conferences for complex patients</span>
-                            </li>
-                            <li className="flex items-start gap-2">
-                              <MessageSquare className="h-4 w-4 text-blue-500 mt-0.5 flex-shrink-0" />
-                              <span className="text-sm">Monthly quality improvement reviews</span>
-                            </li>
-                          </ul>
-                        </div>
-                        <div>
-                          <h4 className="font-medium mb-2">Documentation:</h4>
-                          <ul className="space-y-2">
-                            <li className="flex items-start gap-2">
-                              <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                              <span className="text-sm">Shared electronic health records</span>
-                            </li>
-                            <li className="flex items-start gap-2">
-                              <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                              <span className="text-sm">Unified care plans accessible to all team members</span>
-                            </li>
-                            <li className="flex items-start gap-2">
-                              <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                              <span className="text-sm">Clear role definitions with overlapping competencies</span>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-              </div>
+            <TabsContent value="functional" className="mt-0">
+              {renderPPSAssessment()}
             </TabsContent>
 
-            <TabsContent value="strategies" className="mt-0">
-              <div className="space-y-6">
-                <div className="mb-6">
-                  <h3 className="text-xl font-semibold mb-3 flex items-center gap-2">
-                    <TrendingUp className="h-5 w-5 text-purple-600" />
-                    Quality of Life Improvement Strategies
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-400">
-                    Targeted interventions organized by category to systematically address quality of life concerns.
-                  </p>
-                </div>
+            <TabsContent value="quality" className="mt-0">
+              {renderQualityIndicators()}
+            </TabsContent>
 
-                <div className="space-y-6">
-                  {improvementStrategies.map((category, index) => (
-                    <Card key={index} className="border-2">
-                      <CardHeader>
-                        <CardTitle className="text-lg">{category.category}</CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="grid gap-4">
-                          {category.strategies.map((strategy, i) => (
-                            <div key={i} className="border rounded-lg p-4">
-                              <div className="grid md:grid-cols-3 gap-4">
-                                <div>
-                                  <h5 className="font-medium mb-1">
-                                    {strategy.symptom || strategy.intervention || strategy.domain}
-                                  </h5>
-                                  {strategy.frequency && (
-                                    <p className="text-xs text-gray-500">{strategy.frequency}</p>
-                                  )}
-                                </div>
-                                <div>
-                                  <p className="text-sm">{strategy.approach}</p>
-                                </div>
-                                <div>
-                                  {strategy.goal && (
-                                    <div className="p-2 bg-green-50 dark:bg-green-900/20 rounded border-l-4 border-green-400">
-                                      <p className="text-sm font-medium text-green-900 dark:text-green-300">
-                                        Goal: {strategy.goal}
-                                      </p>
-                                    </div>
-                                  )}
-                                </div>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Target className="h-5 w-5 text-blue-600" />
-                      Outcome Measurement
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="grid md:grid-cols-3 gap-4">
-                      <div className="text-center p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-                        <h4 className="font-semibold text-blue-900 dark:text-blue-300 mb-2">Short-term (1-4 weeks)</h4>
-                        <ul className="text-sm text-blue-800 dark:text-blue-300 space-y-1">
-                          <li>• Symptom score reduction</li>
-                          <li>• Improved sleep quality</li>
-                          <li>• Enhanced mood</li>
-                        </ul>
-                      </div>
-                      <div className="text-center p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
-                        <h4 className="font-semibold text-green-900 dark:text-green-300 mb-2">Medium-term (1-3 months)</h4>
-                        <ul className="text-sm text-green-800 dark:text-green-300 space-y-1">
-                          <li>• Functional improvement</li>
-                          <li>• Social engagement</li>
-                          <li>• Caregiver satisfaction</li>
-                        </ul>
-                      </div>
-                      <div className="text-center p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
-                        <h4 className="font-semibold text-purple-900 dark:text-purple-300 mb-2">Long-term (3+ months)</h4>
-                        <ul className="text-sm text-purple-800 dark:text-purple-300 space-y-1">
-                          <li>• Quality of life scores</li>
-                          <li>• Meaning and purpose</li>
-                          <li>• Overall wellbeing</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
+            <TabsContent value="interventions" className="mt-0">
+              {renderInterventionProtocols()}
             </TabsContent>
           </CardContent>
         </Tabs>
       </Card>
+
+      {/* Research & Validation Notice */}
+      <Alert>
+        <FileText className="h-4 w-4" />
+        <AlertDescription>
+          <strong>Research Validation:</strong> ESAS-r validated in 20+ languages across diverse populations. 
+          PPS correlates with prognosis (r=0.89 with physician estimates). Quality indicators derived from 
+          systematic reviews and expert consensus (AAHPM, CMS Quality Reporting Program).
+        </AlertDescription>
+      </Alert>
     </div>
   );
 }
