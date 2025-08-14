@@ -75,11 +75,11 @@ const sections: ModuleSection[] = [
   },
   {
     id: "quality",
-    title: "Quality of Life",
-    description: "Assessment tools, interdisciplinary care, and improvement strategies",
+    title: "Quality of Life Assessment",
+    description: "ESAS-r symptom tracking, PPS functional assessment, and evidence-based protocols",
     icon: Heart,
     color: "bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800",
-    badge: "Outcome"
+    badge: "Assessment"
   }
 ];
 

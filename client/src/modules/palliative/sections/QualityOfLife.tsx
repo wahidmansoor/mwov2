@@ -512,19 +512,19 @@ export default function QualityOfLife() {
             <TabsList className="grid w-full grid-cols-4 bg-transparent h-auto p-2">
               <TabsTrigger value="assessment" className="flex items-center gap-2 p-3">
                 <Stethoscope className="h-4 w-4" />
-                ESAS-r
+                ESAS Assessment
               </TabsTrigger>
               <TabsTrigger value="functional" className="flex items-center gap-2 p-3">
                 <Activity className="h-4 w-4" />
-                PPS/Functional
+                Performance Scale
               </TabsTrigger>
               <TabsTrigger value="quality" className="flex items-center gap-2 p-3">
                 <BarChart3 className="h-4 w-4" />
-                Quality Metrics
+                Quality Indicators
               </TabsTrigger>
               <TabsTrigger value="interventions" className="flex items-center gap-2 p-3">
                 <Zap className="h-4 w-4" />
-                Interventions
+                Treatment Protocols
               </TabsTrigger>
             </TabsList>
           </div>
