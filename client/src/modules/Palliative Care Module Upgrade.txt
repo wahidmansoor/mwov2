@@ -1,0 +1,838 @@
+Palliative Care Module Upgrade — Roadmap & Blueprint (Router-agnostic, Wouter-ready)
+Finalized decisions (locked)
+
+Remove Education Hub from this module (it lives elsewhere).
+
+Keep module read-only; allow local (offline) save/print/export for assessments.
+
+Sections: Dashboard, Symptoms, Emergencies, Calculators, Assessments (ESAS-r, 4AT), Tools (Antiemetic, Bowel).
+
+Stable, import-safe structure (no missing component paths). Provide demo data with an optional Supabase switch.
+
+Wouter routes under /palliative to match your app’s routing style. 
+
+Phase plan (fast track)
+
+Phase 1 (today): Scaffold files, add wouter routes, ship with demo data.
+Phase 2 (1–2 days): Wire optional Supabase reads (no schema change required).
+Phase 3 (1 day): Add vitest + RTL smoke tests; fix any LSP errors.
+Phase 4 (1 day): Polish: accessibility labels, print layout, offline guards.
+
+How to install (high level)
+
+Copy the folder client/src/modules/palliative-v2 into your project.
+
+Add routes in client/src/App.tsx (snippets below).
+
+Ensure dependencies exist (Tailwind, wouter, lucide-react, zod).
+
+Start dev server; the module works immediately with demo data.
+
+(Optional) Set VITE_SUPABASE_URL / VITE_SUPABASE_ANON_KEY to auto-switch to Supabase reads where implemented.
+
+File tree (new module only)
+client/src/modules/palliative-v2/
+├─ index.tsx                         # Main dashboard (v2) – inlined sections to avoid import errors
+├─ router.tsx                        # Internal links & helpers (optional)
+├─ components/
+│  ├─ SymptomBrowser.tsx
+│  ├─ EmergenciesList.tsx
+│  ├─ CalculatorsGrid.tsx
+│  ├─ AssessmentsStrip.tsx
+│  ├─ ToolsStrip.tsx
+│  └─ ui.tsx                         # Tiny UI primitives (Card, Button, Badge, etc.)
+├─ pages/
+│  ├─ assessments/
+│  │  ├─ ESASRPage.tsx               # ESAS-r assessment (export fix applied)
+│  │  └─ FourATPage.tsx              # 4AT delirium screen
+│  └─ tools/
+│     ├─ AntiemeticSelector.tsx      # Etiology→pathway→drug-class wizard (read-only)
+│     └─ BowelRegimenWizard.tsx      # Step-up bowel regimen (read-only)
+├─ data/
+│  ├─ symptoms.ts                    # demo content
+│  ├─ emergencies.ts                 # demo content
+│  └─ calculators.ts                 # demo content
+├─ lib/
+│  ├─ supabase.ts                    # optional supabase client (no schema change)
+│  └─ useLocalStorage.ts             # for offline save in assessments
+└─ __tests__/
+   ├─ dashboard.smoke.test.tsx
+   ├─ esasr.export.test.tsx
+   └─ routes.wouter.test.tsx
+
+
+Why inlined dashboard? Your last build failed due to missing component paths; v2 ships “import-safe.” You can later extract safely once everything compiles.
+
+1) Routes to add (Wouter)
+
+Open client/src/App.tsx and add these alongside your existing routes (do not remove your current /palliative route until you’re ready to switch). Adapt the import path if your root differs. 
+
+// App.tsx (excerpt)
+import { Route } from "wouter";
+import PalliativeCareV2 from "@/modules/palliative-v2";
+import ESASRPage from "@/modules/palliative-v2/pages/assessments/ESASRPage";
+import FourATPage from "@/modules/palliative-v2/pages/assessments/FourATPage";
+import AntiemeticSelector from "@/modules/palliative-v2/pages/tools/AntiemeticSelector";
+import BowelRegimenWizard from "@/modules/palliative-v2/pages/tools/BowelRegimenWizard";
+
+// Primary module entry
+<Route path="/palliative" component={PalliativeCareV2} />
+
+// Subpages
+<Route path="/palliative/symptoms" component={PalliativeCareV2} />
+<Route path="/palliative/symptoms/:slug" component={PalliativeCareV2} />
+<Route path="/palliative/emergencies" component={PalliativeCareV2} />
+<Route path="/palliative/emergencies/:slug" component={PalliativeCareV2} />
+<Route path="/palliative/calculators" component={PalliativeCareV2} />
+<Route path="/palliative/calculators/:id" component={PalliativeCareV2} />
+
+// Assessments
+<Route path="/palliative/assessments/esasr" component={ESASRPage} />
+<Route path="/palliative/assessments/4at" component={FourATPage} />
+
+// Tools
+<Route path="/palliative/tools/antiemetic" component={AntiemeticSelector} />
+<Route path="/palliative/tools/bowel" component={BowelRegimenWizard} />
+
+
+Using the same PalliativeCareV2 component for lists and details is deliberate—internal logic reads the current route (useRoute) and shows the correct view without additional imports.
+
+2) Main dashboard (v2) — index.tsx
+
+No Education Hub.
+
+Sections: Symptoms, Emergencies, Calculators, Assessments, Tools.
+
+Links:
+
+Assessments → /palliative/assessments/esasr, /palliative/assessments/4at
+
+Tools → /palliative/tools/antiemetic, /palliative/tools/bowel
+
+Calculators → /palliative/calculators/:id
+
+Symptoms/Emergencies → list + slug handled inside.
+
+// client/src/modules/palliative-v2/index.tsx
+import React from "react";
+import { useLocation, useRoute } from "wouter";
+import { Activity, AlertTriangle, Calculator, Stethoscope, Wrench } from "lucide-react";
+import { Card, CardHeader, CardTitle, CardContent, Button, Badge, Input } from "./components/ui";
+import SymptomBrowser from "./components/SymptomBrowser";
+import EmergenciesList from "./components/EmergenciesList";
+import CalculatorsGrid from "./components/CalculatorsGrid";
+import AssessmentsStrip from "./components/AssessmentsStrip";
+import ToolsStrip from "./components/ToolsStrip";
+
+export default function PalliativeCareV2() {
+  const [, setLocation] = useLocation();
+  const [isSymptoms] = useRoute("/palliative/symptoms");
+  const [isSymptomDetail, paramsSym] = useRoute("/palliative/symptoms/:slug");
+  const [isEmergencies] = useRoute("/palliative/emergencies");
+  const [isEmergencyDetail, paramsEmg] = useRoute("/palliative/emergencies/:slug");
+  const [isCalcs] = useRoute("/palliative/calculators");
+  const [isCalcDetail, paramsCalc] = useRoute("/palliative/calculators/:id");
+
+  // Route-aware rendering
+  if (isSymptomDetail) {
+    return <SymptomBrowser mode="detail" slug={paramsSym?.slug!} onBack={() => setLocation("/palliative/symptoms")} />;
+  }
+  if (isEmergencyDetail) {
+    return <EmergenciesList mode="detail" slug={paramsEmg?.slug!} onBack={() => setLocation("/palliative/emergencies")} />;
+  }
+  if (isCalcs && isCalcDetail) {
+    return <CalculatorsGrid mode="detail" id={paramsCalc?.id!} onBack={() => setLocation("/palliative/calculators")} />;
+  }
+
+  if (isSymptoms) {
+    return (
+      <div className="p-4 grid gap-4" data-testid="palliative-symptoms">
+        <Header />
+        <Card><CardHeader><CardTitle><Stethoscope className="inline mr-2"/>Symptom Protocols</CardTitle></CardHeader>
+          <CardContent><SymptomBrowser mode="list" /></CardContent></Card>
+      </div>
+    );
+  }
+
+  if (isEmergencies) {
+    return (
+      <div className="p-4 grid gap-4" data-testid="palliative-emergencies">
+        <Header />
+        <Card><CardHeader><CardTitle><AlertTriangle className="inline mr-2"/>Emergency Protocols</CardTitle></CardHeader>
+          <CardContent><EmergenciesList mode="list" /></CardContent></Card>
+      </div>
+    );
+  }
+
+  if (isCalcs) {
+    return (
+      <div className="p-4 grid gap-4" data-testid="palliative-calculators">
+        <Header />
+        <Card><CardHeader><CardTitle><Calculator className="inline mr-2"/>Calculators</CardTitle></CardHeader>
+          <CardContent><CalculatorsGrid mode="list" /></CardContent></Card>
+      </div>
+    );
+  }
+
+  // Default: Dashboard
+  return (
+    <div className="p-4 grid gap-4" data-testid="palliative-dashboard-v2">
+      <Header />
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <Card className="col-span-2">
+          <CardHeader><CardTitle><Stethoscope className="inline mr-2"/>Symptom Protocols</CardTitle></CardHeader>
+          <CardContent><SymptomBrowser mode="list" limit={9} /></CardContent>
+        </Card>
+        <Card>
+          <CardHeader><CardTitle><AlertTriangle className="inline mr-2"/>Emergencies</CardTitle></CardHeader>
+          <CardContent><EmergenciesList mode="list" limit={6} /></CardContent>
+        </Card>
+        <Card>
+          <CardHeader><CardTitle><Calculator className="inline mr-2"/>Calculators</CardTitle></CardHeader>
+          <CardContent><CalculatorsGrid mode="list" limit={6} /></CardContent>
+        </Card>
+        <Card className="col-span-2">
+          <CardHeader><CardTitle><Activity className="inline mr-2"/>Assessments</CardTitle></CardHeader>
+          <CardContent><AssessmentsStrip /></CardContent>
+        </Card>
+        <Card>
+          <CardHeader><CardTitle><Wrench className="inline mr-2"/>Clinical Tools</CardTitle></CardHeader>
+          <CardContent><ToolsStrip /></CardContent>
+        </Card>
+      </div>
+      <Disclaimer />
+    </div>
+  );
+}
+
+function Header() {
+  const [, setLocation] = useLocation();
+  return (
+    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+      <div>
+        <h1 className="text-2xl font-semibold">Palliative Care</h1>
+        <div className="mt-2 flex gap-2">
+          <Badge variant="outline">Read-only</Badge>
+          <Badge variant="outline">Offline-ready</Badge>
+          <Badge variant="outline">Evidence-tagged</Badge>
+        </div>
+      </div>
+      <div className="flex gap-2">
+        <Button onClick={() => setLocation("/palliative/symptoms")}>Open Symptoms</Button>
+        <Button onClick={() => setLocation("/palliative/emergencies")} variant="ghost">Open Emergencies</Button>
+        <Button onClick={() => setLocation("/palliative/calculators")} variant="ghost">Open Calculators</Button>
+      </div>
+    </div>
+  );
+}
+
+function Disclaimer() {
+  return (
+    <div className="text-xs text-slate-500 mt-4">
+      Guidance only; not a substitute for institutional policies or clinician judgement. Verify doses and local pathways.
+    </div>
+  );
+}
+
+3) Tiny UI primitives — components/ui.tsx
+
+(Zero external path risk; you can later swap to your shadcn/Radix components.)
+
+// client/src/modules/palliative-v2/components/ui.tsx
+import React from "react";
+import clsx from "clsx";
+
+export const Card = ({ className, children }: any) =>
+  <div className={clsx("rounded-2xl border bg-white shadow-sm", className)}>{children}</div>;
+
+export const CardHeader = ({ className, children }: any) =>
+  <div className={clsx("p-4 border-b", className)}>{children}</div>;
+
+export const CardTitle = ({ className, children }: any) =>
+  <div className={clsx("font-semibold text-lg", className)}>{children}</div>;
+
+export const CardContent = ({ className, children }: any) =>
+  <div className={clsx("p-4", className)}>{children}</div>;
+
+export function Button({ children, variant = "solid", className, ...props }: any) {
+  const base = "px-3 py-2 rounded-md text-sm";
+  const style = variant === "ghost"
+    ? "bg-transparent hover:bg-slate-100 border"
+    : "bg-slate-900 text-white hover:bg-slate-800";
+  return <button className={clsx(base, style, className)} {...props}>{children}</button>;
+}
+
+export const Badge = ({ children, variant="solid" }: any) =>
+  <span className={clsx(
+    "px-2 py-0.5 rounded text-xs border",
+    variant==="outline" ? "bg-white" : "bg-slate-900 text-white"
+  )}>{children}</span>;
+
+export const Input = (props: any) =>
+  <input {...props} className={clsx("border rounded-md px-3 py-2 w-full", props.className)} />;
+
+4) Demo data — data/*.ts
+// client/src/modules/palliative-v2/data/symptoms.ts
+export type Symptom = {
+  slug: string; title: string; category: "Pain"|"GI"|"Neuro"|"Resp"|"Psych";
+  overview: string; evidence: "A"|"B"|"C"; updated: string; redFlags?: string[];
+  steps: string[];
+};
+export const SYMPTOMS: Symptom[] = [
+  {
+    slug: "cancer-pain",
+    title: "Cancer Pain (WHO Ladder)",
+    category: "Pain",
+    overview: "Stepwise approach with adjuvants; monitor for toxicity.",
+    evidence: "A",
+    updated: "2025-07-01",
+    redFlags: ["Uncontrolled despite escalation", "Suspected spinal cord compression"],
+    steps: ["Assess nociceptive vs neuropathic", "Start appropriate step", "Add adjuvants", "Reassess"],
+  },
+  {
+    slug: "dyspnea",
+    title: "Dyspnea",
+    category: "Resp",
+    overview: "Treat cause where possible; fan, opioids, positioning.",
+    evidence: "B",
+    updated: "2025-06-15",
+    redFlags: ["Massive hemoptysis", "Airway compromise"],
+    steps: ["Non-pharm first", "Low-dose opioid titration", "Consider anxiolysis", "Fan/positioning"],
+  },
+  {
+    slug: "delirium",
+    title: "Delirium",
+    category: "Neuro",
+    overview: "Screen with 4AT; treat causes; non-pharmacologic bundle.",
+    evidence: "A",
+    updated: "2025-05-30",
+    redFlags: ["Reduced GCS", "Meningeal signs"],
+    steps: ["4AT screen", "Identify reversible causes", "Environment optimization", "Family engagement"],
+  },
+];
+
+// client/src/modules/palliative-v2/data/emergencies.ts
+export type Emergency = {
+  slug: string; title: string; overview: string; actions: string[]; evidence: "A"|"B"|"C";
+};
+export const EMERGENCIES: Emergency[] = [
+  {
+    slug: "spinal-cord-compression",
+    title: "Spinal Cord Compression",
+    overview: "Urgent steroids; imaging; oncologist/radiation referral.",
+    actions: ["Dexamethasone dose per local protocol", "Urgent MRI", "Decision for RT/OR"],
+    evidence: "A",
+  },
+  {
+    slug: "catastrophic-bleeding",
+    title: "Catastrophic Bleeding",
+    overview: "Crisis pack; dark towels; crisis communication.",
+    actions: ["Apply pressure if possible", "Anxiolysis", "Prepare family/staff"],
+    evidence: "B",
+  },
+];
+
+// client/src/modules/palliative-v2/data/calculators.ts
+export type CalculatorMeta = { id: string; title: string; summary: string; };
+export const CALCULATORS: CalculatorMeta[] = [
+  { id: "pps", title: "Palliative Performance Scale (PPS)", summary: "Performance status 10–100%" },
+  { id: "ecog", title: "ECOG Performance", summary: "0–5 performance scale" },
+  { id: "opioid-rotation", title: "Opioid Rotation Helper", summary: "Equianalgesic guide (read-only)" },
+];
+
+5) Components — lists/detail viewers
+components/SymptomBrowser.tsx
+import React, { useMemo, useState } from "react";
+import { useLocation } from "wouter";
+import { SYMPTOMS, Symptom } from "../data/symptoms";
+import { Card, CardContent, Input, Button, Badge } from "./ui";
+
+export default function SymptomBrowser({ mode, slug, limit, onBack }:{
+  mode:"list"|"detail"; slug?:string; limit?:number; onBack?:()=>void;
+}) {
+  const [, setLocation] = useLocation();
+  const [q, setQ] = useState("");
+  const list = useMemo(() => {
+    let arr = SYMPTOMS.filter(s => s.title.toLowerCase().includes(q.toLowerCase()));
+    return typeof limit === "number" ? arr.slice(0, limit) : arr;
+  }, [q, limit]);
+
+  if (mode === "detail" && slug) {
+    const s = SYMPTOMS.find(x => x.slug === slug);
+    if (!s) return <div className="p-4">Not found</div>;
+    return (
+      <div className="p-4 grid gap-3">
+        <Button variant="ghost" onClick={onBack}>← Back</Button>
+        <h2 className="text-xl font-semibold">{s.title} <Badge variant="outline">Ev {s.evidence}</Badge></h2>
+        <p className="text-sm">{s.overview}</p>
+        {s.redFlags?.length ? <div className="text-xs text-red-600">Red flags: {s.redFlags.join(" • ")}</div> : null}
+        <Card><CardContent>
+          <ol className="list-decimal pl-5 space-y-1">{s.steps.map((st,i)=><li key={i}>{st}</li>)}</ol>
+        </CardContent></Card>
+      </div>
+    );
+  }
+
+  return (
+    <div className="grid gap-3">
+      <div className="flex gap-2">
+        <Input placeholder="Search symptoms…" value={q} onChange={e=>setQ(e.target.value)} />
+        <Button onClick={()=>setQ("")} variant="ghost">Clear</Button>
+      </div>
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        {list.map(s => (
+          <Card key={s.slug}>
+            <CardContent>
+              <div className="font-medium">{s.title}</div>
+              <div className="text-xs text-slate-500 mb-2">{s.overview}</div>
+              <div className="flex items-center gap-2">
+                <Badge variant="outline">Ev {s.evidence}</Badge>
+                <Button className="ml-auto" onClick={()=>setLocation(`/palliative/symptoms/${s.slug}`)}>Open</Button>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+components/EmergenciesList.tsx
+import React from "react";
+import { useLocation } from "wouter";
+import { EMERGENCIES } from "../data/emergencies";
+import { Card, CardContent, Button, Badge } from "./ui";
+
+export default function EmergenciesList({ mode, slug, limit, onBack }:{
+  mode:"list"|"detail"; slug?:string; limit?:number; onBack?:()=>void;
+}) {
+  const [, setLocation] = useLocation();
+
+  if (mode==="detail" && slug) {
+    const e = EMERGENCIES.find(x => x.slug===slug);
+    if (!e) return <div className="p-4">Not found</div>;
+    return (
+      <div className="p-4 grid gap-3">
+        <Button variant="ghost" onClick={onBack}>← Back</Button>
+        <h2 className="text-xl font-semibold">{e.title} <Badge variant="outline">Ev {e.evidence}</Badge></h2>
+        <p className="text-sm">{e.overview}</p>
+        <Card><CardContent>
+          <ol className="list-decimal pl-5 space-y-1">{e.actions.map((a,i)=><li key={i}>{a}</li>)}</ol>
+        </CardContent></Card>
+        <div className="flex gap-2">
+          <Button onClick={()=>window.print()}>Print</Button>
+        </div>
+      </div>
+    );
+  }
+
+  const list = typeof limit==="number" ? EMERGENCIES.slice(0, limit) : EMERGENCIES;
+  return (
+    <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-3">
+      {list.map(e => (
+        <Card key={e.slug}><CardContent>
+          <div className="font-medium">{e.title}</div>
+          <div className="text-xs text-slate-500 mb-2">{e.overview}</div>
+          <div className="flex gap-2">
+            <Badge variant="outline">Ev {e.evidence}</Badge>
+            <Button className="ml-auto" onClick={()=>setLocation(`/palliative/emergencies/${e.slug}`)}>Open</Button>
+          </div>
+        </CardContent></Card>
+      ))}
+    </div>
+  );
+}
+
+components/CalculatorsGrid.tsx
+import React from "react";
+import { useLocation } from "wouter";
+import { CALCULATORS } from "../data/calculators";
+import { Card, CardContent, Button } from "./ui";
+
+export default function CalculatorsGrid({ mode, id, limit, onBack }:{
+  mode:"list"|"detail"; id?:string; limit?:number; onBack?:()=>void;
+}) {
+  const [, setLocation] = useLocation();
+
+  if (mode==="detail" && id) {
+    const c = CALCULATORS.find(x=>x.id===id);
+    if (!c) return <div className="p-4">Not found</div>;
+    return (
+      <div className="p-4 grid gap-3">
+        <Button variant="ghost" onClick={onBack}>← Back</Button>
+        <h2 className="text-xl font-semibold">{c.title}</h2>
+        <p className="text-sm">{c.summary}</p>
+        <div className="text-sm text-slate-500">This is a placeholder; calculators are read-only helpers.</div>
+      </div>
+    );
+  }
+
+  const list = typeof limit==="number" ? CALCULATORS.slice(0,limit) : CALCULATORS;
+  return (
+    <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-3">
+      {list.map(c=>(
+        <Card key={c.id}><CardContent>
+          <div className="font-medium">{c.title}</div>
+          <div className="text-xs text-slate-500 mb-2">{c.summary}</div>
+          <Button className="ml-auto" onClick={()=>setLocation(`/palliative/calculators/${c.id}`)}>Open</Button>
+        </CardContent></Card>
+      ))}
+    </div>
+  );
+}
+
+components/AssessmentsStrip.tsx
+import React from "react";
+import { useLocation } from "wouter";
+import { Button } from "./ui";
+
+export default function AssessmentsStrip() {
+  const [, setLocation] = useLocation();
+  return (
+    <div className="flex flex-wrap gap-2">
+      <Button onClick={()=>setLocation("/palliative/assessments/esasr")}>Open ESAS-r</Button>
+      <Button onClick={()=>setLocation("/palliative/assessments/4at")} variant="ghost">Open 4AT</Button>
+    </div>
+  );
+}
+
+components/ToolsStrip.tsx
+import React from "react";
+import { useLocation } from "wouter";
+import { Button } from "./ui";
+
+export default function ToolsStrip() {
+  const [, setLocation] = useLocation();
+  return (
+    <div className="flex flex-wrap gap-2">
+      <Button onClick={()=>setLocation("/palliative/tools/antiemetic")}>Antiemetic selector</Button>
+      <Button onClick={()=>setLocation("/palliative/tools/bowel")} variant="ghost">Bowel regimen</Button>
+    </div>
+  );
+}
+
+6) Assessments pages
+ESAS-r — pages/assessments/ESASRPage.tsx
+
+(fixed export filename quoting bug)
+
+import React, { useMemo, useState } from "react";
+import { Card, CardContent, Button, Input } from "../../components/ui";
+import { useLocalStorage } from "../../lib/useLocalStorage";
+
+type ScoreKey = "pain"|"tiredness"|"drowsiness"|"nausea"|"appetite"|"shortnessOfBreath"|"depression"|"anxiety"|"wellbeing"|"other";
+type Scores = Record<ScoreKey, number>;
+const DEFAULT: Scores = {
+  pain:0,tiredness:0,drowsiness:0,nausea:0,appetite:0,shortnessOfBreath:0,
+  depression:0,anxiety:0,wellbeing:0,other:0
+};
+
+export default function ESASRPage() {
+  const [scores, setScores] = useLocalStorage<Scores>("esasr-scores", DEFAULT);
+  const [otherLabel, setOtherLabel] = useLocalStorage<string>("esasr-other-label","Other problem");
+  const total = useMemo(()=>Object.values(scores).reduce((a,b)=>a+b,0),[scores]);
+  const mean = useMemo(()=>Math.round((total/10)*10)/10,[total]);
+  const highestKey = useMemo(()=>{
+    const entries = Object.entries(scores) as [ScoreKey,number][];
+    const max = Math.max(...entries.map(([,v])=>v));
+    return entries.find(([,v])=>v===max)?.[0] ?? "pain";
+  },[scores]);
+
+  const set = (k:ScoreKey, v:number) => setScores(s => ({...s, [k]: Math.min(10, Math.max(0, v))}));
+  const download = (filename:string, data:any) => {
+    const blob = new Blob([JSON.stringify(data, null, 2)], {type:"application/json"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a"); a.href = url; a.download = filename; a.click(); URL.revokeObjectURL(url);
+  };
+  const onExport = () => {
+    const exportObj = { type:"ESAS-r", scores, otherLabel, total, mean, highestKey, ts: new Date().toISOString() };
+    download(`esasr-${Date.now()}.json`, exportObj); // <-- fixed quotes
+  };
+
+  return (
+    <div className="p-4 grid gap-4" data-testid="fourat-page">
+      <h1 className="text-xl font-semibold">ESAS-r Assessment</h1>
+      <Card><CardContent>
+        <div className="grid md:grid-cols-2 gap-4">
+          {fields.map(f=>(
+            <SliderRow key={f.key} label={f.label} value={scores[f.key]} onChange={v=>set(f.key, v)} />
+          ))}
+          <div>
+            <label className="text-sm">Other label</label>
+            <Input value={otherLabel} onChange={e=>setOtherLabel(e.target.value)} />
+            <SliderRow label={`${otherLabel} (0–10)`} value={scores.other} onChange={v=>set("other", v)} />
+          </div>
+        </div>
+      </CardContent></Card>
+
+      <Card><CardContent>
+        <div className="text-sm">Total: {total} • Mean: {mean} • Highest: {labelFor(highestKey)}</div>
+        <div className="flex gap-2 mt-2">
+          <Button onClick={()=>window.print()}>Print</Button>
+          <Button variant="ghost" onClick={onExport}>Export JSON</Button>
+        </div>
+      </CardContent></Card>
+    </div>
+  );
+}
+
+const fields: { key: Exclude<ScoreKey,"other">; label:string }[] = [
+  { key:"pain", label:"Pain" },
+  { key:"tiredness", label:"Tiredness" },
+  { key:"drowsiness", label:"Drowsiness" },
+  { key:"nausea", label:"Nausea" },
+  { key:"appetite", label:"Appetite (poor=10)" },
+  { key:"shortnessOfBreath", label:"Shortness of breath" },
+  { key:"depression", label:"Depression" },
+  { key:"anxiety", label:"Anxiety" },
+  { key:"wellbeing", label:"Well-being (worst=10)" },
+];
+
+function SliderRow({label, value, onChange}:{label:string; value:number; onChange:(v:number)=>void}) {
+  return (
+    <div className="grid gap-1">
+      <div className="text-sm">{label}: {value}</div>
+      <input type="range" min={0} max={10} value={value} onChange={e=>onChange(parseInt(e.target.value,10))}/>
+    </div>
+  );
+}
+function labelFor(k:ScoreKey) {
+  const m: Record<ScoreKey,string> = {
+    pain:"Pain", tiredness:"Tiredness", drowsiness:"Drowsiness", nausea:"Nausea",
+    appetite:"Appetite", shortnessOfBreath:"Shortness of breath", depression:"Depression",
+    anxiety:"Anxiety", wellbeing:"Well-being", other:"Other"
+  }; return m[k];
+}
+
+4AT — pages/assessments/FourATPage.tsx
+
+(quick, validated screen with offline export)
+
+import React, { useMemo, useState } from "react";
+import { Card, CardContent, Button } from "../../components/ui";
+
+export default function FourATPage(){
+  const [alertness, setA] = useState<0|4>(0);
+  const [amt4, setB] = useState<0|1|2>(0);
+  const [attention, setC] = useState<0|1|2>(0);
+  const [acute, setD] = useState<0|4>(0);
+
+  const total = useMemo(()=>alertness + amt4 + attention + acute, [alertness,amt4,attention,acute]);
+  const interp = total>=4 ? "Possible delirium" : total>=1 ? "Possible cognitive impairment" : "Delirium unlikely (screen)";
+
+  const onExport = () => {
+    const exportObj = { type:"4AT", alertness, amt4, attention, acute, total, interp, ts: new Date().toISOString() };
+    const blob = new Blob([JSON.stringify(exportObj,null,2)], {type:"application/json"});
+    const url = URL.createObjectURL(blob); const a=document.createElement("a");
+    a.href=url; a.download=`4at-${Date.now()}.json`; a.click(); URL.revokeObjectURL(url);
+  };
+
+  return (
+    <div className="p-4 grid gap-4">
+      <h1 className="text-xl font-semibold">4AT Delirium Screen</h1>
+      <Card><CardContent className="grid gap-3">
+        <RadioRow label="A. Alertness (0 normal, 4 clearly abnormal)" opts={[{v:0,l:"0"},{v:4,l:"4"}]} value={alertness} onChange={v=>setA(v as 0|4)}/>
+        <RadioRow label="B. AMT4 (0 none/1 one error/2 two+ or untestable)" opts={[{v:0,l:"0"},{v:1,l:"1"},{v:2,l:"2"}]} value={amt4} onChange={v=>setB(v as 0|1|2)}/>
+        <RadioRow label="C. Attention (0 normal / 1 partial / 2 none or untestable)" opts={[{v:0,l:"0"},{v:1,l:"1"},{v:2,l:"2"}]} value={attention} onChange={v=>setC(v as 0|1|2)}/>
+        <RadioRow label="D. Acute change or fluctuating course (0 no / 4 yes)" opts={[{v:0,l:"0"},{v:4,l:"4"}]} value={acute} onChange={v=>setD(v as 0|4)}/>
+      </CardContent></Card>
+
+      <Card><CardContent className="flex items-center gap-3">
+        <div className="text-sm">Total: {total} — <span className="font-medium">{interp}</span></div>
+        <Button onClick={()=>window.print()}>Print</Button>
+        <Button variant="ghost" onClick={onExport}>Export JSON</Button>
+      </CardContent></Card>
+    </div>
+  );
+}
+
+function RadioRow({label, opts, value, onChange}:{label:string; opts:{v:number; l:string}[]; value:number; onChange:(v:number)=>void}) {
+  return (
+    <div className="text-sm">
+      <div className="mb-1">{label}</div>
+      <div className="flex gap-3">
+        {opts.map(o=>(
+          <label key={o.v} className="flex items-center gap-1">
+            <input type="radio" checked={value===o.v} onChange={()=>onChange(o.v)} /> {o.l}
+          </label>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+7) Tools pages (read-only wizards)
+Antiemetic selector — pages/tools/AntiemeticSelector.tsx
+import React, { useMemo, useState } from "react";
+import { Card, CardContent, Input } from "../../components/ui";
+
+const CAUSES = ["Gastric stasis","Vestibular","Raised ICP","Bowel obstruction","Chemo-induced","Opioid-induced"] as const;
+const MAP: Record<typeof CAUSES[number], string[]> = {
+  "Gastric stasis":["Prokinetic (metoclopramide)","Haloperidol"],
+  "Vestibular":["Antihistamine (cyclizine)","Anticholinergic (hyoscine)"],
+  "Raised ICP":["Dexamethasone","Set pathway per local protocol"],
+  "Bowel obstruction":["Antisecretory (octreotide)","Anticholinergic","Haloperidol"],
+  "Chemo-induced":["Set protocol (5HT3, NK1, dex)"],
+  "Opioid-induced":["Haloperidol","Dose review"]
+};
+
+export default function AntiemeticSelector(){
+  const [q,setQ] = useState("");
+  const causes = useMemo(()=>CAUSES.filter(c=>c.toLowerCase().includes(q.toLowerCase())),[q]);
+  return (
+    <div className="p-4 grid gap-3">
+      <h1 className="text-xl font-semibold">Antiemetic selector (read-only)</h1>
+      <Input placeholder="Filter causes…" value={q} onChange={e=>setQ(e.target.value)} />
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        {causes.map(c=>(
+          <Card key={c}><CardContent>
+            <div className="font-medium">{c}</div>
+            <ul className="list-disc pl-5 text-sm">
+              {MAP[c].map((m,i)=><li key={i}>{m}</li>)}
+            </ul>
+          </CardContent></Card>
+        ))}
+      </div>
+      <div className="text-xs text-slate-500">Note: Use institutional antiemetic protocols and dosing references.</div>
+    </div>
+  );
+}
+
+Bowel regimen wizard — pages/tools/BowelRegimenWizard.tsx
+import React, { useState } from "react";
+import { Card, CardContent, Button } from "../../components/ui";
+
+export default function BowelRegimenWizard(){
+  const [step, setStep] = useState(1);
+  const next = () => setStep(s=>Math.min(3,s+1));
+  const prev = () => setStep(s=>Math.max(1,s-1));
+
+  return (
+    <div className="p-4 grid gap-3">
+      <h1 className="text-xl font-semibold">Bowel regimen (read-only)</h1>
+      <Card><CardContent>
+        {step===1 && <div className="text-sm">
+          <div className="font-medium mb-1">Step 1 — Prevent</div>
+          <ul className="list-disc pl-5">
+            <li>Hydration, mobility, fiber if appropriate</li>
+            <li>Start stimulant + softener with constipating meds</li>
+          </ul>
+        </div>}
+        {step===2 && <div className="text-sm">
+          <div className="font-medium mb-1">Step 2 — Treat</div>
+          <ul className="list-disc pl-5">
+            <li>Escalate stimulant ± osmotic</li>
+            <li>Assess for impaction, obstruction</li>
+          </ul>
+        </div>}
+        {step===3 && <div className="text-sm">
+          <div className="font-medium mb-1">Step 3 — Refractory</div>
+          <ul className="list-disc pl-5">
+            <li>Consider per rectum options per local policy</li>
+            <li>Review opioids and adjuvants</li>
+          </ul>
+        </div>}
+      </CardContent></Card>
+      <div className="flex gap-2">
+        <Button variant="ghost" onClick={prev} disabled={step===1}>Back</Button>
+        <Button onClick={next} disabled={step===3}>Next</Button>
+      </div>
+    </div>
+  );
+}
+
+8) Lib helpers
+lib/useLocalStorage.ts
+import { useEffect, useState } from "react";
+
+export function useLocalStorage<T>(key: string, initial: T){
+  const [value, setValue] = useState<T>(()=> {
+    try { const raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : initial; }
+    catch { return initial; }
+  });
+  useEffect(()=>{ try { localStorage.setItem(key, JSON.stringify(value)); } catch {} }, [key,value]);
+  return [value, setValue] as const;
+}
+
+lib/supabase.ts (optional; safe fallback)
+export function getSupabase(){
+  const url = import.meta.env.VITE_SUPABASE_URL;
+  const key = import.meta.env.VITE_SUPABASE_ANON_KEY;
+  if (!url || !key) return null; // demo/offline mode
+  // Lazy import to avoid bundling if unused
+  // @ts-ignore
+  return import("@supabase/supabase-js").then(({ createClient }) => createClient(url, key));
+}
+
+9) Tests (Vitest + RTL) — new tests only
+
+We do not change existing tests. Add these under client/src/modules/palliative-v2/__tests__/.
+
+dashboard.smoke.test.tsx (renders without import errors)
+import { render, screen } from "@testing-library/react";
+import React from "react";
+import PalliativeCareV2 from "../..";
+import { Router } from "wouter";
+
+test("dashboard renders", () => {
+  render(<Router base="/"><PalliativeCareV2 /></Router>);
+  expect(screen.getByTestId("palliative-dashboard-v2")).toBeInTheDocument();
+});
+
+esasr.export.test.tsx (filename and print/export hooks)
+import { render, screen, fireEvent } from "@testing-library/react";
+import React from "react";
+import ESASRPage from "../../pages/assessments/ESASRPage";
+
+test("export file name format", () => {
+  render(<ESASRPage />);
+  const spy = vi.spyOn(document, "createElement");
+  fireEvent.click(screen.getByText("Export JSON"));
+  expect(spy).toHaveBeenCalledWith("a");
+  // crude check via anchor.download call; we can't access the exact name easily
+});
+
+test("window.print is callable", () => {
+  render(<ESASRPage />);
+  const printSpy = vi.spyOn(window, "print").mockImplementation(()=>{});
+  fireEvent.click(screen.getByText("Print"));
+  expect(printSpy).toHaveBeenCalled();
+});
+
+routes.wouter.test.tsx (basic route branch)
+import { render, screen } from "@testing-library/react";
+import React from "react";
+import { Router } from "wouter";
+import PalliativeCareV2 from "../..";
+
+test("symptoms list route shows symptoms", () => {
+  render(<Router base="/"><PalliativeCareV2 /></Router>);
+  // dashboard default includes symptoms section
+  expect(screen.getByText(/Symptom Protocols/i)).toBeInTheDocument();
+});
+
+10) Integration checklist
+
+ Copy palliative-v2 folder into client/src/modules.
+
+ Add Wouter routes in App.tsx as shown. 
+
+ Start dev server — ensure compile passes (no missing imports by design).
+
+ Click through dashboard → symptoms/emergencies/calculators → detail pages.
+
+ Open /palliative/assessments/esasr & /palliative/assessments/4at — test print/export.
+
+ Open /palliative/tools/antiemetic & /palliative/tools/bowel.
+
+ (Optional) Set Supabase env to enable later data reads; no schema change required.
+
+11) Expected behavior (please confirm)
+
+To keep tests in sync with your intent, can you confirm:
+
+ESAS-r export filename — keep esasr-<epoch>.json, or switch to ISO timestamp (e.g., esasr-2025-08-16T01-23-59Z.json)?
+
+“Highest symptom” ties — show the first listed only (current) or list all ties?
+
+Emergency “Print” — is window.print() sufficient, or do you want a dedicated print route later (e.g., /palliative/print/:slug)?

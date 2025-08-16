@@ -5,3 +5,25 @@ server/public
 vite.config.ts.*
 *.tar.gz
 localhost-setup
+
+# VS Code Server files (large binary files)
+.config/
+.local/
+.vscode-server/
+.env
+*.db
+*.zip
+
+# OS and Editor files
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*.swp
+*~
+
+# Build and cache directories
+dist/
+build/
+.cache/
+.temp/

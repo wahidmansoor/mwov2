@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSP Test Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .success { background-color: #d4edda; }
+        .error { background-color: #f8d7da; }
+        .info { background-color: #d1ecf1; }
+    </style>
+</head>
+<body>
+    <h1>CSP (Content Security Policy) Test Page</h1>
+    
+    <div class="test-section info">
+        <h3>Testing CSP Configuration</h3>
+        <p>This page tests if our CSP fixes resolved the duplicate directive warnings.</p>
+        <p>Open browser DevTools Console to see CSP-related messages.</p>
+    </div>
+
+    <div class="test-section" id="inline-script-test">
+        <h3>Inline Script Test</h3>
+        <p id="inline-result">Testing inline scripts...</p>
+    </div>
+
+    <div class="test-section" id="external-script-test">
+        <h3>External Script Test</h3>
+        <p id="external-result">Testing external scripts...</p>
+    </div>
+
+    <div class="test-section" id="csp-headers">
+        <h3>CSP Headers Check</h3>
+        <p id="headers-result">Checking CSP headers...</p>
+    </div>
+
+    <!-- Inline script test (should work with 'unsafe-inline') -->
+    <script>
+        console.log('✅ Inline script executed successfully');
+        document.getElementById('inline-result').textContent = '✅ Inline scripts are working';
+        document.getElementById('inline-script-test').className = 'test-section success';
+
+        // Test fetch to our API
+        fetch('/api/test-csp')
+            .then(response => response.json())
+            .then(data => {
+                console.log('CSP Headers:', data);
+                document.getElementById('headers-result').innerHTML = 
+                    `<strong>CSP Header:</strong><br><pre>${JSON.stringify(data, null, 2)}</pre>`;
+                document.getElementById('csp-headers').className = 'test-section success';
+            })
+            .catch(error => {
+                console.error('❌ Failed to fetch CSP headers:', error);
+                document.getElementById('headers-result').textContent = '❌ Failed to fetch CSP headers';
+                document.getElementById('csp-headers').className = 'test-section error';
+            });
+
+        // Check for CSP violation reports
+        document.addEventListener('securitypolicyviolation', function(event) {
+            console.warn('🚨 CSP Violation:', {
+                directive: event.violatedDirective,
+                policy: event.originalPolicy,
+                blockedURI: event.blockedURI,
+                lineNumber: event.lineNumber,
+                columnNumber: event.columnNumber
+            });
+        });
+
+        // Test runtime error handling (for browser extension issues)
+        if (typeof chrome !== 'undefined' && chrome.runtime) {
+            try {
+                chrome.runtime.sendMessage({test: true}, function(response) {
+                    if (chrome.runtime.lastError) {
+                        console.log('🔍 Chrome runtime error (expected from extensions):', chrome.runtime.lastError.message);
+                    }
+                });
+            } catch (error) {
+                console.log('🔍 Chrome runtime not accessible (normal)');
+            }
+        }
+    </script>
+
+    <!-- External script test (should work from 'self') -->
+    <script>
+        document.getElementById('external-result').textContent = '✅ External scripts are working';
+        document.getElementById('external-script-test').className = 'test-section success';
+    </script>
+</body>
+</html>

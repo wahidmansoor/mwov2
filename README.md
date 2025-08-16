@@ -25,6 +25,28 @@ OncoVista is a comprehensive oncology application designed for clinical decision
 - **Comprehensive Data Export/Import** capabilities
 - **Multi-specialty Support** (Medical, Radiation, Palliative Oncology)
 
+
+## 🧩 Environment Setup
+
+Copy `.env.example` to `.env` and fill in your Supabase project keys:
+
+```
+NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+```
+
+## 🔌 Supabase Connectivity Smoke Test
+
+To verify Supabase connectivity and table access, run:
+
+```
+npm run smoke:supabase
+```
+
+This will check row counts for key tables and validate JSONB parsing. If you see RLS/policy errors, update your Supabase Row Level Security policies.
+
+---
 ## 🛠️ Tech Stack
 
 ### Frontend

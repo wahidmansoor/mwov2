@@ -36,7 +36,32 @@ const limiter = rateLimit({
 });
 
 // Middleware
-app.use(helmet());
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: [
+        "'self'", 
+        "'unsafe-inline'", 
+        "'unsafe-eval'",
+        "translate.googleapis.com",
+        "translate.google.com", 
+        "www.google.com",
+        "www.gstatic.com",
+        "replit.com",
+        "*.replit.com",
+        "chrome-extension:"
+      ],
+      styleSrc: ["'self'", "'unsafe-inline'", "translate.googleapis.com"],
+      imgSrc: ["'self'", "data:", "https:"],
+      connectSrc: ["'self'", "translate.googleapis.com"],
+      fontSrc: ["'self'", "translate.googleapis.com"],
+      objectSrc: ["'none'"],
+      mediaSrc: ["'self'"],
+      frameSrc: ["'none'"],
+    }
+  }
+}));
 app.use(cors({
   origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
   credentials: true

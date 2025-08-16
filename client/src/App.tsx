@@ -23,7 +23,11 @@ import MedicalOncologyView from "@/modules/handbook/MedicalOncologyView";
 import RadiationOncologyView from "@/modules/handbook/RadiationOncologyView";
 import PalliativeCareView from "@/modules/handbook/PalliativeCareView";
 
-import ComprehensivePalliativeCare from "@/modules/palliative/ComprehensivePalliativeCare";
+import PalliativeCareV2 from "@/modules/palliative-v2";
+import ESASRPage from "@/modules/palliative-v2/pages/assessments/ESASRPage";
+import FourATPage from "@/modules/palliative-v2/pages/assessments/FourATPage";
+import AntiemeticSelector from "@/modules/palliative-v2/pages/tools/AntiemeticSelector";
+import BowelRegimenWizard from "@/modules/palliative-v2/pages/tools/BowelRegimenWizard";
 import OncologyEducationModule from "@/modules/education/OncologyEducationModule";
 import NotFound from "@/pages/not-found";
 
@@ -70,7 +74,67 @@ function Router() {
       
       <Route path="/palliative">
         <Layout>
-          <ComprehensivePalliativeCare />
+          <PalliativeCareV2 />
+        </Layout>
+      </Route>
+      
+      <Route path="/palliative/symptoms">
+        <Layout>
+          <PalliativeCareV2 />
+        </Layout>
+      </Route>
+      
+      <Route path="/palliative/symptoms/:slug">
+        <Layout>
+          <PalliativeCareV2 />
+        </Layout>
+      </Route>
+      
+      <Route path="/palliative/emergencies">
+        <Layout>
+          <PalliativeCareV2 />
+        </Layout>
+      </Route>
+      
+      <Route path="/palliative/emergencies/:slug">
+        <Layout>
+          <PalliativeCareV2 />
+        </Layout>
+      </Route>
+      
+      <Route path="/palliative/calculators">
+        <Layout>
+          <PalliativeCareV2 />
+        </Layout>
+      </Route>
+      
+      <Route path="/palliative/calculators/:id">
+        <Layout>
+          <PalliativeCareV2 />
+        </Layout>
+      </Route>
+      
+      <Route path="/palliative/assessments/esasr">
+        <Layout>
+          <ESASRPage />
+        </Layout>
+      </Route>
+      
+      <Route path="/palliative/assessments/4at">
+        <Layout>
+          <FourATPage />
+        </Layout>
+      </Route>
+      
+      <Route path="/palliative/tools/antiemetic">
+        <Layout>
+          <AntiemeticSelector />
+        </Layout>
+      </Route>
+      
+      <Route path="/palliative/tools/bowel">
+        <Layout>
+          <BowelRegimenWizard />
         </Layout>
       </Route>
       
