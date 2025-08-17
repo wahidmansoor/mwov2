@@ -6,9 +6,6 @@ import {
   Stethoscope,
   Wrench,
 } from "lucide-react";
-
-// Helper to allow className prop on Lucide icons
-const LucideIcon = (Icon: any, props: any) => <Icon {...props} />;
 import {
   Card,
   CardHeader,
@@ -23,6 +20,9 @@ import CalculatorsGrid from "./components/CalculatorsGrid";
 import CalculatorDetail from "./components/CalculatorDetail";
 import AssessmentsStrip from "./components/AssessmentsStrip";
 import ToolsStrip from "./components/ToolsStrip";
+
+// Helper to allow className prop on Lucide icons
+const LucideIcon = (Icon: any, props: any) => <Icon {...props} />;
 
 export default function PalliativeCareV2() {
   const [location, setLocation] = useLocation();
