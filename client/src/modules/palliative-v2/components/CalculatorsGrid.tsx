@@ -1,10 +1,11 @@
+// ...existing code...
 // client/src/modules/palliative-v2/components/CalculatorsGrid.tsx
 import React from "react";
 import { useLocation } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { fetchCalculators, fetchCalculatorBySlug } from "../services/calculators";
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "./ui";
+import ActionPill from "./ActionPill";
 
 type CalculatorsGridProps = {
   mode: "list" | "detail";
@@ -61,7 +62,7 @@ export default function CalculatorsGrid(props: CalculatorsGridProps) {
           <CardContent>
             <div className="font-medium">{c.title}</div>
             <div className="text-xs text-muted-foreground mb-2">{c.kind}</div>
-            <Button className="ml-auto" onClick={() => setLocation(`/palliative/calculators/${c.slug}`)}>{"Open"}</Button>
+            <ActionPill label="Open" to={`/palliative/calculators/${c.slug}`} />
           </CardContent>
         </Card>
       ))}

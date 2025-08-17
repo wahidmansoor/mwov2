@@ -1,3 +1,4 @@
+import ActionPill from "./ActionPill";
 // client/src/modules/palliative-v2/components/EmergenciesList.tsx
 import React, { useEffect, useMemo, useState } from "react";
 import { useLocation } from "wouter";
@@ -92,6 +93,7 @@ type Props = {
   slug?: string;
   limit?: number;
   onBack?: () => void;
+  variant?: "normal" | "compact"; // NEW
 };
 
 /* =============================================================================
@@ -428,7 +430,7 @@ function renderUnknown(value: unknown) {
 /* =============================================================================
    Component
    ============================================================================= */
-export default function EmergenciesList({ mode, slug, limit, onBack }: Props) {
+export default function EmergenciesList({ mode, slug, limit, onBack, variant = "normal" }: Props) {
   const [, setLocation] = useLocation();
   const [emergencies, setEmergencies] = useState<EmergencyRow[]>([]);
   const [loading, setLoading] = useState(true);
@@ -569,6 +571,48 @@ export default function EmergenciesList({ mode, slug, limit, onBack }: Props) {
   });
   const list = typeof limit === "number" ? filtered.slice(0, limit) : filtered;
 
+  // NEW: compact variant for dashboard tile
+  if (variant === "compact") {
+    return (
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
+        {list.map((e) => (
+          <Card key={e.slug} className="p-3">
+            <CardHeader className="p-0">
+              <CardTitle className="text-sm font-semibold leading-tight flex items-center justify-between gap-2">
+                <span className="truncate">{e.title}</span>
+                <span className="flex items-center gap-1 shrink-0">
+                  {e.evidence && (
+                    <Badge variant="outline" className="text-[10px] px-1.5 py-0.5">
+                      Evidence {e.evidence}
+                    </Badge>
+                  )}
+                  <Badge
+                    variant="secondary"
+                    className={`text-[10px] px-1.5 py-0.5 ${
+                      e.urgency === "red" ? "bg-red-100 text-red-700" : "bg-amber-100 text-amber-700"
+                    }`}
+                  >
+                    {e.urgency === "red" ? "Critical" : "Urgent"}
+                  </Badge>
+                </span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-0 mt-2 text-xs text-muted-foreground">
+              <p className="line-clamp-2"
+                 style={{ display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
+                {e.overview}
+              </p>
+              <div className="mt-3">
+                <ActionPill label="Open" to={`/palliative/emergencies/${e.slug}`} />
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    );
+  }
+
+  // Existing (normal) list rendering stays as-is
   return (
     <div className="grid gap-3 p-1">
       {!limit && (
@@ -628,9 +672,7 @@ export default function EmergenciesList({ mode, slug, limit, onBack }: Props) {
                 </div>
 
                 <div className="flex justify-end pt-1">
-                  <Button onClick={() => setLocation(`/palliative/emergencies/${e.slug}`)} className="text-xs">
-                    View Details
-                  </Button>
+                  <ActionPill label="Open" to={`/palliative/emergencies/${e.slug}`} />
                 </div>
               </div>
             </CardContent>

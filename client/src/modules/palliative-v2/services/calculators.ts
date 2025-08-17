@@ -11,15 +11,56 @@ export type PalliativeCalculator = {
   created_at: string | null;
 };
 
-function mapRow(r: any): PalliativeCalculator {
-  return {
-    id: r.id,
-    slug: r.slug,
-    title: r.title,
-    kind: r.kind,
-    config: r.config ?? {},
-    created_at: r.created_at ?? null,
-  };
+
+const LOCAL_FALLBACK: PalliativeCalculator[] = [
+  {
+    id: "local-ecog",
+    slug: "ecog",
+    title: "ECOG Performance Status",
+    kind: "ecog",
+    config: { version: "fallback-1.0" },
+    created_at: null
+  }
+];
+
+export async function fetchCalculatorsFromDB(): Promise<PalliativeCalculator[]> {
+  const { data, error } = await supabase
+    .from("palliative_calculators")
+    .select("id, slug, title, kind, config, created_at")
+    .order("title", { ascending: true });
+
+  if (error) throw error as PostgrestError;
+  return (data ?? []) as PalliativeCalculator[];
+}
+
+export async function getCalculators(): Promise<PalliativeCalculator[]> {
+  try {
+    const rows = await fetchCalculatorsFromDB();
+    if (rows && rows.length) return rows;
+    return LOCAL_FALLBACK; // DB empty
+  } catch {
+    return LOCAL_FALLBACK; // DB unreachable
+  }
+}
+
+export async function getCalculatorBySlugOrId(key: string): Promise<PalliativeCalculator | null> {
+  let { data, error } = await supabase
+    .from("palliative_calculators")
+    .select("id, slug, title, kind, config, created_at")
+    .eq("slug", key)
+    .maybeSingle();
+
+  if (!error && data) return data as PalliativeCalculator;
+
+  ({ data, error } = await supabase
+    .from("palliative_calculators")
+    .select("id, slug, title, kind, config, created_at")
+    .eq("id", key)
+    .maybeSingle());
+
+  if (!error && data) return data as PalliativeCalculator;
+
+  return LOCAL_FALLBACK.find(c => c.slug === key || c.id === key) ?? null;
 }
 
 /** Fetch all calculators (ordered by title ASC). */

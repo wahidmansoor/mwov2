@@ -1,14 +1,14 @@
 // client/src/modules/palliative-v2/components/AssessmentsStrip.tsx
 import React from "react";
 import { useLocation } from "wouter";
-import { Button } from "@/components/ui/button";
+import ActionPill from "./ActionPill";
 
 export default function AssessmentsStrip() {
   const [, setLocation] = useLocation();
   return (
     <div className="flex flex-wrap gap-2">
-      <Button onClick={()=>setLocation("/palliative/assessments/esasr")}>Open ESAS-r</Button>
-      <Button onClick={()=>setLocation("/palliative/assessments/4at")} variant="outline">Open 4AT</Button>
+  <ActionPill label="Open ESAS-r" to="/palliative/assessments/esasr" />
+  <ActionPill label="Open 4AT" to="/palliative/assessments/4at" />
     </div>
   );
 }
