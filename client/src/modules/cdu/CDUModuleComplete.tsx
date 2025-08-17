@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
@@ -574,6 +574,11 @@ const TreatmentProtocols = () => {
   // Fetch authentic cd_protocols data from database
   const { data: dbProtocols, isLoading, error } = useQuery({
     queryKey: ['/api/cdu/protocols'],
+    queryFn: async () => {
+      // Use dynamic import with explicit type for protocolService
+      const mod = await import('@/services/api');
+      return (mod.protocolService as { getAll: () => Promise<any[]> }).getAll();
+    },
     staleTime: 5 * 60 * 1000, // 5 minutes
   });
 
@@ -582,7 +587,7 @@ const TreatmentProtocols = () => {
     if (!dbProtocols || !Array.isArray(dbProtocols)) {
       return fallbackProtocols; // Only use fallback during loading
     }
-    return dbProtocols.map(transformProtocol);
+    return (dbProtocols as any[]).map(transformProtocol);
   }, [dbProtocols]);
 
   // Filter protocols based on search criteria and biomarkers

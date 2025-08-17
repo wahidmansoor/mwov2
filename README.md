@@ -1,39 +1,42 @@
-# OncoVista - Comprehensive Oncology Application
+# OncoVista – Comprehensive Oncology Application
 
-![OncoVista](https://img.shields.io/badge/OncoVista-v1.0.0-blue) ![React](https://img.shields.io/badge/React-18.3.1-blue) ![TypeScript](https://img.shields.io/badge/TypeScript-5.6.3-blue) ![Supabase](https://img.shields.io/badge/Supabase-PostgreSQL-green) ![Netlify](https://img.shields.io/badge/Netlify-Ready-success)
+![OncoVista](https://img.shields.io/badge/OncoVista-v1.0.0-blue) ![React](https://img.shields.io/badge/React-18-blue) ![TypeScript](https://img.shields.io/badge/TypeScript-5.6-blue) ![Supabase](https://img.shields.io/badge/Supabase-PostgreSQL-green) ![Netlify](https://img.shields.io/badge/Netlify-Ready-success)
 
-OncoVista is a comprehensive oncology application designed for clinical decision support, patient management, and medical education. Built with modern web technologies and AI integration, it provides oncologists with powerful tools for patient care and clinical workflows.
+OncoVista is a modular, full-stack oncology platform for clinical decision support, patient management, and medical education. It is built as a monorepo with a modern React + Node.js stack, PostgreSQL/Supabase backend, and robust AI integration for evidence-based clinical tools.
 
 ## 🚀 Features
 
 ### Clinical Modules
-- **🏥 OPD Module**: Outpatient department management and consultations
-- **🩺 CDU Module**: Clinical Decision Unit with protocol support
-- **🛏️ Inpatient Management**: Hospital patient management system
-- **💊 Palliative Care**: Specialized palliative care workflows
-- **📊 Analytics**: Clinical data analysis and reporting
-- **🤖 AI Assistant**: AI-powered clinical decision support
-- **📚 Education Module**: Medical oncology education platform
-- **📖 Clinical Handbook**: Comprehensive medical reference
+- **OPD Module**: Outpatient management and consultations
+- **CDU Module**: Clinical Decision Unit with protocol support
+- **Inpatient Management**: Hospital patient management
+- **Palliative Care**: Specialized palliative workflows
+- **Analytics**: Clinical data analysis and reporting
+- **AI Assistant**: AI-powered clinical decision support
+- **Education Module**: Oncology education platform
+- **Clinical Handbook**: Medical reference
 
 ### Technical Features
-- **AI-Powered Decision Support** with OpenAI and Anthropic integration
-- **Role-Based Access Control (RBAC)** for different user types
-- **Real-time Chat & Notifications** for clinical communication
-- **Advanced Risk Calculation** algorithms
-- **Clinical Protocol Versioning** system
-- **Comprehensive Data Export/Import** capabilities
-- **Multi-specialty Support** (Medical, Radiation, Palliative Oncology)
+- **AI-Powered Decision Support** (OpenAI, Anthropic integration)
+- **Role-Based Access Control (RBAC)**
+- **Real-time Chat & Notifications**
+- **Advanced Risk Calculation**
+- **Clinical Protocol Versioning**
+- **Data Import/Export**
+- **Multi-specialty Support**
 
 
 ## 🧩 Environment Setup
 
-Copy `.env.example` to `.env` and fill in your Supabase project keys:
+Copy `.env.example` to `.env` and fill in your Supabase and API keys:
 
 ```
-NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
-SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+SUPABASE_URL=your_supabase_project_url
+SUPABASE_ANON_KEY=your_supabase_anon_key
+OPENAI_API_KEY=your_openai_api_key
+ANTHROPIC_API_KEY=your_anthropic_api_key
+NODE_ENV=development
+SESSION_SECRET=your_session_secret
 ```
 
 ## 🔌 Supabase Connectivity Smoke Test
@@ -50,62 +53,53 @@ This will check row counts for key tables and validate JSONB parsing. If you see
 ## 🛠️ Tech Stack
 
 ### Frontend
-- **React 18.3.1** + **TypeScript** for type-safe development
-- **Vite** for fast development and optimized builds
-- **Tailwind CSS** + **Radix UI** for modern, accessible UI components
-- **TanStack React Query** for efficient data fetching
-- **Zustand** for lightweight state management
-- **Framer Motion** for smooth animations
+- **React 18 + TypeScript** (Vite)
+- **Tailwind CSS** + **Radix UI** (custom UI kit)
+- **TanStack Query** for data fetching
+- **Zustand** for state management
+- **Wouter** for routing
 
 ### Backend
-- **Node.js** + **Express.js** for robust server architecture
-- **PostgreSQL** via **Supabase** for scalable database
-- **Drizzle ORM** for type-safe database operations
-- **Zod** for runtime validation
-- **Passport.js** for authentication
+- **Node.js + Express.js**
+- **Drizzle ORM**
+- **PostgreSQL** (Neon/Supabase)
+- **Zod** for validation
 
 ### AI & Integration
-- **OpenAI GPT** for clinical assistance
-- **Anthropic Claude** for advanced reasoning
-- **WebSocket** support for real-time features
+- **OpenAI GPT** and **Anthropic Claude**
+- **WebSocket** for real-time features
 
 ### Deployment
-- **Netlify** for seamless deployment and CDN
-- **Supabase** for managed PostgreSQL and authentication
-- **Serverless Functions** for scalable backend operations
+- **Netlify** (serverless functions)
+- **Supabase** (PostgreSQL, Auth)
 
 ## 📦 Quick Start
 
 ### Prerequisites
-- Node.js 18+ 
-- npm or yarn package manager
+- Node.js 18+
+- npm or yarn
 - Supabase account
-- OpenAI/Anthropic API keys (optional, for AI features)
+- OpenAI/Anthropic API keys (optional)
 
 ### Installation
-
 1. **Clone the repository**
    ```bash
    git clone https://github.com/wahidmansoor/mwov.git
    cd mwov
    ```
-
 2. **Install dependencies**
    ```bash
    npm install
    ```
-
 3. **Environment setup**
    ```bash
    cp .env.example .env
    # Edit .env with your configuration
    ```
-
 4. **Database setup**
    ```bash
    npm run db:push
    ```
-
 5. **Start development server**
    ```bash
    npm run dev
@@ -121,50 +115,39 @@ Visit `http://localhost:3000` to access the application.
 - **[Tech Stack Analysis](./TECH_STACK_ANALYSIS.md)** - Detailed technical overview
 - **[Troubleshooting](./docs/troubleshooting.md)** - Common issues and solutions
 
-## 🏗️ Project Structure
+## 🏗️ Monorepo Structure
 
 ```
 mwov/
-├── client/                 # React frontend application
-│   ├── src/
-│   │   ├── components/     # Reusable UI components
-│   │   ├── modules/        # Feature modules (OPD, CDU, etc.)
-│   │   ├── pages/          # Application pages
-│   │   ├── hooks/          # Custom React hooks
-│   │   └── services/       # API services
-│   └── index.html
-├── server/                 # Express.js backend
-│   ├── routes/             # API route definitions
-│   ├── services/           # Business logic services
-│   ├── middleware/         # Express middleware
+├── client/           # React frontend (Vite + TypeScript)
+│   └── src/
+│       ├── components/ui/   # UI kit (Radix + Tailwind)
+│       ├── modules/         # Clinical modules (OPD, CDU, etc.)
+│       ├── pages/           # Route components
+│       ├── services/        # API services (ApiService pattern)
+│       └── ...
+├── server/           # Express.js backend
+│   ├── routes/       # API route definitions
+│   ├── services/     # Business logic
+│   ├── middleware/   # Auth, error handling
 │   └── index.ts
-├── shared/                 # Shared types and schemas
-├── netlify/               # Netlify deployment files
-└── docs/                  # Documentation
+├── shared/           # Shared types and schemas (schema.ts)
+├── netlify/          # Netlify deployment functions
+└── docs/             # Documentation
 ```
 
 ## 🔧 Development
 
-### Available Scripts
+### Essential Commands
 
 ```bash
-npm run dev          # Start development server
-npm run build        # Build for production
-npm run start        # Start production server
-npm run db:push      # Push database schema changes
-npm run check        # Type checking
-```
-
-### Key Development Commands
-
-```bash
-# Database operations
-npm run db:push      # Push schema to database
-npm run db:studio    # Open Drizzle Studio (if configured)
-
-# Build and deployment
-npm run build        # Production build
-npm run preview      # Preview production build
+npm run dev            # Start both client & server (dev mode)
+npm run build           # Build for production
+npm run start          # Start production server
+npm run db:push        # Push schema changes to database
+npm run smoke:supabase # Test database connectivity
+npm run build:netlify  # Build for Netlify deployment
+npm run check          # Type checking
 ```
 
 ## 🌐 Deployment
@@ -173,27 +156,22 @@ npm run preview      # Preview production build
 
 1. **Connect GitHub repository** to Netlify
 2. **Configure build settings**:
-   - Build command: `npm run build`
+   - Build command: `npm run build:netlify`
    - Publish directory: `dist/public`
 3. **Set environment variables** in Netlify dashboard
 4. **Deploy** automatically on git push
 
-For detailed deployment instructions, see [Deployment Guide](./README-deployment.md).
+See [Deployment Guide](./README-deployment.md) for details.
 
 ### Environment Variables
 
-Create a `.env` file based on `.env.example`:
+See `.env.example` for all required variables. Key variables:
 
 ```bash
-# Database
 SUPABASE_URL=your_supabase_project_url
 SUPABASE_ANON_KEY=your_supabase_anon_key
-
-# AI Services (optional)
 OPENAI_API_KEY=your_openai_api_key
 ANTHROPIC_API_KEY=your_anthropic_api_key
-
-# Application
 NODE_ENV=development
 SESSION_SECRET=your_session_secret
 ```
@@ -210,10 +188,13 @@ We welcome contributions! Please see our contributing guidelines:
 
 ### Development Guidelines
 
-- Follow TypeScript best practices
+- Follow TypeScript strict mode and best practices
+- Use the `ApiService` pattern for all API services
+- Extend clinical modules using the module architecture pattern
+- Use Zod schemas for validation at API boundaries
 - Maintain test coverage for new features
 - Use conventional commit messages
-- Update documentation for new features
+- Update documentation for new features and modules
 
 ## 📄 License
 
@@ -222,18 +203,16 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🆘 Support
 
 ### Getting Help
-
-- **Documentation**: Check our comprehensive [docs/](./docs/) folder
-- **Issues**: Open a GitHub issue for bugs or feature requests
-- **Discussions**: Use GitHub Discussions for questions
+- **Documentation**: See [docs/](./docs/)
+- **Issues**: Open a GitHub issue
+- **Discussions**: Use GitHub Discussions
 
 ### Common Issues
+- **Database Connection**: Check Supabase credentials
+- **Build Errors**: Ensure Node.js 18+ is used
+- **Environment Variables**: Verify all required variables
 
-- **Database Connection**: Ensure Supabase credentials are correct
-- **Build Errors**: Check Node.js version (18+ required)
-- **Environment Variables**: Verify all required variables are set
-
-See [Troubleshooting Guide](./docs/troubleshooting.md) for detailed solutions.
+See [Troubleshooting Guide](./docs/troubleshooting.md) for more.
 
 ## 🙏 Acknowledgments
 
@@ -243,6 +222,7 @@ See [Troubleshooting Guide](./docs/troubleshooting.md) for detailed solutions.
 
 ---
 
-**OncoVista** - Enhancing oncology care through technology
+
+**OncoVista** – Enhancing oncology care through technology
 
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/wahidmansoor/mwov)

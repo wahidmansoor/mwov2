@@ -3,85 +3,73 @@ import { supabase, db } from '../lib/supabase.js'
 // Generic API service class
 class ApiService {
   constructor(tableName) {
-    this.tableName = tableName
-    this.table = db.query(tableName)
+    this.tableName = tableName;
   }
 
   // CRUD operations
   async getAll(options = {}) {
-    const { columns = '*', filter, orderBy, limit } = options
-    
-    let query = this.table.select(columns)
-    
+    const { columns = '*', filter, orderBy, limit } = options;
+    let query = (await db.query(this.tableName)).select(columns);
     if (filter) {
       Object.entries(filter).forEach(([key, value]) => {
-        query = query.eq(key, value)
-      })
+        query = query.eq(key, value);
+      });
     }
-    
     if (orderBy) {
-      query = query.order(orderBy.column, { ascending: orderBy.ascending ?? true })
+      query = query.order(orderBy.column, { ascending: orderBy.ascending ?? true });
     }
-    
     if (limit) {
-      query = query.limit(limit)
+      query = query.limit(limit);
     }
-    
-    const { data, error } = await query
-    if (error) throw error
-    return data
+    const { data, error } = await query;
+    if (error) throw error;
+    return data;
   }
 
   async getById(id, columns = '*') {
-    const { data, error } = await this.table
+    const { data, error } = await (await db.query(this.tableName))
       .select(columns)
       .eq('id', id)
-      .single()
-    
-    if (error) throw error
-    return data
+      .single();
+    if (error) throw error;
+    return data;
   }
 
   async create(item) {
-    const { data, error } = await this.table
+    const { data, error } = await (await db.query(this.tableName))
       .insert(item)
       .select()
-      .single()
-    
-    if (error) throw error
-    return data
+      .single();
+    if (error) throw error;
+    return data;
   }
 
   async update(id, updates) {
-    const { data, error } = await this.table
+    const { data, error } = await (await db.query(this.tableName))
       .update(updates)
       .eq('id', id)
       .select()
-      .single()
-    
-    if (error) throw error
-    return data
+      .single();
+    if (error) throw error;
+    return data;
   }
 
   async delete(id) {
-    const { error } = await this.table
+    const { error } = await (await db.query(this.tableName))
       .delete()
-      .eq('id', id)
-    
-    if (error) throw error
-    return true
+      .eq('id', id);
+    if (error) throw error;
+    return true;
   }
 
   async search(column, value, options = {}) {
-    const { columns = '*', limit = 50 } = options
-    
-    const { data, error } = await this.table
+    const { columns = '*', limit = 50 } = options;
+    const { data, error } = await (await db.query(this.tableName))
       .select(columns)
       .ilike(column, `%${value}%`)
-      .limit(limit)
-    
-    if (error) throw error
-    return data
+      .limit(limit);
+    if (error) throw error;
+    return data;
   }
 }
 

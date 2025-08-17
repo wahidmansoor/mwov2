@@ -18,14 +18,16 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@shared/*": ["../shared/*"]
+      "@shared/*": ["../shared/*"],
+      "@root_lib/*": ["../src/lib/*"]
     },
     "types": ["node", "vitest/globals"],
     "lib": ["ES2022"]
   },
   "include": [
     "src/**/*",
-    "../shared/**/*"
+    "../shared/**/*",
+    "../src/lib/**/*"
   ],
   "exclude": [
     "node_modules",

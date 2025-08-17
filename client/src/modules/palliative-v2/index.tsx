@@ -1,3 +1,5 @@
+// client/src/modules/palliative-v2/index.tsx
+// ...existing code...
 import { useLocation, useRoute } from "wouter";
 import {
   Activity,
@@ -6,6 +8,9 @@ import {
   Stethoscope,
   Wrench,
 } from "lucide-react";
+
+// Helper to allow className prop on Lucide icons
+const LucideIcon = (Icon: any, props: any) => <Icon {...props} />;
 import {
   Card,
   CardHeader,
@@ -20,9 +25,6 @@ import CalculatorsGrid from "./components/CalculatorsGrid";
 import CalculatorDetail from "./components/CalculatorDetail";
 import AssessmentsStrip from "./components/AssessmentsStrip";
 import ToolsStrip from "./components/ToolsStrip";
-
-// Helper to allow className prop on Lucide icons
-const LucideIcon = (Icon: any, props: any) => <Icon {...props} />;
 
 export default function PalliativeCareV2() {
   const [location, setLocation] = useLocation();
@@ -132,8 +134,8 @@ export default function PalliativeCareV2() {
       className="flex-1 space-y-4 p-4 md:p-8 pt-6"
       data-testid="palliative-dashboard-v2"
     >
-      <DashboardBackButton />
       <Header />
+      
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
         <Card className="md:col-span-2 border-l-4 border-l-blue-600">
           <CardHeader>
@@ -193,22 +195,6 @@ export default function PalliativeCareV2() {
       </div>
       <Disclaimer />
     </div>
-  );
-}
-
-// Back button for dashboard (must be a React component to use hooks)
-function DashboardBackButton() {
-  const [, setLocation] = useLocation();
-  return (
-    <button
-      type="button"
-      onClick={() => setLocation("/")}
-      className="mb-2 inline-flex items-center gap-2 text-sm font-medium text-blue-700 hover:underline focus:outline-none"
-      aria-label="Back to main"
-    >
-      <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
-      Back
-    </button>
   );
 }
 
