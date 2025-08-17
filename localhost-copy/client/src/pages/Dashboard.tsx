@@ -5,7 +5,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useLocation } from "wouter";
-import { useAuth } from "@/hooks/useAuth";
 import ClinicalAlertSystem from "@/components/clinical/ClinicalAlertSystem";
 import BiomarkerTrendAnalysis from "@/components/clinical/BiomarkerTrendAnalysis";
 import PatientJourneyTracker from "@/components/clinical/PatientJourneyTracker";
@@ -47,7 +46,6 @@ interface Activity {
 
 export default function Dashboard() {
   const [, setLocation] = useLocation();
-  const { user } = useAuth();
   const [aiEngineActive, setAiEngineActive] = useState(true);
 
   // Fetch dashboard stats
@@ -138,7 +136,7 @@ export default function Dashboard() {
         <div>
           <h1 className="text-3xl font-bold text-slate-900">Dashboard Overview</h1>
           <p className="text-slate-600 mt-1">
-            Welcome back, {user?.firstName || "Doctor"}. Monitor patient care and clinical workflows.
+            Welcome back, Doctor. Monitor patient care and clinical workflows.
           </p>
         </div>
         

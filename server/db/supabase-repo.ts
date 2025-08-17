@@ -6,14 +6,16 @@ import {
   SymptomManagementSchema, PainManagementProtocolSchema, MonitoringParameterSchema,
   PerformanceStatusScaleSchema, BiomarkerGuidelineSchema, FollowUpProtocolSchema,
   AdmissionCriteriaSchema, DischargeCriteriaSchema, TreatmentPlanCriteriaSchema,
-  TreatmentPlanMappingSchema,
-  type NccnGuideline, type ClinicalProtocol, type TreatmentProtocol,
+  TreatmentPlanMappingSchema, SupportiveCareProtocolSchema, PalliativeSymptomProtocolSchema,
+  PalliativeEmergencyGuidelineSchema, PalliativeCalculatorSchema, UserSchema, AiInteractionSchema,
+  type User, type AiInteraction, type NccnGuideline, type ClinicalProtocol, type TreatmentProtocol,
   type CdProtocol, type OncologyMedication, type AdverseEvent,
   type AdverseEventManagement, type EmergencyScenario, type EmergencyProtocol,
   type SymptomManagement, type PainManagementProtocol, type MonitoringParameter,
   type PerformanceStatusScale, type BiomarkerGuideline, type FollowUpProtocol,
   type AdmissionCriteria, type DischargeCriteria, type TreatmentPlanCriteria,
-  type TreatmentPlanMapping
+  type TreatmentPlanMapping, type SupportiveCareProtocol, type PalliativeSymptomProtocol,
+  type PalliativeEmergencyGuideline, type PalliativeCalculator
 } from './models.js';
 import { z } from 'zod';
 
@@ -27,6 +29,34 @@ export class SupabaseRepository {
         autoRefreshToken: false
       }
     });
+  }
+
+  // Foreign key validation helper
+  async validateUserExists(userId: string): Promise<boolean> {
+    try {
+      const { data, error } = await this.supabase
+        .from('users')
+        .select('id')
+        .eq('id', userId)
+        .single();
+      return !error && !!data;
+    } catch {
+      return false;
+    }
+  }
+
+  // Generic validation for any table reference
+  async validateReference(table: string, id: string, column = 'id'): Promise<boolean> {
+    try {
+      const { data, error } = await this.supabase
+        .from(table)
+        .select(column)
+        .eq(column, id)
+        .single();
+      return !error && !!data;
+    } catch {
+      return false;
+    }
   }
 
   async health(): Promise<boolean> {
@@ -445,6 +475,170 @@ export class SupabaseRepository {
       return z.array(TreatmentPlanMappingSchema).parse(data);
     } catch {
       return [];
+    }
+  }
+
+  // New methods for additional tables
+  async supportiveCareProtocols(filter?: { category?: string; cancer_type?: string }, limit = 50): Promise<SupportiveCareProtocol[]> {
+    try {
+      let query = this.supabase
+        .from('supportive_care_protocols')
+        .select('*')
+        .eq('is_active', true)
+        .limit(Math.min(limit, 200));
+
+      if (filter?.category) {
+        query = query.eq('category', filter.category);
+      }
+      if (filter?.cancer_type) {
+        query = query.eq('cancer_type', filter.cancer_type);
+      }
+
+      const { data, error } = await query;
+      if (error || !data) return [];
+      return z.array(SupportiveCareProtocolSchema).parse(data);
+    } catch {
+      return [];
+    }
+  }
+
+  async palliativeSymptomProtocols(filter?: { category?: string; slug?: string }, limit = 50): Promise<PalliativeSymptomProtocol[]> {
+    try {
+      let query = this.supabase
+        .from('palliative_symptom_protocols')
+        .select('*')
+        .limit(Math.min(limit, 200));
+
+      if (filter?.category) {
+        query = query.eq('category', filter.category);
+      }
+      if (filter?.slug) {
+        query = query.eq('slug', filter.slug);
+      }
+
+      const { data, error } = await query;
+      if (error || !data) return [];
+      return z.array(PalliativeSymptomProtocolSchema).parse(data);
+    } catch {
+      return [];
+    }
+  }
+
+  async palliativeEmergencyGuidelines(filter?: { urgency?: string; slug?: string }, limit = 50): Promise<PalliativeEmergencyGuideline[]> {
+    try {
+      let query = this.supabase
+        .from('palliative_emergency_guidelines')
+        .select('*')
+        .limit(Math.min(limit, 200));
+
+      if (filter?.urgency) {
+        query = query.eq('urgency', filter.urgency);
+      }
+      if (filter?.slug) {
+        query = query.eq('slug', filter.slug);
+      }
+
+      const { data, error } = await query;
+      if (error || !data) return [];
+      return z.array(PalliativeEmergencyGuidelineSchema).parse(data);
+    } catch {
+      return [];
+    }
+  }
+
+  async palliativeCalculators(filter?: { kind?: string; slug?: string }, limit = 50): Promise<PalliativeCalculator[]> {
+    try {
+      let query = this.supabase
+        .from('palliative_calculators')
+        .select('*')
+        .limit(Math.min(limit, 200));
+
+      if (filter?.kind) {
+        query = query.eq('kind', filter.kind);
+      }
+      if (filter?.slug) {
+        query = query.eq('slug', filter.slug);
+      }
+
+      const { data, error } = await query;
+      if (error || !data) return [];
+      return z.array(PalliativeCalculatorSchema).parse(data);
+    } catch {
+      return [];
+    }
+  }
+
+  async users(filter?: { email?: string; is_active?: boolean }, limit = 50): Promise<User[]> {
+    try {
+      let query = this.supabase
+        .from('users')
+        .select('*')
+        .limit(Math.min(limit, 200));
+
+      if (filter?.email) {
+        query = query.eq('email', filter.email);
+      }
+      if (filter?.is_active !== undefined) {
+        query = query.eq('is_active', filter.is_active);
+      }
+
+      const { data, error } = await query;
+      if (error || !data) return [];
+      return z.array(UserSchema).parse(data);
+    } catch {
+      return [];
+    }
+  }
+
+  async createAiInteraction(interaction: Omit<AiInteraction, 'id' | 'created_at'>): Promise<AiInteraction | null> {
+    try {
+      // Validate user exists if user_id is provided
+      if (interaction.user_id && !(await this.validateUserExists(interaction.user_id))) {
+        throw new Error(`Invalid user_id: User ${interaction.user_id} does not exist`);
+      }
+
+      const { data, error } = await this.supabase
+        .from('ai_interactions')
+        .insert([{
+          ...interaction,
+          created_at: new Date().toISOString()
+        }])
+        .select()
+        .single();
+
+      if (error || !data) return null;
+      return AiInteractionSchema.parse(data);
+    } catch (e) {
+      console.error('Error creating AI interaction:', e);
+      return null;
+    }
+  }
+
+  async createCdProtocol(protocol: Omit<CdProtocol, 'id' | 'created_at' | 'updated_at'>): Promise<CdProtocol | null> {
+    try {
+      // Validate foreign key references
+      if (protocol.created_by && !(await this.validateUserExists(protocol.created_by))) {
+        throw new Error(`Invalid created_by: User ${protocol.created_by} does not exist`);
+      }
+      if (protocol.updated_by && !(await this.validateUserExists(protocol.updated_by))) {
+        throw new Error(`Invalid updated_by: User ${protocol.updated_by} does not exist`);
+      }
+
+      const { data, error } = await this.supabase
+        .from('cd_protocols')
+        .insert([{
+          ...protocol,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString()
+        }])
+        .select()
+        .single();
+
+      if (error || !data) return null;
+      return CdProtocolSchema.parse(data);
+    } catch (e) {
+      console.error('Error creating CD protocol:', e);
+      return null;
     }
   }
 }

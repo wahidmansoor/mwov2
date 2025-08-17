@@ -1,5 +1,3 @@
-import { useAuth } from "./useAuth";
-
 const rolePermissions = {
   medical_oncologist: [
     "view_patient_data",
@@ -48,35 +46,22 @@ const rolePermissions = {
 };
 
 export function usePermissions() {
-  const { user } = useAuth();
-
-  const hasPermission = (permission: string): boolean => {
-    if (!user || !user.role) return false;
-    
-    // Check explicit permissions first
-    if (user.permissions?.includes(permission)) return true;
-    
-    // Check role-based permissions
-    const rolePerms = rolePermissions[user.role as keyof typeof rolePermissions];
-    return rolePerms?.includes(permission) || false;
+  // Since auth is removed, grant all permissions for now
+  const hasPermission = (_permission: string): boolean => {
+    return true; // Allow all permissions
   };
 
-  const hasAnyPermission = (permissions: string[]): boolean => {
-    return permissions.some(permission => hasPermission(permission));
+  const hasAnyPermission = (_permissions: string[]): boolean => {
+    return true; // Allow all permissions
   };
 
-  const hasAllPermissions = (permissions: string[]): boolean => {
-    return permissions.every(permission => hasPermission(permission));
+  const hasAllPermissions = (_permissions: string[]): boolean => {
+    return true; // Allow all permissions
   };
 
   const getUserPermissions = (): string[] => {
-    if (!user || !user.role) return [];
-    
-    const rolePerms = rolePermissions[user.role as keyof typeof rolePermissions] || [];
-    const explicitPerms = user.permissions || [];
-    
-    // Combine and deduplicate
-    return [...new Set([...rolePerms, ...explicitPerms])];
+    // Return all possible permissions
+    return Object.values(rolePermissions).flat();
   };
 
   return {
@@ -84,7 +69,7 @@ export function usePermissions() {
     hasAnyPermission,
     hasAllPermissions,
     getUserPermissions,
-    userRole: user?.role,
-    isAdmin: user?.role === "admin"
+    userRole: "medical_oncologist", // Default role
+    isAdmin: false
   };
 }

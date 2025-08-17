@@ -3,6 +3,37 @@ import { z } from 'zod';
 // Helper schema for handling unknown JSON fields
 const UnknownJson = z.unknown();
 
+// Users Schema (matches authoritative schema)
+export const UserSchema = z.object({
+  id: z.string(),                    // character varying, PRIMARY KEY
+  email: z.string().nullable(),      // character varying, UNIQUE
+  first_name: z.string().nullable(), // character varying
+  last_name: z.string().nullable(),  // character varying
+  profile_image_url: z.string().nullable(), // character varying
+  role: z.string().nullable(),       // text
+  department: z.string().nullable(), // text
+  license_number: z.string().nullable(), // text
+  is_active: z.boolean().nullable(), // boolean
+  created_at: z.string().nullable(), // timestamp without time zone
+  updated_at: z.string().nullable()  // timestamp without time zone
+});
+
+// AI Interactions Schema (fixed column names to match schema)
+export const AiInteractionSchema = z.object({
+  id: z.string(),
+  user_id: z.string().nullable(),
+  session_id: z.string().nullable(),
+  module_type: z.string().nullable(),   // Fixed: was service_type
+  intent: z.string().nullable(),
+  input_context: UnknownJson.nullable(), // Fixed: was input_data
+  ai_response: UnknownJson.nullable(),   // Fixed: was output_data
+  confidence_score: z.number().nullable(),
+  user_feedback: z.string().nullable(),
+  response_time_ms: z.number().nullable(),
+  model_version: z.string().nullable(),
+  created_at: z.string().nullable()
+});
+
 // NCCN Guidelines Schema
 export const NccnGuidelineSchema = z.object({
   id: z.string(),
@@ -21,13 +52,13 @@ export const NccnGuidelineSchema = z.object({
   special_populations: UnknownJson.nullable(),
   cross_references: UnknownJson.nullable(),
   evidence_references: UnknownJson.nullable(),
-  updates_from_previous: UnknownJson.nullable(),
+  updates_from_previous: z.string().nullable(),  // Fixed: text not UnknownJson
   clinical_decision_points: UnknownJson.nullable(),
   monitoring_requirements: UnknownJson.nullable(),
   contraindications: UnknownJson.nullable(),
   alternative_approaches: UnknownJson.nullable(),
   quality_measures: UnknownJson.nullable(),
-  created_at: z.string(),
+  created_at: z.string().nullable(),
   updated_at: z.string().nullable()
 });
 
@@ -66,36 +97,36 @@ export const TreatmentProtocolSchema = z.object({
   updated_at: z.string().nullable()
 });
 
-// CD Protocols Schema
+// CD Protocols Schema (matches authoritative schema exactly)
 export const CdProtocolSchema = z.object({
   id: z.string(),
-  code: z.string().nullable(),
-  tumour_group: z.string().nullable(),
-  tumour_supergroup: z.string().nullable(),
-  treatment_intent: z.string().nullable(),
-  summary: z.string().nullable(),
-  eligibility: UnknownJson.nullable(),
-  precautions: UnknownJson.nullable(),
-  treatment: UnknownJson.nullable(),
-  tests: UnknownJson.nullable(),
-  dose_modifications: UnknownJson.nullable(),
-  reference_list: UnknownJson.nullable(),
-  cycle_info: UnknownJson.nullable(),
-  pre_medications: UnknownJson.nullable(),
-  post_medications: UnknownJson.nullable(),
-  supportive_care: UnknownJson.nullable(),
-  rescue_agents: UnknownJson.nullable(),
-  monitoring: UnknownJson.nullable(),
-  toxicity_monitoring: UnknownJson.nullable(),
-  interactions: UnknownJson.nullable(),
-  contraindications: UnknownJson.nullable(),
-  version: z.string().nullable(),
-  status: z.string().nullable(),
-  created_by: z.string().nullable(),
-  updated_by: z.string().nullable(),
-  created_at: z.string(),
-  updated_at: z.string().nullable(),
-  last_reviewed: z.string().nullable()
+  code: z.string().nullable(),              // character varying(50), UNIQUE
+  tumour_group: z.string().nullable(),      // character varying(100)
+  tumour_supergroup: z.string().nullable(), // character varying(100)
+  treatment_intent: z.string().nullable(),  // character varying(50)
+  summary: z.string().nullable(),           // text (not string)
+  eligibility: UnknownJson.nullable(),      // jsonb
+  precautions: UnknownJson.nullable(),      // jsonb
+  treatment: UnknownJson.nullable(),        // jsonb
+  tests: UnknownJson.nullable(),            // jsonb
+  dose_modifications: UnknownJson.nullable(), // jsonb
+  reference_list: UnknownJson.nullable(),   // jsonb
+  cycle_info: UnknownJson.nullable(),       // jsonb
+  pre_medications: UnknownJson.nullable(),  // jsonb
+  post_medications: UnknownJson.nullable(), // jsonb
+  supportive_care: UnknownJson.nullable(),  // jsonb
+  rescue_agents: UnknownJson.nullable(),    // jsonb
+  monitoring: UnknownJson.nullable(),       // jsonb
+  toxicity_monitoring: UnknownJson.nullable(), // jsonb
+  interactions: UnknownJson.nullable(),     // jsonb
+  contraindications: UnknownJson.nullable(), // jsonb
+  version: z.string().nullable(),           // character varying(20)
+  status: z.string().nullable(),            // character varying(20)
+  created_by: z.string().nullable(),        // character varying, FK to users(id)
+  updated_by: z.string().nullable(),        // character varying, FK to users(id)
+  created_at: z.string().nullable(),        // timestamp without time zone
+  updated_at: z.string().nullable(),        // timestamp without time zone
+  last_reviewed: z.string().nullable()      // timestamp without time zone
 });
 
 // Oncology Medications Schema
@@ -425,7 +456,80 @@ export const TreatmentPlanMappingSchema = z.object({
   performance_status_max: z.number().nullable()
 });
 
+// Supportive Care Protocols Schema
+export const SupportiveCareProtocolSchema = z.object({
+  id: z.string(),
+  protocol_name: z.string(),
+  category: z.string(),
+  indication: z.string(),
+  cancer_type: z.string().nullable(),
+  treatment_phase: z.string().nullable(),
+  patient_population: z.string().nullable(),
+  interventions: UnknownJson.nullable(),
+  medications: UnknownJson.nullable(),
+  non_pharmacological: UnknownJson.nullable(),
+  monitoring_protocol: UnknownJson.nullable(),
+  expected_outcomes: UnknownJson.nullable(),
+  adjustment_criteria: UnknownJson.nullable(),
+  escalation_criteria: UnknownJson.nullable(),
+  consultation_triggers: UnknownJson.nullable(),
+  patient_education: UnknownJson.nullable(),
+  caregiver_instructions: UnknownJson.nullable(),
+  quality_of_life_considerations: UnknownJson.nullable(),
+  nccn_reference: z.string().nullable(),
+  evidence_level: z.string().nullable(),
+  created_at: z.string().nullable(),
+  updated_at: z.string().nullable(),
+  is_active: z.boolean().nullable()
+});
+
+// Palliative Symptom Protocols Schema
+export const PalliativeSymptomProtocolSchema = z.object({
+  id: z.string(),
+  slug: z.string(),
+  title: z.string(),
+  category: z.string(),
+  overview: z.string(),
+  evidence: z.string(),
+  updated: z.string(),
+  tags: z.array(z.string()).nullable(),
+  red_flags: z.array(z.string()).nullable(),
+  citations: UnknownJson.nullable(),
+  steps: UnknownJson.nullable(),
+  created_at: z.string().nullable(),
+  updated_at: z.string().nullable()
+});
+
+// Palliative Emergency Guidelines Schema
+export const PalliativeEmergencyGuidelineSchema = z.object({
+  id: z.string(),
+  slug: z.string(),
+  title: z.string(),
+  overview: z.string(),
+  evidence: z.string(),
+  updated: z.string(),
+  urgency: z.string(),
+  tags: z.array(z.string()).nullable(),
+  immediate: z.array(z.string()).nullable(),
+  steps: UnknownJson.nullable(),
+  post: UnknownJson.nullable(),
+  created_at: z.string().nullable(),
+  updated_at: z.string().nullable()
+});
+
+// Palliative Calculators Schema
+export const PalliativeCalculatorSchema = z.object({
+  id: z.string(),
+  slug: z.string(),
+  title: z.string(),
+  kind: z.string(),
+  config: UnknownJson.nullable(),
+  created_at: z.string().nullable()
+});
+
 // TypeScript types inferred from Zod schemas
+export type User = z.infer<typeof UserSchema>;
+export type AiInteraction = z.infer<typeof AiInteractionSchema>;
 export type NccnGuideline = z.infer<typeof NccnGuidelineSchema>;
 export type ClinicalProtocol = z.infer<typeof ClinicalProtocolSchema>;
 export type TreatmentProtocol = z.infer<typeof TreatmentProtocolSchema>;
@@ -445,3 +549,7 @@ export type AdmissionCriteria = z.infer<typeof AdmissionCriteriaSchema>;
 export type DischargeCriteria = z.infer<typeof DischargeCriteriaSchema>;
 export type TreatmentPlanCriteria = z.infer<typeof TreatmentPlanCriteriaSchema>;
 export type TreatmentPlanMapping = z.infer<typeof TreatmentPlanMappingSchema>;
+export type SupportiveCareProtocol = z.infer<typeof SupportiveCareProtocolSchema>;
+export type PalliativeSymptomProtocol = z.infer<typeof PalliativeSymptomProtocolSchema>;
+export type PalliativeEmergencyGuideline = z.infer<typeof PalliativeEmergencyGuidelineSchema>;
+export type PalliativeCalculator = z.infer<typeof PalliativeCalculatorSchema>;

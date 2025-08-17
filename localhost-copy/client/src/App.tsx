@@ -3,9 +3,6 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./lib/queryClient";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { useAuth } from "@/hooks/useAuth";
-import { useAutoLogout } from "@/hooks/useAutoLogout";
-import LandingPage from "@/pages/LandingPage";
 import Dashboard from "@/pages/Dashboard";
 import Layout from "@/components/layout/Layout";
 import OPDModuleEnhanced from "@/modules/opd/OPDModuleEnhanced";
@@ -25,20 +22,6 @@ import OncologyEducationModule from "@/modules/education/OncologyEducationModule
 import NotFound from "@/pages/not-found";
 
 function Router() {
-  const { isAuthenticated, isLoading } = useAuth();
-  
-  // Initialize auto-logout functionality for authenticated users
-  useAutoLogout();
-
-  if (isLoading || !isAuthenticated) {
-    return (
-      <Switch>
-        <Route path="/" component={LandingPage} />
-        <Route component={NotFound} />
-      </Switch>
-    );
-  }
-
   return (
     <Switch>
       <Route path="/" component={() => (

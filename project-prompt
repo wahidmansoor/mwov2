@@ -1,0 +1,86 @@
+# Project: OncoVista AI – Oncology & Palliative Care Decision Support
+
+## 🌐 Overview
+This is a **clinical decision support app** for oncologists, palliative care physicians, and student doctors.  
+It is **not an EHR** – the app provides **guidance, calculators, clinical protocols, and educational resources**, based on gold-standard oncology and palliative care guidelines.
+
+The app has **two main layers**:
+1. **Frontend (React + Tailwind + Supabase client)** → user interface for physicians and trainees.
+2. **Backend (Node.js + Express server)** → middleware for calculators, AI features, protocol APIs, and analytics.  
+   - Note: frontend can talk **directly to Supabase** for raw data, but backend enriches workflows with logic, validation, AI services, and usage analytics.
+
+---
+
+## 🖥 Frontend Blueprint
+- **Framework:** React (with Vite/Next), TypeScript, TailwindCSS, Shadcn/UI, Lucide icons.
+- **State & Data:** Supabase client SDK + hooks.
+- **Modules:**
+  - **Guidelines Browser:** Dropdown → Cancer Type → Source (NCCN/ESMO/ASCO) → Latest Version → Interactive Summary + PDF link.
+  - **Palliative Care Protocols:** Symptom-based quick reference (pain, dyspnea, delirium, nausea, constipation, depression).
+  - **Clinical Calculators:** Expandable cards (opioid conversion, performance scores, prognosis tools).
+  - **Daily Learning:** Quick facts + quiz for student doctors.
+  - **Smart Referrals:** Clinical triage tool (basic version).
+  - **CTCAE Toxicity Reference:** Expandable severity tables.
+- **Integration:** Calls backend routes for calculators, AI summarization, and analytics. Calls Supabase directly for guidelines/protocol data.
+
+---
+
+## ⚙️ Backend Blueprint
+- **Framework:** Node.js + Express + TypeScript.
+- **APIs:**
+  - `/calculators` → opioid conversion, renal dose adjustments, prognostic scores.
+  - `/protocols` → fetch palliative/oncology symptom protocols (from Supabase).
+  - `/ai` → summarize guidelines/protocols using LLM (OpenAI GPT-4o-mini).
+  - `/analytics` → log and report feature usage.
+  - `/health` → health check (status/uptime).
+- **Services:** Clean separation of concerns (controllers, services, db, utils).
+- **DB:** Supabase (Postgres) → schemas for:
+  - `guidelines`, `palliative_symptom_protocols`, `calculators_usage`, `ai_logs`.
+- **Security:** Authentication deferred for now, but backend ready to add role-based auth later.
+- **Compliance:** Logging + analytics, prepared for audit trails (HIPAA/GDPR-ready).
+
+---
+
+## 📈 Improvement Plan
+- [ ] Finish backend so client routes use `/api/...` instead of only Supabase.
+- [ ] Add validation (Zod schemas) for calculator inputs.
+- [ ] Build AI services for summarizing and Q&A on guidelines.
+- [ ] Add structured analytics (per module usage).
+- [ ] Optimize frontend dashboard → declutter modules with tabs/accordion layout.
+- [ ] Remove all EHR-like elements (admissions, labs, notes entry).
+- [ ] Keep only decision support, quick protocols, calculators, and education.
+
+---
+
+## 🔑 Instructions for Copilot
+Whenever you assist with this codebase:
+1. Keep **frontend React (Vite/Next + Tailwind)** clean and modular.
+2. Keep **backend Express/TypeScript** REST API organized with controllers/services.
+3. Use **Supabase** for persistent storage (no local JSON mocks).
+4. For **palliative care protocols**, follow schema:
+   ```sql
+   create table public.palliative_symptom_protocols (
+     id uuid primary key default gen_random_uuid(),
+     slug text unique not null,
+     title text not null,
+     category text check (category in ('Pain','Resp','Neuro','GI','Psych')),
+     overview text not null,
+     evidence text not null,
+     updated date not null,
+     tags text[] default '{}',
+     red_flags text[] default '{}',
+     citations jsonb default '[]',
+     steps jsonb not null,
+     created_at timestamptz default now(),
+     updated_at timestamptz default now()
+   );
+No EHR features. This is guidance-only.
+
+✅ Your Job (Copilot / AI Dev)
+Help generate code for missing backend services and frontend components.
+
+Ensure frontend ↔ backend ↔ Supabase flow works seamlessly.
+
+Suggest test coverage (Vitest/Jest) for calculators, AI endpoints, and protocol fetch.
+
+Keep UX clean for doctors under time pressure → quick-access, mobile-friendly.

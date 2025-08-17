@@ -1,7 +1,5 @@
-// client/src/modules/palliative-v2/components/ProtocolRenderer.tsx
-import React from "react";
 import { Card, CardContent } from "./ui";
-import type { Protocol, ProtocolStep } from "../data/protocols";
+import type { Protocol, ProtocolStep } from "../lib/types";
 
 function Warning({ level, body }: { level: "info" | "caution" | "danger"; body: string }) {
   const cls =
@@ -62,6 +60,14 @@ function StepView({ step }: { step: ProtocolStep }) {
         <a href={step.to} className="inline-flex text-sm underline text-slate-900 hover:opacity-80">
           {step.label}
         </a>
+      );
+    case "section":
+      return (
+        <div className="grid gap-2">
+          <div className="text-sm font-semibold">{step.title}</div>
+          {step.body ? <p className="text-sm">{step.body}</p> : null}
+          {step.items?.map((child, i) => <StepView key={i} step={child} />)}
+        </div>
       );
     default:
       return null;

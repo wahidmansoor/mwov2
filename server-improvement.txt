@@ -1,0 +1,262 @@
+1. Server Foundation Cleanup
+
+Entrypoint Unification
+
+Delete index.js.
+
+Use only index.ts as the main entrypoint.
+
+Centralize route imports in routes/index.ts.
+
+Middleware Setup
+
+Add:
+
+helmet → security headers
+
+cors → controlled cross-origin
+
+compression → reduce payloads
+
+pino-http → structured logs with request IDs
+
+Error Handling
+
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(500).json({
+    error: "Internal server error",
+    details: process.env.NODE_ENV === "development" ? err.message : undefined
+  });
+});
+
+2. Folder Structure
+server/
+├── src/
+│   ├── index.ts                # Entrypoint
+│   ├── routes/
+│   │   ├── index.ts            # Central route loader
+│   │   ├── calculators.ts      # Calculator endpoints
+│   │   ├── protocols.ts        # Symptom/Emergency protocols
+│   │   ├── ai.ts               # AI service endpoints
+│   │   ├── analytics.ts        # Usage logging + reports
+│   │   └── health.ts           # Health check
+│   ├── controllers/
+│   │   ├── calculators.ts
+│   │   ├── protocols.ts
+│   │   ├── ai.ts
+│   │   └── analytics.ts
+│   ├── services/
+│   │   ├── calculatorService.ts
+│   │   ├── protocolService.ts
+│   │   ├── aiService.ts
+│   │   └── analyticsService.ts
+│   ├── db/
+│   │   ├── schema.ts           # Drizzle ORM schema
+│   │   ├── migrations/         # SQL migrations
+│   │   └── client.ts           # Supabase connection
+│   ├── utils/
+│   │   ├── logger.ts           # Pino logger setup
+│   │   ├── errorHandler.ts     # Central error utilities
+│   │   └── validation.ts       # Zod schemas
+│   └── tests/                  # Vitest + Supertest
+│       ├── calculators.test.ts
+│       ├── protocols.test.ts
+│       └── ai.test.ts
+├── package.json
+└── tsconfig.json
+
+3. Database & ORM
+
+Use Drizzle ORM + Supabase.
+
+Tables to deploy (non-EHR only):
+
+symptom_protocols
+
+emergency_guidelines
+
+calculators
+
+education_content
+
+analytics_usage
+
+Example migration:
+
+create table calculators (
+  id uuid primary key default gen_random_uuid(),
+  name text not null,
+  type text not null,
+  formula jsonb not null,
+  created_at timestamptz default now()
+);
+
+
+Add Zod validation for inputs before inserts.
+
+4. API Endpoints
+🔢 Calculators
+
+POST /calculator/opioid-conversion
+
+POST /calculator/renal-dose-adjustment
+
+POST /calculator/prognostic-index
+
+Logic in service (calculatorService.ts)
+
+Validation with Zod:
+
+const schema = z.object({
+  drug: z.string(),
+  dose: z.number().positive(),
+  target: z.string()
+});
+
+📚 Protocols
+
+GET /protocols/symptoms/:slug
+
+GET /protocols/emergencies/:slug
+
+Returns:
+
+{
+  "title": "Cancer Pain",
+  "summary": "WHO ladder",
+  "steps": ["Step 1: Non-opioid", "Step 2: Weak opioid", "Step 3: Strong opioid"],
+  "red_flags": ["Uncontrolled breakthrough pain"]
+}
+
+🤖 AI Services
+
+POST /ai/summarize-protocol
+
+POST /ai/explain-education
+
+POST /ai/compare-guidelines
+
+Server does:
+
+Inject protocol data (RAG)
+
+Pass to LLM
+
+Filter output (disclaimer, remove hallucinations)
+
+📊 Analytics
+
+POST /analytics/log
+
+{ "module": "calculator", "action": "opioid-conversion" }
+
+
+GET /analytics/summary
+
+{ "calculator": 320, "protocols": 120, "education": 95 }
+
+❤️ Health
+
+GET /healthz
+
+{ "status": "ok", "uptime": 12345 }
+
+5. Content Preprocessing
+
+Job to pre-compute summaries & cache.
+
+Store in DB for fast retrieval.
+
+Example symptom_protocols.summary_json:
+
+{
+  "summary": "Stepwise cancer pain approach",
+  "key_points": ["Non-opioids first", "Titrate opioids", "Adjuvants if needed"]
+}
+
+6. Testing
+
+Unit (Vitest) → calculators, protocol formatting, AI sanitization.
+
+Integration (Supertest) → test REST endpoints.
+
+Example:
+
+it("should convert morphine to oxycodone", async () => {
+  const res = await request(app)
+    .post("/calculator/opioid-conversion")
+    .send({ drug: "morphine", dose: 30, target: "oxycodone" });
+  expect(res.status).toBe(200);
+  expect(res.body.equivalent_dose).toBe(20);
+});
+
+7. Documentation
+
+Add Swagger/OpenAPI.
+
+Example contract (YAML):
+
+/calculator/opioid-conversion:
+  post:
+    description: Convert opioid dose
+    requestBody:
+      content:
+        application/json:
+          example:
+            drug: "morphine"
+            dose: 30
+            target: "oxycodone"
+    responses:
+      "200":
+        description: Equivalent dose
+        content:
+          application/json:
+            example:
+              equivalent_dose: 20
+
+
+Generate TS SDK for client → type-safe API calls.
+
+8. Performance
+
+Add caching (e.g., Redis layer or Supabase materialized views).
+
+Cache protocol summaries + AI quick refs.
+
+Use etag or last-modified headers for client caching.
+
+Enable gzip/brotli compression.
+
+9. Roadmap
+Week 1
+
+Entrypoint cleanup
+
+Migrations deployed
+
+Error middleware + logger added
+
+Week 2
+
+Implement calculators + protocols endpoints
+
+Connect Supabase + Zod validation
+
+Add /healthz
+
+Week 3
+
+AI endpoints live (summarize, explain, compare)
+
+Caching enabled
+
+Analytics logging
+
+Week 4
+
+Swagger docs + TS SDK
+
+Unit + integration tests
+
+Performance tuning

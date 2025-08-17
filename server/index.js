@@ -7,16 +7,23 @@ import rateLimit from 'express-rate-limit';
 import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { runMigrations, testConnection, closeConnection } from './db/index.js';
-
-// Load environment variables
-dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// Load environment variables from the server directory FIRST
+dotenv.config({ path: path.join(__dirname, '.env') });
+
+// Add some debug output to verify env vars are loaded
+console.log('🔍 Environment check:');
+console.log('DATABASE_URL present:', !!process.env.DATABASE_URL);
+console.log('VITE_SUPABASE_URL present:', !!process.env.VITE_SUPABASE_URL);
+
+// Now import database modules after env vars are loaded
+const { runMigrations, testConnection, closeConnection } = await import('./db/index.js');
+
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3005;
 
 // Validate required environment variables
 const requiredEnvVars = ['DATABASE_URL', 'VITE_SUPABASE_URL', 'VITE_SUPABASE_ANON_KEY'];

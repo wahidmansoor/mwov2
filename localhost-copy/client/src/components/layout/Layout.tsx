@@ -1,15 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import Logo from "@/components/common/Logo";
-import { useAuth } from "@/hooks/useAuth";
 import { usePermissions } from "@/hooks/usePermissions";
 import HelpSystem from "@/components/help/HelpSystem";
 import {
   Menu,
   Settings,
-  LogOut,
   Stethoscope,
   Syringe,
   Heart,
@@ -18,10 +18,11 @@ import {
   BarChart3,
   MessageCircle,
   Calculator,
-  FileText,
   Bell,
   User,
-  GraduationCap
+  GraduationCap,
+  NotebookPen,
+  Clock
 } from "lucide-react";
 
 interface LayoutProps {
@@ -84,11 +85,11 @@ const clinicalTools: NavItem[] = [
     color: "purple-400"
   },
   {
-    id: "export",
-    name: "Notes Export",
-    href: "/export",
-    icon: FileText,
-    color: "green-400"
+    id: "notes",
+    name: "Clinical Notes",
+    href: "/notes",
+    icon: NotebookPen,
+    color: "emerald-400"
   }
 ];
 
@@ -119,13 +120,7 @@ const resources: NavItem[] = [
 
 function Sidebar({ className = "" }: { className?: string }) {
   const [location, setLocation] = useLocation();
-  const { user, logout } = useAuth();
   const { hasPermission } = usePermissions();
-
-  const handleLogout = async () => {
-    await logout();
-    setLocation("/");
-  };
 
   const isActive = (href: string) => {
     if (href === "/dashboard") {
@@ -140,30 +135,9 @@ function Sidebar({ className = "" }: { className?: string }) {
 
   return (
     <div className={`flex flex-col h-full bg-white border-r border-slate-200 ${className}`}>
-      {/* Logo Section */}
-      <div className="p-6 border-b border-slate-200">
-        <Logo showSubtitle />
-      </div>
-
-      {/* User Profile */}
-      <div className="p-4 border-b border-slate-200">
-        <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 gradient-medical-primary rounded-full flex items-center justify-center">
-            <User className="w-5 h-5 text-white" />
-          </div>
-          <div className="flex-1 min-w-0">
-            <p className="font-medium text-slate-900 truncate">
-              {user ? `${user.firstName} ${user.lastName}` : "Loading..."}
-            </p>
-            <p className="text-xs text-slate-500 truncate">
-              {user?.role?.replace(/_/g, " ").replace(/\b\w/g, (l: string) => l.toUpperCase()) || "Loading..."}
-            </p>
-          </div>
-        </div>
-      </div>
 
       {/* Navigation */}
-      <nav className="flex-1 p-4 overflow-y-auto">
+      <nav className="flex-1 p-4 pt-6 overflow-y-auto">
         <div className="space-y-6">
           {/* Dashboard */}
           <div>
@@ -244,43 +218,148 @@ function Sidebar({ className = "" }: { className?: string }) {
       {/* Bottom Actions */}
       <div className="p-4 border-t border-slate-200 space-y-2">
         <HelpSystem />
-        <Button variant="ghost" className="w-full justify-start">
+        <Button 
+          variant="ghost" 
+          onClick={() => setLocation("/settings")}
+          className="w-full justify-start"
+        >
           <Settings className="w-4 h-4 mr-3" />
           Settings
-        </Button>
-        <Button variant="ghost" onClick={handleLogout} className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50">
-          <LogOut className="w-4 h-4 mr-3" />
-          Logout
         </Button>
       </div>
     </div>
   );
 }
 
-function Header() {
-  const { user } = useAuth();
+function GlobalTopNavigation() {
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  // Update time every minute
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 60000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const formatTime = (date: Date) => {
+    return date.toLocaleTimeString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true
+    });
+  };
+
+  const formatDate = (date: Date) => {
+    return date.toLocaleDateString('en-US', {
+      weekday: 'short',
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric'
+    });
+  };
+
+  const getGreeting = () => {
+    const hour = currentTime.getHours();
+    if (hour < 12) return 'Good morning';
+    if (hour < 18) return 'Good afternoon';
+    return 'Good evening';
+  };
 
   return (
-    <header className="bg-white border-b border-slate-200 px-6 py-4 lg:hidden">
-      <div className="flex justify-between items-center">
-        <Logo />
-        
-        <div className="flex items-center space-x-4">
-          <HelpSystem />
-          <Button variant="ghost" size="sm">
-            <Bell className="w-4 h-4" />
-          </Button>
-          
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="sm">
-                <Menu className="w-4 h-4" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="left" className="p-0 w-64">
-              <Sidebar />
-            </SheetContent>
-          </Sheet>
+    <header className="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-40">
+      <div className="px-4 lg:px-6 py-3">
+        <div className="flex items-center justify-between">
+          {/* Left Section - Logo and Welcome */}
+          <div className="flex items-center space-x-6">
+            <div className="flex items-center space-x-3">
+              <Logo />
+              
+              {/* Mobile Menu Button */}
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Button variant="ghost" size="sm" className="lg:hidden">
+                    <Menu className="w-4 h-4" />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="left" className="p-0 w-64">
+                  <Sidebar />
+                </SheetContent>
+              </Sheet>
+            </div>
+
+            {/* Welcome Message - Hidden on mobile */}
+            <div className="hidden md:block">
+              <h1 className="text-lg font-semibold text-slate-900">
+                {getGreeting()}, Dr. User
+              </h1>
+              <p className="text-sm text-slate-600">
+                OncoVista AI Clinical Decision Support Platform
+              </p>
+            </div>
+          </div>
+
+          {/* Right Section - Time, Notifications, User Menu */}
+          <div className="flex items-center space-x-4">
+            {/* Date and Time */}
+            <div className="hidden sm:flex items-center space-x-3 text-sm text-slate-600">
+              <div className="flex items-center space-x-1">
+                <Clock className="w-4 h-4" />
+                <span>{formatTime(currentTime)}</span>
+              </div>
+              <div className="hidden md:block">
+                <span>{formatDate(currentTime)}</span>
+              </div>
+            </div>
+
+            {/* Help System */}
+            <HelpSystem />
+
+            {/* Notifications */}
+            <Button variant="ghost" size="sm" className="relative">
+              <Bell className="w-4 h-4" />
+              {/* Notification badge */}
+              <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+            </Button>
+
+            {/* User Menu */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="flex items-center space-x-2 hover:bg-slate-100">
+                  <Avatar className="w-8 h-8">
+                    <AvatarFallback className="bg-blue-100 text-blue-700 text-sm">
+                      U
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="hidden sm:block text-left">
+                    <div className="text-sm font-medium text-slate-900">
+                      User
+                    </div>
+                    <div className="text-xs text-slate-500 capitalize">
+                      Doctor
+                    </div>
+                  </div>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                <div className="px-2 py-1.5">
+                  <p className="text-sm font-medium">User</p>
+                  <p className="text-xs text-slate-500">user@example.com</p>
+                  <p className="text-xs text-slate-500 capitalize mt-1">Role: Doctor</p>
+                </div>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>
+                  <User className="w-4 h-4 mr-2" />
+                  Profile Settings
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Settings className="w-4 h-4 mr-2" />
+                  Preferences
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
         </div>
       </div>
     </header>
@@ -289,21 +368,24 @@ function Header() {
 
 export default function Layout({ children }: LayoutProps) {
   return (
-    <div className="min-h-screen bg-slate-50 flex">
-      {/* Desktop Sidebar */}
-      <div className="hidden lg:block w-64 fixed inset-y-0 left-0 z-50">
-        <Sidebar />
-      </div>
+    <div className="min-h-screen bg-slate-50 flex flex-col">
+      {/* Global Top Navigation */}
+      <GlobalTopNavigation />
+      
+      {/* Main Layout */}
+      <div className="flex flex-1">
+        {/* Desktop Sidebar */}
+        <div className="hidden lg:block w-64 fixed inset-y-0 left-0 top-20 z-40">
+          <Sidebar />
+        </div>
 
-      {/* Main Content */}
-      <div className="flex-1 lg:ml-64">
-        {/* Mobile Header */}
-        <Header />
-        
-        {/* Page Content */}
-        <main className="min-h-screen">
-          {children}
-        </main>
+        {/* Main Content */}
+        <div className="flex-1 lg:ml-64">
+          {/* Page Content */}
+          <main className="min-h-screen">
+            {children}
+          </main>
+        </div>
       </div>
     </div>
   );

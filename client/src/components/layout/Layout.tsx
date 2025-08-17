@@ -2,16 +2,14 @@ import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import Logo from "@/components/common/Logo";
-import { useAuth } from "@/hooks/useAuth";
 import { usePermissions } from "@/hooks/usePermissions";
 import HelpSystem from "@/components/help/HelpSystem";
 import {
   Menu,
   Settings,
-  LogOut,
   Stethoscope,
   Syringe,
   Heart,
@@ -20,15 +18,11 @@ import {
   BarChart3,
   MessageCircle,
   Calculator,
-  FileText,
   Bell,
   User,
   GraduationCap,
   NotebookPen,
-  Cog,
-  Clock,
-  Sun,
-  Moon
+  Clock
 } from "lucide-react";
 
 interface LayoutProps {
@@ -126,13 +120,7 @@ const resources: NavItem[] = [
 
 function Sidebar({ className = "" }: { className?: string }) {
   const [location, setLocation] = useLocation();
-  const { user, logout } = useAuth();
   const { hasPermission } = usePermissions();
-
-  const handleLogout = async () => {
-    await logout();
-    setLocation("/");
-  };
 
   const isActive = (href: string) => {
     if (href === "/dashboard") {
@@ -238,17 +226,12 @@ function Sidebar({ className = "" }: { className?: string }) {
           <Settings className="w-4 h-4 mr-3" />
           Settings
         </Button>
-        <Button variant="ghost" onClick={handleLogout} className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50">
-          <LogOut className="w-4 h-4 mr-3" />
-          Logout
-        </Button>
       </div>
     </div>
   );
 }
 
 function GlobalTopNavigation() {
-  const { user, logout } = useAuth();
   const [currentTime, setCurrentTime] = useState(new Date());
 
   // Update time every minute
@@ -284,19 +267,6 @@ function GlobalTopNavigation() {
     return 'Good evening';
   };
 
-  const getUserInitials = (firstName?: string, lastName?: string) => {
-    if (!firstName && !lastName) return 'U';
-    return `${firstName?.[0] || ''}${lastName?.[0] || ''}`.toUpperCase();
-  };
-
-  const handleLogout = async () => {
-    try {
-      await logout();
-    } catch (error) {
-      console.error('Logout failed:', error);
-    }
-  };
-
   return (
     <header className="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-40">
       <div className="px-4 lg:px-6 py-3">
@@ -320,16 +290,14 @@ function GlobalTopNavigation() {
             </div>
 
             {/* Welcome Message - Hidden on mobile */}
-            {user && (
-              <div className="hidden md:block">
-                <h1 className="text-lg font-semibold text-slate-900">
-                  {getGreeting()}, Dr. {user.firstName || 'User'}
-                </h1>
-                <p className="text-sm text-slate-600">
-                  OncoVista AI Clinical Decision Support Platform
-                </p>
-              </div>
-            )}
+            <div className="hidden md:block">
+              <h1 className="text-lg font-semibold text-slate-900">
+                {getGreeting()}, Dr. User
+              </h1>
+              <p className="text-sm text-slate-600">
+                OncoVista AI Clinical Decision Support Platform
+              </p>
+            </div>
           </div>
 
           {/* Right Section - Time, Notifications, User Menu */}
@@ -356,53 +324,41 @@ function GlobalTopNavigation() {
             </Button>
 
             {/* User Menu */}
-            {user ? (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="flex items-center space-x-2 hover:bg-slate-100">
-                    <Avatar className="w-8 h-8">
-                      <AvatarImage src={user.profileImageUrl || undefined} />
-                      <AvatarFallback className="bg-blue-100 text-blue-700 text-sm">
-                        {getUserInitials(user.firstName, user.lastName)}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div className="hidden sm:block text-left">
-                      <div className="text-sm font-medium text-slate-900">
-                        {user.firstName} {user.lastName}
-                      </div>
-                      <div className="text-xs text-slate-500 capitalize">
-                        {user.role}
-                      </div>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="flex items-center space-x-2 hover:bg-slate-100">
+                  <Avatar className="w-8 h-8">
+                    <AvatarFallback className="bg-blue-100 text-blue-700 text-sm">
+                      U
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="hidden sm:block text-left">
+                    <div className="text-sm font-medium text-slate-900">
+                      User
                     </div>
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-56">
-                  <div className="px-2 py-1.5">
-                    <p className="text-sm font-medium">{user.firstName} {user.lastName}</p>
-                    <p className="text-xs text-slate-500">{user.email}</p>
-                    <p className="text-xs text-slate-500 capitalize mt-1">Role: {user.role}</p>
+                    <div className="text-xs text-slate-500 capitalize">
+                      Doctor
+                    </div>
                   </div>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem>
-                    <User className="w-4 h-4 mr-2" />
-                    Profile Settings
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Settings className="w-4 h-4 mr-2" />
-                    Preferences
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={handleLogout} className="text-red-600">
-                    <LogOut className="w-4 h-4 mr-2" />
-                    Sign Out
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            ) : (
-              <Button variant="default" size="sm">
-                Sign In
-              </Button>
-            )}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                <div className="px-2 py-1.5">
+                  <p className="text-sm font-medium">User</p>
+                  <p className="text-xs text-slate-500">user@example.com</p>
+                  <p className="text-xs text-slate-500 capitalize mt-1">Role: Doctor</p>
+                </div>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>
+                  <User className="w-4 h-4 mr-2" />
+                  Profile Settings
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Settings className="w-4 h-4 mr-2" />
+                  Preferences
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
       </div>

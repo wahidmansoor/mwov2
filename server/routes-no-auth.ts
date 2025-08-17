@@ -6,6 +6,7 @@ import { clinicalDecisionEngine } from "./services/clinicalDecisionEngine";
 import { insertDecisionSupportInputSchema, insertAiInteractionSchema } from "@shared/schema";
 import { dataRoutes } from "./routes-data.js";
 import { z } from "zod";
+import * as clinicalApi from "./api/clinical.js";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Health check endpoint
@@ -144,63 +145,157 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Mount new clinical data API routes
   app.use('/api', dataRoutes);
 
-  // Database query endpoints using new Supabase helpers
+  // Database query endpoints using new Clinical API
   app.get('/api/nccn-guidelines', async (req, res) => {
-    try {
-      const { nccnGuidelines } = await import('../src/lib/db');
-      const { limit = 50, offset = 0, category, cancer_type } = req.query;
-      
-      const filters: any = {};
-      if (category) filters.category = category as string;
-      if (cancer_type) filters.cancer_type = cancer_type as string;
-      
-      const guidelines = await nccnGuidelines.list({ 
-        limit: parseInt(limit as string), 
-        offset: parseInt(offset as string),
-        filters 
-      });
-      res.json(guidelines);
-    } catch (error) {
-      res.status(500).json({ message: "Failed to fetch NCCN guidelines" });
+    const { limit = 50, offset = 0, category, cancer_type } = req.query;
+    
+    const result = await clinicalApi.getNccnGuidelines({
+      cancer_type: cancer_type as string,
+      category: category as string,
+      limit: parseInt(limit as string),
+      offset: parseInt(offset as string)
+    });
+    
+    if (result.error) {
+      return res.status(400).json({ message: result.error });
     }
+    res.json(result);
   });
 
-  app.get('/api/oncology-medications', async (req, res) => {
-    try {
-      const { oncologyMedications } = await import('../src/lib/db');
-      const { limit = 50, offset = 0, classification } = req.query;
-      
-      const filters: any = {};
-      if (classification) filters.classification = classification as string;
-      
-      const medications = await oncologyMedications.list({ 
-        limit: parseInt(limit as string), 
-        offset: parseInt(offset as string),
-        filters 
-      });
-      res.json(medications);
-    } catch (error) {
-      res.status(500).json({ message: "Failed to fetch oncology medications" });
+  app.get('/api/clinical-protocols', async (req, res) => {
+    const { limit = 50, offset = 0, cancer_type, protocol_type } = req.query;
+    
+    const result = await clinicalApi.getClinicalProtocols({
+      cancer_type: cancer_type as string,
+      protocol_type: protocol_type as string,
+      limit: parseInt(limit as string),
+      offset: parseInt(offset as string)
+    });
+    
+    if (result.error) {
+      return res.status(400).json({ message: result.error });
     }
+    res.json(result);
+  });
+
+  app.get('/api/cd-protocols', async (req, res) => {
+    const { limit = 50, tumour_group, code, status } = req.query;
+    
+    const result = await clinicalApi.getCdProtocols({
+      tumour_group: tumour_group as string,
+      code: code as string,
+      status: status as string,
+      limit: parseInt(limit as string)
+    });
+    
+    if (result.error) {
+      return res.status(400).json({ message: result.error });
+    }
+    res.json(result);
   });
 
   app.get('/api/treatment-protocols', async (req, res) => {
-    try {
-      const { treatmentProtocols } = await import('../src/lib/db');
-      const { limit = 50, offset = 0, tumour_group } = req.query;
-      
-      const filters: any = {};
-      if (tumour_group) filters.tumour_group = tumour_group as string;
-      
-      const protocols = await treatmentProtocols.list({ 
-        limit: parseInt(limit as string), 
-        offset: parseInt(offset as string),
-        filters 
-      });
-      res.json(protocols);
-    } catch (error) {
-      res.status(500).json({ message: "Failed to fetch treatment protocols" });
+    const { limit = 50, tumour_group, code, name } = req.query;
+    
+    const result = await clinicalApi.getTreatmentProtocols({
+      tumour_group: tumour_group as string,
+      code: code as string,
+      name: name as string,
+      limit: parseInt(limit as string)
+    });
+    
+    if (result.error) {
+      return res.status(400).json({ message: result.error });
     }
+    res.json(result);
+  });
+
+  app.get('/api/oncology-medications', async (req, res) => {
+    const { limit = 50, classification, search, is_chemotherapy, is_immunotherapy, is_targeted_therapy } = req.query;
+    
+    const result = await clinicalApi.getOncologyMedications({
+      classification: classification as string,
+      search: search as string,
+      is_chemotherapy: is_chemotherapy === 'true',
+      is_immunotherapy: is_immunotherapy === 'true',
+      is_targeted_therapy: is_targeted_therapy === 'true',
+      limit: parseInt(limit as string)
+    });
+    
+    if (result.error) {
+      return res.status(400).json({ message: result.error });
+    }
+    res.json(result);
+  });
+
+  app.get('/api/admission-criteria', async (req, res) => {
+    const { limit = 50, cancer_type, admission_type } = req.query;
+    
+    const result = await clinicalApi.getAdmissionCriteria({
+      cancer_type: cancer_type as string,
+      admission_type: admission_type as string,
+      limit: parseInt(limit as string)
+    });
+    
+    if (result.error) {
+      return res.status(400).json({ message: result.error });
+    }
+    res.json(result);
+  });
+
+  // Palliative Care endpoints
+  app.get('/api/palliative/symptom-protocols', async (req, res) => {
+    const { limit = 50, category, slug } = req.query;
+    
+    const result = await clinicalApi.getPalliativeSymptomProtocols({
+      category: category as string,
+      slug: slug as string,
+      limit: parseInt(limit as string)
+    });
+    
+    if (result.error) {
+      return res.status(400).json({ message: result.error });
+    }
+    res.json(result);
+  });
+
+  app.get('/api/palliative/emergency-guidelines', async (req, res) => {
+    const { limit = 50, urgency, slug } = req.query;
+    
+    const result = await clinicalApi.getPalliativeEmergencyGuidelines({
+      urgency: urgency as string,
+      slug: slug as string,
+      limit: parseInt(limit as string)
+    });
+    
+    if (result.error) {
+      return res.status(400).json({ message: result.error });
+    }
+    res.json(result);
+  });
+
+  app.get('/api/palliative/calculators', async (req, res) => {
+    const { limit = 50, kind, slug } = req.query;
+    
+    const result = await clinicalApi.getPalliativeCalculators({
+      kind: kind as string,
+      slug: slug as string,
+      limit: parseInt(limit as string)
+    });
+    
+    if (result.error) {
+      return res.status(400).json({ message: result.error });
+    }
+    res.json(result);
+  });
+
+  // Database health check
+  app.get('/api/db/health', async (req, res) => {
+    const result = await clinicalApi.checkDatabaseHealth();
+    if (result.error) {
+      return res.status(500).json({ message: result.error });
+    }
+    res.json(result.data);
   });
 
   // Generic catch-all for other API routes

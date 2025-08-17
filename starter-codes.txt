@@ -1,0 +1,269 @@
+📂 Folder Structure (server/src)
+src/
+├── index.ts
+├── routes/
+│   ├── index.ts
+│   ├── calculators.ts
+│   ├── protocols.ts
+│   ├── ai.ts
+│   ├── analytics.ts
+│   └── health.ts
+├── controllers/
+│   ├── calculators.ts
+│   ├── protocols.ts
+│   ├── ai.ts
+│   └── analytics.ts
+├── services/
+│   ├── calculatorService.ts
+│   ├── protocolService.ts
+│   ├── aiService.ts
+│   └── analyticsService.ts
+├── db/
+│   ├── schema.ts
+│   ├── migrations/
+│   └── client.ts
+├── utils/
+│   ├── logger.ts
+│   ├── errorHandler.ts
+│   └── validation.ts
+└── tests/
+    ├── calculators.test.ts
+    ├── protocols.test.ts
+    └── ai.test.ts
+
+🟢 Entrypoint (index.ts)
+import express from "express";
+import helmet from "helmet";
+import compression from "compression";
+import cors from "cors";
+import pino from "pino-http";
+import { router as appRoutes } from "./routes/index";
+import { errorHandler } from "./utils/errorHandler";
+
+const app = express();
+app.use(express.json());
+app.use(helmet());
+app.use(cors());
+app.use(compression());
+app.use(pino());
+
+// Routes
+app.use("/api", appRoutes);
+
+// Global Error Handler
+app.use(errorHandler);
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+});
+
+🛣 Routes (routes/index.ts)
+import { Router } from "express";
+import calculators from "./calculators";
+import protocols from "./protocols";
+import ai from "./ai";
+import analytics from "./analytics";
+import health from "./health";
+
+export const router = Router();
+
+router.use("/calculators", calculators);
+router.use("/protocols", protocols);
+router.use("/ai", ai);
+router.use("/analytics", analytics);
+router.use("/health", health);
+
+📊 Calculators (routes/calculators.ts)
+import { Router } from "express";
+import { opioidConversion } from "../controllers/calculators";
+
+const router = Router();
+
+router.post("/opioid-conversion", opioidConversion);
+
+export default router;
+
+
+Controller (controllers/calculators.ts):
+
+import { Request, Response } from "express";
+import { z } from "zod";
+import { calculatorService } from "../services/calculatorService";
+
+export const opioidConversion = (req: Request, res: Response) => {
+  const schema = z.object({
+    drug: z.string(),
+    dose: z.number().positive(),
+    target: z.string()
+  });
+
+  try {
+    const input = schema.parse(req.body);
+    const result = calculatorService.opioidConversion(input);
+    res.json(result);
+  } catch (err) {
+    res.status(400).json({ error: "Invalid input", details: err });
+  }
+};
+
+
+Service (services/calculatorService.ts):
+
+export const calculatorService = {
+  opioidConversion: ({ drug, dose, target }: { drug: string; dose: number; target: string }) => {
+    // ⚠️ Dummy logic – replace with real clinical table later
+    if (drug === "morphine" && target === "oxycodone") {
+      return { equivalent_dose: dose * (2 / 3), notes: "Morphine → Oxycodone ≈ 2:3 ratio" };
+    }
+    return { equivalent_dose: dose, notes: "No conversion available" };
+  }
+};
+
+📚 Protocols (routes/protocols.ts)
+import { Router } from "express";
+import { getSymptomProtocol } from "../controllers/protocols";
+
+const router = Router();
+
+router.get("/symptoms/:slug", getSymptomProtocol);
+
+export default router;
+
+
+Controller (controllers/protocols.ts):
+
+import { Request, Response } from "express";
+import { protocolService } from "../services/protocolService";
+
+export const getSymptomProtocol = async (req: Request, res: Response) => {
+  try {
+    const { slug } = req.params;
+    const protocol = await protocolService.getProtocol(slug);
+    res.json(protocol);
+  } catch (err) {
+    res.status(404).json({ error: "Protocol not found" });
+  }
+};
+
+
+Service (services/protocolService.ts):
+
+export const protocolService = {
+  getProtocol: async (slug: string) => {
+    // ⚠️ Replace with Supabase fetch
+    return {
+      title: "Cancer Pain",
+      summary: "WHO Ladder",
+      steps: ["Step 1: Non-opioids", "Step 2: Weak opioids", "Step 3: Strong opioids"],
+      red_flags: ["Uncontrolled breakthrough pain"]
+    };
+  }
+};
+
+🤖 AI Services (routes/ai.ts)
+import { Router } from "express";
+import { summarizeProtocol } from "../controllers/ai";
+
+const router = Router();
+
+router.post("/summarize-protocol", summarizeProtocol);
+
+export default router;
+
+
+Controller (controllers/ai.ts):
+
+import { Request, Response } from "express";
+import { aiService } from "../services/aiService";
+
+export const summarizeProtocol = async (req: Request, res: Response) => {
+  try {
+    const { slug } = req.body;
+    const summary = await aiService.summarizeProtocol(slug);
+    res.json(summary);
+  } catch (err) {
+    res.status(500).json({ error: "AI processing failed" });
+  }
+};
+
+
+Service (services/aiService.ts):
+
+import OpenAI from "openai";
+
+const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+export const aiService = {
+  summarizeProtocol: async (slug: string) => {
+    // ⚠️ Replace with Supabase fetch for actual protocol content
+    const protocolText = "Cancer pain management WHO ladder ...";
+
+    const response = await client.chat.completions.create({
+      model: "gpt-4o-mini",
+      messages: [
+        { role: "system", content: "You are a palliative care clinical summarizer." },
+        { role: "user", content: `Summarize into quick ref steps: ${protocolText}` }
+      ]
+    });
+
+    return { summary: response.choices[0].message.content };
+  }
+};
+
+📊 Analytics (routes/analytics.ts)
+import { Router } from "express";
+import { logUsage, getSummary } from "../controllers/analytics";
+
+const router = Router();
+
+router.post("/log", logUsage);
+router.get("/summary", getSummary);
+
+export default router;
+
+
+Controller (controllers/analytics.ts):
+
+import { Request, Response } from "express";
+import { analyticsService } from "../services/analyticsService";
+
+export const logUsage = (req: Request, res: Response) => {
+  const { module, action } = req.body;
+  analyticsService.log({ module, action });
+  res.json({ success: true });
+};
+
+export const getSummary = (req: Request, res: Response) => {
+  const summary = analyticsService.getSummary();
+  res.json(summary);
+};
+
+
+Service (services/analyticsService.ts):
+
+let usageLog: { module: string; action: string }[] = [];
+
+export const analyticsService = {
+  log: ({ module, action }: { module: string; action: string }) => {
+    usageLog.push({ module, action });
+  },
+  getSummary: () => {
+    const counts: Record<string, number> = {};
+    usageLog.forEach(entry => {
+      counts[entry.module] = (counts[entry.module] || 0) + 1;
+    });
+    return counts;
+  }
+};
+
+❤️ Health Check (routes/health.ts)
+import { Router } from "express";
+
+const router = Router();
+
+router.get("/", (req, res) => {
+  res.json({ status: "ok", uptime: process.uptime() });
+});
+
+export default router;

@@ -1,7 +1,6 @@
 // client/src/modules/palliative-v2/components/SymptomFilters.tsx
-import React from "react";
 import { Input, Badge } from "./ui";
-import type { Evidence } from "../data/protocols";
+import type { Evidence } from "../lib/types";
 
 export default function SymptomFilters({
   q, onQ, category, onCategory, evidence, onEvidence,
@@ -17,7 +16,7 @@ export default function SymptomFilters({
       </div>
       <select
         value={category}
-        onChange={(e) => onCategory(e.target.value)}
+        onChange={(e: any) => onCategory(e.target.value)}
         className="border rounded-md px-3 py-2 text-sm"
         aria-label="Category"
       >
@@ -30,7 +29,7 @@ export default function SymptomFilters({
       </select>
       <select
         value={evidence}
-        onChange={(e) => onEvidence(e.target.value as Evidence | "")}
+        onChange={(e: any) => onEvidence(e.target.value as Evidence | "")}
         className="border rounded-md px-3 py-2 text-sm"
         aria-label="Evidence"
       >

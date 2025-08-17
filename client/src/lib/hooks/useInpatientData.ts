@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useEffect, useRef } from "react";
+import React, { useMemo, useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { supabaseClient, hasSupabaseConfig } from "@/lib/supabase/client";
 import type {
@@ -92,9 +92,9 @@ async function fetchTable<T>(table: string): Promise<T[]> {
     switch (table) {
       case 'admission_criteria': return mockAdmissionCriteria as unknown as T[];
       case 'emergency_protocols': return mockEmergencyProtocols as unknown as T[];
-      case 'monitoring_workflows': return mockMonitoringWorkflows as unknown as T[];
-      case 'supportive_care': return mockSupportiveCare as unknown as T[];
-      case 'discharge_planning': return mockDischargePlanning as unknown as T[];
+      case 'monitoring_parameters': return mockMonitoringWorkflows as unknown as T[];
+      case 'supportive_care_protocols': return mockSupportiveCare as unknown as T[];
+      case 'discharge_criteria': return mockDischargePlanning as unknown as T[];
       default: return [];
     }
   }
@@ -124,22 +124,22 @@ export function useEmergencyProtocols() {
 }
 export function useMonitoringWorkflowsQ() {
   return useQuery({
-    queryKey: ["inpatient", "monitoring_workflows"],
-    queryFn: () => fetchTable<MonitoringWorkflowRow>("monitoring_workflows"),
+    queryKey: ["inpatient", "monitoring_parameters"],
+    queryFn: () => fetchTable<MonitoringWorkflowRow>("monitoring_parameters"),
     staleTime,
   });
 }
 export function useSupportiveCareQ() {
   return useQuery({
-    queryKey: ["inpatient", "supportive_care"],
-    queryFn: () => fetchTable<SupportiveCareRow>("supportive_care"),
+    queryKey: ["inpatient", "supportive_care_protocols"],
+    queryFn: () => fetchTable<SupportiveCareRow>("supportive_care_protocols"),
     staleTime,
   });
 }
 export function useDischargePlanningQ() {
   return useQuery({
-    queryKey: ["inpatient", "discharge_planning"],
-    queryFn: () => fetchTable<DischargePlanningRow>("discharge_planning"),
+    queryKey: ["inpatient", "discharge_criteria"],
+    queryFn: () => fetchTable<DischargePlanningRow>("discharge_criteria"),
     staleTime,
   });
 }
