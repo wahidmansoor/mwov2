@@ -1,5 +1,6 @@
 // client/src/modules/palliative-v2/components/SymptomFilters.tsx
-import { Input, Badge } from "./ui";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
 import type { Evidence } from "../lib/types";
 
 export default function SymptomFilters({
@@ -17,7 +18,7 @@ export default function SymptomFilters({
       <select
         value={category}
         onChange={(e: any) => onCategory(e.target.value)}
-        className="border rounded-md px-3 py-2 text-sm"
+        className="border border-blue-200 dark:border-blue-800 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         aria-label="Category"
       >
         <option value="">All categories</option>
@@ -30,7 +31,7 @@ export default function SymptomFilters({
       <select
         value={evidence}
         onChange={(e: any) => onEvidence(e.target.value as Evidence | "")}
-        className="border rounded-md px-3 py-2 text-sm"
+        className="border border-blue-200 dark:border-blue-800 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         aria-label="Evidence"
       >
         <option value="">All evidence</option>
@@ -38,8 +39,8 @@ export default function SymptomFilters({
         <option value="B">B (moderate)</option>
         <option value="C">C (low)</option>
       </select>
-      <div className="sm:col-span-4 text-xs text-slate-500 flex items-center gap-2">
-        <Badge variant="outline">Read-only</Badge>
+      <div className="sm:col-span-4 text-xs text-muted-foreground flex items-center gap-2">
+        <Badge variant="outline" className="bg-blue-50 text-blue-800 border-blue-200">Read-only</Badge>
         <span>Search applies to title + overview + tags.</span>
       </div>
     </div>

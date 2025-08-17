@@ -1,7 +1,9 @@
 // client/src/modules/palliative-v2/components/SymptomBrowser.tsx
 import { useEffect, useState } from "react";
 import { useLocation } from "wouter";
-import { Card, CardContent, Button, Badge } from "./ui";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import SymptomFilters from "./SymptomFilters";
 import ProtocolRenderer from "./ProtocolRenderer";
 import type { Evidence, Protocol } from "../lib/types";
@@ -57,7 +59,7 @@ export default function SymptomBrowser({
           {p.redFlags?.length ? (
             <div className="mt-2 flex flex-wrap gap-1">
               {p.redFlags.map((r, i) => (
-                <span key={i} className="px-2 py-0.5 rounded-full bg-red-50 text-red-700 text-xs border border-red-200">{r}</span>
+                <span key={i} className="px-2 py-0.5 rounded-full bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 text-xs border border-red-200 dark:border-red-800">{r}</span>
               ))}
             </div>
           ) : null}
@@ -105,18 +107,23 @@ export default function SymptomBrowser({
       <SymptomFilters q={q} onQ={setQ} category={category} onCategory={setCategory} evidence={evidence} onEvidence={setEvidence} />
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2">
         {list.map((p) => (
-          <Card 
+          <div
             key={p.slug} 
-            className="cursor-pointer hover:bg-slate-50 transition-colors"
-            onClick={() => setLocation(`/palliative/symptoms/${p.slug}`)}
+            className="cursor-pointer hover:bg-blue-50 hover:border-blue-200 transition-colors border rounded-lg bg-card text-card-foreground shadow-sm"
+            onClick={() => {
+              console.log('Navigating to symptom:', p.slug);
+              setLocation(`/palliative/symptoms/${p.slug}`);
+            }}
           >
-            <CardContent className="p-3">
+            <div className="p-3">
               <div className="text-sm font-medium text-center leading-tight">{p.title}</div>
               <div className="flex justify-center mt-1">
-                <Badge variant="outline" className="text-xs">{p.category}</Badge>
+                <div className="text-xs bg-blue-50 text-blue-800 border-blue-200 inline-flex items-center rounded-full border px-2.5 py-0.5 font-semibold">
+                  {p.category}
+                </div>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         ))}
       </div>
     </div>
